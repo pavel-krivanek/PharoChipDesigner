@@ -197,7 +197,7 @@ ChDAreaMorph >> initializeFor: anArea [
 	controller area: area.
 	controller view: self.
 	
-	sourceForm := PNGReadWriter formFromFileNamed: 'box.png'.
+	sourceForm := PNGReadWriter formFromFileNamed: './pharo-local/iceberg/pavel-krivanek/PharoChipDesigner/graphics/box.png'.
 	metalForm := sourceForm deepCopy.
 	nForm := sourceForm deepCopy.
 	pForm := sourceForm deepCopy.
