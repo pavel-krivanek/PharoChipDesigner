@@ -255,17 +255,46 @@ ChDSimulation >> stepWith: aBlock [
 	special do: [ :each | each isJunction ifTrue: [ 
 			| cell | 
 		cell := each cells anyOne.
-			(cell junctionType = #npn) ifTrue: [ 
-				((cell connectedRegionsInJunction anySatisfy: #currentState) 
-					and: [ cell connectedRegionsInSubstrate anySatisfy: #currentState ])
-					ifTrue: [ cell connectedRegionsInSubstrate do: [ :aRegion | aRegion futureState: true ] ] ] .
+			(cell junctionType = #npn) ifTrue: [
+				| input vcc outputRegions connectedRegionsInSubstrate output out |
+				input := cell connectedRegionsInJunction anySatisfy: #currentState. 
+				connectedRegionsInSubstrate := cell connectedRegionsInSubstrate.
+				vcc := each vccRegion ifNil: [connectedRegionsInSubstrate select: #hasVcc].
+				each vccRegion: vcc.
+				"outputRegions := connectedRegionsInSubstrate reject: #hasVcc."
+				outputRegions := connectedRegionsInSubstrate copyWithoutAll: vcc.
+				output := input & vcc anyOne currentState & vcc anyOne futureState.
+				(input not and: [vcc notEmpty and: [ vcc anyOne futureState ]]) ifTrue: [ 
+					vcc anyOne currentState = 0 ifTrue: [ out := false ] ].
+				(input and: [vcc notEmpty and: [ vcc anyOne futureState ]]) ifTrue: [ 
+					vcc anyOne currentState = 1 ifTrue: [ out := true ] ifFalse: [ out := false ] ].
+				(vcc isEmpty or: [ vcc anyOne futureState not ]) 
+					ifTrue: [ out := false ]
+					ifFalse: [ out := output ].
+				
+								
+				outputRegions do: [ :e | 
+					e futureState: out.
+					connected := IdentitySet new.
+					self addConnectedRegionsOf: e to: connected.
+					connected do: [ :ee | ee futureState: out ]  ].		
+
+				"self halt."
+"				outputRegions do: [ :e | e futureState: output ]."
+"				each hasVcc: vcc notEmpty."
+"				outputRegions do: [ :e | e futureState: out ]."
+				each open: out.
+			"	each open: output."
+				"vcc do: [ :e | e futureState: true ]."
+				"(vcc isNotEmpty and: [ vcc anySatisfy: [ :e | e currentState ]])
+					ifTrue: [ outputRegions do: [ :e | e futureState: (output or: e futureState). ] ] "
+					] .
 			(cell junctionType = #pnp) ifTrue: [
 				| input vcc outputRegions connectedRegionsInSubstrate output out |
 				input := cell connectedRegionsInJunction anySatisfy: #currentState. 
 				connectedRegionsInSubstrate := cell connectedRegionsInSubstrate.
 				vcc := each vccRegion ifNil: [connectedRegionsInSubstrate select: #hasVcc].
 				each vccRegion: vcc.
-				(vcc flatCollect: #cells) logCr.
 				"outputRegions := connectedRegionsInSubstrate reject: #hasVcc."
 				outputRegions := connectedRegionsInSubstrate copyWithoutAll: vcc.
 				output := input not.
@@ -295,7 +324,7 @@ ChDSimulation >> stepWith: aBlock [
 					ifTrue: [ outputRegions do: [ :e | e futureState: (output or: e futureState). ] ] "
 					].
 			
-			 ] ].
+			 ]  ].
 	
 "	connected do: [ :currentRegions |
 		| state |

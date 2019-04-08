@@ -39,6 +39,7 @@ ChDRegion >> futureState [
 
 { #category : #accessing }
 ChDRegion >> futureState: anObject [
+
 	futureState := anObject
 ]
 

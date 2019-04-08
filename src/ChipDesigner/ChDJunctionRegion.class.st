@@ -13,7 +13,7 @@ ChDJunctionRegion >> initialize [
 
 	super initialize.
 	
-	open := true.
+	open := false.
 ]
 
 { #category : #accessing }
