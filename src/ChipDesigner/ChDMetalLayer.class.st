@@ -69,6 +69,12 @@ ChDMetalLayer >> mode: mode compatibleWith: lastCell [
 ]
 
 { #category : #'as yet unclassified' }
+ChDMetalLayer >> name [
+
+	^ #metal
+]
+
+{ #category : #'as yet unclassified' }
 ChDMetalLayer >> regionOf: aCell [
 
 	^ aCell metalRegion 

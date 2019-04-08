@@ -111,6 +111,26 @@ ChDRegion >> layer: anObject [
 ]
 
 { #category : #accessing }
+ChDRegion >> open [ 
+
+	^ false
+]
+
+{ #category : #accessing }
+ChDRegion >> printOn: aStream [
+
+	super printOn: aStream.
+	aStream 
+		nextPutAll: '('.
+	(layer ifNotNil: [ :aLayer | aLayer name ] ifNil: ['-']) printOn: aStream.
+	aStream space.
+	currentState printOn: aStream.
+	aStream nextPutAll: '->'.
+	futureState printOn: aStream.
+	aStream nextPutAll: ')'
+]
+
+{ #category : #accessing }
 ChDRegion >> splitted [
 
 	| remainingCells newCells newCellRegions newRegions |

@@ -90,6 +90,12 @@ ChDSubstrateLayer >> mode: mode compatibleWith: lastCell [
 ]
 
 { #category : #'as yet unclassified' }
+ChDSubstrateLayer >> name [
+
+	^ #substrate
+]
+
+{ #category : #'as yet unclassified' }
 ChDSubstrateLayer >> regionOf: aCell [
 
 	^ aCell substrateRegion 

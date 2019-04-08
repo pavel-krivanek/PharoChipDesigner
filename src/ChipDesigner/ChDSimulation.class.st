@@ -29,7 +29,7 @@ ChDSimulation >> addConnectedVCCRegionsOf: aRegion to: foundRegions [
 	(foundRegions includes: aRegion) ifTrue: [ ^ self ].
 	
 	foundRegions add: aRegion. 
-	
+
 	(aRegion cells select: #via) do: [ :cell |
 		aRegion layer isMetal 
 			ifTrue: [ self addConnectedVCCRegionsOf: cell substrateRegion to: foundRegions ]
@@ -37,18 +37,18 @@ ChDSimulation >> addConnectedVCCRegionsOf: aRegion to: foundRegions [
 
 	aRegion layer isSubstrate ifTrue: [ 
 		aRegion cells do: [ :cell |
-			(cell connectedCellsInSubstrate select: #hasJunction) do: [ :j | 
+			((cell connectedCellsInSubstrate select: #hasJunction) select: [ :junctionCell | junctionCell substrateRegion open ]) do: [ :j | 
 				 self addConnectedVCCRegionsOf: j substrateRegion to: foundRegions ]]].
 	
 "	(aRegion cells ) do: [ :cell |
 		aRegion layer isMetal 
 			ifTrue: [ self addConnectedVCCRegionsOf: cell substrateRegion to: foundRegions ]
 			ifFalse: [ self addConnectedVCCRegionsOf: cell metalRegion to: foundRegions ] ]."
-		
+"		
 	(aRegion isSpecial and: [ aRegion open ]) ifTrue: [ 
 		aRegion cells anyOne connectedCellsInSubstrate do: [ :aCell | 
 			self addConnectedVCCRegionsOf: aCell substrateRegion to: foundRegions ] ]
-			
+"			
 ]
 
 { #category : #accessing }
@@ -241,9 +241,7 @@ ChDSimulation >> stepWith: aBlock [
 	vccConnected do: [ :each | 
 "		each currentState: true."
 		each futureState: true. ].
-	
-	vccConnected halt.
-	
+		
 	time := time + 1.
 
 	normal := regions reject: #isSpecial.
