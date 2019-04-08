@@ -11,7 +11,8 @@ Class {
 		'pForm',
 		'mouseDown',
 		'lastCell',
-		'deleteMode'
+		'deleteMode',
+		'suppressedCells'
 	],
 	#category : #ChipDesigner
 }
@@ -137,13 +138,16 @@ ChDAreaMorph >> drawJunctionX: x y: y sourceForm: aForm on: aCanvas origin: orig
 { #category : #initialization }
 ChDAreaMorph >> drawOn: aCanvas [
 
-	| bgForm viaForm origin |
-	
+	| bgForm viaForm origin drawSuppressed  suppressForm |
+		
 	origin := self innerBounds origin.
 	
 	bgForm := self cellForm: 48 from: sourceForm.
 	viaForm := self cellForm: 49 from: sourceForm.
+	suppressForm := self cellForm: 59 from: sourceForm.
 	
+	drawSuppressed := suppressedCells notEmpty.
+
 	1 to: area width do: [ :x |
 		1 to: area height do: [ :y | 
 			| cell | 
@@ -159,8 +163,14 @@ ChDAreaMorph >> drawOn: aCanvas [
 			cell via ifTrue: [ 
 				aCanvas translucentImage: viaForm at: origin + ((13*(x-1))@(13*(y-1))) ].
 
-				
+			drawSuppressed ifTrue: [ 
+				(suppressedCells includes: (x@y)) ifTrue: [ 
+					aCanvas translucentImage: suppressForm at: origin + ((13*(x-1))@(13*(y-1)))					
+					 ]
+				 ]	
 			 ]]
+	
+
 ]
 
 { #category : #initialization }
@@ -207,6 +217,8 @@ ChDAreaMorph >> initializeFor: anArea [
 	self colorize: pForm with: ((Color fromHexString: 'FFFF00') alpha: 1).
 	
 	self extent: 13*area width@(13*area height).
+	
+	suppressedCells := OrderedCollection new.
 	
 ]
 
@@ -258,6 +270,16 @@ ChDAreaMorph >> mouseMove: anEvent [
 ChDAreaMorph >> mouseUp: anEvent [
 
 	controller onMouseUpAt: (self eventPointOf: anEvent) event: anEvent
+]
+
+{ #category : #accessing }
+ChDAreaMorph >> suppressedCells [
+	^ suppressedCells
+]
+
+{ #category : #accessing }
+ChDAreaMorph >> suppressedCells: anObject [
+	suppressedCells := anObject
 ]
 
 { #category : #initialization }

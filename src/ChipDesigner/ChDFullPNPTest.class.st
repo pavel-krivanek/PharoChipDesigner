@@ -114,7 +114,6 @@ ChDFullPNPTest >> output [
 
 { #category : #running }
 ChDFullPNPTest >> setUp [
-	"Hooks that subclasses may override to define the fixture of test."
 	
 	super setUp.
 	
@@ -144,7 +143,7 @@ ChDFullPNPTest >> testSequence [
 				
 				val := (self input2 at: time) > 0.
 				i2 hasVcc: val. 
-		time = 21 ifTrue: [ self halt. ].
+		"time = 21 ifTrue: [ self halt. ]."
 
 				].			
 	

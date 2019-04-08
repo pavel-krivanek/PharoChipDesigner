@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'area',
-		'testingVCC'
+		'testingVCC',
+		'time'
 	],
 	#category : #ChipDesigner
 }
@@ -100,6 +101,7 @@ ChDSimulation >> initialize [
 	super initialize.
 	
 	testingVCC := false.
+	time := 0.
 ]
 
 { #category : #accessing }
@@ -239,7 +241,10 @@ ChDSimulation >> stepWith: aBlock [
 	vccConnected do: [ :each | 
 "		each currentState: true."
 		each futureState: true. ].
-
+	
+	vccConnected halt.
+	
+	time := time + 1.
 
 	normal := regions reject: #isSpecial.
 	special := regions select: #isSpecial.
