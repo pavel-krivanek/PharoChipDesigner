@@ -66,5 +66,5 @@ ChDBasicGatesTest >> testNot11 [
 	area := ChDArea decodeFrom: 
 		'0000200003200C162109640250B00B0000262003'.
 	area withTestingVCC.
-	self expect: #(0 1 0 0 0)
+	self expect: #(0 0 0 0 0)
 ]

@@ -26,6 +26,13 @@ ChDArea class >> extent: aPoint [
 ]
 
 { #category : #geometry }
+ChDArea class >> orGate [
+
+^ (ChDArea decodeFrom: '000040000520041621492014120181040050B00B0000262029040050B00B640850B00B000026204320121620830000620021')
+	withTestingVCC
+]
+
+{ #category : #geometry }
 ChDArea class >> withDefaultExtent [
 
 	^ self extent: 20@20

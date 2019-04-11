@@ -81,7 +81,7 @@ ChDFullNPNTest >> input2 [
 ChDFullNPNTest >> output [
 
 	^ #(
-		0 1 1 1 1
+		1 1 1 1 1
 		0 0 0 0 0
 		0 0 0 0 0
 		0 0 0 0 0
@@ -93,7 +93,7 @@ ChDFullNPNTest >> output [
 		0 0 0 0 0
 		0 0 0 0 0
 		0 0 0 0 0
-		0 1 1 1 1
+		1 1 1 1 1
 		0 0 0 0 0
 		0 0 0 0 0
 		0 0 0 0 0
@@ -105,7 +105,7 @@ ChDFullNPNTest >> output [
 		0 0 0 0 0
  		0 0 0 0 0
  		0 0 0 0 0
-		0 1 1 1 1
+		1 1 1 1 1
  		0 0 0 0 0
  		0 0 0 0 0
  		0 0 0 0 0

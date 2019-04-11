@@ -29,6 +29,10 @@ ChDSimulation >> addConnectedVCCRegionsOf: aRegion to: foundRegions [
 	(foundRegions includes: aRegion) ifTrue: [ ^ self ].
 	
 	foundRegions add: aRegion. 
+	
+	(aRegion isJunction and: [ aRegion open ]) ifTrue: [ 
+		aRegion cells anyOne connectedRegionsInSubstrate do: [ :connectedRegion | 
+			self addConnectedVCCRegionsOf: connectedRegion to: foundRegions ] ].
 
 	(aRegion cells select: #via) do: [ :cell |
 		aRegion layer isMetal 
@@ -171,6 +175,7 @@ ChDSimulation >> stepOld [
 	vccConnected := self connectedVCCRegionsFrom: regions.
 	vccConnected do: [ :each | each hasVcc: true ].
 	vccConnected do: [ :each | 
+		each hasVcc: true.
 		each currentState: true.
 		each futureState: true. ].
 
@@ -239,9 +244,9 @@ ChDSimulation >> stepWith: aBlock [
 	vccConnected := self connectedVCCRegionsFrom: regions.
 	vccConnected do: [ :each | each hasVcc: true ].
 	vccConnected do: [ :each | 
-"		each currentState: true."
+		each hasVcc: true.
+		each currentState: true.
 		each futureState: true. ].
-		
 	time := time + 1.
 
 	normal := regions reject: #isSpecial.
@@ -257,9 +262,9 @@ ChDSimulation >> stepWith: aBlock [
 		cell := each cells anyOne.
 			(cell junctionType = #npn) ifTrue: [
 				| input vcc outputRegions connectedRegionsInSubstrate output out |
-				input := cell connectedRegionsInJunction anySatisfy: #currentState. 
+				input := cell connectedRegionsInJunction anySatisfy: #hasVcc. 
 				connectedRegionsInSubstrate := cell connectedRegionsInSubstrate.
-				vcc := each vccRegion ifNil: [connectedRegionsInSubstrate select: #hasVcc].
+				vcc := each vccRegion isEmptyOrNil ifTrue: [connectedRegionsInSubstrate select: #hasVcc] ifFalse: [each vccRegion].
 				each vccRegion: vcc.
 				"outputRegions := connectedRegionsInSubstrate reject: #hasVcc."
 				outputRegions := connectedRegionsInSubstrate copyWithoutAll: vcc.
@@ -274,10 +279,10 @@ ChDSimulation >> stepWith: aBlock [
 				
 								
 				outputRegions do: [ :e | 
-					e futureState: out.
+					e futureState: (out or: [ e futureState ]).
 					connected := IdentitySet new.
 					self addConnectedRegionsOf: e to: connected.
-					connected do: [ :ee | ee futureState: out ]  ].		
+					connected do: [ :ee | ee futureState: (out or: [ee futureState])]  ].		
 
 				"self halt."
 "				outputRegions do: [ :e | e futureState: output ]."
@@ -291,9 +296,10 @@ ChDSimulation >> stepWith: aBlock [
 					] .
 			(cell junctionType = #pnp) ifTrue: [
 				| input vcc outputRegions connectedRegionsInSubstrate output out |
-				input := cell connectedRegionsInJunction anySatisfy: #currentState. 
+
+				input := cell connectedRegionsInJunction anySatisfy: #hasVcc. 
 				connectedRegionsInSubstrate := cell connectedRegionsInSubstrate.
-				vcc := each vccRegion ifNil: [connectedRegionsInSubstrate select: #hasVcc].
+				vcc := each vccRegion isEmptyOrNil ifTrue: [connectedRegionsInSubstrate select: #hasVcc] ifFalse: [each vccRegion].
 				each vccRegion: vcc.
 				"outputRegions := connectedRegionsInSubstrate reject: #hasVcc."
 				outputRegions := connectedRegionsInSubstrate copyWithoutAll: vcc.
@@ -305,13 +311,12 @@ ChDSimulation >> stepWith: aBlock [
 				(vcc isEmpty or: [ vcc anyOne futureState not ]) 
 					ifTrue: [ out := false ]
 					ifFalse: [ out := output ].
-				
-								
+												
 				outputRegions do: [ :e | 
-					e futureState: out.
+					e futureState: (out or: [ e futureState ]).
 					connected := IdentitySet new.
 					self addConnectedRegionsOf: e to: connected.
-					connected do: [ :ee | ee futureState: out ]  ].		
+					connected do: [ :ee | ee futureState: (out or: [ee futureState])]  ].		
 
 				"self halt."
 "				outputRegions do: [ :e | e futureState: output ]."
@@ -332,8 +337,19 @@ ChDSimulation >> stepWith: aBlock [
 		currentRegions do: [ :each | each futureState: state ] ].
 "	
 	
+	self resetVcc.
+
+	aBlock value: self.	
+
+	vccConnected := self connectedVCCRegionsFrom: regions.
+	vccConnected do: [ :each | each hasVcc: true ].
+	vccConnected do: [ :each | 
+		each hasVcc: true.
+		each currentState: true.
+		each futureState: true. ].	
+	
 	regions do: [ :aRegion | 
-		aRegion currentState: aRegion futureState ].
+		aRegion currentState: aRegion hasVcc ].
 		 
 ]
 
