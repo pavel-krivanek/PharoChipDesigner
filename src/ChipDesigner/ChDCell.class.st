@@ -55,6 +55,42 @@ ChDCell >> connectedCellsInSubstrate [
 ]
 
 { #category : #accessing }
+ChDCell >> connectedCellsInSubstrateWithoutBase [
+
+	| result |
+	
+	result := IdentitySet new.
+	self substrateType ifNil: [ ^ result ].
+	(((substrateConnections bitAnd: 2r0001) > 0) and: [ self up hasJunction not ]) 
+		ifTrue: [ result add: self up ].
+	(((substrateConnections bitAnd: 2r0010) > 0) and: [ self right hasJunction not ]) 
+		ifTrue: [ result add: self right ].
+	(((substrateConnections bitAnd: 2r0100) > 0) and: [ self down hasJunction not ]) 
+		ifTrue: [ result add: self down ].
+	(((substrateConnections bitAnd: 2r1000) > 0) and: [ self left hasJunction not ]) 
+		ifTrue: [ result add: self left ].
+	^ result.
+]
+
+{ #category : #accessing }
+ChDCell >> connectedCellsInSubstrateWithoutBaseConnections [
+
+	| result |
+	
+	result := IdentitySet new.
+	self substrateType ifNil: [ ^ result ].
+	(((substrateConnections bitAnd: 2r0001) > 0) and: [ ((self up junctionConnections bitAnd: 2r0100) > 0 ) not]) 
+		ifTrue: [ result add: self up ].
+	(((substrateConnections bitAnd: 2r0010) > 0) and: [ ((self right junctionConnections bitAnd: 2r1000) > 0 ) not]) 
+		ifTrue: [ result add: self right ].
+	(((substrateConnections bitAnd: 2r0100) > 0) and: [ ((self down junctionConnections bitAnd: 2r0001) > 0 ) not]) 
+		ifTrue: [ result add: self down ].
+	(((substrateConnections bitAnd: 2r1000) > 0) and: [ ((self left junctionConnections bitAnd: 2r0010) > 0 ) not]) 
+		ifTrue: [ result add: self left ].
+	^ result.
+]
+
+{ #category : #accessing }
 ChDCell >> connectedRegionsInJunction [
 
 	^ self connectedCellsInJunction collect: [ :each | each substrateRegion ] as: IdentitySet.
