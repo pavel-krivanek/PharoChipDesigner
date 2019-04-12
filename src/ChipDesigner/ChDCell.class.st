@@ -79,13 +79,13 @@ ChDCell >> connectedCellsInSubstrateWithoutBaseConnections [
 	
 	result := IdentitySet new.
 	self substrateType ifNil: [ ^ result ].
-	(((substrateConnections bitAnd: 2r0001) > 0) and: [ ((self up junctionConnections bitAnd: 2r0100) > 0 ) not]) 
+	(((substrateConnections bitAnd: 2r0001) > 0) and: [ (((self up junctionConnections ifNil: [ 0 ]) bitAnd: 2r0100) > 0 ) not]) 
 		ifTrue: [ result add: self up ].
-	(((substrateConnections bitAnd: 2r0010) > 0) and: [ ((self right junctionConnections bitAnd: 2r1000) > 0 ) not]) 
+	(((substrateConnections bitAnd: 2r0010) > 0) and: [ (((self right junctionConnections ifNil: [ 0 ]) bitAnd: 2r1000) > 0 ) not]) 
 		ifTrue: [ result add: self right ].
-	(((substrateConnections bitAnd: 2r0100) > 0) and: [ ((self down junctionConnections bitAnd: 2r0001) > 0 ) not]) 
+	(((substrateConnections bitAnd: 2r0100) > 0) and: [ (((self down junctionConnections ifNil: [ 0 ]) bitAnd: 2r0001) > 0 ) not]) 
 		ifTrue: [ result add: self down ].
-	(((substrateConnections bitAnd: 2r1000) > 0) and: [ ((self left junctionConnections bitAnd: 2r0010) > 0 ) not]) 
+	(((substrateConnections bitAnd: 2r1000) > 0) and: [ (((self left junctionConnections ifNil: [ 0 ]) bitAnd: 2r0010) > 0 ) not]) 
 		ifTrue: [ result add: self left ].
 	^ result.
 ]
