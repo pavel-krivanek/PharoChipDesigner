@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'area',
 		'testingVCC',
-		'time'
+		'time',
+		'announcer'
 	],
 	#category : #ChipDesigner
 }
@@ -53,6 +54,12 @@ ChDSimulation >> addConnectedVCCRegionsOf: aRegion to: foundRegions [
 		aRegion cells anyOne connectedCellsInSubstrate do: [ :aCell | 
 			self addConnectedVCCRegionsOf: aCell substrateRegion to: foundRegions ] ]
 "			
+]
+
+{ #category : #accessing }
+ChDSimulation >> announcer [
+
+	^ announcer
 ]
 
 { #category : #accessing }
@@ -106,6 +113,7 @@ ChDSimulation >> initialize [
 	
 	testingVCC := false.
 	time := 0.
+	announcer := Announcer new.
 ]
 
 { #category : #accessing }
@@ -157,7 +165,11 @@ ChDSimulation >> step [
 				"vcc futureState: true."
 				vcc hasVcc: true.  ].			
 		
-		 ]
+		 ].
+	
+	announcer announce: (ChDStepAnnouncement new
+		simulation: self;
+		time: self time)
 ]
 
 { #category : #accessing }
@@ -333,4 +345,10 @@ ChDSimulation >> testingVCC [
 { #category : #accessing }
 ChDSimulation >> testingVCC: anObject [
 	testingVCC := anObject
+]
+
+{ #category : #accessing }
+ChDSimulation >> time [ 
+
+	^ time
 ]

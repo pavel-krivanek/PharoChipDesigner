@@ -92,7 +92,7 @@ ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aForm on: aCanvas origi
 			index := aLayer connectionsFor: cell. 
 			cellForm := self cellForm: index from: aForm.
 			self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
-			
+						
 			(cell isHi) 
 				ifTrue: [ 
 					cellForm := self cellForm: 58 from: aForm.
@@ -131,6 +131,12 @@ ChDAreaMorph >> drawJunctionX: x y: y sourceForm: aForm on: aCanvas origin: orig
 			
 		cellForm := self cellForm: index from: aForm.
 		self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
+
+		(cell substrateRegion open) 
+				ifTrue: [ 
+					cellForm := self cellForm: 58 from: aForm.
+					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ]
+
 ]
 		
 ]

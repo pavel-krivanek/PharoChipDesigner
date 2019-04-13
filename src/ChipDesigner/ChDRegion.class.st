@@ -12,6 +12,12 @@ Class {
 }
 
 { #category : #accessing }
+ChDRegion >> area [ 
+
+	^ self layer area
+]
+
+{ #category : #accessing }
 ChDRegion >> cells [
 	^ cells
 ]

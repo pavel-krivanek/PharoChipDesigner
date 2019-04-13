@@ -5,7 +5,10 @@ Class {
 		'sequence',
 		'signalLength',
 		'tickLength',
-		'editable'
+		'editable',
+		'lastSequenceIndexChanged',
+		'isMouseDown',
+		'region'
 	],
 	#category : #ChipDesigner
 }
@@ -55,6 +58,11 @@ ChDSequenceMorph >> handlesMouseDown: anEvent [
 ]
 
 { #category : #initialization }
+ChDSequenceMorph >> handlesMouseMove: evt [
+	^ isMouseDown
+]
+
+{ #category : #initialization }
 ChDSequenceMorph >> initialize [
 
 	super initialize.
@@ -62,24 +70,108 @@ ChDSequenceMorph >> initialize [
 	editable := true.
 	signalLength := 5.
 	tickLength := 2.
-	sequence := (1 to: 56 * signalLength) collect: [ :each | false. { true. false } atRandom ].
+	sequence := (1 to: 56 * signalLength) collect: [ :each | false. ].
 	
 	self extent: (sequence size * tickLength) @ 40.
+	isMouseDown := false.
+	
+	lastSequenceIndexChanged := nil.
 	
 ]
 
 { #category : #initialization }
 ChDSequenceMorph >> mouseDown: anEvent [
 
+	| sequenceIndex |
+	
+	isMouseDown := true.
+	sequenceIndex := self sequenceIndexFor: anEvent cursorPoint.
+	lastSequenceIndexChanged := sequenceIndex.
+
+	self swap: sequenceIndex.
+		
+	
+]
+
+{ #category : #initialization }
+ChDSequenceMorph >> mouseMove: anEvent [
+
+	| sequenceIndex |
+	
+	sequenceIndex := self sequenceIndexFor: anEvent cursorPoint.
+	lastSequenceIndexChanged = sequenceIndex
+		ifFalse: [ 
+			self swap: (self sequenceIndexFor: anEvent cursorPoint).
+			lastSequenceIndexChanged := sequenceIndex ].
+
+
+]
+
+{ #category : #initialization }
+ChDSequenceMorph >> mouseUp: anEvent [
+
+	isMouseDown := false.
+	lastSequenceIndexChanged := nil.
+]
+
+{ #category : #accessing }
+ChDSequenceMorph >> region [
+	^ region
+]
+
+{ #category : #accessing }
+ChDSequenceMorph >> region: aRegion [
+	
+	region ifNotNil: [ region area simulation announcer unsubscribe: self ].
+
+	region := aRegion.
+	
+	region area simulation announcer when: ChDStepAnnouncement do: [ :announcement |
+		sequence at: announcement time put: region hasVcc. 
+		self changed ].
+]
+
+{ #category : #initialization }
+ChDSequenceMorph >> sequenceIndexFor: aPoint [
+
+	| signalIndex |
+	
+	signalIndex := ((aPoint x - self bounds left) // tickLength // signalLength) + 1.
+	^ (signalIndex-1) * signalLength + 1.
+
+]
+
+{ #category : #initialization }
+ChDSequenceMorph >> swap: sequenceIndex [
+
+	| newValue |
+	
+	(sequenceIndex > sequence size or: [ sequenceIndex < 0 ]) ifTrue: [ ^ self ].
+	newValue := (sequence at: sequenceIndex) not.
+
+	sequenceIndex to: sequenceIndex + signalLength - 1 do: [ :i |
+		sequence at: i put: newValue ].
+	
+	isMouseDown := true.
+	
+	self changed.
+
+]
+
+{ #category : #initialization }
+ChDSequenceMorph >> swapOnPoint: aPoint [
+
 	| sequenceIndex signalIndex newValue |
 	
-	signalIndex := ((anEvent cursorPoint x - self bounds left) // tickLength // signalLength) + 1.
+	signalIndex := ((aPoint x - self bounds left) // tickLength // signalLength) + 1.
 	sequenceIndex := (signalIndex-1) * signalLength + 1.
 	(sequenceIndex > sequence size or: [ sequenceIndex < 0 ]) ifTrue: [ ^ self ].
 	newValue := (sequence at: sequenceIndex) not.
 
 	sequenceIndex to: sequenceIndex + signalLength - 1 do: [ :i |
 		sequence at: i put: newValue ].
+	
+	isMouseDown := true.
 	
 	self changed.
 
