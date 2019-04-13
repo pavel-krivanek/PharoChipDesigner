@@ -12,6 +12,12 @@ Class {
 }
 
 { #category : #accessing }
+ChDRegion >> area [ 
+
+	^ self layer area
+]
+
+{ #category : #accessing }
 ChDRegion >> cells [
 	^ cells
 ]
@@ -77,6 +83,11 @@ ChDRegion >> hasVcc: anObject [
 ]
 
 { #category : #accessing }
+ChDRegion >> hi [
+	^ self hasVcc
+]
+
+{ #category : #accessing }
 ChDRegion >> initialize [ 
 
 	super initialize.
@@ -109,6 +120,11 @@ ChDRegion >> layer [
 { #category : #accessing }
 ChDRegion >> layer: anObject [
 	layer := anObject
+]
+
+{ #category : #accessing }
+ChDRegion >> low [
+	^ self hasVcc not
 ]
 
 { #category : #accessing }

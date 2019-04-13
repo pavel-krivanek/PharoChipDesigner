@@ -12,10 +12,39 @@ Class {
 		'mouseDown',
 		'lastCell',
 		'deleteMode',
-		'suppressedCells'
+		'suppressedCells',
+		'stepping'
 	],
 	#category : #ChipDesigner
 }
+
+{ #category : #'instance creation' }
+ChDAreaMorph class >> exampleRSLatch [
+
+	<script>
+	
+	| area graphS graphR graphOut |
+	area := 	(ChDArea decodeFrom: 
+			'0000700007200412014120141201412014120181000022004120141201816204920181200A1000022004120181640250B00B200A120061201810000264029000020A40B240B564091200A1620850A2150A81502017220B5220B5620312006120181640432014120121200A10000220041201612014120141201412012100002').
+	area show.
+
+	graphS := ChDSequenceMorph input name: 'S'.
+	graphS region: (area atX: 1 y: 2) metalRegion.
+	graphS openInWindow.
+
+	graphR := ChDSequenceMorph input name: 'R'.
+	graphR region: (area atX: 1 y: 3) metalRegion.
+	graphR openInWindow.
+
+	graphOut := ChDSequenceMorph output name: 'Q'.
+	graphOut region: (area atX: 1 y: 7) metalRegion.
+	graphOut openInWindow.
+
+	area simulation stepBlock: [ :aSimulation |
+		(area atX: 1 y: 1) metalRegion hasVcc: true.
+		(area atX: 1 y: 2) metalRegion hasVcc: (graphS sequence at: aSimulation time+1).
+		(area atX: 1 y: 3) metalRegion hasVcc: (graphR sequence at: aSimulation time+1) ].
+]
 
 { #category : #'instance creation' }
 ChDAreaMorph class >> for: anArea [
@@ -92,7 +121,7 @@ ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aForm on: aCanvas origi
 			index := aLayer connectionsFor: cell. 
 			cellForm := self cellForm: index from: aForm.
 			self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
-			
+						
 			(cell isHi) 
 				ifTrue: [ 
 					cellForm := self cellForm: 58 from: aForm.
@@ -131,6 +160,12 @@ ChDAreaMorph >> drawJunctionX: x y: y sourceForm: aForm on: aCanvas origin: orig
 			
 		cellForm := self cellForm: index from: aForm.
 		self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
+
+		(cell substrateRegion open) 
+				ifTrue: [ 
+					cellForm := self cellForm: 58 from: aForm.
+					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ]
+
 ]
 		
 ]
@@ -219,6 +254,8 @@ ChDAreaMorph >> initializeFor: anArea [
 	self extent: 13*area width@(13*area height).
 	
 	suppressedCells := OrderedCollection new.
+	stepping := false.
+	self stopStepping.
 	
 ]
 
@@ -236,7 +273,7 @@ ChDAreaMorph >> keyStroke: event [
 		ifTrue: [area simulation step. self changed].
 		
 	event keyCharacter = $r
-		ifTrue: [area simulation reset. self changed]
+		ifTrue: [self run]
 ]
 
 { #category : #initialization }
@@ -270,6 +307,31 @@ ChDAreaMorph >> mouseMove: anEvent [
 ChDAreaMorph >> mouseUp: anEvent [
 
 	controller onMouseUpAt: (self eventPointOf: anEvent) event: anEvent
+]
+
+{ #category : #initialization }
+ChDAreaMorph >> run [ 
+
+	stepping := true.
+	self startStepping.
+]
+
+{ #category : #initialization }
+ChDAreaMorph >> step [
+	
+	stepping ifTrue: [ 
+		(self area simulation time+1) >= 280 ifTrue: [ 
+			self stopStepping.
+			stepping := false.
+			^ self ].
+
+		self area simulation step.
+		self changed ].
+]
+
+{ #category : #initialization }
+ChDAreaMorph >> stepTime [
+	^ 1 
 ]
 
 { #category : #accessing }
