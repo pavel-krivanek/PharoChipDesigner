@@ -8,10 +8,25 @@ Class {
 		'editable',
 		'lastSequenceIndexChanged',
 		'isMouseDown',
-		'region'
+		'region',
+		'type',
+		'name',
+		'currentTime'
 	],
 	#category : #ChipDesigner
 }
+
+{ #category : #running }
+ChDSequenceMorph class >> input [ 
+
+	^ self new type: #input.
+]
+
+{ #category : #running }
+ChDSequenceMorph class >> output [ 
+
+	^ self new type: #output.
+]
 
 { #category : #initialization }
 ChDSequenceMorph >> drawOn: aCanvas [
@@ -49,6 +64,31 @@ ChDSequenceMorph >> drawOn: aCanvas [
 		lastPoint := newPoint.	
 	].
 
+	currentTime ifNotNil: [ 
+		| x | 
+		x := currentTime * tickLength + tickLength - 1.
+		aCanvas 
+			line: (rect left + x)@rect top 
+			to: (rect left + x)@rect bottom 
+			width: 1
+			color: (Color red alpha: 0.3) 
+			dashLength: 2
+			secondColor: Color transparent 
+			secondDashLength: 2 
+			startingOffset: 0.		
+		
+		x := currentTime * tickLength.
+		aCanvas 
+			line: (rect left + x)@rect top 
+			to: (rect left + x)@rect bottom 
+			width: 1
+			color: (Color red alpha: 0.3) 
+			dashLength: 2
+			secondColor: Color transparent 
+			secondDashLength: 2 
+			startingOffset: 0		
+		 ]
+
 ]
 
 { #category : #initialization }
@@ -76,7 +116,7 @@ ChDSequenceMorph >> initialize [
 	isMouseDown := false.
 	
 	lastSequenceIndexChanged := nil.
-	
+	currentTime := nil.
 ]
 
 { #category : #initialization }
@@ -114,6 +154,24 @@ ChDSequenceMorph >> mouseUp: anEvent [
 	lastSequenceIndexChanged := nil.
 ]
 
+{ #category : #initialization }
+ChDSequenceMorph >> name [ 
+
+	^ name
+]
+
+{ #category : #initialization }
+ChDSequenceMorph >> name: aString [
+
+	name := aString.
+]
+
+{ #category : #initialization }
+ChDSequenceMorph >> printOn: aStream [
+
+	name printOn: aStream
+]
+
 { #category : #accessing }
 ChDSequenceMorph >> region [
 	^ region
@@ -127,8 +185,16 @@ ChDSequenceMorph >> region: aRegion [
 	region := aRegion.
 	
 	region area simulation announcer when: ChDStepAnnouncement do: [ :announcement |
-		sequence at: announcement time put: region hasVcc. 
+		type = #output ifTrue: [ 
+			sequence at: announcement time put: region hasVcc ].
+		currentTime := announcement time. 
 		self changed ].
+]
+
+{ #category : #accessing }
+ChDSequenceMorph >> sequence [ 
+	
+	^ sequence 
 ]
 
 { #category : #initialization }
@@ -158,21 +224,12 @@ ChDSequenceMorph >> swap: sequenceIndex [
 
 ]
 
-{ #category : #initialization }
-ChDSequenceMorph >> swapOnPoint: aPoint [
+{ #category : #accessing }
+ChDSequenceMorph >> type [
+	^ type
+]
 
-	| sequenceIndex signalIndex newValue |
-	
-	signalIndex := ((aPoint x - self bounds left) // tickLength // signalLength) + 1.
-	sequenceIndex := (signalIndex-1) * signalLength + 1.
-	(sequenceIndex > sequence size or: [ sequenceIndex < 0 ]) ifTrue: [ ^ self ].
-	newValue := (sequence at: sequenceIndex) not.
-
-	sequenceIndex to: sequenceIndex + signalLength - 1 do: [ :i |
-		sequence at: i put: newValue ].
-	
-	isMouseDown := true.
-	
-	self changed.
-
+{ #category : #accessing }
+ChDSequenceMorph >> type: anObject [
+	type := anObject
 ]

@@ -5,7 +5,8 @@ Class {
 		'area',
 		'testingVCC',
 		'time',
-		'announcer'
+		'announcer',
+		'stepBlock'
 	],
 	#category : #ChipDesigner
 }
@@ -107,6 +108,18 @@ ChDSimulation >> connectedVCCRegionsFrom: regions [
 ]
 
 { #category : #accessing }
+ChDSimulation >> defaultStepBlock [
+
+	^ [ :aSimulation |
+		testingVCC ifTrue: [ 
+				| vcc |
+				vcc := (aSimulation regions detect: [ :e | e cells anySatisfy: [ :c | (c x = 1) and: [ c y = 1 ] ] ]).
+				vcc hasVcc: true.  ].				
+		 ].
+	
+]
+
+{ #category : #accessing }
 ChDSimulation >> initialize [
 
 	super initialize.
@@ -114,6 +127,7 @@ ChDSimulation >> initialize [
 	testingVCC := false.
 	time := 0.
 	announcer := Announcer new.
+	stepBlock := self defaultStepBlock.
 ]
 
 { #category : #accessing }
@@ -157,19 +171,21 @@ ChDSimulation >> resetVcc [
 { #category : #accessing }
 ChDSimulation >> step [ 
 	
-	self stepWith: [ :aSimulation |
-		testingVCC ifTrue: [ 
-				| vcc |
-				vcc := (aSimulation regions detect: [ :e | e cells anySatisfy: [ :c | (c x = 1) and: [ c y = 1 ] ] ]).
-		"		vcc currentState: true."
-				"vcc futureState: true."
-				vcc hasVcc: true.  ].			
-		
-		 ].
+	self stepWith: stepBlock.
 	
 	announcer announce: (ChDStepAnnouncement new
 		simulation: self;
 		time: self time)
+]
+
+{ #category : #accessing }
+ChDSimulation >> stepBlock [
+	^ stepBlock
+]
+
+{ #category : #accessing }
+ChDSimulation >> stepBlock: anObject [
+	stepBlock := anObject
 ]
 
 { #category : #accessing }
