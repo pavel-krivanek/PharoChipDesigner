@@ -29,6 +29,13 @@ ChDSequenceMorph class >> output [
 ]
 
 { #category : #initialization }
+ChDSequenceMorph >> decodedFrom: anInteger [
+
+	sequence := ((1 to: sequence size) collect: [ :bitIndex | (anInteger bitAt: bitIndex) = 1 ]).
+
+]
+
+{ #category : #initialization }
 ChDSequenceMorph >> drawOn: aCanvas [
 
 	| rect lastPoint newPoint offset |
@@ -89,6 +96,17 @@ ChDSequenceMorph >> drawOn: aCanvas [
 			startingOffset: 0		
 		 ]
 
+]
+
+{ #category : #initialization }
+ChDSequenceMorph >> encoded [
+	
+	| exponent |
+	exponent := 0.
+	^ self sequence inject: 0 into: [ :num :each | 
+		exponent := exponent + 1.
+		num + (each ifTrue: [ 2 raisedTo: exponent-1 ] ifFalse: [ 0 ] ) ].
+	
 ]
 
 { #category : #initialization }
@@ -195,6 +213,12 @@ ChDSequenceMorph >> region: aRegion [
 ChDSequenceMorph >> sequence [ 
 	
 	^ sequence 
+]
+
+{ #category : #accessing }
+ChDSequenceMorph >> sequence: anArray [
+	
+	sequence := anArray 
 ]
 
 { #category : #initialization }
