@@ -17,7 +17,7 @@ Metacello new
 | LMB | metal |
 | RMB | N silicon (red) |
 | Shift + RMB | P silicon (yelow) |
-| V | next LMB will add via |
+| V | next LMB will add a via |
 | X | delete mode |
 | S | single step |
 | R | run simulation |
