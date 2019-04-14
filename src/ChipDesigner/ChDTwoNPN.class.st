@@ -145,7 +145,6 @@ ChDTwoNPN >> test11to01 [
 	via1 via: false.
 	
 	self step.
-	self halt.
 	self step.
 
 	self deny: output currentState.
