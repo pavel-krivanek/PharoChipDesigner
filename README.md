@@ -3,4 +3,6 @@ A little chip design game inspired by Engineer of the People (kohctpyktop) by Za
 
 ![PharoChipDesigner.png](graphics/PharoChipDesigner.png)
 
-![PharoChipDesigner.gif g](graphics/PharoChipDesigner.gif)
+![PharoChipDesigner.gif](graphics/PharoChipDesigner.gif)
+
+![X903.png](graphics/X903.png)
