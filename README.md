@@ -25,7 +25,7 @@ Metacello new
 |  | Delete mode |
 | ------ | ------ |
 | LMB | delete metal |
-| RMB | delete silicon |
+| Shift + LMB | delete silicon |
 | X | normal mode |
 
 ![PharoChipDesigner.gif](graphics/PharoChipDesigner.gif)
