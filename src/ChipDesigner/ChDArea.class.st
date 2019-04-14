@@ -8,7 +8,8 @@ Class {
 		'substrateLayer',
 		'metalLayer',
 		'regions',
-		'simulation'
+		'simulation',
+		'descriptions'
 	],
 	#category : #ChipDesigner
 }
@@ -137,6 +138,12 @@ ChDArea >> decodeFrom: aString [
 	
 ]
 
+{ #category : #initialization }
+ChDArea >> descriptions [
+
+	^ descriptions
+]
+
 { #category : #'cell access' }
 ChDArea >> downX: x y: y [
 
@@ -231,6 +238,8 @@ ChDArea >> initializeForExtent: aPoint [
 	simulation area: self.
 	
 	self initialConfiguration.
+	
+	descriptions := OrderedCollection new.
 	
 	
 	

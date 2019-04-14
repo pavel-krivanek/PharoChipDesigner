@@ -175,7 +175,15 @@ ChDAreaMorph >> drawOn: aCanvas [
 					aCanvas translucentImage: suppressForm at: origin + ((13*(x-1))@(13*(y-1)))					
 					 ]
 				 ]	
-			 ]]
+			 ]].
+	
+	area descriptions do: [ :association |
+		| p |
+		p := ((13*(association value x-1))@(13*(association value y-1))).
+		p logCr.
+		aCanvas fillRectangle: (Rectangle origin: origin + p + (-2 @ -2) extent: 17@17) color: (Color r: 0.78 g: 0.78 b: 0.78 alpha: 1.0).
+		aCanvas drawString: association key at: origin + p + (-5 @ 0).
+		 ]
 	
 
 ]
