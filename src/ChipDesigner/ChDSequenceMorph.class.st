@@ -36,15 +36,21 @@ ChDSequenceMorph >> decodedFrom: anInteger [
 ]
 
 { #category : #initialization }
+ChDSequenceMorph >> descriptionWidth [
+
+	^ 50
+]
+
+{ #category : #initialization }
 ChDSequenceMorph >> drawOn: aCanvas [
 
 	| rect lastPoint newPoint offset |
 		
-	rect := self bounds.
+	rect := Rectangle origin: (self bounds topLeft +(self descriptionWidth @0)) corner: self bounds bottomRight.
 	
 	offset := 8.
 	
-	aCanvas fillRectangle: rect color: (Color r: 1.0 g: 0.969 b: 0.887 alpha: 1.0).
+	aCanvas fillRectangle: self bounds color: (Color r: 1.0 g: 0.969 b: 0.887 alpha: 1.0).
 	
 	lastPoint := rect left@(rect bottom - offset).
 	
@@ -94,7 +100,9 @@ ChDSequenceMorph >> drawOn: aCanvas [
 			secondColor: Color transparent 
 			secondDashLength: 2 
 			startingOffset: 0		
-		 ]
+		 ].
+	
+	aCanvas drawString: self name at: self bounds topLeft.
 
 ]
 
@@ -130,7 +138,7 @@ ChDSequenceMorph >> initialize [
 	tickLength := 2.
 	sequence := (1 to: 56 * signalLength) collect: [ :each | false. ].
 	
-	self extent: (sequence size * tickLength) @ 40.
+	self extent: (sequence size * tickLength + self descriptionWidth) @ 40.
 	isMouseDown := false.
 	
 	lastSequenceIndexChanged := nil.
@@ -143,7 +151,7 @@ ChDSequenceMorph >> mouseDown: anEvent [
 	| sequenceIndex |
 	
 	isMouseDown := true.
-	sequenceIndex := self sequenceIndexFor: anEvent cursorPoint.
+	sequenceIndex := self sequenceIndexFor: anEvent cursorPoint -(self descriptionWidth @ 0).
 	lastSequenceIndexChanged := sequenceIndex.
 
 	self swap: sequenceIndex.
@@ -156,10 +164,10 @@ ChDSequenceMorph >> mouseMove: anEvent [
 
 	| sequenceIndex |
 	
-	sequenceIndex := self sequenceIndexFor: anEvent cursorPoint.
+	sequenceIndex := self sequenceIndexFor: anEvent cursorPoint - (self descriptionWidth @ 0).
 	lastSequenceIndexChanged = sequenceIndex
 		ifFalse: [ 
-			self swap: (self sequenceIndexFor: anEvent cursorPoint).
+			self swap: (self sequenceIndexFor: anEvent cursorPoint - (self descriptionWidth @ 0)).
 			lastSequenceIndexChanged := sequenceIndex ].
 
 
