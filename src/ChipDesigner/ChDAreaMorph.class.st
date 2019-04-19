@@ -240,20 +240,38 @@ ChDAreaMorph >> initializeFor: anArea [
 ]
 
 { #category : #initialization }
+ChDAreaMorph >> keyDown: anEvent [
+
+	anEvent keyValue = 16 ifTrue: [
+		self controller inputMode: #shift.
+		self controller announceModeChange].
+	^ super keyDown: anEvent
+]
+
+{ #category : #initialization }
 ChDAreaMorph >> keyStroke: event [ 
 	"Process keys navigation and space to toggle."
 	
 	event keyCharacter = $x
-		ifTrue: [controller deleteMode: controller deleteMode not].
+		ifTrue: [ controller swapDeleteMode ].
 		
 	event keyCharacter = $v
-		ifTrue: [controller viaMode: controller viaMode not].
+		ifTrue: [controller swapViaMode].
 		
 	event keyCharacter = $s
 		ifTrue: [area simulation step. self changed].
 		
 	event keyCharacter = $r
 		ifTrue: [self run]
+]
+
+{ #category : #initialization }
+ChDAreaMorph >> keyUp: anEvent [
+
+	anEvent keyValue = 16 ifTrue: [
+		self controller inputMode: #metal.
+		self controller announceModeChange].
+	^ super keyDown: anEvent
 ]
 
 { #category : #initialization }
@@ -273,6 +291,7 @@ ChDAreaMorph >> keyboardFocusOnMouseDown [
 { #category : #initialization }
 ChDAreaMorph >> mouseDown: anEvent [
 
+	self takeKeyboardFocus.
 	controller onMouseDownAt: (self eventPointOf: anEvent) event: anEvent.
 
 ]

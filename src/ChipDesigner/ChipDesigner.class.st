@@ -5,10 +5,28 @@ Class {
 		'list',
 		'editor',
 		'scopes',
-		'area'
+		'area',
+		'toolbar',
+		'controller',
+		'editModeButton',
+		'editMode',
+		'viaModeButton',
+		'viaMode',
+		'modeNormalForm',
+		'modeShiftForm',
+		'modeDeleteForm',
+		'modeViaOn',
+		'modeViaOff',
+		'modeDeleteSiliconForm'
 	],
 	#category : #ChipDesigner
 }
+
+{ #category : #examples }
+ChipDesigner class >> buttonsDimension [
+
+	^35
+]
 
 { #category : #examples }
 ChipDesigner class >> defaultSpec [
@@ -17,11 +35,18 @@ ChipDesigner class >> defaultSpec [
 			(SpecPanedLayout newHorizontal
 				position: 200;
 				add: #list;
-				add: (SpecPanedLayout newVertical
-					position: 400;
-					add: #editor;
-					add: #scopes;
-					yourself));
+				add: (
+					SpecBoxLayout newVertical
+					add: (SpecBoxLayout newHorizontal
+							add: #editModeButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
+							add: #viaModeButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
+							
+							yourself)
+						withConstraints: [ :constraints | constraints height: self buttonsDimension ];
+						add: (SpecPanedLayout newVertical
+							position: 400;
+							add: #editor;
+							add: #scopes)));
 		yourself
 ]
 
@@ -32,6 +57,17 @@ ChipDesigner class >> open [
 ]
 
 { #category : #initialization }
+ChipDesigner >> editModeIcon [
+
+	^ (Dictionary newFrom: { 
+		#delete -> modeDeleteForm.
+		#deleteSilicon -> modeDeleteSiliconForm.
+		#metal -> modeNormalForm.
+		#shift -> modeShiftForm.	
+	 }) at: editMode
+]
+
+{ #category : #initialization }
 ChipDesigner >> editorMorph [
 
 	| editorMorph |
@@ -39,6 +75,18 @@ ChipDesigner >> editorMorph [
 	editorMorph := ChipDesignerMorph newColumn.
 	editorMorph color: (Color r: 0.506 g: 0.506 b: 0.506 alpha: 1.0).
 	editorMorph addMorphBack: (ChDAreaMorph for: area).
+	
+	controller := editorMorph submorphs first controller.
+	controller announcer when: ChDModeAnnouncement do: [ :announcement |
+		editMode := announcement controller deleteMode
+			ifTrue: [ 
+				(announcement controller inputMode = #metal)
+					ifTrue: [ #delete ]
+					ifFalse: [ #deleteSilicon ] ] 
+			ifFalse: [ announcement controller inputMode ].
+		viaMode := announcement controller viaMode. 
+		editModeButton icon: self editModeIcon.
+		viaModeButton icon: self viaModeIcon ].
 
 	^ editorMorph
 ]
@@ -51,9 +99,23 @@ ChipDesigner >> initialExtent [
 { #category : #initialization }
 ChipDesigner >> initialize [ 
 
-	area := ChDArea extent: 45@30.
+	| sourceForm |
 
+	area := ChDArea extent: 45@30.
+	editMode := #metal.
+	toolbar := self toolbar. 
+	viaMode := false.
+
+	modeNormalForm := self modeIcon: (Rectangle origin: 0@0 extent: 27@14).
+	modeShiftForm := self modeIcon: (Rectangle origin: 26@0 extent: 27@14).
+	modeDeleteForm := self modeIcon: (Rectangle origin: 52@0 extent: 15@14).
+	modeDeleteSiliconForm := self modeIcon: (Rectangle origin: 65@0 extent: 15@14).
+	modeViaOn := self modeIcon: (Rectangle origin: 78@0 extent: 14@14).
+	modeViaOff := self modeIcon: (Rectangle origin: 91@0 extent: 14@14).
+		
 	super initialize.
+	
+	
 	
 	
 ]
@@ -61,9 +123,45 @@ ChipDesigner >> initialize [
 { #category : #initialization }
 ChipDesigner >> initializeWidgets [
 
+	| editorMorph |
+	
 	list := self newList.
-	editor := self editorMorph asSpecAdapter.
+	editorMorph := self editorMorph.
+	editor := editorMorph asSpecAdapter.
 	scopes := self sequenceMorph asSpecAdapter.
+	
+	editModeButton := self newButton icon: self editModeIcon.
+	editModeButton action: [editorMorph submorphs first controller swapDeleteMode].
+
+	viaModeButton := self newButton icon: self viaModeIcon.
+	viaModeButton action: [editorMorph submorphs first controller swapViaMode].
+
+
+	
+]
+
+{ #category : #initialization }
+ChipDesigner >> modeIcon: aRectangle [ 
+
+	| sourceForm aForm |
+
+	sourceForm := PNGReadWriter formFromFileNamed: self modesPng.
+
+	aForm := Form extent: aRectangle extent depth: sourceForm depth.
+	aForm copyBits: (aRectangle) from: sourceForm at: 0@0
+		clippingBox: aForm boundingBox rule: Form over fillColor: nil.
+		
+	^ aForm
+	
+	
+]
+
+{ #category : #initialization }
+ChipDesigner >> modesPng [
+
+	^ './pharo-local/iceberg/pavel-krivanek/PharoChipDesigner/graphics/modes.png' asFileReference.
+
+	
 	
 ]
 
@@ -82,4 +180,42 @@ ChipDesigner >> sequenceMorph [
 ChipDesigner >> title [
 	
 	^ 'Pharo Chip Designer'.
+]
+
+{ #category : #initialization }
+ChipDesigner >> toolbar [
+	| aMenu |
+	aMenu := self newMenuBar
+		addGroup: [ :group | 
+			group
+				addItem: [ :item | 
+					item
+						name: nil;
+						description: 'Inspect area';
+						icon: (self iconNamed: #glamorousInspect);
+						action: [ area inspect ] ].
+			group
+				addItem: [ :item | 
+					item
+						name: nil;
+						description: 'Type';
+						icon: (self iconNamed: #testNotRun);
+						action: [  ] ].
+			group
+				addItem: [ :item | 
+					editModeButton := item
+						name: nil;
+						description: 'Mode';
+						icon: (self editModeIcon);
+						action: [  ] ] ].
+	^ aMenu
+]
+
+{ #category : #initialization }
+ChipDesigner >> viaModeIcon [
+
+	^ viaMode
+		ifTrue: [ modeViaOn ]
+		ifFalse: [ modeViaOff ].
+	
 ]

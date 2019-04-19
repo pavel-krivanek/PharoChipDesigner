@@ -8,10 +8,27 @@ Class {
 		'mouseDown',
 		'lastCell',
 		'deleteMode',
-		'viaMode'
+		'viaMode',
+		'announcer'
 	],
 	#category : #ChipDesigner
 }
+
+{ #category : #accessing }
+ChDAreaController >> announceModeChange [
+
+	announcer announce: (ChDModeAnnouncement new 
+		controller: self;
+		inputMode: inputMode;
+		viaMode: viaMode;
+		deleteMode: deleteMode)
+]
+
+{ #category : #initialization }
+ChDAreaController >> announcer [
+
+	^ announcer
+]
 
 { #category : #initialization }
 ChDAreaController >> area [
@@ -71,7 +88,7 @@ ChDAreaController >> cellEvent: anEvent at: aPoint [
 { #category : #initialization }
 ChDAreaController >> changed [ 
 
-	view changed
+	view changed.
 ]
 
 { #category : #accessing }
@@ -81,7 +98,9 @@ ChDAreaController >> deleteMode [
 
 { #category : #accessing }
 ChDAreaController >> deleteMode: anObject [
-	deleteMode := anObject
+	deleteMode := anObject.
+	
+	self announceModeChange.
 ]
 
 { #category : #initialization }
@@ -97,6 +116,8 @@ ChDAreaController >> initialize [
 	deleteMode := false.
 	viaMode := false.
 	
+	announcer := Announcer new.
+	
 ]
 
 { #category : #accessing }
@@ -106,7 +127,9 @@ ChDAreaController >> inputMode [
 
 { #category : #accessing }
 ChDAreaController >> inputMode: anObject [
-	inputMode := anObject
+	inputMode := anObject.
+	
+	self announceModeChange.
 ]
 
 { #category : #initialization }
@@ -161,6 +184,19 @@ ChDAreaController >> onMouseUpAt: aPoint event: anEvent [
 
 ]
 
+{ #category : #accessing }
+ChDAreaController >> swapDeleteMode [
+
+	self deleteMode: self deleteMode not
+]
+
+{ #category : #accessing }
+ChDAreaController >> swapViaMode [
+
+	self viaMode: self viaMode not.
+	self deleteMode: false.
+]
+
 { #category : #initialization }
 ChDAreaController >> toggleViaFor: aCell [
 
@@ -174,7 +210,9 @@ ChDAreaController >> viaMode [
 
 { #category : #accessing }
 ChDAreaController >> viaMode: anObject [
-	viaMode := anObject
+	viaMode := anObject.
+	
+	self announceModeChange.
 ]
 
 { #category : #accessing }
