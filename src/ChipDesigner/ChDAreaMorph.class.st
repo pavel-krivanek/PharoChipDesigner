@@ -116,6 +116,39 @@ ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanvas 
 ]
 
 { #category : #initialization }
+ChDAreaMorph >> drawCornersFor: forms [
+
+	| cornerForms |
+	
+	cornerForms := (60 to: 63) collect: [ :index | self cellForm: index from: {sourceForm}.].
+		
+	forms withIndexDo: [ :aForm :index |
+		| mask | 
+		mask := index - 1.
+		(mask bitAnd: 2r0001) > 0 ifTrue: [ 
+			(0 to: 15) do: [ :cellIndex | 
+				((cellIndex bitAnd: 2r1001) = 2r1001) ifTrue: [ .
+					self overlap: aForm at: cellIndex with: (cornerForms at: 1) ] ] ].
+
+		(mask bitAnd: 2r0010) > 0 ifTrue: [ 
+			(0 to: 15) do: [ :cellIndex | 
+				((cellIndex bitAnd: 2r0011) = 2r0011) ifTrue: [ .
+					self overlap: aForm at: cellIndex with: (cornerForms at: 2) ] ] ].
+
+		(mask bitAnd: 2r0100) > 0 ifTrue: [ 
+			(0 to: 15) do: [ :cellIndex | 
+				((cellIndex bitAnd: 2r01100) = 2r1100) ifTrue: [ .
+					self overlap: aForm at: cellIndex with: (cornerForms at: 3) ] ] ].
+
+		(mask bitAnd: 2r1000) > 0 ifTrue: [ 
+			(0 to: 15) do: [ :cellIndex | 
+				((cellIndex bitAnd: 2r0110) = 2r0110) ifTrue: [ .
+					self overlap: aForm at: cellIndex with: (cornerForms at: 4) ] ] ].
+	 ].
+
+]
+
+{ #category : #initialization }
 ChDAreaMorph >> drawImage: aForm atX: x y: y origin: origin on: aCanvas [
 
 	aCanvas translucentImage: aForm at: origin + (((self cellSize*(x-1)))@(self cellSize*(y-1)))
@@ -244,29 +277,9 @@ ChDAreaMorph >> initializeFor: anArea [
 	
 	cornerForms := (60 to: 63) collect: [ :index | self cellForm: index from: {sourceForm}.].
 	
-	metalForms withIndexDo: [ :metalForm :index |
-		| mask | 
-		mask := index - 1.
-		(mask bitAnd: 2r0001) > 0 ifTrue: [ 
-			(0 to: 15) do: [ :cellIndex | 
-				((cellIndex bitAnd: 2r1001) = 2r1001) ifTrue: [ .
-					self overlap: metalForm at: cellIndex with: (cornerForms at: 1) ] ] ].
-
-		(mask bitAnd: 2r0010) > 0 ifTrue: [ 
-			(0 to: 15) do: [ :cellIndex | 
-				((cellIndex bitAnd: 2r0011) = 2r0011) ifTrue: [ .
-					self overlap: metalForm at: cellIndex with: (cornerForms at: 2) ] ] ].
-
-		(mask bitAnd: 2r0100) > 0 ifTrue: [ 
-			(0 to: 15) do: [ :cellIndex | 
-				((cellIndex bitAnd: 2r01100) = 2r1100) ifTrue: [ .
-					self overlap: metalForm at: cellIndex with: (cornerForms at: 3) ] ] ].
-
-		(mask bitAnd: 2r1000) > 0 ifTrue: [ 
-			(0 to: 15) do: [ :cellIndex | 
-				((cellIndex bitAnd: 2r0110) = 2r0110) ifTrue: [ .
-					self overlap: metalForm at: cellIndex with: (cornerForms at: 4) ] ] ].
-		 ].
+	self drawCornersFor: metalForms.
+	self drawCornersFor: nForms.
+	self drawCornersFor: pForms.
 
 	metalForms do: [ :metalForm |
 		self colorize: metalForm with: ((Color fromHexString: 'E8E8E8') alpha: 0.6) ].		
