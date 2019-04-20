@@ -73,6 +73,7 @@ ChDSubstrateLayer >> fullClear: aCell [
 	aCell junctionType: nil.
 	aCell junctionConnections: nil.
 	aCell clearVia.
+	aCell unsetAdjacentSubstrateCorners.
 	
 	self clear: aCell withOld: oldConnections
 ]

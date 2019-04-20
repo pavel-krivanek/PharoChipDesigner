@@ -17,7 +17,8 @@ Class {
 		'modeDeleteForm',
 		'modeViaOn',
 		'modeViaOff',
-		'modeDeleteSiliconForm'
+		'modeDeleteSiliconForm',
+		'inspectButton'
 	],
 	#category : #ChipDesigner
 }
@@ -40,6 +41,7 @@ ChipDesigner class >> defaultSpec [
 					add: (SpecBoxLayout newHorizontal
 							add: #editModeButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
 							add: #viaModeButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
+							add: #inspectButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
 							
 							yourself)
 						withConstraints: [ :constraints | constraints height: self buttonsDimension ];
@@ -131,11 +133,17 @@ ChipDesigner >> initializeWidgets [
 	scopes := self sequenceMorph asSpecAdapter.
 	
 	editModeButton := self newButton icon: self editModeIcon.
+	editModeButton help: 'Drawing / delete mode <X>, extended <Shift>'.
 	editModeButton action: [editorMorph submorphs first controller swapDeleteMode].
 
 	viaModeButton := self newButton icon: self viaModeIcon.
+	viaModeButton help: 'Insert one via'.
 	viaModeButton action: [editorMorph submorphs first controller swapViaMode].
 
+	inspectButton := self newButton 
+		help: 'Inspect area';
+		icon: (self iconNamed: #glamorousInspect).
+	inspectButton action: [area inspect].
 
 	
 ]

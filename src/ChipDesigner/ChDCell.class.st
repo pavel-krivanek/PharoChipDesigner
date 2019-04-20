@@ -439,6 +439,38 @@ ChDCell >> toggleVia [
 ]
 
 { #category : #accessing }
+ChDCell >> unsetAdjacentMetalCorners [
+
+	self leftUp unsetMetalCorners: 2r1000.
+	self rightUp unsetMetalCorners: 2r0100.
+	self leftDown unsetMetalCorners: 2r0010.
+	self rightDown unsetMetalCorners: 2r0001.
+	
+]
+
+{ #category : #accessing }
+ChDCell >> unsetAdjacentSubstrateCorners [
+
+	self leftUp unsetSubstrateCorners: 2r1000.
+	self rightUp unsetSubstrateCorners: 2r0100.
+	self leftDown unsetSubstrateCorners: 2r0010.
+	self rightDown unsetSubstrateCorners: 2r0001.
+	
+]
+
+{ #category : #accessing }
+ChDCell >> unsetMetalCorners: cornersMap [
+
+	metalCorners := cornersMap bitInvert32 bitAnd: metalCorners
+]
+
+{ #category : #accessing }
+ChDCell >> unsetSubstrateCorners: cornersMap [
+
+	substrateCorners := cornersMap bitInvert32 bitAnd: substrateCorners
+]
+
+{ #category : #accessing }
 ChDCell >> up [
 	^ up
 ]

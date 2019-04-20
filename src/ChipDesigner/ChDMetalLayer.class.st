@@ -52,8 +52,9 @@ ChDMetalLayer >> fullClear: aCell [
 
 	aCell metalConnections: nil.
 	aCell clearVia.
+	aCell unsetAdjacentMetalCorners.
 	
-	self clear: aCell withOld: oldConnections
+	self clear: aCell withOld: oldConnections.
 ]
 
 { #category : #accessing }
