@@ -227,6 +227,11 @@ ChDArea >> initializeForExtent: aPoint [
 			aCell right: (self atX: x+1 y: y). 
 			aCell down: (self atX: x y: y+1). 
 			aCell left: (self atX: x-1 y: y). 
+
+			aCell leftUp: (self atX: x-1 y: y-1). 
+			aCell rightUp: (self atX: x+1 y: y-1). 
+			aCell leftDown: (self atX: x-1 y: y+1). 
+			aCell rightDown: (self atX: x+1 y: y+1). 
 			] ].
 		
 	substrateLayer := ChDSubstrateLayer new area: self.

@@ -38,6 +38,12 @@ ChDMetalLayer >> connectionsFor: aCell delete: anInteger [
 ]
 
 { #category : #'as yet unclassified' }
+ChDMetalLayer >> cornersFor: aCell [
+
+	^ aCell metalCorners.
+]
+
+{ #category : #'as yet unclassified' }
 ChDMetalLayer >> fullClear: aCell [
 
 	| oldConnections |

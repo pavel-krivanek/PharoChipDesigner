@@ -38,6 +38,12 @@ ChDSubstrateLayer >> connectionsFor: aCell delete: anInteger [
 ]
 
 { #category : #'as yet unclassified' }
+ChDSubstrateLayer >> cornersFor: aCell [
+
+	^ aCell substrateCorners
+]
+
+{ #category : #'as yet unclassified' }
 ChDSubstrateLayer >> createJunctionRegionIn: aCell [
 
 	| newRegions junctionRegion |

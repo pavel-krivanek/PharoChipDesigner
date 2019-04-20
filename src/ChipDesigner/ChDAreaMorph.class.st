@@ -6,14 +6,14 @@ Class {
 		'sourceForm',
 		'area',
 		'inputMode',
-		'metalForm',
-		'nForm',
-		'pForm',
+		'metalForms',
 		'mouseDown',
 		'lastCell',
 		'deleteMode',
 		'suppressedCells',
-		'stepping'
+		'stepping',
+		'nForms',
+		'pForms'
 	],
 	#category : #ChipDesigner
 }
@@ -46,10 +46,22 @@ ChDAreaMorph >> cellExtent [
 ]
 
 { #category : #initialization }
-ChDAreaMorph >> cellForm: index from: aForm [
+ChDAreaMorph >> cellForm: index corners: cornersIndex from: aFormArray [
+	
+	| aFrom |
 
-	^ aForm copy: (((index*self cellSize)@0) extent: self cellSize@self cellSize).
+	aFrom := (aFormArray at: cornersIndex+1)  copy: (((index*self cellSize)@0) extent: self cellSize@self cellSize).
+"
+	cornersIndex > 0  ifTrue: [
+	(FormCanvas on: aFrom) drawString: cornersIndex asString at: 0@0 ].
+"	
+	^ aFrom
+]
 
+{ #category : #initialization }
+ChDAreaMorph >> cellForm: index from: aFormArray [
+
+	^ self cellForm: index corners: 0 from: aFormArray
 ]
 
 { #category : #initialization }
@@ -82,21 +94,22 @@ ChDAreaMorph >> controller: anObject [
 ]
 
 { #category : #initialization }
-ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aForm on: aCanvas origin: origin block: aBlock layer: aLayer [
+ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanvas origin: origin block: aBlock layer: aLayer [
 
 	| cell cellForm |
 		
 	cell := self area atX: x y: y.
 	(aBlock value: cell) ifTrue: [
-		| index |
+		| index corners |
 		(aLayer isSetFor: cell) ifTrue: [
 			index := aLayer connectionsFor: cell. 
-			cellForm := self cellForm: index from: aForm.
+			corners := aLayer cornersFor: cell. 
+			cellForm := self cellForm: index corners: corners from: aFormArray.
 			self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
 						
 			(cell isHi) 
 				ifTrue: [ 
-					cellForm := self cellForm: 58 from: aForm.
+					cellForm := self cellForm: 58 from: {aFormArray}.
 					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ]
 
 			 ] ]
@@ -130,12 +143,12 @@ ChDAreaMorph >> drawJunctionX: x y: y sourceForm: aForm on: aCanvas origin: orig
 			(cell junctionConnections = 2r0100) ifTrue: [ 	index := 56 ].
 			(cell junctionConnections = 2r1000) ifTrue: [ index := 53 ] ].
 			
-		cellForm := self cellForm: index from: aForm.
+		cellForm := self cellForm: index from: {aForm}.
 		self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
 
 		(cell substrateRegion open) 
 				ifTrue: [ 
-					cellForm := self cellForm: 58 from: aForm.
+					cellForm := self cellForm: 58 from: {aForm}.
 					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ]
 
 ]
@@ -149,9 +162,9 @@ ChDAreaMorph >> drawOn: aCanvas [
 		
 	origin := self innerBounds origin.
 	
-	bgForm := self cellForm: 48 from: sourceForm.
-	viaForm := self cellForm: 49 from: sourceForm.
-	suppressForm := self cellForm: 59 from: sourceForm.
+	bgForm := self cellForm: 48 from: {sourceForm}.
+	viaForm := self cellForm: 49 from: {sourceForm}.
+	suppressForm := self cellForm: 59 from: {sourceForm}.
 	
 	drawSuppressed := suppressedCells notEmpty.
 
@@ -164,9 +177,9 @@ ChDAreaMorph >> drawOn: aCanvas [
 
 			self drawJunctionX: x y: y sourceForm: sourceForm on: aCanvas origin: origin block: [:aCell | aCell junctionType notNil] layer: area substrateLayer.
 		
-			self drawCellX: x y: y type: #n sourceForm: nForm on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #n) and: [aCell junctionType isNil]] layer: area substrateLayer.
-			self drawCellX: x y: y type: #p sourceForm: pForm on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #p) and: [aCell junctionType isNil]] layer: area substrateLayer.
-			self drawCellX: x y: y type: #metal sourceForm: metalForm on: aCanvas origin: origin block: [:aCell | aCell metalConnections notNil] layer: area metalLayer.
+			self drawCellX: x y: y type: #n sourceForm: nForms on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #n) and: [aCell junctionType isNil]] layer: area substrateLayer.
+			self drawCellX: x y: y type: #p sourceForm: pForms on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #p) and: [aCell junctionType isNil]] layer: area substrateLayer.
+			self drawCellX: x y: y type: #metal sourceForm: metalForms on: aCanvas origin: origin block: [:aCell | aCell metalConnections notNil] layer: area metalLayer.
 			cell via ifTrue: [ 
 				aCanvas translucentImage: viaForm at: origin + ((13*(x-1))@(13*(y-1))) ].
 
@@ -216,6 +229,8 @@ ChDAreaMorph >> handlesMouseMove: evt [
 { #category : #initialization }
 ChDAreaMorph >> initializeFor: anArea [
 
+	| cornerForms |
+
 	area := anArea.
 
 	controller := ChDAreaController new.
@@ -223,13 +238,43 @@ ChDAreaMorph >> initializeFor: anArea [
 	controller view: self.
 	
 	sourceForm := PNGReadWriter formFromFileNamed: './pharo-local/iceberg/pavel-krivanek/PharoChipDesigner/graphics/box.png'.
-	metalForm := sourceForm deepCopy.
-	nForm := sourceForm deepCopy.
-	pForm := sourceForm deepCopy.
+	metalForms := (1 to: 16) collect: [ :index | sourceForm deepCopy].
+	nForms := (1 to: 16) collect: [ :index | sourceForm deepCopy].
+	pForms := (1 to: 16) collect: [ :index | sourceForm deepCopy].
 	
-	self colorize: metalForm with: ((Color fromHexString: 'E8E8E8') alpha: 0.6).
-	self colorize: nForm with: ((Color fromHexString: 'B60000') alpha: 1).
-	self colorize: pForm with: ((Color fromHexString: 'FFFF00') alpha: 1).
+	cornerForms := (60 to: 63) collect: [ :index | self cellForm: index from: {sourceForm}.].
+	
+	metalForms withIndexDo: [ :metalForm :index |
+		| mask | 
+		mask := index - 1.
+		(mask bitAnd: 2r0001) > 0 ifTrue: [ 
+			(0 to: 15) do: [ :cellIndex | 
+				((cellIndex bitAnd: 2r1001) = 2r1001) ifTrue: [ .
+					self overlap: metalForm at: cellIndex with: (cornerForms at: 1) ] ] ].
+
+		(mask bitAnd: 2r0010) > 0 ifTrue: [ 
+			(0 to: 15) do: [ :cellIndex | 
+				((cellIndex bitAnd: 2r0011) = 2r0011) ifTrue: [ .
+					self overlap: metalForm at: cellIndex with: (cornerForms at: 2) ] ] ].
+
+		(mask bitAnd: 2r0100) > 0 ifTrue: [ 
+			(0 to: 15) do: [ :cellIndex | 
+				((cellIndex bitAnd: 2r01100) = 2r1100) ifTrue: [ .
+					self overlap: metalForm at: cellIndex with: (cornerForms at: 3) ] ] ].
+
+		(mask bitAnd: 2r1000) > 0 ifTrue: [ 
+			(0 to: 15) do: [ :cellIndex | 
+				((cellIndex bitAnd: 2r0110) = 2r0110) ifTrue: [ .
+					self overlap: metalForm at: cellIndex with: (cornerForms at: 4) ] ] ].
+		 ].
+
+	metalForms do: [ :metalForm |
+		self colorize: metalForm with: ((Color fromHexString: 'E8E8E8') alpha: 0.6) ].		
+		
+	nForms do: [ :nForm |
+		self colorize: nForm with: ((Color fromHexString: 'B60000') alpha: 1) ].
+	pForms do: [ :pForm |
+		self colorize: pForm with: ((Color fromHexString: 'FFFF00') alpha: 1) ].
 	
 	self extent: 13*area width@(13*area height).
 	
@@ -306,6 +351,22 @@ ChDAreaMorph >> mouseMove: anEvent [
 ChDAreaMorph >> mouseUp: anEvent [
 
 	controller onMouseUpAt: (self eventPointOf: anEvent) event: anEvent
+]
+
+{ #category : #initialization }
+ChDAreaMorph >> overlap: aSourceForm at: zeroBasedIndex with: aFrom [
+
+	| aCanvas |
+	
+	zeroBasedIndex logCr.
+		
+	aCanvas := FormCanvas on: aSourceForm.
+	aCanvas translucentImage: aFrom at: ((self cellSize*zeroBasedIndex)@0).
+	
+
+"	aCanvas drawString: zeroBasedIndex asString at: ((self cellSize*zeroBasedIndex)@0) .
+
+"
 ]
 
 { #category : #initialization }
