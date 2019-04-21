@@ -108,6 +108,13 @@ ChDArea >> atX: x y: y [
 ]
 
 { #category : #initialization }
+ChDArea >> createSimulation [
+
+	simulation := ChDSimulation new.
+	simulation area: self.
+]
+
+{ #category : #initialization }
 ChDArea >> decodeFrom: aString [
 
 	| stream w h s int arrayIndex |
@@ -136,6 +143,12 @@ ChDArea >> decodeFrom: aString [
 	self recreateMetalRegions.
 	self recreateSubstrateRegions.
 
+]
+
+{ #category : #initialization }
+ChDArea >> decodedFromZipString: aString [
+
+	^ self decodeFrom: (ByteString fromByteArray: (aString base64Decoded)) unzipped
 ]
 
 { #category : #initialization }
@@ -540,4 +553,10 @@ ChDArea >> width: anObject [
 ChDArea >> withTestingVCC [
 
 	simulation testingVCC: true.
+]
+
+{ #category : #initialization }
+ChDArea >> zipString [ 
+
+	^ self encoded zipped asByteArray base64Encoded
 ]
