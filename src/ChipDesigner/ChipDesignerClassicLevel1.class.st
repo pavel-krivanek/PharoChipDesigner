@@ -81,19 +81,19 @@ ChipDesignerClassicLevel1 >> initializeSimulation [
 	
 	sequenceA0 := ChDSequence input name: 'A0'.
 	sequenceA0 decodedFrom: 1895286724122662508214109177388798933309665208831355630489573082672101741663618047.
-	sequenceA0 region: (area atX: 3 y: 8) metalRegion.
+	sequenceA0 forMetalAt: 3@8 in: area.
 
 	sequenceA1 := ChDSequence input name: 'A1'.
 	sequenceA1 decodedFrom: 1807484548951638332871050064150417808546271801152871425639336334841190810623.
-	sequenceA1 region: (area atX: 3 y: 16) metalRegion.
+	sequenceA1 forMetalAt: 3@12 in: area.
 
 	sequenceA2 := ChDSequence input name: 'A2'.
 	sequenceA2 decodedFrom: 1807484547269931066782991785428060059785466597904927945672633562124766938111.
-	sequenceA2 region: (area atX: 3 y: 16) metalRegion.
+	sequenceA2 forMetalAt: 3@16 in: area.
 
 	sequenceA3 := ChDSequence input name: 'A3'.
 	sequenceA3 decodedFrom: 1895286724120940438332946554699648321487632970982088488659496892968870214733134848.
-	sequenceA3 region: (area atX: 3 y: 20) metalRegion.
+	sequenceA3 forMetalAt: 3@20 in: area.
 
 	a0 := ChDSequenceMorph on: sequenceA0.
 	a1 := ChDSequenceMorph on: sequenceA1.
@@ -102,19 +102,19 @@ ChipDesignerClassicLevel1 >> initializeSimulation [
 
 	sequenceY0 := ChDSequence output name: 'Y1'.
 	sequenceY0 expectedDecodedFrom: 1940773605501606408411247797646130107709097173843308165621322836656232183463544880128.
-	sequenceY0 region: (area atX: 42 y: 8) metalRegion.
+	sequenceY0 forMetalAt: 42@8 in: area.
 	
 	sequenceY1 := ChDSequence output name: 'Y1'.
 	sequenceY1 expectedDecodedFrom: 1942668890418244521967823573952468842491989030505867720098940984099567950364017687552.
-	sequenceY1 region: (area atX: 42 y: 12) metalRegion.
+	sequenceY1 forMetalAt: 42@12 in: area.
 
 	sequenceY2 := ChDSequence output name: 'Y2'.
 	sequenceY2 expectedDecodedFrom: 1942668890418244523649530840040527121214346779266672923346884464066270723080441560064.
-	sequenceY2 region: (area atX: 42 y: 16) metalRegion.
+	sequenceY2 forMetalAt: 42@16 in: area.
 
 	sequenceY3 := ChDSequence output name: 'Y3'.
 	sequenceY3 expectedDecodedFrom: 1940773605501608130481128960268819258320919206081157432763152912845935414990475363327.
-	sequenceY3 region: (area atX: 42 y: 20) metalRegion.
+	sequenceY3 forMetalAt: 42@20 in: area.
 
 	y0 := ChDSequenceMorph on: sequenceY0.
 	y1 := ChDSequenceMorph on: sequenceY1.
@@ -122,18 +122,8 @@ ChipDesignerClassicLevel1 >> initializeSimulation [
 	y3 := ChDSequenceMorph on: sequenceY3.
 
 	area simulation preStepBlock: [ :aSimulation |
-		
-	(sequenceY0 region = (area atX: 42 y: 8) metalRegion)
-		ifFalse: [ sequenceY0 region: (area atX: 42 y: 8) metalRegion ].
-		
-	(sequenceY1 region = (area atX: 42 y: 8) metalRegion)
-		ifFalse: [ sequenceY1 region: (area atX: 42 y: 12) metalRegion ].
-		
-	(sequenceY2 region = (area atX: 42 y: 8) metalRegion)
-		ifFalse: [ sequenceY2 region: (area atX: 42 y: 16) metalRegion ].
-		
-	(sequenceY3 region = (area atX: 42 y: 8) metalRegion)
-		ifFalse: [ sequenceY3 region: (area atX: 42 y: 20) metalRegion ].
+	
+		{ sequenceA0. sequenceA1. sequenceA2. sequenceA3. sequenceY0. sequenceY1. sequenceY2. sequenceY3 } do: [ :aSequence | aSequence resetRegion ].	
 		
 		(area atX: 3 y: 3) metalRegion hasVcc: true.
 		(area atX: 3 y: 24) metalRegion hasVcc: true.
@@ -141,10 +131,10 @@ ChipDesignerClassicLevel1 >> initializeSimulation [
 		(area atX: 42 y: 24) metalRegion hasVcc: true.
 		
 		aSimulation time > 0 ifTrue: [ 		
-			(area atX: 3 y: 8) metalRegion hasVcc: (sequenceA0 sequenceArray at: aSimulation time).
-			(area atX: 3 y: 12) metalRegion hasVcc: (sequenceA1 sequenceArray at: aSimulation time).
-			(area atX: 3 y: 16) metalRegion hasVcc: (sequenceA2 sequenceArray at: aSimulation time).
-			(area atX: 3 y: 20) metalRegion hasVcc: (sequenceA3 sequenceArray at: aSimulation time) ]
+			sequenceA0 updateRegionAt: aSimulation time.
+			sequenceA1 updateRegionAt: aSimulation time.
+			sequenceA2 updateRegionAt: aSimulation time.
+			sequenceA3 updateRegionAt: aSimulation time ].
 	].
 	
 ]

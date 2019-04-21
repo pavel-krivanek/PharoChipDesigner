@@ -9,7 +9,8 @@ Class {
 		'name',
 		'currentTime',
 		'type',
-		'expectedSequenceArray'
+		'expectedSequenceArray',
+		'position'
 	],
 	#category : #ChipDesigner
 }
@@ -67,6 +68,22 @@ ChDSequence >> expectedSequenceArray [
 	^ expectedSequenceArray
 ]
 
+{ #category : #accessing }
+ChDSequence >> forMetalAt: aPosition in: anArea [
+
+	position := aPosition.
+	self region: (anArea atX: aPosition x y: aPosition y) metalRegion
+
+]
+
+{ #category : #accessing }
+ChDSequence >> forSubstrateAt: aPosition in: anArea [
+
+	position := aPosition.
+	self region: (anArea atX: aPosition x y: aPosition y) substrate
+
+]
+
 { #category : #initialization }
 ChDSequence >> initialize [
 
@@ -102,6 +119,18 @@ ChDSequence >> name: aString [
 ]
 
 { #category : #accessing }
+ChDSequence >> position [
+	^ position
+]
+
+{ #category : #accessing }
+ChDSequence >> position: anObject [
+	
+	position := anObject.
+
+]
+
+{ #category : #accessing }
 ChDSequence >> readOnly [
 	^ readOnly
 ]
@@ -128,6 +157,20 @@ ChDSequence >> region: aRegion [
 		self storesOutput ifTrue: [ 
 			sequenceArray at: currentTime put: region hasVcc ].
 		self valueChanged ].
+]
+
+{ #category : #initialization }
+ChDSequence >> resetRegion [
+
+	| aCell newRegion |
+	
+	aCell := region area atX: position x y: position y.
+	newRegion := (region layer isMetal
+		ifTrue: [ aCell metalRegion ]
+		ifFalse: [ aCell substrateRegion ]).
+
+	newRegion == region 
+		ifFalse: [ self region: newRegion ].
 ]
 
 { #category : #accessing }
@@ -178,4 +221,10 @@ ChDSequence >> type [
 { #category : #accessing }
 ChDSequence >> type: anObject [
 	type := anObject
+]
+
+{ #category : #accessing }
+ChDSequence >> updateRegionAt: time [
+
+	region hasVcc: (sequenceArray at: time).
 ]
