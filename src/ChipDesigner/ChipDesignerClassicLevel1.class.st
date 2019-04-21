@@ -71,57 +71,66 @@ ChipDesignerClassicLevel1 >> initializeArea [
 { #category : #'as yet unclassified' }
 ChipDesignerClassicLevel1 >> initializeSimulation [
 
-	a0 := ChDSequenceMorph input name: 'A0'.
-	a0 decodedFrom: 1895286724122662508214109177388798933309665208831355630489573082672101741663618047.
-	a0 region: (area atX: 3 y: 8) metalRegion.
+	| sequenceA0 sequenceA1 sequenceA2 sequenceA3 sequenceY0 sequenceY1 sequenceY2 sequenceY3 |
+	
+	sequenceA0 := ChDSequence input name: 'A0'.
+	sequenceA0 decodedFrom: 1895286724122662508214109177388798933309665208831355630489573082672101741663618047.
+	sequenceA0 region: (area atX: 3 y: 8) metalRegion.
 
-	a1 := ChDSequenceMorph input name: 'A1'.
-	a1 decodedFrom: 1807484548951638332871050064150417808546271801152871425639336334841190810623.
-	a1 region: (area atX: 3 y: 12) metalRegion.
+	sequenceA1 := ChDSequence input name: 'A1'.
+	sequenceA1 decodedFrom: 1807484548951638332871050064150417808546271801152871425639336334841190810623.
+	sequenceA1 region: (area atX: 3 y: 16) metalRegion.
 
-	a2 := ChDSequenceMorph input name: 'A2'.
-	a2 decodedFrom: 1807484547269931066782991785428060059785466597904927945672633562124766938111.
-	a2 region: (area atX: 3 y: 16) metalRegion.
+	sequenceA2 := ChDSequence input name: 'A2'.
+	sequenceA2 decodedFrom: 1807484547269931066782991785428060059785466597904927945672633562124766938111.
+	sequenceA2 region: (area atX: 3 y: 16) metalRegion.
 
-	a3 := ChDSequenceMorph input name: 'A3'.
-	a3 decodedFrom: 1940773605501608130481128960268819258320919206081157432763152912845935414990475363327.
-	a3 region: (area atX: 3 y: 20) metalRegion.
+	sequenceA3 := ChDSequence input name: 'A3'.
+	sequenceA3 decodedFrom: 1940773605501608130481128960268819258320919206081157432763152912845935414990475363327.
+	sequenceA3 region: (area atX: 3 y: 20) metalRegion.
 
-	y0 := ChDSequenceMorph output name: 'Y0'.
-	y0 region: (area atX: 42 y: 8) metalRegion.
+	a0 := ChDSequenceMorph on: sequenceA0.
+	a1 := ChDSequenceMorph on: sequenceA1.
+	a2 := ChDSequenceMorph on: sequenceA2.
+	a3 := ChDSequenceMorph on: sequenceA3.
 
-	y1 := ChDSequenceMorph output name: 'Y1'.
-	y1 region: (area atX: 42 y: 12) metalRegion.
+	sequenceY0 := ChDSequence output name: 'Y1'.
+	sequenceY0 region: (area atX: 42 y: 8) metalRegion.
+	sequenceY1 := ChDSequence output name: 'Y1'.
+	sequenceY1 region: (area atX: 42 y: 12) metalRegion.
+	sequenceY2 := ChDSequence output name: 'Y2'.
+	sequenceY2 region: (area atX: 42 y: 16) metalRegion.
+	sequenceY3 := ChDSequence output name: 'Y3'.
+	sequenceY3 region: (area atX: 42 y: 20) metalRegion.
 
-	y2  := ChDSequenceMorph output name: 'Y2'.
-	y2 region: (area atX: 42 y: 16) metalRegion.
-
-	y3 := ChDSequenceMorph output name: 'Y3'.
-	y3 region: (area atX: 42 y: 20) metalRegion.
+	y0 := ChDSequenceMorph on: sequenceY0.
+	y1 := ChDSequenceMorph on: sequenceY1.
+	y2 := ChDSequenceMorph on: sequenceY2.
+	y3 := ChDSequenceMorph on: sequenceY3.
 
 	area simulation stepBlock: [ :aSimulation |
 		
-	(y0 region = (area atX: 42 y: 8) metalRegion)
-		ifFalse: [ y0 region: (area atX: 42 y: 8) metalRegion ].
+	(sequenceY0 region = (area atX: 42 y: 8) metalRegion)
+		ifFalse: [ sequenceY0 region: (area atX: 42 y: 8) metalRegion ].
 		
-	(y1 region = (area atX: 42 y: 8) metalRegion)
-		ifFalse: [ y1 region: (area atX: 42 y: 12) metalRegion ].
+	(sequenceY1 region = (area atX: 42 y: 8) metalRegion)
+		ifFalse: [ sequenceY1 region: (area atX: 42 y: 12) metalRegion ].
 		
-	(y2 region = (area atX: 42 y: 8) metalRegion)
-		ifFalse: [ y2 region: (area atX: 42 y: 16) metalRegion ].
+	(sequenceY2 region = (area atX: 42 y: 8) metalRegion)
+		ifFalse: [ sequenceY2 region: (area atX: 42 y: 16) metalRegion ].
 		
-	(y3 region = (area atX: 42 y: 8) metalRegion)
-		ifFalse: [ y3 region: (area atX: 42 y: 20) metalRegion ].
+	(sequenceY3 region = (area atX: 42 y: 8) metalRegion)
+		ifFalse: [ sequenceY3 region: (area atX: 42 y: 20) metalRegion ].
 		
 		(area atX: 3 y: 3) metalRegion hasVcc: true.
 		(area atX: 3 y: 24) metalRegion hasVcc: true.
 		(area atX: 42 y: 3) metalRegion hasVcc: true.
 		(area atX: 42 y: 24) metalRegion hasVcc: true.
 		
-		(area atX: 3 y: 8) metalRegion hasVcc: (a0 sequence at: aSimulation time+1).
-		(area atX: 3 y: 12) metalRegion hasVcc: (a1  sequence at: aSimulation time+1).
-		(area atX: 3 y: 16) metalRegion hasVcc: (a2 sequence at: aSimulation time+1).
-		(area atX: 3 y: 20) metalRegion hasVcc: (a3 sequence at: aSimulation time+1).
+		(area atX: 3 y: 8) metalRegion hasVcc: (sequenceA0 sequenceArray at: aSimulation time+1).
+		(area atX: 3 y: 12) metalRegion hasVcc: (sequenceA1 sequenceArray at: aSimulation time+1).
+		(area atX: 3 y: 16) metalRegion hasVcc: (sequenceA2 sequenceArray at: aSimulation time+1).
+		(area atX: 3 y: 20) metalRegion hasVcc: (sequenceA3 sequenceArray at: aSimulation time+1).
 	]
 ]
 
