@@ -150,6 +150,14 @@ ChipDesignerClassicLevel1 >> initializeSimulation [
 ]
 
 { #category : #'as yet unclassified' }
+ChipDesignerClassicLevel1 >> reinitialize [ 
+
+	self initializeSimulation.
+	
+	self createLabels.
+]
+
+{ #category : #'as yet unclassified' }
 ChipDesignerClassicLevel1 >> scopes [ 
 
 	^ { a0. a1. a2. a3. y0. y1. y2. y3 }

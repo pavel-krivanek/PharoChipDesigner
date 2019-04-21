@@ -20,7 +20,9 @@ Class {
 		'modeDeleteSiliconForm',
 		'inspectButton',
 		'notebook',
-		'currentLevel'
+		'currentLevel',
+		'exportButton',
+		'importButton'
 	],
 	#category : #ChipDesigner
 }
@@ -43,6 +45,8 @@ ChipDesigner class >> defaultSpec [
 					add: (SpecBoxLayout newHorizontal
 							add: #editModeButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
 							add: #viaModeButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
+							add: #exportButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
+							add: #importButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
 							add: #inspectButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
 							
 							yourself)
@@ -96,6 +100,53 @@ ChipDesigner >> editorMorph [
 ]
 
 { #category : #initialization }
+ChipDesigner >> export [ 
+
+	| aString dialog textPresenter |
+	
+	aString := area zipString.
+	
+	dialog := SpecVersatileDialogPresenter new.
+	dialog title: 'Export area'.
+	textPresenter := dialog newText.
+	textPresenter text: aString.
+	dialog contentArea: textPresenter.
+	dialog addButton: #ok text: 'OK' value: true.
+	
+	dialog openModalWithSpec.
+
+	dialog result logCr.
+	
+]
+
+{ #category : #initialization }
+ChipDesigner >> import [ 
+
+	| dialog textPresenter |
+		
+	dialog := SpecVersatileDialogPresenter new.
+	dialog title: 'Import area'.
+	textPresenter := dialog newText.
+	textPresenter autoAccept: true.
+	dialog contentArea: textPresenter.
+	dialog addButton: #ok text: 'OK' value: true.
+	dialog addButton: #cancel text: 'Cancel' value: false.
+	
+	dialog openModalWithSpec.
+
+	dialog result ifFalse: [ ^ self ].
+
+	[ 
+		area decodedFromZipString: textPresenter text asString.
+		currentLevel reinitialize.	
+	] ifError: [ :e | self inform: 'Import error: ', e asString.
+	
+	
+	 ]
+	
+]
+
+{ #category : #initialization }
 ChipDesigner >> initialExtent [
 	^ 840@720
 ]
@@ -144,6 +195,18 @@ ChipDesigner >> initializeWidgets [
 	viaModeButton := self newButton icon: self viaModeIcon.
 	viaModeButton help: 'Insert one via'.
 	viaModeButton action: [editorMorph submorphs first controller swapViaMode].
+
+	viaModeButton := self newButton icon: self viaModeIcon.
+	viaModeButton help: 'Insert one via'.
+	viaModeButton action: [editorMorph submorphs first controller swapViaMode].
+
+	exportButton := self newButton icon: (self iconNamed: #smallSave).
+	exportButton help: 'export area to a string'.
+	exportButton action: [ self export ].
+
+	importButton := self newButton icon: (self iconNamed: #smallLoadProject).
+	importButton help: 'import area from a string'.
+	importButton action: [ self import ].	
 
 	inspectButton := self newButton 
 		help: 'Inspect area';
