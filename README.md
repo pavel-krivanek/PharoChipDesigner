@@ -28,6 +28,6 @@ Metacello new
 | Shift + LMB | delete silicon |
 | X | normal mode |
 
-![PharoChipDesigner.png](graphics/PharoChipDesigner.png)
+![RS-Latch.gif](graphics/RS-Latch.gif)
 
 ![x903.png](graphics/x903.png)
