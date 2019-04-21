@@ -382,6 +382,7 @@ ChDAreaMorph >> overlap: aSourceForm at: zeroBasedIndex with: aFrom [
 ChDAreaMorph >> run [ 
 
 	stepping := true.
+	self area simulation resetTime.
 	self startStepping.
 ]
 

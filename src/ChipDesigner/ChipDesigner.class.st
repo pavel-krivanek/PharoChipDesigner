@@ -131,6 +131,8 @@ ChipDesigner >> initializeWidgets [
 	| editorMorph scopesPage |
 	
 	list := self newList.
+	list items: #('KT411I - Quad intverter gate').
+	
 	editorMorph := self editorMorph.
 	editor := editorMorph asSpecAdapter.
 	scopes := self sequenceMorph asSpecAdapter.

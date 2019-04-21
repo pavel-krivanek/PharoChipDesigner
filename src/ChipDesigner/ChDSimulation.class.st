@@ -6,7 +6,8 @@ Class {
 		'testingVCC',
 		'time',
 		'announcer',
-		'stepBlock'
+		'preStepBlock',
+		'postStepBlock'
 	],
 	#category : #ChipDesigner
 }
@@ -127,7 +128,27 @@ ChDSimulation >> initialize [
 	testingVCC := false.
 	time := 0.
 	announcer := Announcer new.
-	stepBlock := self defaultStepBlock.
+	preStepBlock := self defaultStepBlock.
+]
+
+{ #category : #accessing }
+ChDSimulation >> postStepBlock [
+	^ postStepBlock
+]
+
+{ #category : #accessing }
+ChDSimulation >> postStepBlock: anObject [
+	postStepBlock := anObject
+]
+
+{ #category : #accessing }
+ChDSimulation >> preStepBlock [
+	^ preStepBlock
+]
+
+{ #category : #accessing }
+ChDSimulation >> preStepBlock: anObject [
+	preStepBlock := anObject
 ]
 
 { #category : #accessing }
@@ -156,6 +177,12 @@ ChDSimulation >> reset [
 ]
 
 { #category : #accessing }
+ChDSimulation >> resetTime [
+
+	time := 0.
+]
+
+{ #category : #accessing }
 ChDSimulation >> resetVcc [
 	
 	| regions |
@@ -171,86 +198,14 @@ ChDSimulation >> resetVcc [
 { #category : #accessing }
 ChDSimulation >> step [ 
 	
-	self stepWith: stepBlock.
+	self stepWith: preStepBlock.
+	
+	postStepBlock ifNotNil: [ 
+		postStepBlock value: self ].	
 	
 	announcer announce: (ChDStepAnnouncement new
 		simulation: self;
 		time: self time)
-]
-
-{ #category : #accessing }
-ChDSimulation >> stepBlock [
-	^ stepBlock
-]
-
-{ #category : #accessing }
-ChDSimulation >> stepBlock: anObject [
-	stepBlock := anObject
-]
-
-{ #category : #accessing }
-ChDSimulation >> stepOld [
-	
-	| regions special normal connected vccConnected |
-	
-	self resetVcc.
-
-	connected := self connectedRegionsFrom: normal.
-	
-	regions do: [ :aRegion | 
-		aRegion futureState: false. ].
-
-	vccConnected := self connectedVCCRegionsFrom: regions.
-	vccConnected do: [ :each | each hasVcc: true ].
-	vccConnected do: [ :each | 
-		each hasVcc: true.
-		each currentState: true.
-		each futureState: true. ].
-
-
-	normal := regions reject: #isSpecial.
-	special := regions select: #isSpecial.
-	
-"	connected do: [ :currentRegions |
-		| state |
-		state := currentRegions anySatisfy: [ :each | each currentState ].
-		currentRegions do: [ :each | each currentState: state ] ].
-"	
-	special do: [ :each | each isJunction ifTrue: [ 
-			| cell | 
-		cell := each cells anyOne.
-			(cell junctionType = #npn) ifTrue: [ 
-				((cell connectedRegionsInJunction anySatisfy: #currentState) 
-					and: [ cell connectedRegionsInSubstrate anySatisfy: #currentState ])
-					ifTrue: [ cell connectedRegionsInSubstrate do: [ :aRegion | aRegion futureState: true ] ] ] .
-			(cell junctionType = #pnp) ifTrue: [
-				| input vcc outputRegions connectedRegionsInSubstrate output |
-				input := cell connectedRegionsInJunction anySatisfy: #currentState. 
-				connectedRegionsInSubstrate := cell connectedRegionsInSubstrate.
-				vcc := connectedRegionsInSubstrate select: #hasVcc.
-				outputRegions := connectedRegionsInSubstrate reject: #hasVcc.
-				output := input not.
-				each hasVcc: vcc notEmpty.
-				each open: (vcc 
-					ifEmpty: [ false ]
-					ifNotEmpty: [ output ]).
-			"	each open: output."
-				"vcc do: [ :e | e futureState: true ]."
-				"(vcc isNotEmpty and: [ vcc anySatisfy: [ :e | e currentState ]])
-					ifTrue: [ outputRegions do: [ :e | e futureState: (output or: e futureState). ] ] "
-					].
-			
-			 ] ].
-	
-"	connected do: [ :currentRegions |
-		| state |
-		state := currentRegions anySatisfy: [ :each | each futureState ].
-		currentRegions do: [ :each | each futureState: state ] ].
-"	
-	
-	regions do: [ :aRegion | 
-		aRegion currentState: aRegion futureState ].
-		 
 ]
 
 { #category : #accessing }
@@ -265,8 +220,6 @@ ChDSimulation >> stepWith: aBlock [
 	regions do: [ :aRegion | 
 		aRegion futureState: false. ].
 
-
-	
 	self resetVcc.
 
 	aBlock value: self.	
@@ -277,6 +230,7 @@ ChDSimulation >> stepWith: aBlock [
 		each hasVcc: true.
 		each currentState: true.
 		each futureState: true. ].
+
 	time := time + 1.
 
 	normal := regions reject: #isSpecial.

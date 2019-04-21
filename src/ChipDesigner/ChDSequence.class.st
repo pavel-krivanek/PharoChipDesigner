@@ -8,7 +8,8 @@ Class {
 		'readOnly',
 		'name',
 		'currentTime',
-		'type'
+		'type',
+		'expectedSequenceArray'
 	],
 	#category : #ChipDesigner
 }
@@ -54,13 +55,27 @@ ChDSequence >> encoded [
 ]
 
 { #category : #initialization }
+ChDSequence >> expectedDecodedFrom: anInteger [
+
+	expectedSequenceArray := ((1 to: sequenceArray size) collect: [ :bitIndex | (anInteger bitAt: bitIndex) = 1 ]).
+
+]
+
+{ #category : #initialization }
+ChDSequence >> expectedSequenceArray [
+
+	^ expectedSequenceArray
+]
+
+{ #category : #initialization }
 ChDSequence >> initialize [
 
 	super initialize.
 	
 	signalLength := 5.
 	sequenceArray := (1 to: 56 * signalLength) collect: [ :each | false. ].
-		
+	expectedSequenceArray := nil.
+	
 	currentTime := nil.
 	
 	type := #output. 
@@ -109,9 +124,9 @@ ChDSequence >> region: aRegion [
 	region := aRegion.
 	
 	region area simulation announcer when: ChDStepAnnouncement do: [ :announcement |
-		self storesOutput ifTrue: [ 
-			sequenceArray at: announcement time put: region hasVcc ].
 		currentTime := announcement time. 
+		self storesOutput ifTrue: [ 
+			sequenceArray at: currentTime put: region hasVcc ].
 		self valueChanged ].
 ]
 

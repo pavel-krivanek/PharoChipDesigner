@@ -32,7 +32,7 @@ ChipDesignerMorph class >> exampleRSLatch [
 	mainMorph openInWindowLabeled: 'Pharo Chip Designer: RS Latch'.
 
 
-	area simulation stepBlock: [ :aSimulation |
+	area simulation preStepBlock: [ :aSimulation |
 		(area atX: 1 y: 1) metalRegion hasVcc: true.
 		(area atX: 1 y: 2) metalRegion hasVcc: (graphS sequence at: aSimulation time+1).
 		(area atX: 1 y: 3) metalRegion hasVcc: (graphR sequence at: aSimulation time+1) ].
@@ -83,7 +83,7 @@ ChipDesignerMorph class >> exampleX903 [
 	mainMorph addMorphBack: trigger.
 	mainMorph openInWindowLabeled: 'Pharo Chip Designer: X903'.
 
-	area simulation stepBlock: [ :aSimulation |
+	area simulation preStepBlock: [ :aSimulation |
 		(area atX: 3 y: 3) metalRegion hasVcc: true.
 		(area atX: 3 y: 24) metalRegion hasVcc: true.
 		(area atX: 42 y: 3) metalRegion hasVcc: true.
