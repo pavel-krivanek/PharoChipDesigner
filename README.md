@@ -3,6 +3,10 @@ A little chip design game inspired by Engineer of the People (kohctpyktop) by Za
 
 ![PharoChipDesigner.gif](graphics/PharoChipDesigner.gif)
 
+## How to load
+
+Supported Pharo versions: 8.0
+
 ```smalltalk
 Metacello new
   baseline: 'ChipDesigner';
