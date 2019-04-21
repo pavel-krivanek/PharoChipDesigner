@@ -18,7 +18,9 @@ Class {
 		'modeViaOn',
 		'modeViaOff',
 		'modeDeleteSiliconForm',
-		'inspectButton'
+		'inspectButton',
+		'notebook',
+		'currentLevel'
 	],
 	#category : #ChipDesigner
 }
@@ -46,9 +48,9 @@ ChipDesigner class >> defaultSpec [
 							yourself)
 						withConstraints: [ :constraints | constraints height: self buttonsDimension ];
 						add: (SpecPanedLayout newVertical
-							position: 400;
+							position: 360;
 							add: #editor;
-							add: #scopes)));
+							add: #notebook)));
 		yourself
 ]
 
@@ -95,18 +97,18 @@ ChipDesigner >> editorMorph [
 
 { #category : #initialization }
 ChipDesigner >> initialExtent [
-	^ 800@600
+	^ 840@720
 ]
 
 { #category : #initialization }
 ChipDesigner >> initialize [ 
 
-	| sourceForm |
-
 	area := ChDArea extent: 45@30.
 	editMode := #metal.
 	toolbar := self toolbar. 
 	viaMode := false.
+
+	currentLevel := ChipDesignerClassicLevel1 on: area.
 
 	modeNormalForm := self modeIcon: (Rectangle origin: 0@0 extent: 27@14).
 	modeShiftForm := self modeIcon: (Rectangle origin: 26@0 extent: 27@14).
@@ -120,12 +122,13 @@ ChipDesigner >> initialize [
 	
 	
 	
+	
 ]
 
 { #category : #initialization }
 ChipDesigner >> initializeWidgets [
 
-	| editorMorph |
+	| editorMorph scopesPage |
 	
 	list := self newList.
 	editorMorph := self editorMorph.
@@ -144,6 +147,11 @@ ChipDesigner >> initializeWidgets [
 		help: 'Inspect area';
 		icon: (self iconNamed: #glamorousInspect).
 	inspectButton action: [area inspect].
+	
+	notebook := self newNotebook.
+	scopesPage := NotebookPage title: 'Scopes' provider: [ scopes ].
+	notebook addPage: scopesPage.
+	
 
 	
 ]
@@ -178,8 +186,11 @@ ChipDesigner >> sequenceMorph [
 
 	| sequenceMorph |
 	
-	sequenceMorph := ChDSequenceMorph input.
-	sequenceMorph name: 'input'.
+	sequenceMorph := ChipDesignerMorph newColumn.
+	sequenceMorph color: (Color r: 0.506 g: 0.506 b: 0.506 alpha: 1.0).
+
+	currentLevel scopes do: [ :scope |
+		sequenceMorph addMorphBack: scope ].
 	
 	^ sequenceMorph
 ]

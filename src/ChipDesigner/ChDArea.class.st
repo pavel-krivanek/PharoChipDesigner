@@ -135,7 +135,7 @@ ChDArea >> decodeFrom: aString [
 			
 	self recreateMetalRegions.
 	self recreateSubstrateRegions.
-	
+
 ]
 
 { #category : #initialization }
@@ -415,7 +415,9 @@ ChDArea >> recreateMetalRegions [
 	metalCells do: [ :each |
 		| neighbourRegions |
 		neighbourRegions := self neighborMetalRegionsOf: each.
-		each metalRegion: (self mergeMetalRegions: (neighbourRegions copyWith: each metalRegion) asIdentitySet) ] 	
+		each metalRegion: (self mergeMetalRegions: (neighbourRegions copyWith: each metalRegion) asIdentitySet).
+		each updateMetalCorners.
+		 ] 	
 ]
 
 { #category : #'cell access' }
@@ -434,7 +436,8 @@ ChDArea >> recreateSubstrateRegions [
 	substrateCells do: [ :each |
 		| neighbourRegions |
 		neighbourRegions := self neighborSubstrateRegionsOf: each.
-		each substrateRegion: (self mergeSubstrateRegions: (neighbourRegions copyWith: each substrateRegion) asIdentitySet) ] 	
+		each substrateRegion: (self mergeSubstrateRegions: (neighbourRegions copyWith: each substrateRegion) asIdentitySet).
+		each updateSubstrateCorners. ] 	
 ]
 
 { #category : #initialization }

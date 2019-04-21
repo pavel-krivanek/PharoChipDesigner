@@ -256,37 +256,7 @@ ChDCell >> metalConnections: anObject [
 	
 	metalConnections := anObject.
 	
-	metalCorners := 0.	
-	self hasMetal ifFalse: [ ^ self ].
-	
-	self leftUp hasMetal ifTrue: [ 
-	(((self leftUp metalConnections bitAnd: 2r0110) = 2r0110) 
-		and: [ (metalConnections bitAnd: 2r1001) = 2r1001]) 
-			ifTrue: [ 
-				metalCorners := metalCorners bitOr: 2r0001.
-				self leftUp updateMetalCorners: 2r1000 ] ].
-
-	self rightUp hasMetal ifTrue: [ 
-	(((self rightUp metalConnections bitAnd: 2r1100) = 2r1100) 
-		and: [ (metalConnections bitAnd: 2r0011) = 2r0011]) 
-			ifTrue: [ 
-				metalCorners := metalCorners bitOr: 2r0010.
-				self rightUp updateMetalCorners: 2r0100  ]].
-
-	self leftDown hasMetal ifTrue: [ 
-	(((self leftDown metalConnections bitAnd: 2r0011) = 2r0011) 
-		and: [ (metalConnections bitAnd: 2r1100) = 2r1100]) 
-			ifTrue: [ 
-				metalCorners := metalCorners bitOr: 2r0100.
-				self leftDown updateMetalCorners: 2r0010  ]].
-
-	self rightDown hasMetal ifTrue: [ 
-	(((self rightDown metalConnections bitAnd: 2r1001) = 2r1001) 
-		and: [ (metalConnections bitAnd: 2r0110) = 2r0110]) 
-			ifTrue: [ 
-				metalCorners := metalCorners bitOr: 2r1000.
-				self rightDown updateMetalCorners: 2r0001  ]].
-	
+	self updateMetalCorners
 ]
 
 { #category : #accessing }
@@ -364,36 +334,7 @@ ChDCell >> substrateConnections: anObject [
 
 	substrateConnections := anObject.
 	
-	substrateCorners := 0.	
-	self hasSubstrate ifFalse: [ ^ self ].
-	
-	self leftUp hasSubstrate ifTrue: [ 
-	(((self leftUp substrateConnections bitAnd: 2r0110) = 2r0110) 
-		and: [ (substrateConnections bitAnd: 2r1001) = 2r1001]) 
-			ifTrue: [ 
-				substrateCorners := substrateCorners bitOr: 2r0001.
-				self leftUp updateSubstrateCorners: 2r1000 ] ].
-
-	self rightUp hasSubstrate ifTrue: [ 
-	(((self rightUp substrateConnections bitAnd: 2r1100) = 2r1100) 
-		and: [ (substrateConnections bitAnd: 2r0011) = 2r0011]) 
-			ifTrue: [ 
-				substrateCorners := substrateCorners bitOr: 2r0010.
-				self rightUp updateSubstrateCorners: 2r0100  ]].
-
-	self leftDown hasSubstrate ifTrue: [ 
-	(((self leftDown substrateConnections bitAnd: 2r0011) = 2r0011) 
-		and: [ (substrateConnections bitAnd: 2r1100) = 2r1100]) 
-			ifTrue: [ 
-				substrateCorners := substrateCorners bitOr: 2r0100.
-				self leftDown updateSubstrateCorners: 2r0010  ]].
-
-	self rightDown hasSubstrate ifTrue: [ 
-	(((self rightDown substrateConnections bitAnd: 2r1001) = 2r1001) 
-		and: [ (substrateConnections bitAnd: 2r0110) = 2r0110]) 
-			ifTrue: [ 
-				substrateCorners := substrateCorners bitOr: 2r1000.
-				self rightDown updateSubstrateCorners: 2r0001  ]].
+	self updateSubstrateCorners.
 ]
 
 { #category : #accessing }
@@ -481,9 +422,80 @@ ChDCell >> up: anObject [
 ]
 
 { #category : #accessing }
+ChDCell >> updateMetalCorners [
+
+	metalCorners := 0.	
+	self hasMetal ifFalse: [ ^ self ].
+	
+	self leftUp hasMetal ifTrue: [ 
+	(((self leftUp metalConnections bitAnd: 2r0110) = 2r0110) 
+		and: [ (metalConnections bitAnd: 2r1001) = 2r1001]) 
+			ifTrue: [ 
+				metalCorners := metalCorners bitOr: 2r0001.
+				self leftUp updateMetalCorners: 2r1000 ] ].
+
+	self rightUp hasMetal ifTrue: [ 
+	(((self rightUp metalConnections bitAnd: 2r1100) = 2r1100) 
+		and: [ (metalConnections bitAnd: 2r0011) = 2r0011]) 
+			ifTrue: [ 
+				metalCorners := metalCorners bitOr: 2r0010.
+				self rightUp updateMetalCorners: 2r0100  ]].
+
+	self leftDown hasMetal ifTrue: [ 
+	(((self leftDown metalConnections bitAnd: 2r0011) = 2r0011) 
+		and: [ (metalConnections bitAnd: 2r1100) = 2r1100]) 
+			ifTrue: [ 
+				metalCorners := metalCorners bitOr: 2r0100.
+				self leftDown updateMetalCorners: 2r0010  ]].
+
+	self rightDown hasMetal ifTrue: [ 
+	(((self rightDown metalConnections bitAnd: 2r1001) = 2r1001) 
+		and: [ (metalConnections bitAnd: 2r0110) = 2r0110]) 
+			ifTrue: [ 
+				metalCorners := metalCorners bitOr: 2r1000.
+				self rightDown updateMetalCorners: 2r0001  ]].
+	
+]
+
+{ #category : #accessing }
 ChDCell >> updateMetalCorners: cornersMap [
 
 	metalCorners := metalCorners bitOr: cornersMap.
+]
+
+{ #category : #accessing }
+ChDCell >> updateSubstrateCorners [
+	
+	substrateCorners := 0.	
+	self hasSubstrate ifFalse: [ ^ self ].
+	
+	self leftUp hasSubstrate ifTrue: [ 
+	(((self leftUp substrateConnections bitAnd: 2r0110) = 2r0110) 
+		and: [ (substrateConnections bitAnd: 2r1001) = 2r1001]) 
+			ifTrue: [ 
+				substrateCorners := substrateCorners bitOr: 2r0001.
+				self leftUp updateSubstrateCorners: 2r1000 ] ].
+
+	self rightUp hasSubstrate ifTrue: [ 
+	(((self rightUp substrateConnections bitAnd: 2r1100) = 2r1100) 
+		and: [ (substrateConnections bitAnd: 2r0011) = 2r0011]) 
+			ifTrue: [ 
+				substrateCorners := substrateCorners bitOr: 2r0010.
+				self rightUp updateSubstrateCorners: 2r0100  ]].
+
+	self leftDown hasSubstrate ifTrue: [ 
+	(((self leftDown substrateConnections bitAnd: 2r0011) = 2r0011) 
+		and: [ (substrateConnections bitAnd: 2r1100) = 2r1100]) 
+			ifTrue: [ 
+				substrateCorners := substrateCorners bitOr: 2r0100.
+				self leftDown updateSubstrateCorners: 2r0010  ]].
+
+	self rightDown hasSubstrate ifTrue: [ 
+	(((self rightDown substrateConnections bitAnd: 2r1001) = 2r1001) 
+		and: [ (substrateConnections bitAnd: 2r0110) = 2r0110]) 
+			ifTrue: [ 
+				substrateCorners := substrateCorners bitOr: 2r1000.
+				self rightDown updateSubstrateCorners: 2r0001  ]].
 ]
 
 { #category : #accessing }

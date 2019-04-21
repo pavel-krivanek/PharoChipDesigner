@@ -50,7 +50,7 @@ ChDAreaMorph >> cellForm: index corners: cornersIndex from: aFormArray [
 	
 	| aFrom |
 
-	aFrom := (aFormArray at: cornersIndex+1)  copy: (((index*self cellSize)@0) extent: self cellSize@self cellSize).
+	aFrom := (aFormArray at: cornersIndex+1) copy: (((index*self cellSize)@0) extent: self cellSize@self cellSize).
 "
 	cornersIndex > 0  ifTrue: [
 	(FormCanvas on: aFrom) drawString: cornersIndex asString at: 0@0 ].
@@ -109,10 +109,8 @@ ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanvas 
 						
 			(cell isHi) 
 				ifTrue: [ 
-					cellForm := self cellForm: 58 from: {aFormArray}.
-					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ]
-
-			 ] ]
+					cellForm := self cellForm: 58 from: aFormArray.
+					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ] ] ]
 ]
 
 { #category : #initialization }
@@ -226,8 +224,6 @@ ChDAreaMorph >> drawOn: aCanvas [
 	area descriptions do: [ :association |
 		| p |
 		p := ((13*(association value x-1))@(13*(association value y-1))).
-		p logCr.
-		aCanvas fillRectangle: (Rectangle origin: origin + p + (-2 @ -2) extent: 17@17) color: (Color r: 0.78 g: 0.78 b: 0.78 alpha: 1.0).
 		aCanvas drawString: association key at: origin + p + (-5 @ 0).
 		 ]
 	

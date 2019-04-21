@@ -48,7 +48,7 @@ ChDSequenceMorph >> drawOn: aCanvas [
 		
 	rect := Rectangle origin: (self bounds topLeft +(self descriptionWidth @0)) corner: self bounds bottomRight.
 	
-	offset := 8.
+	offset := 7.
 	
 	aCanvas fillRectangle: self bounds color: (Color r: 1.0 g: 0.969 b: 0.887 alpha: 1.0).
 	
@@ -138,7 +138,7 @@ ChDSequenceMorph >> initialize [
 	tickLength := 2.
 	sequence := (1 to: 56 * signalLength) collect: [ :each | false. ].
 	
-	self extent: (sequence size * tickLength + self descriptionWidth) @ 40.
+	self extent: (sequence size * tickLength + self descriptionWidth) @ 30.
 	isMouseDown := false.
 	
 	lastSequenceIndexChanged := nil.
