@@ -225,9 +225,14 @@ ChDAreaMorph >> drawOn: aCanvas [
 		| p |
 		p := ((13*(association value x-1))@(13*(association value y-1))).
 		aCanvas drawString: association key at: origin + p + (-5 @ 0).
-		 ]
+		 ].
 	
-
+	area selection ifNotNil: [ 
+		| r |
+		r := Rectangle 
+			origin: (origin + ((13*(area selection topLeft x-1))@(13*(area selection topLeft y-1)))) 
+			corner: (origin + ((13*(area selection bottomRight x))@(13*(area selection bottomRight y)))). 
+		aCanvas frameAndFillRectangle: r fillColor: Color transparent borderWidth: 1 borderColor: Color white ].
 ]
 
 { #category : #initialization }

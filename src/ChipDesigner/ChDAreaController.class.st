@@ -9,7 +9,9 @@ Class {
 		'lastCell',
 		'deleteMode',
 		'viaMode',
-		'announcer'
+		'announcer',
+		'selectMode',
+		'isSelecting'
 	],
 	#category : #ChipDesigner
 }
@@ -63,6 +65,18 @@ ChDAreaController >> cellEvent: anEvent at: aPoint [
 		self changed.
 		^ self ].
 	
+	selectMode
+		ifTrue: [ 
+			isSelecting 
+				ifFalse: [
+					isSelecting := true.
+					area setSelection: aPoint.
+					self changed ].
+			(area updateSelection: aPoint)
+				ifTrue: [ self changed ].
+			^ self ]
+		ifFalse: [ area deselect ].
+	
 	deleteMode ifFalse: [ 
 		(anEvent redButtonPressed and: [anEvent shiftPressed not]) ifTrue: [
 			area metalLayer setFor: cell with: lastCell	 mode: #metal].
@@ -99,8 +113,17 @@ ChDAreaController >> deleteMode [
 { #category : #accessing }
 ChDAreaController >> deleteMode: anObject [
 	deleteMode := anObject.
+	selectMode := false.
+
 	
 	self announceModeChange.
+]
+
+{ #category : #accessing }
+ChDAreaController >> finishSelection [
+
+	isSelecting := false
+	
 ]
 
 { #category : #initialization }
@@ -115,6 +138,8 @@ ChDAreaController >> initialize [
 	mouseDown := false.
 	deleteMode := false.
 	viaMode := false.
+	selectMode := false.
+	isSelecting := false.
 	
 	announcer := Announcer new.
 	
@@ -128,8 +153,20 @@ ChDAreaController >> inputMode [
 { #category : #accessing }
 ChDAreaController >> inputMode: anObject [
 	inputMode := anObject.
+	selectMode := false.
+
 	
 	self announceModeChange.
+]
+
+{ #category : #accessing }
+ChDAreaController >> isSelecting [
+	^ isSelecting
+]
+
+{ #category : #accessing }
+ChDAreaController >> isSelecting: anObject [
+	isSelecting := anObject
 ]
 
 { #category : #initialization }
@@ -181,7 +218,20 @@ ChDAreaController >> onMouseUpAt: aPoint event: anEvent [
 
 	self mouseDown: false.
 	self lastCell: nil.
+	
+	self selectMode ifTrue: [ 
+		self finishSelection ]
 
+]
+
+{ #category : #accessing }
+ChDAreaController >> selectMode [
+	^ selectMode
+]
+
+{ #category : #accessing }
+ChDAreaController >> selectMode: anObject [
+	selectMode := anObject
 ]
 
 { #category : #accessing }
@@ -211,6 +261,7 @@ ChDAreaController >> viaMode [
 { #category : #accessing }
 ChDAreaController >> viaMode: anObject [
 	viaMode := anObject.
+	selectMode := false.
 	
 	self announceModeChange.
 ]

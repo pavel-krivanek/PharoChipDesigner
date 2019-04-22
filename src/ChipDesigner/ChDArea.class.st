@@ -9,7 +9,8 @@ Class {
 		'metalLayer',
 		'regions',
 		'simulation',
-		'descriptions'
+		'descriptions',
+		'selection'
 	],
 	#category : #ChipDesigner
 }
@@ -155,6 +156,12 @@ ChDArea >> decodedFromZipString: aString [
 ChDArea >> descriptions [
 
 	^ descriptions
+]
+
+{ #category : #'cell access' }
+ChDArea >> deselect [ 
+	
+	selection := nil.
 ]
 
 { #category : #'cell access' }
@@ -465,6 +472,23 @@ ChDArea >> rightX: x y: y [
 	^ self atX: x+1 y: y
 ]
 
+{ #category : #accessing }
+ChDArea >> selection [
+	^ selection
+]
+
+{ #category : #accessing }
+ChDArea >> selection: anObject [
+	^ selection := anObject
+]
+
+{ #category : #'cell access' }
+ChDArea >> setSelection: aPoint [
+	
+	selection := Rectangle origin: aPoint corner: aPoint.
+
+]
+
 { #category : #'cell access' }
 ChDArea >> show [ 
 
@@ -537,6 +561,23 @@ ChDArea >> updateCell: aCell mode: aMode [
 		
 
 	
+]
+
+{ #category : #'cell access' }
+ChDArea >> updateSelection: aPoint [
+
+	| newSelection |
+	
+	selection ifNil: [ 
+		selection := Rectangle origin: aPoint corner: aPoint.
+		^ true ].
+	
+	newSelection := Rectangle origin: selection origin corner: aPoint.
+	
+	selection = newSelection ifTrue: [ ^false ].
+	
+	selection := newSelection.
+	^ true
 ]
 
 { #category : #accessing }

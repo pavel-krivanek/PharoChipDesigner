@@ -124,17 +124,19 @@ ChipDesignerClassicLevel1 >> initializeSimulation [
 	area simulation preStepBlock: [ :aSimulation |
 	
 		{ sequenceA0. sequenceA1. sequenceA2. sequenceA3. sequenceY0. sequenceY1. sequenceY2. sequenceY3 } do: [ :aSequence | aSequence resetRegion ].	
-		
-		(area atX: 3 y: 3) metalRegion hasVcc: true.
-		(area atX: 3 y: 24) metalRegion hasVcc: true.
-		(area atX: 42 y: 3) metalRegion hasVcc: true.
-		(area atX: 42 y: 24) metalRegion hasVcc: true.
-		
+				
 		aSimulation time > 0 ifTrue: [ 		
 			sequenceA0 updateRegionAt: aSimulation time.
 			sequenceA1 updateRegionAt: aSimulation time.
 			sequenceA2 updateRegionAt: aSimulation time.
 			sequenceA3 updateRegionAt: aSimulation time ].
+
+		"set Vcc after inputs so they can  overwrite them"
+		(area atX: 3 y: 3) metalRegion hasVcc: true.
+		(area atX: 3 y: 24) metalRegion hasVcc: true.
+		(area atX: 42 y: 3) metalRegion hasVcc: true.
+		(area atX: 42 y: 24) metalRegion hasVcc: true.
+
 	].
 	
 ]

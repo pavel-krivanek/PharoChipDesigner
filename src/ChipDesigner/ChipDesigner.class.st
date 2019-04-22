@@ -25,21 +25,16 @@ Class {
 		'importButton',
 		'runButton',
 		'stepButton',
-		'resetButton'
+		'resetButton',
+		'selectModeButton'
 	],
 	#category : #ChipDesigner
 }
 
 { #category : #examples }
-ChipDesigner class >> buttonsDimension [
-
-	^35
-]
-
-{ #category : #examples }
 ChipDesigner class >> buttonsExtent [
 
-	^70@30
+	^67@30
 ]
 
 { #category : #examples }
@@ -54,6 +49,7 @@ ChipDesigner class >> defaultSpec [
 					add: (SpecBoxLayout newHorizontal
 							add: #editModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 							add: #viaModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+							add: #selectModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 							add: #exportButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 							add: #importButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 							add: #inspectButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
@@ -298,6 +294,11 @@ ChipDesigner >> initializeWidgets [
 	viaModeButton help: 'Insert one via'.
 	viaModeButton action: [editorMorph submorphs first controller swapViaMode].
 
+	selectModeButton := self newButton icon: (self iconNamed: #group).
+	selectModeButton label: 'select'.
+	selectModeButton help: 'select cells'.
+	selectModeButton action: [ self selectMode ].
+
 	exportButton := self newButton icon: (self iconNamed: #smallSave).
 	exportButton label: 'export'.
 	exportButton help: 'export area to a string'.
@@ -373,6 +374,12 @@ ChipDesigner >> modesPng [
 ChipDesigner >> refreshEditor [
 
 	editor widget submorphs first changed
+]
+
+{ #category : #initialization }
+ChipDesigner >> selectMode [
+
+	controller selectMode: true. 
 ]
 
 { #category : #initialization }
