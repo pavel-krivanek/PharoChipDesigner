@@ -7,7 +7,8 @@ Class {
 		'time',
 		'announcer',
 		'preStepBlock',
-		'postStepBlock'
+		'postStepBlock',
+		'stepping'
 	],
 	#category : #ChipDesigner
 }
@@ -56,6 +57,14 @@ ChDSimulation >> addConnectedVCCRegionsOf: aRegion to: foundRegions [
 		aRegion cells anyOne connectedCellsInSubstrate do: [ :aCell | 
 			self addConnectedVCCRegionsOf: aCell substrateRegion to: foundRegions ] ]
 "			
+]
+
+{ #category : #accessing }
+ChDSimulation >> announceStep [	
+	
+	announcer announce: (ChDSimulationStepAnnouncement new
+		simulation: self;
+		time: self time)
 ]
 
 { #category : #accessing }
@@ -129,6 +138,7 @@ ChDSimulation >> initialize [
 	time := 0.
 	announcer := Announcer new.
 	preStepBlock := self defaultStepBlock.
+	stepping := false.
 ]
 
 { #category : #accessing }
@@ -167,6 +177,8 @@ ChDSimulation >> reset [
 		each futureState: false.
 		each isSpecial ifTrue: [ each open: false ] ].
 	
+	self resetTime.
+	
 "	self resetVcc."
 	
 "	self step."
@@ -180,6 +192,7 @@ ChDSimulation >> reset [
 ChDSimulation >> resetTime [
 
 	time := 0.
+	self announceStep
 ]
 
 { #category : #accessing }
@@ -203,9 +216,7 @@ ChDSimulation >> step [
 	postStepBlock ifNotNil: [ 
 		postStepBlock value: self ].	
 	
-	announcer announce: (ChDStepAnnouncement new
-		simulation: self;
-		time: self time)
+	self announceStep
 ]
 
 { #category : #accessing }
@@ -308,6 +319,16 @@ ChDSimulation >> stepWith: aBlock [
 ]
 
 { #category : #accessing }
+ChDSimulation >> stepping [
+	^ stepping
+]
+
+{ #category : #accessing }
+ChDSimulation >> stepping: anObject [
+	stepping := anObject
+]
+
+{ #category : #accessing }
 ChDSimulation >> testingVCC [
 	^ testingVCC
 ]
@@ -321,4 +342,14 @@ ChDSimulation >> testingVCC: anObject [
 ChDSimulation >> time [ 
 
 	^ time
+]
+
+{ #category : #accessing }
+ChDSimulation >> toggleStepping [
+
+	stepping := stepping not.
+	
+	announcer announce: (ChDSimulationRunAnnouncement new
+		simulation: self;
+		running: stepping)	
 ]

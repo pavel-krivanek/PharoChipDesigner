@@ -152,9 +152,9 @@ ChDSequence >> region: aRegion [
 
 	region := aRegion.
 	
-	region area simulation announcer when: ChDStepAnnouncement do: [ :announcement |
+	region area simulation announcer when: ChDSimulationStepAnnouncement do: [ :announcement |
 		currentTime := announcement time. 
-		self storesOutput ifTrue: [ 
+		(currentTime > 0 and: [self storesOutput]) ifTrue: [ 
 			sequenceArray at: currentTime put: region hasVcc ].
 		self valueChanged ].
 ]

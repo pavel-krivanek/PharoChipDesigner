@@ -22,7 +22,10 @@ Class {
 		'notebook',
 		'currentLevel',
 		'exportButton',
-		'importButton'
+		'importButton',
+		'runButton',
+		'stepButton',
+		'resetButton'
 	],
 	#category : #ChipDesigner
 }
@@ -31,6 +34,12 @@ Class {
 ChipDesigner class >> buttonsDimension [
 
 	^35
+]
+
+{ #category : #examples }
+ChipDesigner class >> buttonsExtent [
+
+	^70@30
 ]
 
 { #category : #examples }
@@ -43,14 +52,17 @@ ChipDesigner class >> defaultSpec [
 				add: (
 					SpecBoxLayout newVertical
 					add: (SpecBoxLayout newHorizontal
-							add: #editModeButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
-							add: #viaModeButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
-							add: #exportButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
-							add: #importButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
-							add: #inspectButton withConstraints: [ :constraints | constraints width: self buttonsDimension ];
+							add: #editModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+							add: #viaModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+							add: #exportButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+							add: #importButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+							add: #inspectButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+							add: #runButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+							add: #stepButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+							add: #resetButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 							
 							yourself)
-						withConstraints: [ :constraints | constraints height: self buttonsDimension ];
+						withConstraints: [ :constraints | constraints height: self buttonsExtent y ];
 						add: (SpecPanedLayout newVertical
 							position: 360;
 							add: #editor;
@@ -229,11 +241,9 @@ ChipDesigner >> import [
 	[ 
 		area decodedFromZipString: textPresenter text asString.
 		currentLevel reinitialize.	
-	] ifError: [ :e | self inform: 'Import error: ', e asString.
-	
-	
-	 ]
-	
+	] ifError: [ :e | self inform: 'Import error: ', e asString ].
+
+	self refreshEditor
 ]
 
 { #category : #initialization }
@@ -279,26 +289,48 @@ ChipDesigner >> initializeWidgets [
 	scopes := self sequenceMorph asSpecAdapter.
 	
 	editModeButton := self newButton icon: self editModeIcon.
+	editModeButton label: 'mode'.
 	editModeButton help: 'Drawing / delete mode <X>, extended <Shift>'.
 	editModeButton action: [editorMorph submorphs first controller swapDeleteMode].
 
 	viaModeButton := self newButton icon: self viaModeIcon.
-	viaModeButton help: 'Insert one via'.
-	viaModeButton action: [editorMorph submorphs first controller swapViaMode].
-
-	viaModeButton := self newButton icon: self viaModeIcon.
+	viaModeButton label: 'via'.
 	viaModeButton help: 'Insert one via'.
 	viaModeButton action: [editorMorph submorphs first controller swapViaMode].
 
 	exportButton := self newButton icon: (self iconNamed: #smallSave).
+	exportButton label: 'export'.
 	exportButton help: 'export area to a string'.
 	exportButton action: [ self export ].
 
 	importButton := self newButton icon: (self iconNamed: #smallLoadProject).
+	importButton label: 'import'.
 	importButton help: 'import area from a string'.
 	importButton action: [ self import ].	
 
+	runButton := self newButton icon: (self iconNamed: #smallDoIt).
+	runButton label: 'run'.
+	runButton help: 'run / stop simulation'.
+	runButton action: [ self toggleRun ].	
+
+	area simulation announcer when: ChDSimulationRunAnnouncement do: [ :announcement |
+		runButton icon: (self iconNamed: (announcement running
+			ifTrue: [ #stop ]
+			ifFalse: [ #smallDoIt ])) ].
+
+	resetButton := self newButton icon: (self iconNamed: #smallUpdate).
+	resetButton label: 'reset'.
+	resetButton help: 'reset simulation'.
+	resetButton action: [ self simulationReset ].	
+
+	stepButton := self newButton icon: (self iconNamed: #glamorousPlay).
+	stepButton label: 'step'.
+	stepButton help: 'run / stop simulation'.
+	stepButton action: [ self simulationStep ].	
+
+
 	inspectButton := self newButton 
+		label: 'inspect';
 		help: 'Inspect area';
 		icon: (self iconNamed: #glamorousInspect).
 	inspectButton action: [area inspect].
@@ -306,6 +338,7 @@ ChipDesigner >> initializeWidgets [
 	notebook := self newNotebook.
 	scopesPage := NotebookPage title: 'Scopes' provider: [ scopes ].
 	notebook addPage: scopesPage.
+	
 	
 
 	
@@ -337,6 +370,12 @@ ChipDesigner >> modesPng [
 ]
 
 { #category : #initialization }
+ChipDesigner >> refreshEditor [
+
+	editor widget submorphs first changed
+]
+
+{ #category : #initialization }
 ChipDesigner >> sequenceMorph [
 
 	| sequenceMorph |
@@ -351,9 +390,29 @@ ChipDesigner >> sequenceMorph [
 ]
 
 { #category : #initialization }
+ChipDesigner >> simulationReset [
+
+	area simulation reset.
+	self refreshEditor
+]
+
+{ #category : #initialization }
+ChipDesigner >> simulationStep [
+
+	area simulation step. 
+	editor widget submorphs first changed.
+]
+
+{ #category : #initialization }
 ChipDesigner >> title [
 	
 	^ 'Pharo Chip Designer'.
+]
+
+{ #category : #initialization }
+ChipDesigner >> toggleRun [
+
+	editor widget submorphs first toggleRun
 ]
 
 { #category : #initialization }

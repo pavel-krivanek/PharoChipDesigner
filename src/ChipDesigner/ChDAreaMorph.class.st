@@ -288,7 +288,6 @@ ChDAreaMorph >> initializeFor: anArea [
 	self extent: 13*area width@(13*area height).
 	
 	suppressedCells := OrderedCollection new.
-	stepping := false.
 	self stopStepping.
 	
 ]
@@ -316,7 +315,7 @@ ChDAreaMorph >> keyStroke: event [
 		ifTrue: [area simulation step. self changed].
 		
 	event keyCharacter = $r
-		ifTrue: [self run]
+		ifTrue: [ self toggleRun ]
 ]
 
 { #category : #initialization }
@@ -379,20 +378,12 @@ ChDAreaMorph >> overlap: aSourceForm at: zeroBasedIndex with: aFrom [
 ]
 
 { #category : #initialization }
-ChDAreaMorph >> run [ 
-
-	stepping := true.
-	self area simulation resetTime.
-	self startStepping.
-]
-
-{ #category : #initialization }
 ChDAreaMorph >> step [
 	
-	stepping ifTrue: [ 
+	area simulation stepping ifTrue: [ 
 		(self area simulation time+1) >= 280 ifTrue: [ 
 			self stopStepping.
-			stepping := false.
+			area simulation stepping: false.
 			^ self ].
 
 		self area simulation step.
@@ -417,4 +408,14 @@ ChDAreaMorph >> suppressedCells: anObject [
 { #category : #initialization }
 ChDAreaMorph >> takesKeyboardFocus [
 	^ true
+]
+
+{ #category : #initialization }
+ChDAreaMorph >> toggleRun [ 
+
+	area simulation toggleStepping.
+
+	area simulation stepping ifTrue: [ 
+		self area simulation resetTime.
+		self startStepping ]
 ]

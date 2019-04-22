@@ -1,5 +1,5 @@
 Class {
-	#name : #ChDStepAnnouncement,
+	#name : #ChDSimulationStepAnnouncement,
 	#superclass : #Announcement,
 	#instVars : [
 		'simulation',
@@ -9,21 +9,21 @@ Class {
 }
 
 { #category : #accessing }
-ChDStepAnnouncement >> simulation [
+ChDSimulationStepAnnouncement >> simulation [
 	^ simulation
 ]
 
 { #category : #accessing }
-ChDStepAnnouncement >> simulation: anObject [
+ChDSimulationStepAnnouncement >> simulation: anObject [
 	simulation := anObject
 ]
 
 { #category : #accessing }
-ChDStepAnnouncement >> time [
+ChDSimulationStepAnnouncement >> time [
 	^ time
 ]
 
 { #category : #accessing }
-ChDStepAnnouncement >> time: anObject [
+ChDSimulationStepAnnouncement >> time: anObject [
 	time := anObject
 ]
