@@ -147,9 +147,53 @@ ChDArea >> decodeFrom: aString [
 ]
 
 { #category : #initialization }
+ChDArea >> decodeFrom: aString at: aPoint [
+
+	| stream w h s int arrayIndex skippingCellsCount |
+	
+	regions := IdentitySet new.
+	
+	stream := aString readStream.
+	
+	w := ('16r', (stream next: 5)) asNumber.
+	h := ('16r', (stream next: 5)) asNumber.
+	
+"	self initializeForExtent: w@h.
+"	
+	arrayIndex := 1.
+	skippingCellsCount := 0.
+	
+	aPoint y to: aPoint y+h-1 do: [ :y |
+		aPoint x to: aPoint  x+w-1 do: [ :x |
+			| cell |
+			skippingCellsCount > 0
+				ifTrue: [ skippingCellsCount := skippingCellsCount - 1 ]
+				ifFalse: [ 		
+				cell := self atX: x y: y.
+				s := stream next: 5.
+				int := ('16r', s) asNumber.
+				(int bitAnd: 1) = 0 
+					ifTrue: [ 
+						skippingCellsCount := (int bitShiftMagnitude: -1)-1 ]
+					ifFalse: [ 
+						cell decodeFrom: s ].
+						arrayIndex := arrayIndex + 1 ] ] ].
+				
+	self recreateMetalRegions.
+	self recreateSubstrateRegions.
+
+]
+
+{ #category : #initialization }
 ChDArea >> decodedFromZipString: aString [
 
 	^ self decodeFrom: (ByteString fromByteArray: (aString base64Decoded)) unzipped
+]
+
+{ #category : #initialization }
+ChDArea >> decodedFromZipString: aString at: aPoint [
+
+	^ self decodeFrom: (ByteString fromByteArray: (aString base64Decoded)) unzipped at: aPoint
 ]
 
 { #category : #initialization }
@@ -173,24 +217,32 @@ ChDArea >> downX: x y: y [
 { #category : #initialization }
 ChDArea >> encoded [ 
 
+	^ self encodedRectangle: (Rectangle origin: 1@1 corner: self width@self height).
+]
+
+{ #category : #initialization }
+ChDArea >> encodedRectangle: aRectangle [
+
 	| emptyCells |
 	
 	emptyCells := 0.
 
 	^ String streamContents: [ :s |
-		s nextPutAll: (self width printPaddedWith: $0 to: 5 base: 16).
-		s nextPutAll: (self height printPaddedWith: $0 to: 5 base: 16).
-		array asArray do: [ :cell |
-			(cell isEmpty not or: [ emptyCells = 127 ])
-				ifTrue: [ 
-					emptyCells > 0 ifTrue: [ 
-						s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16).
-						emptyCells := 0. ].
-					(cell isEmpty and: [emptyCells = 0]) 
-						ifFalse: [s nextPutAll: cell encoded ]
-						ifTrue: [ emptyCells := emptyCells + 1 ]]
-				ifFalse: [ emptyCells := emptyCells + 1 ].
-			 ].
+		s nextPutAll: (aRectangle width+1 printPaddedWith: $0 to: 5 base: 16).
+		s nextPutAll: (aRectangle height+1 printPaddedWith: $0 to: 5 base: 16).
+		aRectangle top to: aRectangle bottom do: [ :y |
+			aRectangle left to: aRectangle right do: [ :x |
+				| cell |
+				cell := self atX: x y: y.
+				(cell isEmpty not or: [ emptyCells = 127 ])
+					ifTrue: [ 
+						emptyCells > 0 ifTrue: [ 
+							s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16).
+							emptyCells := 0. ].
+						(cell isEmpty and: [emptyCells = 0]) 
+							ifFalse: [s nextPutAll: cell encoded ]
+							ifTrue: [ emptyCells := emptyCells + 1 ]]
+					ifFalse: [ emptyCells := emptyCells + 1 ] ] ].
 		emptyCells > 0 ifTrue: [ 
 			s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16) ] ]
 ]

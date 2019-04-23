@@ -194,6 +194,11 @@ ChipDesigner >> editorMorph [
 		editModeButton icon: self editModeIcon.
 		viaModeButton icon: self viaModeIcon ].
 
+
+	controller announcer when: ChDContextMenuAnnouncement do: [ :announcement |
+		self openSelectionMenu ].
+
+
 	^ editorMorph
 ]
 
@@ -329,7 +334,6 @@ ChipDesigner >> initializeWidgets [
 	stepButton help: 'run / stop simulation'.
 	stepButton action: [ self simulationStep ].	
 
-
 	inspectButton := self newButton 
 		label: 'inspect';
 		help: 'Inspect area';
@@ -371,6 +375,15 @@ ChipDesigner >> modesPng [
 ]
 
 { #category : #initialization }
+ChipDesigner >> openSelectionMenu [
+
+	| menu |
+	
+	menu := self selectionMenu.
+	menu openWithSpecAt: ActiveHand position
+]
+
+{ #category : #initialization }
 ChipDesigner >> refreshEditor [
 
 	editor widget submorphs first changed
@@ -380,6 +393,27 @@ ChipDesigner >> refreshEditor [
 ChipDesigner >> selectMode [
 
 	controller selectMode: true. 
+]
+
+{ #category : #initialization }
+ChipDesigner >> selectionMenu [
+
+	^ self newMenu
+		addItem: [ :item | 
+			item
+				name: 'Copy';
+				icon: (self iconNamed: #smallCopy);
+				action: [ 
+					Clipboard clipboardText: (area encodedRectangle: area selection) zipped asByteArray base64Encoded ]];
+				
+		addItem: [ :item | 
+			item
+				name: 'Paste';
+				icon: (self iconNamed: #smallPaste);
+				action: [ 
+					area decodedFromZipString: Clipboard clipboardText asString at: area selection origin.
+					self refreshEditor ]  ];
+		yourself
 ]
 
 { #category : #initialization }

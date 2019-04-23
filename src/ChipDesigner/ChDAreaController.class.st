@@ -66,7 +66,11 @@ ChDAreaController >> cellEvent: anEvent at: aPoint [
 		^ self ].
 	
 	selectMode
-		ifTrue: [ 
+		ifTrue: [
+			 anEvent yellowButtonPressed ifTrue: [
+				isSelecting := false.
+				self openSelectionMenu.
+				^ self ].
 			isSelecting 
 				ifFalse: [
 					isSelecting := true.
@@ -210,6 +214,10 @@ ChDAreaController >> onMouseDownAt: aPoint event: anEvent [
 ChDAreaController >> onMouseMoveAt: aPoint event: anEvent [
 
 	self mouseDown ifFalse: [ ^ self ].
+	
+	(selectMode and: [isSelecting not])
+		ifTrue: [ ^ self ].
+	
 	self cellEvent: anEvent at: aPoint
 ]
 
@@ -222,6 +230,13 @@ ChDAreaController >> onMouseUpAt: aPoint event: anEvent [
 	self selectMode ifTrue: [ 
 		self finishSelection ]
 
+]
+
+{ #category : #initialization }
+ChDAreaController >> openSelectionMenu [
+
+	announcer announce: (ChDContextMenuAnnouncement new 
+		controller: self)
 ]
 
 { #category : #accessing }
