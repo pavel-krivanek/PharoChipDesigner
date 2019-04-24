@@ -400,8 +400,14 @@ ChipDesigner >> openSelectionMenu [
 { #category : #initialization }
 ChipDesigner >> paste [
 
+	| temporary |
+	
+	temporary := ChDArea oneByOne decodedFromZipString: Clipboard clipboardText asString.
+	
+	
 	area decodedFromZipString: Clipboard clipboardText asString at: area selection origin.
-	self refreshEditor 
+	area disconnectBorder: (Rectangle origin: area selection origin extent: (temporary width-1)@(temporary height-1)).
+	self refreshEditor. 
 ]
 
 { #category : #initialization }

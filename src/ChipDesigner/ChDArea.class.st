@@ -235,6 +235,24 @@ ChDArea >> disconnect: aRectangle [
 ]
 
 { #category : #'cell access' }
+ChDArea >> disconnectBorder: aRectangle [
+	
+	| aCell |
+	
+	aRectangle left to: aRectangle right do: [ :x |
+		aCell := self atX: x y: aRectangle top-1.
+		aCell disconnect: 2r0100.
+		aCell := self atX: x y: aRectangle bottom+1.
+		aCell disconnect: 2r0001. ].
+
+	aRectangle top to: aRectangle bottom do: [ :y |
+		aCell := self atX: aRectangle left-1 y: y.
+		aCell disconnect: 2r0010.
+		aCell := self atX: aRectangle right+1 y: y.
+		aCell disconnect: 2r1000. ].	
+]
+
+{ #category : #'cell access' }
 ChDArea >> downX: x y: y [
 
 	^ self atX: x y: y+1
