@@ -28,6 +28,12 @@ ChDArea class >> extent: aPoint [
 ]
 
 { #category : #geometry }
+ChDArea class >> oneByOne [
+
+	^ self extent: 1@1
+]
+
+{ #category : #geometry }
 ChDArea class >> orGate [
 
 ^ (ChDArea decodeFrom: '000040000520041621492014120181040050B00B0000262029040050B00B640850B00B000026204320121620830000620021')
@@ -206,6 +212,26 @@ ChDArea >> descriptions [
 ChDArea >> deselect [ 
 	
 	selection := nil.
+]
+
+{ #category : #'cell access' }
+ChDArea >> disconnect: aRectangle [
+
+	"fix the cells so they do not have any connection outside of the defined area. Used for areas created as a copy of a region of another area."
+	
+	| aCell |
+	
+	aRectangle left to: aRectangle right do: [ :x |
+		aCell := self atX: x y: aRectangle top.
+		aCell disconnect: 2r0001.
+		aCell := self atX: x y: aRectangle bottom.
+		aCell disconnect: 2r0100. ].
+
+	aRectangle top to: aRectangle bottom do: [ :y |
+		aCell := self atX: aRectangle left y: y.
+		aCell disconnect: 2r1000.
+		aCell := self atX: aRectangle right y: y.
+		aCell disconnect: 2r0010. ].	
 ]
 
 { #category : #'cell access' }

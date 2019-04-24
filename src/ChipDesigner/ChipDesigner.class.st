@@ -163,6 +163,20 @@ ChipDesigner class >> open [
 ]
 
 { #category : #initialization }
+ChipDesigner >> copy [ 
+	
+	| temporary |
+	
+	self flag: #todo. "should be repced by a less hackish copying"
+	
+	temporary := ChDArea extent: (area selection width@(area selection height)).
+	temporary decodedFromZipString: (area encodedRectangle: area selection) zipped asByteArray base64Encoded.
+	temporary disconnect: (Rectangle origin: 1@1 corner: (temporary width@temporary height)).
+	
+	Clipboard clipboardText: temporary zipString
+]
+
+{ #category : #initialization }
 ChipDesigner >> editModeIcon [
 
 	^ (Dictionary newFrom: { 
@@ -384,6 +398,13 @@ ChipDesigner >> openSelectionMenu [
 ]
 
 { #category : #initialization }
+ChipDesigner >> paste [
+
+	area decodedFromZipString: Clipboard clipboardText asString at: area selection origin.
+	self refreshEditor 
+]
+
+{ #category : #initialization }
 ChipDesigner >> refreshEditor [
 
 	editor widget submorphs first changed
@@ -403,16 +424,13 @@ ChipDesigner >> selectionMenu [
 			item
 				name: 'Copy';
 				icon: (self iconNamed: #smallCopy);
-				action: [ 
-					Clipboard clipboardText: (area encodedRectangle: area selection) zipped asByteArray base64Encoded ]];
+				action: [ self copy]];
 				
 		addItem: [ :item | 
 			item
 				name: 'Paste';
 				icon: (self iconNamed: #smallPaste);
-				action: [ 
-					area decodedFromZipString: Clipboard clipboardText asString at: area selection origin.
-					self refreshEditor ]  ];
+				action: [ self paste ]  ];
 		yourself
 ]
 

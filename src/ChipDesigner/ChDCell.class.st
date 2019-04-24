@@ -113,6 +113,18 @@ ChDCell >> decodeFrom: aString [
 ]
 
 { #category : #accessing }
+ChDCell >> disconnect: aMask [
+
+	self metalConnections ifNotNil: [ 
+		self metalConnections: (self safeMetalConnections bitAnd: aMask bitInvert32) ].
+	
+	self substrateConnections ifNotNil: [ 
+		self substrateConnections: (self safeSubstrateConnections bitAnd: aMask bitInvert32) ].
+
+	
+]
+
+{ #category : #accessing }
 ChDCell >> down [
 	^ down
 ]
@@ -322,6 +334,16 @@ ChDCell >> rightUp [
 { #category : #accessing }
 ChDCell >> rightUp: anObject [
 	rightUp := anObject
+]
+
+{ #category : #accessing }
+ChDCell >> safeMetalConnections [
+	^ metalConnections ifNil: [ 0 ]
+]
+
+{ #category : #accessing }
+ChDCell >> safeSubstrateConnections [
+	^ substrateConnections ifNil: [ 0 ]
 ]
 
 { #category : #accessing }
