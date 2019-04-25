@@ -274,7 +274,7 @@ ChipDesigner >> initialize [
 	toolbar := self toolbar. 
 	viaMode := false.
 
-	currentLevel := ChipDesignerClassicLevel1 on: area.
+	currentLevel := ChipDesignerClassicLevel1Intro on: area.
 
 	modeNormalForm := self modeIcon: (Rectangle origin: 0@0 extent: 27@14).
 	modeShiftForm := self modeIcon: (Rectangle origin: 26@0 extent: 27@14).
@@ -292,12 +292,33 @@ ChipDesigner >> initialize [
 ]
 
 { #category : #initialization }
+ChipDesigner >> initializeList [
+
+	| levels |
+	
+	levels := self levels.
+
+	list := self newList.
+	list items: levels.
+	list displayBlock: [ :each | each levelName ].
+	list whenSelectionChangedDo: [ :selection | 
+		| levelClass |
+		levelClass := selection selectedItem.
+		currentLevel := levelClass on: area.
+		self refreshEditor.
+		scopes := self sequenceMorph asSpecAdapter.
+		self needRebuild: false.
+		self buildWithSpec.
+		].
+ 
+]
+
+{ #category : #initialization }
 ChipDesigner >> initializeWidgets [
 
 	| editorMorph scopesPage |
 	
-	list := self newList.
-	list items: #('KT411I - Quad intverter gate').
+	self initializeList.
 	
 	editorMorph := self editorMorph.
 	editor := editorMorph asSpecAdapter.
@@ -361,6 +382,17 @@ ChipDesigner >> initializeWidgets [
 	
 
 	
+]
+
+{ #category : #initialization }
+ChipDesigner >> levels [
+
+	^ { 
+		ChipDesignerClassicLevel1Intro.
+		ChipDesignerClassicLevel1.
+		ChipDesignerClassicLevel2.
+		ChipDesignerClassicLevel3.
+	 }
 ]
 
 { #category : #initialization }

@@ -1,17 +1,17 @@
 Class {
-	#name : #ChipDesignerClassicLevel1,
+	#name : #ChipDesignerClassicLevel4,
 	#superclass : #ChipDesignerClassicLevel,
 	#category : #ChipDesigner
 }
 
-{ #category : #'as yet unclassified' }
-ChipDesignerClassicLevel1 class >> levelName [
+{ #category : #accessing }
+ChipDesignerClassicLevel4 class >> levelName [
 
-	^ 'KT411I - Quad Inverter Gate'
+	^ 'KO229 - Power On Reset Generator'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel1 >> portsDefinition [
+ChipDesignerClassicLevel4 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

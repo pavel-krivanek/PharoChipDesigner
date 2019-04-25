@@ -1,17 +1,17 @@
 Class {
-	#name : #ChipDesignerClassicLevel1,
+	#name : #ChipDesignerClassicLevel5,
 	#superclass : #ChipDesignerClassicLevel,
 	#category : #ChipDesigner
 }
 
-{ #category : #'as yet unclassified' }
-ChipDesignerClassicLevel1 class >> levelName [
+{ #category : #accessing }
+ChipDesignerClassicLevel5 class >> levelName [
 
-	^ 'KT411I - Quad Inverter Gate'
+	^ 'KO223 - Dual Fixed Frequency Oscillator'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel1 >> portsDefinition [
+ChipDesignerClassicLevel5 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

@@ -1,17 +1,17 @@
 Class {
-	#name : #ChipDesignerClassicLevel1,
+	#name : #ChipDesignerClassicLevel7,
 	#superclass : #ChipDesignerClassicLevel,
 	#category : #ChipDesigner
 }
 
-{ #category : #'as yet unclassified' }
-ChipDesignerClassicLevel1 class >> levelName [
+{ #category : #accessing }
+ChipDesignerClassicLevel7 class >> levelName [
 
-	^ 'KT411I - Quad Inverter Gate'
+	^ 'KL2T1 - Dual Toggle Latch'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel1 >> portsDefinition [
+ChipDesignerClassicLevel7 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

@@ -32,6 +32,17 @@ ChipDesignerClassicLevelPort class >> name: aString sequence: sequenceNumber [
 
 ]
 
+{ #category : #'as yet unclassified' }
+ChipDesignerClassicLevelPort class >> notConnectedNamed: aString [ 
+
+	^ self new
+		name: aString;
+		sequence: 0;
+		expectedSequence: 0;
+		yourself
+
+]
+
 { #category : #accessing }
 ChipDesignerClassicLevelPort >> expectedSequence [
 	^ expectedSequence
