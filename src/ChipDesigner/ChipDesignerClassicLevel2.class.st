@@ -11,6 +11,12 @@ ChipDesignerClassicLevel2 class >> levelName [
 ]
 
 { #category : #'as yet unclassified' }
+ChipDesignerClassicLevel2 >> instructions [ 
+
+	^ 'classic02.png'
+]
+
+{ #category : #'as yet unclassified' }
 ChipDesignerClassicLevel2 >> portsDefinition [
 
 	^ { 

@@ -1,6 +1,6 @@
 Class {
 	#name : #ChipDesignerClassicLevel1Intro,
-	#superclass : #ChipDesignerClassicLevel,
+	#superclass : #ChipDesignerClassicLevel1,
 	#category : #ChipDesigner
 }
 

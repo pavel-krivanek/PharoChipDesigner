@@ -117,6 +117,12 @@ ChipDesignerClassicLevel >> initializeSimulation [
 ]
 
 { #category : #'as yet unclassified' }
+ChipDesignerClassicLevel >> instructions [
+
+	^ nil
+]
+
+{ #category : #'as yet unclassified' }
 ChipDesignerClassicLevel >> portPoints [
 
 	^ { 3@8. 3@12. 3@16. 3@20. 

@@ -26,7 +26,8 @@ Class {
 		'runButton',
 		'stepButton',
 		'resetButton',
-		'selectModeButton'
+		'selectModeButton',
+		'instructions'
 	],
 	#category : #ChipDesigner
 }
@@ -263,7 +264,7 @@ ChipDesigner >> import [
 
 { #category : #initialization }
 ChipDesigner >> initialExtent [
-	^ 840@720
+	^ 855@720
 ]
 
 { #category : #initialization }
@@ -306,7 +307,7 @@ ChipDesigner >> initializeList [
 		levelClass := selection selectedItem.
 		currentLevel := levelClass on: area.
 		self refreshEditor.
-		scopes := self sequenceMorph asSpecAdapter.
+		self initializeNotebook.
 		self needRebuild: false.
 		self buildWithSpec.
 		].
@@ -314,15 +315,33 @@ ChipDesigner >> initializeList [
 ]
 
 { #category : #initialization }
+ChipDesigner >> initializeNotebook [
+	
+	| instructionsPage scopesPage |
+	instructions := self instructionsMorph asSpecAdapter.
+	scopes := self sequenceMorph asSpecAdapter.
+
+
+	notebook := self newNotebook.
+	instructionsPage := NotebookPage title: 'Instructions' provider: [ instructions ].
+	scopesPage := NotebookPage title: 'Scopes' provider: [ scopes ].
+	notebook addPage: instructionsPage.
+	notebook addPage: scopesPage.
+	
+	
+
+	
+]
+
+{ #category : #initialization }
 ChipDesigner >> initializeWidgets [
 
-	| editorMorph scopesPage |
+	| editorMorph instructionsPage scopesPage |
 	
 	self initializeList.
 	
 	editorMorph := self editorMorph.
 	editor := editorMorph asSpecAdapter.
-	scopes := self sequenceMorph asSpecAdapter.
 	
 	editModeButton := self newButton icon: self editModeIcon.
 	editModeButton label: 'mode'.
@@ -375,13 +394,22 @@ ChipDesigner >> initializeWidgets [
 		icon: (self iconNamed: #glamorousInspect).
 	inspectButton action: [area inspect].
 	
-	notebook := self newNotebook.
-	scopesPage := NotebookPage title: 'Scopes' provider: [ scopes ].
-	notebook addPage: scopesPage.
-	
+	self initializeNotebook.
 	
 
 	
+]
+
+{ #category : #initialization }
+ChipDesigner >> instructionsMorph [
+
+	^ currentLevel instructions 
+		ifNotNil: [ :fileName |
+			 | form |
+			form := PNGReadWriter formFromFileNamed: './pharo-local/iceberg/pavel-krivanek/PharoChipDesigner/levels/', fileName.
+			form asMorph
+		 ]
+		ifNil: [ Morph new ]
 ]
 
 { #category : #initialization }
