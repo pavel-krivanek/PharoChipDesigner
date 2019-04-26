@@ -7,7 +7,13 @@ Class {
 { #category : #accessing }
 ChipDesignerClassicLevel5 class >> levelName [
 
-	^ 'KO223 - Dual Fixed Frequency Oscillator'
+	^ '5) KO223 - Dual Fixed Frequency Oscillator'
+]
+
+{ #category : #'as yet unclassified' }
+ChipDesignerClassicLevel5 >> instructions [ 
+
+	^ 'classic05.png'
 ]
 
 { #category : #'as yet unclassified' }
@@ -15,30 +21,22 @@ ChipDesignerClassicLevel5 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 
-			name: 'A0'
-			sequence: 1895286724122662508214109177388798933309665208831355630489573082672101741663618047.
+			name: 'EN0'
+			sequence: 1809251394333065553491764145219884065145560071537429849915298050424541544448.
+		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
+		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
 		ChipDesignerClassicLevelPort 
-			name: 'A1'
-			sequence: 1807484548951638332871050064150417808546271801152871425639336334841190810623.
-		ChipDesignerClassicLevelPort 
-			name: 'A2'
-			sequence: 1807484547269931066782991785428060059785466597904927945672633562124766938111.
-		ChipDesignerClassicLevelPort 
-			name: 'A3'
-			sequence: 1895286724120940438332946554699648321487632970982088488659496892968870214733134848.			
+			name: 'OSC0'
+			expectedSequence: 1807486271021521099294765100139966498690007776791595922603044017001864364032.			
 
 		ChipDesignerClassicLevelPort 
-			name: 'Y0'
-			expectedSequence: 1940773605501606408411247797646130107709097173843308165621322836656232183463544880128.	 
+			name: 'EN1'
+			sequence: 1809251394333063946555252383231974655574824859445932416682729794555633205248.	 
+		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
+		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
 		ChipDesignerClassicLevelPort 
-			name: 'Y1'
-			expectedSequence: 1942668890418244521967823573952468842491989030505867720098940984099567950364017687552.	 
-		ChipDesignerClassicLevelPort 
-			name: 'Y2'
-			expectedSequence: 1942668890418244523649530840040527121214346779266672923346884464066270723080441560064.	 
-		ChipDesignerClassicLevelPort 
-			name: 'Y3'
-			expectedSequence: 1940773605501608130481128960268819258320919206081157432763152912845935414990475363327.	 
+			name: 'OSC1'
+			expectedSequence: 1807486271021521097727022161835588050485548522926140803155987852849797136384.	 
 		}
 
 

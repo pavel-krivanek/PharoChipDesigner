@@ -7,7 +7,7 @@ Class {
 { #category : #'as yet unclassified' }
 ChipDesignerClassicLevel1 class >> levelName [
 
-	^ 'KT411I - Quad Inverter Gate'
+	^ '1) 1KT411I - Quad Inverter Gate'
 ]
 
 { #category : #'as yet unclassified' }

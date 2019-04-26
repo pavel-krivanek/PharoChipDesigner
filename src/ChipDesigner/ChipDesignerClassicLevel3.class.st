@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChipDesignerClassicLevel3 class >> levelName [
 
-	^ 'KT141AO - 4-Input AND/OR Gate'
+	^ '3) KT141AO - 4-Input AND/OR Gate'
 ]
 
 { #category : #'as yet unclassified' }

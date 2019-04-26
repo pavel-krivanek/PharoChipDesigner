@@ -7,7 +7,13 @@ Class {
 { #category : #accessing }
 ChipDesignerClassicLevel7 class >> levelName [
 
-	^ 'KL2T1 - Dual Toggle Latch'
+	^ '7) KL2T1 - Dual Toggle Latch'
+]
+
+{ #category : #'as yet unclassified' }
+ChipDesignerClassicLevel7 >> instructions [ 
+
+	^ 'classic07.png'
 ]
 
 { #category : #'as yet unclassified' }
@@ -15,30 +21,22 @@ ChipDesignerClassicLevel7 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 
-			name: 'A0'
-			sequence: 1895286724122662508214109177388798933309665208831355630489573082672101741663618047.
+			name: 'T0'
+			sequence: 56086793224325032158292242257491180798651090387357478951435572711106916940800.
+		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
+		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
 		ChipDesignerClassicLevelPort 
-			name: 'A1'
-			sequence: 1807484548951638332871050064150417808546271801152871425639336334841190810623.
-		ChipDesignerClassicLevelPort 
-			name: 'A2'
-			sequence: 1807484547269931066782991785428060059785466597904927945672633562124766938111.
-		ChipDesignerClassicLevelPort 
-			name: 'A3'
-			sequence: 1895286724120940438332946554699648321487632970982088488659496892968870214733134848.			
+			name: 'Q0'
+			expectedSequence: 1809251394333065553493295144183071933364084496555499427287387029111807409152.			
 
 		ChipDesignerClassicLevelPort 
-			name: 'Y0'
-			expectedSequence: 1940773605501606408411247797646130107709097173843308165621322836656232183463544880128.	 
+			name: 'T1'
+			sequence: 57432931034020075956673030011133892710634697442982077865447739811833513717530624.	 
+		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
+		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
 		ChipDesignerClassicLevelPort 
-			name: 'Y1'
-			expectedSequence: 1942668890418244521967823573952468842491989030505867720098940984099567950364017687552.	 
-		ChipDesignerClassicLevelPort 
-			name: 'Y2'
-			expectedSequence: 1942668890418244523649530840040527121214346779266672923346884464066270723080441560064.	 
-		ChipDesignerClassicLevelPort 
-			name: 'Y3'
-			expectedSequence: 1940773605501608130481128960268819258320919206081157432763152912845935414990475363327.	 
+			name: 'Q1'
+			expectedSequence: 1852671660951679345059503091828672469782946080473364738826495370471075711287296.	 
 		}
 
 
