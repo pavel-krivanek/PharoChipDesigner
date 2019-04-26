@@ -429,6 +429,8 @@ ChipDesigner >> levels [
 		ChipDesignerClassicLevel10.
 		ChipDesignerClassicLevel11.
 		ChipDesignerClassicLevel12.
+		ChipDesignerClassicLevel13.
+		ChipDesignerClassicLevel14.
 	 }
 ]
 
