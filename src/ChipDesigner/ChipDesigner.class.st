@@ -43,7 +43,7 @@ ChipDesigner class >> defaultSpec [
 	^ SpecBoxLayout newVertical
 		add:
 			(SpecPanedLayout newHorizontal
-				position: 200;
+				position: 245;
 				add: #list;
 				add: (
 					SpecBoxLayout newVertical
@@ -264,7 +264,7 @@ ChipDesigner >> import [
 
 { #category : #initialization }
 ChipDesigner >> initialExtent [
-	^ 855@720
+	^ 900@720
 ]
 
 { #category : #initialization }

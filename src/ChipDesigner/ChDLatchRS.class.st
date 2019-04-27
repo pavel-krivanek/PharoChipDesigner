@@ -43,11 +43,7 @@ ChDLatchRS >> testOscilations [
 	s := false.
 	
 	self step.
-	self assert: q low. 
-	self step.
-	self assert: q hi. 
-	self step.
-	self assert: q low. 
+	self assert: q hi . 
 	self step.
 	self assert: q low. 
 	self step.
@@ -55,7 +51,11 @@ ChDLatchRS >> testOscilations [
 	self step.
 	self assert: q low. 
 	self step.
+	self assert: q hi. 
+	self step.
 	self assert: q low. 
+	self step.
+	self assert: q hi. 
 	
 ]
 
@@ -76,7 +76,7 @@ ChDLatchRS >> testSet [
 	s := true.	
 
 	self step. self assert: q low. 
-	self step. self assert: q low. 
+	self step. self assert: q hi. 
 	self step. self assert: q hi. 
 	
 	s := false.	

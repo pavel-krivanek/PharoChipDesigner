@@ -36,7 +36,7 @@ ChDTwoPNPCompactTest >> test00 [
 	area simulation stepWith: [ :aSimulation |
 		vcc hasVcc: true ].	
 	
-	self deny: output currentState.
+	self assert: output currentState.
 
 	area simulation stepWith: [ :aSimulation |
 		vcc hasVcc: true ].	

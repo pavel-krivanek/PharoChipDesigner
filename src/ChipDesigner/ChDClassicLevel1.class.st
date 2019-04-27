@@ -1,7 +1,7 @@
 Class {
 	#name : #ChDClassicLevel1,
 	#superclass : #ChDClassicLevel,
-	#category : #ChipDesigner
+	#category : #'ChipDesigner-Levels'
 }
 
 { #category : #'as yet unclassified' }

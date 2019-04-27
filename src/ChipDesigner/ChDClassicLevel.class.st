@@ -14,7 +14,7 @@ Class {
 		'sequences',
 		'scopes'
 	],
-	#category : #ChipDesigner
+	#category : #'ChipDesigner-Levels'
 }
 
 { #category : #'instance creation' }
