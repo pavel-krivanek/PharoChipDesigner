@@ -269,7 +269,8 @@ ChDSimulation >> stepWith: aBlock [
 					self addConnectedRegionsOf: e to: connected.
 					connected do: [ :ee | ee futureState: (out or: [ee futureState])]  ].		
 
-				each open: out.
+				each open: input "& vccCurentState".
+				"each open: out."
 
 					] .
 			(cell junctionType = #pnp) ifTrue: [

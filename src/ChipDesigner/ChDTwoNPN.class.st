@@ -116,7 +116,7 @@ ChDTwoNPN >> test11 [
 		
 	self step. 
 	
-	self deny: output currentState.
+	self assert: output currentState.
 	self assert: control currentState.
 
 	self step.
