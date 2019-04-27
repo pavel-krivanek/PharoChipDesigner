@@ -6,7 +6,7 @@ m openInWindow.
 s encoded
 "
 Class {
-	#name : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel,
 	#superclass : #Object,
 	#instVars : [
 		'area',
@@ -18,7 +18,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-ChipDesignerClassicLevel class >> on: area [
+ChDClassicLevel class >> on: area [
 
 	^ self basicNew
 		area: area;
@@ -26,17 +26,17 @@ ChipDesignerClassicLevel class >> on: area [
 ]
 
 { #category : #accessing }
-ChipDesignerClassicLevel >> area [
+ChDClassicLevel >> area [
 	^ area
 ]
 
 { #category : #accessing }
-ChipDesignerClassicLevel >> area: anObject [
+ChDClassicLevel >> area: anObject [
 	area := anObject
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel >> createLabels [
+ChDClassicLevel >> createLabels [
 
 	area descriptions add: ('+Vcc' -> (3@4)).
 	area descriptions add: ((ports at: 1) name -> (3@8)).
@@ -54,7 +54,7 @@ ChipDesignerClassicLevel >> createLabels [
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel >> createScopes [
+ChDClassicLevel >> createScopes [
 
 	sequences := ports with: self portPoints collect: [ :port :aPoint |
 		| aSequence |
@@ -73,7 +73,7 @@ ChipDesignerClassicLevel >> createScopes [
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel >> initialize [ 
+ChDClassicLevel >> initialize [ 
 
 	super initialize.
 		
@@ -90,13 +90,13 @@ ChipDesignerClassicLevel >> initialize [
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel >> initializeArea [
+ChDClassicLevel >> initializeArea [
 
 	area decodeFrom: '0002C0001B000B2200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A10000420061201612012100048200612016120121000B2'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel >> initializeSimulation [
+ChDClassicLevel >> initializeSimulation [
 
 	area simulation preStepBlock: [ :aSimulation |
 	
@@ -117,26 +117,26 @@ ChipDesignerClassicLevel >> initializeSimulation [
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel >> instructions [
+ChDClassicLevel >> instructions [
 
 	^ nil
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel >> portPoints [
+ChDClassicLevel >> portPoints [
 
 	^ { 3@8. 3@12. 3@16. 3@20. 
 	    42@8. 42@12. 42@16. 42@20 }
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel >> portsDefinition [
+ChDClassicLevel >> portsDefinition [
 
 	self subclassResponsibility 
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel >> reinitialize [ 
+ChDClassicLevel >> reinitialize [ 
 
 	self initializeSimulation.
 	
@@ -144,7 +144,7 @@ ChipDesignerClassicLevel >> reinitialize [
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel >> scopes [ 
+ChDClassicLevel >> scopes [ 
 
 	^ scopes
 ]

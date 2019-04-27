@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel9,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel9,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel9 class >> levelName [
+ChDClassicLevel9 class >> levelName [
 
 	^ '9) KD124 - 2-To-4 Line Decoder'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel9 >> instructions [ 
+ChDClassicLevel9 >> instructions [ 
 
 	^ 'classic09.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel9 >> portsDefinition [
+ChDClassicLevel9 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.

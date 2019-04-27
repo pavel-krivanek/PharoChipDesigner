@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel16,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel16,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel16 class >> levelName [
+ChDClassicLevel16 class >> levelName [
 
 	^ '16) KA181 - 2-Bit Logical Function Unit'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel16 >> instructions [ 
+ChDClassicLevel16 >> instructions [ 
 
 	^ 'classic16.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel16 >> portsDefinition [
+ChDClassicLevel16 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

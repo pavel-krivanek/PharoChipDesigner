@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel8,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel8,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel8 class >> levelName [
+ChDClassicLevel8 class >> levelName [
 
 	^ '8) K0224X - Dual Frequency Oscillator'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel8 >> instructions [ 
+ChDClassicLevel8 >> instructions [ 
 
 	^ 'classic08.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel8 >> portsDefinition [
+ChDClassicLevel8 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

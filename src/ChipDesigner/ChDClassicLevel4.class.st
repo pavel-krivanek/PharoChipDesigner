@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel4,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel4,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel4 class >> levelName [
+ChDClassicLevel4 class >> levelName [
 
 	^ '4) KO229 - Power On Reset Generator'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel4 >> instructions [ 
+ChDClassicLevel4 >> instructions [ 
 
 	^ 'classic04.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel4 >> portsDefinition [
+ChDClassicLevel4 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.

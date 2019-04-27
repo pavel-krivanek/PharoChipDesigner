@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel10,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel10,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel10 class >> levelName [
+ChDClassicLevel10 class >> levelName [
 
 	^ '10) KA189 - 2Bit Adder With Carry'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel10 >> instructions [ 
+ChDClassicLevel10 >> instructions [ 
 
 	^ 'classic10.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel10 >> portsDefinition [
+ChDClassicLevel10 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel17,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel17,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel17 class >> levelName [
+ChDClassicLevel17 class >> levelName [
 
 	^ '17) X901 - Radio Message Stream Decoder'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel17 >> instructions [ 
+ChDClassicLevel17 >> instructions [ 
 
 	^ 'classic17.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel17 >> portsDefinition [
+ChDClassicLevel17 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

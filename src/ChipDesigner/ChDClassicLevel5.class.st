@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel5,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel5,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel5 class >> levelName [
+ChDClassicLevel5 class >> levelName [
 
 	^ '5) KO223 - Dual Fixed Frequency Oscillator'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel5 >> instructions [ 
+ChDClassicLevel5 >> instructions [ 
 
 	^ 'classic05.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel5 >> portsDefinition [
+ChDClassicLevel5 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

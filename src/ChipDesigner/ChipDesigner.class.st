@@ -275,7 +275,7 @@ ChipDesigner >> initialize [
 	toolbar := self toolbar. 
 	viaMode := false.
 
-	currentLevel := ChipDesignerClassicLevel1Intro on: area.
+	currentLevel := ChDClassicLevel1Intro on: area.
 
 	modeNormalForm := self modeIcon: (Rectangle origin: 0@0 extent: 27@14).
 	modeShiftForm := self modeIcon: (Rectangle origin: 26@0 extent: 27@14).
@@ -416,26 +416,26 @@ ChipDesigner >> instructionsMorph [
 ChipDesigner >> levels [
 
 	^ { 
-		ChipDesignerClassicLevel1Intro.
-		ChipDesignerClassicLevel1.
-		ChipDesignerClassicLevel2.
-		ChipDesignerClassicLevel3.
-		ChipDesignerClassicLevel4.
-		ChipDesignerClassicLevel5.
-		ChipDesignerClassicLevel6.
-		ChipDesignerClassicLevel7.
-		ChipDesignerClassicLevel8.
-		ChipDesignerClassicLevel9.
-		ChipDesignerClassicLevel10.
-		ChipDesignerClassicLevel11.
-		ChipDesignerClassicLevel12.
-		ChipDesignerClassicLevel13.
-		ChipDesignerClassicLevel14.
-		ChipDesignerClassicLevel15.
-		ChipDesignerClassicLevel16.
-		ChipDesignerClassicLevel17.
-		ChipDesignerClassicLevel18.
-		ChipDesignerClassicLevel19.
+		ChDClassicLevel1Intro.
+		ChDClassicLevel1.
+		ChDClassicLevel2.
+		ChDClassicLevel3.
+		ChDClassicLevel4.
+		ChDClassicLevel5.
+		ChDClassicLevel6.
+		ChDClassicLevel7.
+		ChDClassicLevel8.
+		ChDClassicLevel9.
+		ChDClassicLevel10.
+		ChDClassicLevel11.
+		ChDClassicLevel12.
+		ChDClassicLevel13.
+		ChDClassicLevel14.
+		ChDClassicLevel15.
+		ChDClassicLevel16.
+		ChDClassicLevel17.
+		ChDClassicLevel18.
+		ChDClassicLevel19.
 	 }
 ]
 

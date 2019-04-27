@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel1,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel1,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel1 class >> levelName [
+ChDClassicLevel1 class >> levelName [
 
 	^ '1) 1KT411I - Quad Inverter Gate'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel1 >> instructions [ 
+ChDClassicLevel1 >> instructions [ 
 
 	^ 'classic01.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel1 >> portsDefinition [
+ChDClassicLevel1 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

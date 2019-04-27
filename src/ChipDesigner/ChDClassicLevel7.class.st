@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel7,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel7,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel7 class >> levelName [
+ChDClassicLevel7 class >> levelName [
 
 	^ '7) KL2T1 - Dual Toggle Latch'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel7 >> instructions [ 
+ChDClassicLevel7 >> instructions [ 
 
 	^ 'classic07.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel7 >> portsDefinition [
+ChDClassicLevel7 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel3,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel3,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel3 class >> levelName [
+ChDClassicLevel3 class >> levelName [
 
 	^ '3) KT141AO - 4-Input AND/OR Gate'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel3 >> instructions [ 
+ChDClassicLevel3 >> instructions [ 
 
 	^ 'classic03.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel3 >> portsDefinition [
+ChDClassicLevel3 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

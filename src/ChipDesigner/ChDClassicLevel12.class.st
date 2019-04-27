@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel12,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel12,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel12 class >> levelName [
+ChDClassicLevel12 class >> levelName [
 
 	^ '12) KM141P - 4-To-1 Multiplexer'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel12 >> instructions [ 
+ChDClassicLevel12 >> instructions [ 
 
 	^ 'classic12.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel12 >> portsDefinition [
+ChDClassicLevel12 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

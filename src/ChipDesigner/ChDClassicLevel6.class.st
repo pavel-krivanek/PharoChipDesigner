@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel6,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel6,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel6 class >> levelName [
+ChDClassicLevel6 class >> levelName [
 
 	^ '6) KL2S1 - Dual Set-Reset Latch'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel6 >> instructions [ 
+ChDClassicLevel6 >> instructions [ 
 
 	^ 'classic06.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel6 >> portsDefinition [
+ChDClassicLevel6 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

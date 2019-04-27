@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel14,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel14,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel14 class >> levelName [
+ChDClassicLevel14 class >> levelName [
 
 	^ '14) KC84S - 4-Bit Shift Register (S-To-P)'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel14 >> instructions [ 
+ChDClassicLevel14 >> instructions [ 
 
 	^ 'classic14.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel14 >> portsDefinition [
+ChDClassicLevel14 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.

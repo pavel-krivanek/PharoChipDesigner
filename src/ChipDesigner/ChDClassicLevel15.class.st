@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel15,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel15,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel15 class >> levelName [
+ChDClassicLevel15 class >> levelName [
 
 	^ '15) KR8S1 - 8 Bit Addressable SRAM'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel15 >> instructions [ 
+ChDClassicLevel15 >> instructions [ 
 
 	^ 'classic15.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel15 >> portsDefinition [
+ChDClassicLevel15 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 

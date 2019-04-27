@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel11,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel11,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel11 class >> levelName [
+ChDClassicLevel11 class >> levelName [
 
 	^ '11) KC82F - Divide-By-Four Counter'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel11 >> instructions [ 
+ChDClassicLevel11 >> instructions [ 
 
 	^ 'classic11.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel11 >> portsDefinition [
+ChDClassicLevel11 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.

@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel18,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel18,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel18 class >> levelName [
+ChDClassicLevel18 class >> levelName [
 
 	^ '18) X902 - Grenade Launcher Ammo Counter'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel18 >> instructions [ 
+ChDClassicLevel18 >> instructions [ 
 
 	^ 'classic18.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel18 >> portsDefinition [
+ChDClassicLevel18 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.

@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel13,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel13,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel13 class >> levelName [
+ChDClassicLevel13 class >> levelName [
 
 	^ '13) KC84C - 4-Bit Counter With Clear'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel13 >> instructions [ 
+ChDClassicLevel13 >> instructions [ 
 
 	^ 'classic13.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel13 >> portsDefinition [
+ChDClassicLevel13 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.

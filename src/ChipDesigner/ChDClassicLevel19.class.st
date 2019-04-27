@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel19,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel19,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel19 class >> levelName [
+ChDClassicLevel19 class >> levelName [
 
 	^ '19) X903 - Gatling Cannon Fire Controller'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel19 >> instructions [ 
+ChDClassicLevel19 >> instructions [ 
 
 	^ 'classic19.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel19 >> portsDefinition [
+ChDClassicLevel19 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.

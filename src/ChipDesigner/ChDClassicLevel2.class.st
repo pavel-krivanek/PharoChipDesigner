@@ -1,23 +1,23 @@
 Class {
-	#name : #ChipDesignerClassicLevel2,
-	#superclass : #ChipDesignerClassicLevel,
+	#name : #ChDClassicLevel2,
+	#superclass : #ChDClassicLevel,
 	#category : #ChipDesigner
 }
 
 { #category : #accessing }
-ChipDesignerClassicLevel2 class >> levelName [
+ChDClassicLevel2 class >> levelName [
 
 	^ '2) KT221A - Dual 2-Input AND Gate'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel2 >> instructions [ 
+ChDClassicLevel2 >> instructions [ 
 
 	^ 'classic02.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevel2 >> portsDefinition [
+ChDClassicLevel2 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 
