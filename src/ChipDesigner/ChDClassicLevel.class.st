@@ -108,10 +108,11 @@ ChDClassicLevel >> initializeSimulation [
 					sequence updateRegionAt: aSimulation time ] ] ].
 
 		"set Vcc after inputs so they can  overwrite them"
-		(area atX: 3 y: 3) metalRegion hasVcc: true.
-		(area atX: 3 y: 24) metalRegion hasVcc: true.
-		(area atX: 42 y: 3) metalRegion hasVcc: true.
-		(area atX: 42 y: 24) metalRegion hasVcc: true.
+		aSimulation time > 0 ifTrue: [ 
+			(area atX: 3 y: 3) metalRegion hasVcc: true.
+			(area atX: 3 y: 24) metalRegion hasVcc: true.
+			(area atX: 42 y: 3) metalRegion hasVcc: true.
+			(area atX: 42 y: 24) metalRegion hasVcc: true. ]
 	].
 	
 ]
