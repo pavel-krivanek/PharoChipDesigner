@@ -14,17 +14,21 @@ Class {
 		'junctionConnections',
 		'metalRegion',
 		'substrateRegion',
-		'left',
-		'right',
-		'up',
-		'down',
-		'leftUp',
-		'rightUp',
-		'leftDown',
-		'rightDown'
+		'additionalRegions',
+		'topology'
 	],
 	#category : #ChipDesigner
 }
+
+{ #category : #accessing }
+ChDCell >> additionalRegions [
+	^ additionalRegions
+]
+
+{ #category : #accessing }
+ChDCell >> additionalRegions: anObject [
+	additionalRegions := anObject
+]
 
 { #category : #accessing }
 ChDCell >> clearVia [
@@ -39,10 +43,10 @@ ChDCell >> connectedCellsInJunction [
 	
 	result := IdentitySet new.
 	self junctionType ifNil: [ ^ result ].
-	((junctionConnections bitAnd: 2r0001) > 0) ifTrue: [ result add: self up ].
-	((junctionConnections bitAnd: 2r0010) > 0) ifTrue: [ result add: self right ].
-	((junctionConnections bitAnd: 2r0100) > 0) ifTrue: [ result add: self down ].
-	((junctionConnections bitAnd: 2r1000) > 0) ifTrue: [ result add: self left ].
+	((junctionConnections bitAnd: 2r0001) > 0) ifTrue: [ result add: self topology up ].
+	((junctionConnections bitAnd: 2r0010) > 0) ifTrue: [ result add: self topology right ].
+	((junctionConnections bitAnd: 2r0100) > 0) ifTrue: [ result add: self topology down ].
+	((junctionConnections bitAnd: 2r1000) > 0) ifTrue: [ result add: self topology left ].
 	^ result.
 ]
 
@@ -53,10 +57,10 @@ ChDCell >> connectedCellsInSubstrate [
 	
 	result := IdentitySet new.
 	self substrateType ifNil: [ ^ result ].
-	((substrateConnections bitAnd: 2r0001) > 0) ifTrue: [ result add: self up ].
-	((substrateConnections bitAnd: 2r0010) > 0) ifTrue: [ result add: self right ].
-	((substrateConnections bitAnd: 2r0100) > 0) ifTrue: [ result add: self down ].
-	((substrateConnections bitAnd: 2r1000) > 0) ifTrue: [ result add: self left ].
+	((substrateConnections bitAnd: 2r0001) > 0) ifTrue: [ result add: self topology up ].
+	((substrateConnections bitAnd: 2r0010) > 0) ifTrue: [ result add: self topology right ].
+	((substrateConnections bitAnd: 2r0100) > 0) ifTrue: [ result add: self topology down ].
+	((substrateConnections bitAnd: 2r1000) > 0) ifTrue: [ result add: self topology left ].
 	^ result.
 ]
 
@@ -67,14 +71,14 @@ ChDCell >> connectedCellsInSubstrateWithoutBaseConnections [
 	
 	result := IdentitySet new.
 	self substrateType ifNil: [ ^ result ].
-	(((substrateConnections bitAnd: 2r0001) > 0) and: [ (((self up junctionConnections ifNil: [ 0 ]) bitAnd: 2r0100) > 0 ) not]) 
-		ifTrue: [ result add: self up ].
-	(((substrateConnections bitAnd: 2r0010) > 0) and: [ (((self right junctionConnections ifNil: [ 0 ]) bitAnd: 2r1000) > 0 ) not]) 
-		ifTrue: [ result add: self right ].
-	(((substrateConnections bitAnd: 2r0100) > 0) and: [ (((self down junctionConnections ifNil: [ 0 ]) bitAnd: 2r0001) > 0 ) not]) 
-		ifTrue: [ result add: self down ].
-	(((substrateConnections bitAnd: 2r1000) > 0) and: [ (((self left junctionConnections ifNil: [ 0 ]) bitAnd: 2r0010) > 0 ) not]) 
-		ifTrue: [ result add: self left ].
+	(((substrateConnections bitAnd: 2r0001) > 0) and: [ (((self topology up junctionConnections ifNil: [ 0 ]) bitAnd: 2r0100) > 0 ) not]) 
+		ifTrue: [ result add: self topology up ].
+	(((substrateConnections bitAnd: 2r0010) > 0) and: [ (((self topology right junctionConnections ifNil: [ 0 ]) bitAnd: 2r1000) > 0 ) not]) 
+		ifTrue: [ result add: self topology right ].
+	(((substrateConnections bitAnd: 2r0100) > 0) and: [ (((self topology down junctionConnections ifNil: [ 0 ]) bitAnd: 2r0001) > 0 ) not]) 
+		ifTrue: [ result add: self topology down ].
+	(((substrateConnections bitAnd: 2r1000) > 0) and: [ (((self topology left junctionConnections ifNil: [ 0 ]) bitAnd: 2r0010) > 0 ) not]) 
+		ifTrue: [ result add: self topology left ].
 	^ result.
 ]
 
@@ -125,16 +129,6 @@ ChDCell >> disconnect: aMask [
 ]
 
 { #category : #accessing }
-ChDCell >> down [
-	^ down
-]
-
-{ #category : #accessing }
-ChDCell >> down: anObject [
-	down := anObject
-]
-
-{ #category : #accessing }
 ChDCell >> encoded [
 
 	| int |
@@ -182,6 +176,8 @@ ChDCell >> initialize [
 
 	super initialize.
 	
+	topology := ChDCellTopology for: self.
+	
 	via := false.
 	substrateConnections := 0.
 	
@@ -190,6 +186,7 @@ ChDCell >> initialize [
 	
 	metalRegion := nil.
 	substrateRegion := nil.
+	additionalRegions := Set new.
 ]
 
 { #category : #accessing }
@@ -224,38 +221,6 @@ ChDCell >> junctionType [
 { #category : #accessing }
 ChDCell >> junctionType: anObject [
 	junctionType := anObject
-]
-
-{ #category : #accessing }
-ChDCell >> left [ 
-
-	^ left
-]
-
-{ #category : #accessing }
-ChDCell >> left: aCell [
-
-	left := aCell
-]
-
-{ #category : #accessing }
-ChDCell >> leftDown [
-	^ leftDown
-]
-
-{ #category : #accessing }
-ChDCell >> leftDown: anObject [
-	leftDown := anObject
-]
-
-{ #category : #accessing }
-ChDCell >> leftUp [
-	^ leftUp
-]
-
-{ #category : #accessing }
-ChDCell >> leftUp: anObject [
-	leftUp := anObject
 ]
 
 { #category : #accessing }
@@ -302,38 +267,6 @@ ChDCell >> printOn: aStream [
 	y printOn: aStream.
 	aStream nextPutAll: ')'.
 		
-]
-
-{ #category : #accessing }
-ChDCell >> right [
-
-	^ right
-]
-
-{ #category : #accessing }
-ChDCell >> right: aCell [
-
-	right := aCell
-]
-
-{ #category : #accessing }
-ChDCell >> rightDown [
-	^ rightDown
-]
-
-{ #category : #accessing }
-ChDCell >> rightDown: anObject [
-	rightDown := anObject
-]
-
-{ #category : #accessing }
-ChDCell >> rightUp [
-	^ rightUp
-]
-
-{ #category : #accessing }
-ChDCell >> rightUp: anObject [
-	rightUp := anObject
 ]
 
 { #category : #accessing }
@@ -402,22 +335,32 @@ ChDCell >> toggleVia [
 ]
 
 { #category : #accessing }
+ChDCell >> topology [
+	^ topology
+]
+
+{ #category : #accessing }
+ChDCell >> topology: anObject [
+	topology := anObject
+]
+
+{ #category : #accessing }
 ChDCell >> unsetAdjacentMetalCorners [
 
-	self leftUp unsetMetalCorners: 2r1000.
-	self rightUp unsetMetalCorners: 2r0100.
-	self leftDown unsetMetalCorners: 2r0010.
-	self rightDown unsetMetalCorners: 2r0001.
+	self topology leftUp unsetMetalCorners: 2r1000.
+	self topology rightUp unsetMetalCorners: 2r0100.
+	self topology leftDown unsetMetalCorners: 2r0010.
+	self topology rightDown unsetMetalCorners: 2r0001.
 	
 ]
 
 { #category : #accessing }
 ChDCell >> unsetAdjacentSubstrateCorners [
 
-	self leftUp unsetSubstrateCorners: 2r1000.
-	self rightUp unsetSubstrateCorners: 2r0100.
-	self leftDown unsetSubstrateCorners: 2r0010.
-	self rightDown unsetSubstrateCorners: 2r0001.
+	self topology leftUp unsetSubstrateCorners: 2r1000.
+	self topology rightUp unsetSubstrateCorners: 2r0100.
+	self topology leftDown unsetSubstrateCorners: 2r0010.
+	self topology rightDown unsetSubstrateCorners: 2r0001.
 	
 ]
 
@@ -434,48 +377,38 @@ ChDCell >> unsetSubstrateCorners: cornersMap [
 ]
 
 { #category : #accessing }
-ChDCell >> up [
-	^ up
-]
-
-{ #category : #accessing }
-ChDCell >> up: anObject [
-	up := anObject
-]
-
-{ #category : #accessing }
 ChDCell >> updateMetalCorners [
 
 	metalCorners := 0.	
 	self hasMetal ifFalse: [ ^ self ].
 	
-	self leftUp hasMetal ifTrue: [ 
-	(((self leftUp metalConnections bitAnd: 2r0110) = 2r0110) 
+	self topology leftUp hasMetal ifTrue: [ 
+	(((self topology leftUp metalConnections bitAnd: 2r0110) = 2r0110) 
 		and: [ (metalConnections bitAnd: 2r1001) = 2r1001]) 
 			ifTrue: [ 
 				metalCorners := metalCorners bitOr: 2r0001.
-				self leftUp updateMetalCorners: 2r1000 ] ].
+				self topology leftUp updateMetalCorners: 2r1000 ] ].
 
-	self rightUp hasMetal ifTrue: [ 
-	(((self rightUp metalConnections bitAnd: 2r1100) = 2r1100) 
+	self topology rightUp hasMetal ifTrue: [ 
+	(((self topology rightUp metalConnections bitAnd: 2r1100) = 2r1100) 
 		and: [ (metalConnections bitAnd: 2r0011) = 2r0011]) 
 			ifTrue: [ 
 				metalCorners := metalCorners bitOr: 2r0010.
-				self rightUp updateMetalCorners: 2r0100  ]].
+				self topology rightUp updateMetalCorners: 2r0100  ]].
 
-	self leftDown hasMetal ifTrue: [ 
-	(((self leftDown metalConnections bitAnd: 2r0011) = 2r0011) 
+	self topology leftDown hasMetal ifTrue: [ 
+	(((self topology leftDown metalConnections bitAnd: 2r0011) = 2r0011) 
 		and: [ (metalConnections bitAnd: 2r1100) = 2r1100]) 
 			ifTrue: [ 
 				metalCorners := metalCorners bitOr: 2r0100.
-				self leftDown updateMetalCorners: 2r0010  ]].
+				self topology leftDown updateMetalCorners: 2r0010  ]].
 
-	self rightDown hasMetal ifTrue: [ 
-	(((self rightDown metalConnections bitAnd: 2r1001) = 2r1001) 
+	self topology rightDown hasMetal ifTrue: [ 
+	(((self topology rightDown metalConnections bitAnd: 2r1001) = 2r1001) 
 		and: [ (metalConnections bitAnd: 2r0110) = 2r0110]) 
 			ifTrue: [ 
 				metalCorners := metalCorners bitOr: 2r1000.
-				self rightDown updateMetalCorners: 2r0001  ]].
+				self topology rightDown updateMetalCorners: 2r0001  ]].
 	
 ]
 
@@ -491,33 +424,33 @@ ChDCell >> updateSubstrateCorners [
 	substrateCorners := 0.	
 	self hasSubstrate ifFalse: [ ^ self ].
 	
-	self leftUp hasSubstrate ifTrue: [ 
-	(((self leftUp substrateConnections bitAnd: 2r0110) = 2r0110) 
+	self topology leftUp hasSubstrate ifTrue: [ 
+	(((self topology leftUp substrateConnections bitAnd: 2r0110) = 2r0110) 
 		and: [ (substrateConnections bitAnd: 2r1001) = 2r1001]) 
 			ifTrue: [ 
 				substrateCorners := substrateCorners bitOr: 2r0001.
-				self leftUp updateSubstrateCorners: 2r1000 ] ].
+				self topology leftUp updateSubstrateCorners: 2r1000 ] ].
 
-	self rightUp hasSubstrate ifTrue: [ 
-	(((self rightUp substrateConnections bitAnd: 2r1100) = 2r1100) 
+	self topology rightUp hasSubstrate ifTrue: [ 
+	(((self topology rightUp substrateConnections bitAnd: 2r1100) = 2r1100) 
 		and: [ (substrateConnections bitAnd: 2r0011) = 2r0011]) 
 			ifTrue: [ 
 				substrateCorners := substrateCorners bitOr: 2r0010.
-				self rightUp updateSubstrateCorners: 2r0100  ]].
+				self topology rightUp updateSubstrateCorners: 2r0100  ]].
 
-	self leftDown hasSubstrate ifTrue: [ 
-	(((self leftDown substrateConnections bitAnd: 2r0011) = 2r0011) 
+	self topology leftDown hasSubstrate ifTrue: [ 
+	(((self topology leftDown substrateConnections bitAnd: 2r0011) = 2r0011) 
 		and: [ (substrateConnections bitAnd: 2r1100) = 2r1100]) 
 			ifTrue: [ 
 				substrateCorners := substrateCorners bitOr: 2r0100.
-				self leftDown updateSubstrateCorners: 2r0010  ]].
+				self topology leftDown updateSubstrateCorners: 2r0010  ]].
 
-	self rightDown hasSubstrate ifTrue: [ 
-	(((self rightDown substrateConnections bitAnd: 2r1001) = 2r1001) 
+	self topology rightDown hasSubstrate ifTrue: [ 
+	(((self topology rightDown substrateConnections bitAnd: 2r1001) = 2r1001) 
 		and: [ (substrateConnections bitAnd: 2r0110) = 2r0110]) 
 			ifTrue: [ 
 				substrateCorners := substrateCorners bitOr: 2r1000.
-				self rightDown updateSubstrateCorners: 2r0001  ]].
+				self topology rightDown updateSubstrateCorners: 2r0001  ]].
 ]
 
 { #category : #accessing }

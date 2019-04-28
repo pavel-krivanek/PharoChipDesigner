@@ -10,10 +10,10 @@ ChDMetalLayer >> connectedNeighboursOf: aCell [
 	| result |
 	
 	result := OrderedCollection new.
-	((aCell metalConnections bitAnd: 2r0001) > 0) ifTrue: [ result add: aCell up ].
-	((aCell metalConnections bitAnd: 2r0010) > 0) ifTrue: [ result add: aCell right ].
-	((aCell metalConnections bitAnd: 2r0100) > 0) ifTrue: [ result add: aCell down ].
-	((aCell metalConnections bitAnd: 2r1000) > 0) ifTrue: [ result add: aCell left ].
+	((aCell metalConnections bitAnd: 2r0001) > 0) ifTrue: [ result add: aCell topology up ].
+	((aCell metalConnections bitAnd: 2r0010) > 0) ifTrue: [ result add: aCell topology right ].
+	((aCell metalConnections bitAnd: 2r0100) > 0) ifTrue: [ result add: aCell topology down ].
+	((aCell metalConnections bitAnd: 2r1000) > 0) ifTrue: [ result add: aCell topology left ].
 	^ result
 ]
 

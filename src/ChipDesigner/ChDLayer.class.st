@@ -35,13 +35,13 @@ ChDLayer >> clear: aCell withOld: oldConnections [
 
 	oldConnections ifNil: [ ^ self ].
 	(oldConnections bitAnd: 2r0001) > 0 ifTrue: [ 
-		self connectionsFor: aCell up delete: 2r0100 ].
+		self connectionsFor: aCell topology up delete: 2r0100 ].
 	(oldConnections bitAnd: 2r0010) > 0 ifTrue: [ 
-		self connectionsFor: aCell right delete: 2r1000 ].
+		self connectionsFor: aCell topology right delete: 2r1000 ].
 	(oldConnections bitAnd: 2r0100) > 0 ifTrue: [ 
-		self connectionsFor: aCell down delete: 2r0001 ].
+		self connectionsFor: aCell topology down delete: 2r0001 ].
 	(oldConnections bitAnd: 2r1000) > 0 ifTrue: [ 
-		self connectionsFor: aCell left delete: 2r0010 ].
+		self connectionsFor: aCell topology left delete: 2r0010 ].
 	
 "
 	area updateCell: aCell mode: mode.. 

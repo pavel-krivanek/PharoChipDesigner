@@ -10,10 +10,10 @@ ChDSubstrateLayer >> connectedNeighboursOf: aCell [
 	| result |
 	
 	result := OrderedCollection new.
-	(((aCell substrateConnections bitAnd: 2r0001) > 0) and: [ aCell up hasJunction not ]) ifTrue: [ result add: aCell up ].
-	(((aCell substrateConnections bitAnd: 2r0010) > 0) and: [ aCell right hasJunction not ]) ifTrue: [ result add: aCell right ].
-	(((aCell substrateConnections bitAnd: 2r0100) > 0) and: [ aCell down hasJunction not ]) ifTrue: [ result add: aCell down ].
-	(((aCell substrateConnections bitAnd: 2r1000) > 0) and: [ aCell left hasJunction not ]) ifTrue: [ result add: aCell left ].
+	(((aCell substrateConnections bitAnd: 2r0001) > 0) and: [ aCell topology up hasJunction not ]) ifTrue: [ result add: aCell topology up ].
+	(((aCell substrateConnections bitAnd: 2r0010) > 0) and: [ aCell topology right hasJunction not ]) ifTrue: [ result add: aCell topology right ].
+	(((aCell substrateConnections bitAnd: 2r0100) > 0) and: [ aCell topology down hasJunction not ]) ifTrue: [ result add: aCell topology down ].
+	(((aCell substrateConnections bitAnd: 2r1000) > 0) and: [ aCell topology left hasJunction not ]) ifTrue: [ result add: aCell topology left ].
 	^ result
 ]
 

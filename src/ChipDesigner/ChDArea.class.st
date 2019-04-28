@@ -339,15 +339,15 @@ ChDArea >> initializeForExtent: aPoint [
 		1 to: self width do: [ :x | 
 			| aCell |
 			aCell := self atX: x y: y.
-			aCell up: (self atX: x y: y-1). 
-			aCell right: (self atX: x+1 y: y). 
-			aCell down: (self atX: x y: y+1). 
-			aCell left: (self atX: x-1 y: y). 
+			aCell topology up: (self atX: x y: y-1). 
+			aCell topology right: (self atX: x+1 y: y). 
+			aCell topology down: (self atX: x y: y+1). 
+			aCell topology left: (self atX: x-1 y: y). 
 
-			aCell leftUp: (self atX: x-1 y: y-1). 
-			aCell rightUp: (self atX: x+1 y: y-1). 
-			aCell leftDown: (self atX: x-1 y: y+1). 
-			aCell rightDown: (self atX: x+1 y: y+1). 
+			aCell topology leftUp: (self atX: x-1 y: y-1). 
+			aCell topology rightUp: (self atX: x+1 y: y-1). 
+			aCell topology leftDown: (self atX: x-1 y: y+1). 
+			aCell topology rightDown: (self atX: x+1 y: y+1). 
 			] ].
 		
 	substrateLayer := ChDSubstrateLayer new area: self.
