@@ -33,5 +33,3 @@ Metacello new
 | X | normal mode |
 
 ![RS-Latch.gif](graphics/RS-Latch.gif)
-
-![x903.png](graphics/x903.png)
