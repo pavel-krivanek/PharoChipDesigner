@@ -37,7 +37,8 @@ Metacello new
 ## Introduction
 
 >
-> The following text is a modified copy of an article published on [https://nerdparadise.com/](https://nerdparadise.com) where it is no longer accessible. I'm not the author of it. The proposed solutions are not optimal.
+> The following text is a modified copy of an article describing the original game that was published on [https://nerdparadise.com/](https://nerdparadise.com) where it is no longer accessible. I'm not the original author of it. It can be visited on [argchive.org](https://web.archive.org/web/20160404141949/http://nerdparadise.com/tech/electronics/circuits/kohctpyktop/)
+> It is a great introduction to the concepts of the game. It mixes terms voltage and current.
 >
 
 When you start the game you are given a handful of circuit specifications and are expected to create them on the surface provided. You have metal inputs on the left and metal receivers for outputs on the right. On the top, you have a little toolbar where you can select metal, silicon (P and N type) and connectors and lay it down on the board.
@@ -112,7 +113,9 @@ This is okay if the inputs aren't being used for any other purpose aside from be
 Solutions
 ---------
 
-Having not done any serious circuit design since college, I got stuck several times (and am still stuck as you will see) and I derived as much fun from the game figuring some out as I did looking up answers and breaking them down to figure out why those answers work. So if you get stuck, here's a shove in the right direction...
+> 
+> The proposed solutions are only illustrative and not optimal.
+> 
 
 1 - KT411I QUAD INVERTER GATE
 -----------------------------
