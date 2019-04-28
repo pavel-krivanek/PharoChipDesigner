@@ -37,7 +37,8 @@ Metacello new
 ## Introduction
 
 >
-> The following text is a modified copy of an article describing the original game that was published on [https://nerdparadise.com/](https://nerdparadise.com) where it is no longer accessible. I'm not the original author of it. It can be visited on [argchive.org](https://web.archive.org/web/20160404141949/http://nerdparadise.com/tech/electronics/circuits/kohctpyktop/)
+> The following text is a modified copy of an article describing the original game that was published on [https://nerdparadise.com/](https://nerdparadise.com) where it is no longer accessible. I'm not the original author of it. It can be visited on [archive.org](https://web.archive.org/web/20160404141949/http://nerdparadise.com/tech/electronics/circuits/kohctpyktop/)
+>
 > It is a great introduction to the concepts of the game. It mixes terms voltage and current.
 >
 
