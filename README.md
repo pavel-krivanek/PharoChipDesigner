@@ -40,7 +40,7 @@ Metacello new
 > The following text describing the original game is a copy the from an article published on [https://nerdparadise.com/](https://nerdparadise.com) where it is no longer accessible
 >
 
-When you start the game you are given a handful of circuit specifications and are expected to create them on the surface provided. You have metal inputs on the left and metal receivers for outputs on the right. On the far right you have a little toolbar where you can select metal, silicon (P and N type), and connectors and lay it down on the board.
+When you start the game you are given a handful of circuit specifications and are expected to create them on the surface provided. You have metal inputs on the left and metal receivers for outputs on the right. On the far right, you have a little toolbar where you can select metal, silicon (P and N type), and connectors and lay it down on the board.
 
 ![kohctpyktopbasics0.png](https://web.archive.org/web/20160404141949im_/http://nerdparadise.com/uploads/files/kohctpyktopbasics0.png)
 
@@ -182,5 +182,3 @@ For the rest of the outputs, I simply enumerated the results into a chart of sor
 The left 4 AND gates determine S1. If exactly 1 of the inputs is on or all 3 are on, then S1 is on. There are 4 combinations that could cause this, so 4 AND gates. They are all lazy-OR'ed together at the top and then sent to S1.\
 The right 3 AND gates determine the Carry bit. The Carry bit is lit when at least 2 of the inputs are carrying current. There are 3 combinations for this, so they are enumerated, lazy-OR'ed, and sent to C.\
 ![kohctpyktoplevel10.png](introduction/kohctpyktoplevel10.png)
-
-If you figure out a solution not listed here, send it to me with a clear explanation (there is a convenient save design feature in the menu). I will clean it up and add it to this list.
