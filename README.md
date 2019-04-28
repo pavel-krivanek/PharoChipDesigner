@@ -37,16 +37,14 @@ Metacello new
 ## Introduction
 
 >
-> The following text describing the original game is a copy the from an article published on [https://nerdparadise.com/](https://nerdparadise.com) where it is no longer accessible
+> The following text is a modified copy of an article published on [https://nerdparadise.com/](https://nerdparadise.com) where it is no longer accessible. I'm not the author of it. The proposed solutions are not optimal.
 >
 
-When you start the game you are given a handful of circuit specifications and are expected to create them on the surface provided. You have metal inputs on the left and metal receivers for outputs on the right. On the far right, you have a little toolbar where you can select metal, silicon (P and N type), and connectors and lay it down on the board.
-
-![kohctpyktopbasics0.png](https://web.archive.org/web/20160404141949im_/http://nerdparadise.com/uploads/files/kohctpyktopbasics0.png)
+When you start the game you are given a handful of circuit specifications and are expected to create them on the surface provided. You have metal inputs on the left and metal receivers for outputs on the right. On the top, you have a little toolbar where you can select metal, silicon (P and N type) and connectors and lay it down on the board.
 
 Intimidating, yes.
 
-On the verification tab below, you can run some predefined tests to determine if your circuit works. It will run current from the inputs and check the outputs for accuracy based on the specs.\
+On the scope tab below, you can run some predefined tests to determine if your circuit works. It will run current from the inputs and check the outputs for accuracy based on the specs.\
 ![kohctpyktopbasics4.png](introduction/kohctpyktopbasics4.png)
 
 So back to laying down metal and silicon...\
