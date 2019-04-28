@@ -485,6 +485,17 @@ ChDArea >> neighborSubstrateRegionsOf: aCell [
 ]
 
 { #category : #'cell access' }
+ChDArea >> newCompactRegion [
+
+	| newRegion |
+	
+	newRegion := ChDCompactRegion new.
+	newRegion layer: substrateLayer.
+	regions add: newRegion.
+	^ newRegion
+]
+
+{ #category : #'cell access' }
 ChDArea >> newJunctionRegion [
 
 	| newRegion |
@@ -548,6 +559,11 @@ ChDArea >> recreateSubstrateRegions [
 			ifFalse: [ self newSubstrateRegion ].
 		each substrateRegion: newRegion.
 		newRegion cells add: each ].
+	
+	substrateCells := self allSubstrateCells.
+	substrateCells do: [ :each |
+		each hasJunction 
+			ifTrue: [ each substrateRegion updateCompactRegions ] ].
 	
 	substrateCells do: [ :each |
 		| neighbourRegions |

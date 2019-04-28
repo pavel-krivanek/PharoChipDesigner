@@ -101,6 +101,12 @@ ChDRegion >> initialize [
 ]
 
 { #category : #accessing }
+ChDRegion >> isCompact [
+
+	^ false
+]
+
+{ #category : #accessing }
 ChDRegion >> isJunction [
 
 	^ false

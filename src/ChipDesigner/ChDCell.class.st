@@ -14,21 +14,10 @@ Class {
 		'junctionConnections',
 		'metalRegion',
 		'substrateRegion',
-		'additionalRegions',
 		'topology'
 	],
 	#category : #ChipDesigner
 }
-
-{ #category : #accessing }
-ChDCell >> additionalRegions [
-	^ additionalRegions
-]
-
-{ #category : #accessing }
-ChDCell >> additionalRegions: anObject [
-	additionalRegions := anObject
-]
 
 { #category : #accessing }
 ChDCell >> clearVia [
@@ -83,6 +72,42 @@ ChDCell >> connectedCellsInSubstrateWithoutBaseConnections [
 ]
 
 { #category : #accessing }
+ChDCell >> connectedInSubstrateDownOrNil [
+
+	self substrateType ifNil: [ ^ nil ].
+	^ ((substrateConnections bitAnd: 2r0100) > 0) 
+		ifTrue: [ self topology down ]
+		ifFalse: [ nil ]
+]
+
+{ #category : #accessing }
+ChDCell >> connectedInSubstrateLeftOrNil [
+
+	self substrateType ifNil: [ ^ nil ].
+	^ ((substrateConnections bitAnd: 2r1000) > 0) 
+		ifTrue: [ self topology left ]
+		ifFalse: [ nil ]
+]
+
+{ #category : #accessing }
+ChDCell >> connectedInSubstrateRightOrNil [
+
+	self substrateType ifNil: [ ^ nil ].
+	^ ((substrateConnections bitAnd: 2r0010) > 0) 
+		ifTrue: [ self topology right ]
+		ifFalse: [ nil ]
+]
+
+{ #category : #accessing }
+ChDCell >> connectedInSubstrateUpOrNil [
+
+	self substrateType ifNil: [ ^ nil ].
+	^ ((substrateConnections bitAnd: 2r0001) > 0) 
+		ifTrue: [ self topology up ]
+		ifFalse: [ nil ]
+]
+
+{ #category : #accessing }
 ChDCell >> connectedRegionsInJunction [
 
 	^ self connectedCellsInJunction collect: [ :each | each substrateRegion ] as: IdentitySet.
@@ -91,7 +116,31 @@ ChDCell >> connectedRegionsInJunction [
 { #category : #accessing }
 ChDCell >> connectedRegionsInSubstrate [
 
-	^ self connectedCellsInSubstrate collect: [ :each | each substrateRegion ] as: IdentitySet.
+	| result |
+	
+	self hasJunction ifFalse: [ 
+		^ self connectedCellsInSubstrate collect: [ :each | each substrateRegion ] as: IdentitySet ].
+	
+	result := IdentitySet new.
+		
+	self isVertical 
+		ifTrue: [ 
+			result add: (self substrateRegion compactUp 
+				ifNotNil: [ :aRegion | aRegion ]
+				ifNil: [ self topology up substrateRegion ]).
+			result add: (self substrateRegion compactDown
+				ifNotNil: [ :aRegion | aRegion ]
+				ifNil: [ self topology down substrateRegion ]) ]
+		ifFalse: [ 
+			result add: (self substrateRegion compactRight 
+				ifNotNil: [ :aRegion | aRegion ]
+				ifNil: [ self topology right substrateRegion ]).
+			result add: (self substrateRegion compactLeft
+				ifNotNil: [ :aRegion | aRegion ]
+				ifNil: [ self topology left substrateRegion ]) ].
+			
+		^ result
+
 ]
 
 { #category : #accessing }
@@ -186,7 +235,6 @@ ChDCell >> initialize [
 	
 	metalRegion := nil.
 	substrateRegion := nil.
-	additionalRegions := Set new.
 ]
 
 { #category : #accessing }
@@ -201,6 +249,18 @@ ChDCell >> isHi [
 
 	^ (self metalRegion notNil and: [self metalRegion currentState])
 		or: [ self substrateRegion notNil and: [self substrateRegion currentState] ]
+]
+
+{ #category : #accessing }
+ChDCell >> isHorizontal [
+
+	^ (self junctionConnections bitAnd: 2r0101) > 0 
+]
+
+{ #category : #accessing }
+ChDCell >> isVertical [
+
+	^ (self junctionConnections bitAnd: 2r1010) > 0 
 ]
 
 { #category : #accessing }

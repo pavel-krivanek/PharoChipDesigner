@@ -57,6 +57,8 @@ ChDSubstrateLayer >> createJunctionRegionIn: aCell [
 	aCell substrateRegion: junctionRegion.
 	junctionRegion cells add: aCell.
 	
+	junctionRegion updateCompactRegions.
+	
 ]
 
 { #category : #'as yet unclassified' }

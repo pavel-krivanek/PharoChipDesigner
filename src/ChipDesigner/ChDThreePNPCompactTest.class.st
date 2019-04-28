@@ -53,7 +53,6 @@ ChDThreePNPCompactTest >> setUp [
 { #category : #running }
 ChDThreePNPCompactTest >> testValues [
 
-	self skip.
 
 	0 to: 2r111 do: [ :i |
 		self prepareSimulation.
