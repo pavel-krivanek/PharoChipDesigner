@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel15 class >> levelName [
 
-	^ '15) KR8S1 - 8 Bit Addressable SRAM'
+	^ '[15] KR8S1 - 8 Bit Addressable SRAM'
 ]
 
 { #category : #'as yet unclassified' }

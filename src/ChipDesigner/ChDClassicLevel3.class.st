@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel3 class >> levelName [
 
-	^ '3) KT141AO - 4-Input AND/OR Gate'
+	^ '[03] KT141AO - 4-Input AND/OR Gate'
 ]
 
 { #category : #'as yet unclassified' }

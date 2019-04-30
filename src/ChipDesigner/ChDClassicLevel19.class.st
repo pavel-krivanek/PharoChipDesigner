@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel19 class >> levelName [
 
-	^ '19) X903 - Gatling Cannon Fire Controller'
+	^ '[19] X903 - Gatling Cannon Fire Controller'
 ]
 
 { #category : #'as yet unclassified' }

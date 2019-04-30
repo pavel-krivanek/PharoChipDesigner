@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel18 class >> levelName [
 
-	^ '18) X902 - Grenade Launcher Ammo Counter'
+	^ '[18] X902 - Grenade Launcher Ammo Counter'
 ]
 
 { #category : #'as yet unclassified' }

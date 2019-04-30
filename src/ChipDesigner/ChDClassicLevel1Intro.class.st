@@ -5,9 +5,21 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ChDClassicLevel1Intro class >> isRoot [ 
+
+	^ true
+]
+
+{ #category : #'as yet unclassified' }
 ChDClassicLevel1Intro class >> levelName [
 
 	^ 'Intro'
+]
+
+{ #category : #'as yet unclassified' }
+ChDClassicLevel1Intro class >> priority [ 
+
+	^ 100
 ]
 
 { #category : #'as yet unclassified' }

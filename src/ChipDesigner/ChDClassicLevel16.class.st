@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel16 class >> levelName [
 
-	^ '16) KA181 - 2-Bit Logical Function Unit'
+	^ '[16] KA181 - 2-Bit Logical Function Unit'
 ]
 
 { #category : #'as yet unclassified' }

@@ -7,7 +7,7 @@ Class {
 { #category : #'as yet unclassified' }
 ChDClassicLevel1 class >> levelName [
 
-	^ '1) 1KT411I - Quad Inverter Gate'
+	^ '[01] KT411I - Quad Inverter Gate'
 ]
 
 { #category : #'as yet unclassified' }

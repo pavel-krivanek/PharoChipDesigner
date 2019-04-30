@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel13 class >> levelName [
 
-	^ '13) KC84C - 4-Bit Counter With Clear'
+	^ '[13] KC84C - 4-Bit Counter With Clear'
 ]
 
 { #category : #'as yet unclassified' }

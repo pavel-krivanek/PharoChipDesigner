@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel11 class >> levelName [
 
-	^ '11) KC82F - Divide-By-Four Counter'
+	^ '[11] KC82F - Divide-By-Four Counter'
 ]
 
 { #category : #'as yet unclassified' }

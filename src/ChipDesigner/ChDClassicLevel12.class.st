@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel12 class >> levelName [
 
-	^ '12) KM141P - 4-To-1 Multiplexer'
+	^ '[12] KM141P - 4-To-1 Multiplexer'
 ]
 
 { #category : #'as yet unclassified' }

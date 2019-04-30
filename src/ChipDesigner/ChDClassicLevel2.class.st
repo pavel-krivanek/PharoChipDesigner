@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel2 class >> levelName [
 
-	^ '2) KT221A - Dual 2-Input AND Gate'
+	^ '[02] KT221A - Dual 2-Input AND Gate'
 ]
 
 { #category : #'as yet unclassified' }

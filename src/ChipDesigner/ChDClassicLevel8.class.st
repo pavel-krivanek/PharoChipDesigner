@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel8 class >> levelName [
 
-	^ '8) K0224X - Dual Frequency Oscillator'
+	^ '[08] K0224X - Dual Frequency Oscillator'
 ]
 
 { #category : #'as yet unclassified' }

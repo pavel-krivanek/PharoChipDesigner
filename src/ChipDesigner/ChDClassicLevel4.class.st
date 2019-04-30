@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel4 class >> levelName [
 
-	^ '4) KO229 - Power On Reset Generator'
+	^ '[04] KO229 - Power On Reset Generator'
 ]
 
 { #category : #'as yet unclassified' }

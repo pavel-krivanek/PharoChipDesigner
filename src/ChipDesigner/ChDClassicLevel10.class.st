@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel10 class >> levelName [
 
-	^ '10) KA189 - 2Bit Adder With Carry'
+	^ '[10] KA189 - 2Bit Adder With Carry'
 ]
 
 { #category : #'as yet unclassified' }

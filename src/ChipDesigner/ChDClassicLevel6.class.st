@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel6 class >> levelName [
 
-	^ '6) KL2S1 - Dual Set-Reset Latch'
+	^ '[06] KL2S1 - Dual Set-Reset Latch'
 ]
 
 { #category : #'as yet unclassified' }

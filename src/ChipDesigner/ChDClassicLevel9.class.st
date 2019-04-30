@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel9 class >> levelName [
 
-	^ '9) KD124 - 2-To-4 Line Decoder'
+	^ '[09] KD124 - 2-To-4 Line Decoder'
 ]
 
 { #category : #'as yet unclassified' }

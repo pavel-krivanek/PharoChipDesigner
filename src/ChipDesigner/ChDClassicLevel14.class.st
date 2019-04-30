@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel14 class >> levelName [
 
-	^ '14) KC84S - 4-Bit Shift Register (S-To-P)'
+	^ '[14] KC84S - 4-Bit Shift Register (S-To-P)'
 ]
 
 { #category : #'as yet unclassified' }

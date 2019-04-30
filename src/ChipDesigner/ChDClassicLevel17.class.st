@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 ChDClassicLevel17 class >> levelName [
 
-	^ '17) X901 - Radio Message Stream Decoder'
+	^ '[17] X901 - Radio Message Stream Decoder'
 ]
 
 { #category : #'as yet unclassified' }
