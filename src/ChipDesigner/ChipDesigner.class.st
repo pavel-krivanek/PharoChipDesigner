@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'list',
 		'editor',
+		'areaMorph',
 		'scopes',
 		'area',
 		'toolbar',
@@ -101,13 +102,19 @@ ChipDesigner >> editModeIcon [
 { #category : #initialization }
 ChipDesigner >> editorMorph [
 
-	| editorMorph |
+	| editorMorph scrollPane |
+	
+	areaMorph := ChDAreaMorph for: area.
 	
 	editorMorph := AlignmentMorph newColumn.
 	editorMorph color: (Color r: 0.506 g: 0.506 b: 0.506 alpha: 1.0).
-	editorMorph addMorphBack: (ChDAreaMorph for: area).
 	
-	controller := editorMorph submorphs first controller.
+	scrollPane := ScrollPane new.
+	scrollPane scroller addMorph: areaMorph.
+	editorMorph addMorph: scrollPane fullFrame: LayoutFrame identity.
+
+	
+	controller := areaMorph controller.
 	controller announcer when: ChDModeAnnouncement do: [ :announcement |
 		editMode := announcement controller deleteMode
 			ifTrue: [ 
@@ -273,7 +280,7 @@ ChipDesigner >> initializeWidgets [
 	editModeButton := self newButton icon: self editModeIcon.
 	editModeButton label: 'mode'.
 	editModeButton help: 'Drawing / delete mode <X>, extended <Shift>'.
-	editModeButton action: [editorMorph submorphs first controller swapDeleteMode].
+	editModeButton action: [ controller swapDeleteMode].
 
 	viaModeButton := self newButton icon: self viaModeIcon.
 	viaModeButton label: 'via'.
@@ -416,7 +423,7 @@ ChipDesigner >> paste [
 { #category : #initialization }
 ChipDesigner >> refreshEditor [
 
-	editor widget submorphs first changed
+	areaMorph changed
 ]
 
 { #category : #initialization }
@@ -468,7 +475,7 @@ ChipDesigner >> simulationReset [
 ChipDesigner >> simulationStep [
 
 	area simulation step. 
-	editor widget submorphs first changed.
+	areaMorph changed.
 ]
 
 { #category : #initialization }
@@ -480,7 +487,7 @@ ChipDesigner >> title [
 { #category : #initialization }
 ChipDesigner >> toggleRun [
 
-	editor widget submorphs first toggleRun
+	areaMorph toggleRun
 ]
 
 { #category : #initialization }
