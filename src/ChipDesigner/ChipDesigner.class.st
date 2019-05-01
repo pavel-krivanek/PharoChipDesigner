@@ -423,6 +423,7 @@ ChipDesigner >> paste [
 { #category : #initialization }
 ChipDesigner >> refreshEditor [
 
+	areaMorph resetExtent.
 	areaMorph changed
 ]
 

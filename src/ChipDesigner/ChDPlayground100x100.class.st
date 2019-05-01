@@ -68,18 +68,18 @@ ChDPlayground100x100 >> area: anObject [
 ChDPlayground100x100 >> createLabels [
 
 	area descriptions add: ('+Vcc' -> (3@4)).
-	area descriptions add: ((ports at: 1) name -> (3@8)).
-	area descriptions add: ((ports at: 2) name-> (3@12)).
-	area descriptions add: ((ports at: 3) name-> (3@16)).
-	area descriptions add: ((ports at: 4) name-> (3@20)).
-	area descriptions add: ('+Vcc' -> (3@24)).
+	
+	1 to: 8 do: [ :i |
+		area descriptions add: ((ports at: i) name -> (3@(8+((i-1)*4)))) ] .
 
-	area descriptions add: ('+Vcc' -> (42@4)).
-	area descriptions add: ((ports at: 5) name-> (42@8)).
-	area descriptions add: ((ports at: 6) name-> (42@12)).
-	area descriptions add: ((ports at: 7) name -> (42@16)).
-	area descriptions add: ((ports at: 8) name -> (42@20)).
-	area descriptions add: ('+Vcc' -> (42@24)).
+	area descriptions add: ('+Vcc' -> (3@40)).
+
+	area descriptions add: ('+Vcc' -> (98@4)).
+
+	1 to: 8 do: [ :i |
+		area descriptions add: ((ports at: i-1+8) name -> (98@(8+((i-1)*4)))) ].
+
+	area descriptions add: ('+Vcc' -> (98@40)).
 ]
 
 { #category : #'as yet unclassified' }
@@ -121,7 +121,7 @@ ChDPlayground100x100 >> initialize [
 { #category : #'as yet unclassified' }
 ChDPlayground100x100 >> initializeArea [
 
-	area decodedFromZipString: 'H4sIAAAAAAAAADMwMDAzgRFurkDC0sTIwMDZ0MjAEExYGALFTCwwxcxB6lxBXDDhCFeHJgZWZwbiggkjuDo0MbDlxq4j3/KRbzkdLR/5BCHCwgAAvy0eDiQEAAA='
+	area decodedFromZipString: 'H4sIAAAAAAAAADMwMDAzgRFurkDC0sTIwMDZ0MjAEExYGALFnCwwxQxA6lxBXDDhCFeHJgZWZwbiggkjuDo0MWfnkW/vyLd35Ns78u0lzV5woTXsCXMzAGEKgrSqBQAA'
 ]
 
 { #category : #'as yet unclassified' }
@@ -139,9 +139,9 @@ ChDPlayground100x100 >> initializeSimulation [
 		"set Vcc after inputs so they can  overwrite them"
 		aSimulation time > 0 ifTrue: [ 
 			(area atX: 3 y: 3) metalRegion hasVcc: true.
-			(area atX: 3 y: 24) metalRegion hasVcc: true.
-			(area atX: 42 y: 3) metalRegion hasVcc: true.
-			(area atX: 42 y: 24) metalRegion hasVcc: true. ]
+			(area atX: 3 y: 40) metalRegion hasVcc: true.
+			(area atX: 98 y: 3) metalRegion hasVcc: true.
+			(area atX: 98 y: 40) metalRegion hasVcc: true. ]
 	].
 	
 ]
@@ -155,8 +155,9 @@ ChDPlayground100x100 >> instructions [
 { #category : #'as yet unclassified' }
 ChDPlayground100x100 >> portPoints [
 
-	^ { 3@8. 3@12. 3@16. 3@20. 
-	    42@8. 42@12. 42@16. 42@20 }
+	^ ((1 to: 8) collect: [ :i | 3@(8+((i-1)*4))]),
+	((1 to: 8) collect: [ :i | 98@(8+((i-1)*4))])
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -175,19 +176,43 @@ ChDPlayground100x100 >> portsDefinition [
 		ChipDesignerClassicLevelPort 
 			name: 'A3'
 			sequence: 1895286724120940438332946554699648321487632970982088488659496892968870214733134848.			
+		ChipDesignerClassicLevelPort 
+			name: 'A4'
+			sequence: 1895286724122662508214109177388798933309665208831355630489573082672101741663618047.			
+		ChipDesignerClassicLevelPort 
+			name: 'A5'
+			sequence: 1895286724122662508214109177388798933309665208831355630489573082672101741663618047.			
+		ChipDesignerClassicLevelPort 
+			name: 'A6'
+			sequence: 1895286724122662508214109177388798933309665208831355630489573082672101741663618047.			
+		ChipDesignerClassicLevelPort 
+			name: 'A7'
+			sequence: 1895286724122662508214109177388798933309665208831355630489573082672101741663618047.			
 
 		ChipDesignerClassicLevelPort 
 			name: 'Y0'
-			expectedSequence: 1940773605501606408411247797646130107709097173843308165621322836656232183463544880128.	 
+			expectedSequence: 0.	 
 		ChipDesignerClassicLevelPort 
 			name: 'Y1'
-			expectedSequence: 1942668890418244521967823573952468842491989030505867720098940984099567950364017687552.	 
+			expectedSequence: 0.	 
 		ChipDesignerClassicLevelPort 
 			name: 'Y2'
-			expectedSequence: 1942668890418244523649530840040527121214346779266672923346884464066270723080441560064.	 
+			expectedSequence: 0.	 
 		ChipDesignerClassicLevelPort 
 			name: 'Y3'
-			expectedSequence: 1940773605501608130481128960268819258320919206081157432763152912845935414990475363327.	 
+			expectedSequence: 0.	 
+		ChipDesignerClassicLevelPort 
+			name: 'Y4'
+			expectedSequence: 0.	 
+		ChipDesignerClassicLevelPort 
+			name: 'Y5'
+			expectedSequence: 0.	 
+		ChipDesignerClassicLevelPort 
+			name: 'Y6'
+			expectedSequence: 0.	 
+		ChipDesignerClassicLevelPort 
+			name: 'Y7'
+			expectedSequence: 0.	 
 		}
 
 

@@ -290,7 +290,7 @@ ChDAreaMorph >> initializeFor: anArea [
 	pForms do: [ :pForm |
 		self colorize: pForm with: ((Color fromHexString: 'FFFF00') alpha: 1) ].
 	
-	self extent: 13*area width@(13*area height).
+	self resetExtent.
 	
 	suppressedCells := OrderedCollection new.
 	self stopStepping.
@@ -380,6 +380,13 @@ ChDAreaMorph >> overlap: aSourceForm at: zeroBasedIndex with: aFrom [
 "	aCanvas drawString: zeroBasedIndex asString at: ((self cellSize*zeroBasedIndex)@0) .
 
 "
+]
+
+{ #category : #initialization }
+ChDAreaMorph >> resetExtent [
+
+	self extent: 13*area width@(13*area height).
+
 ]
 
 { #category : #initialization }
