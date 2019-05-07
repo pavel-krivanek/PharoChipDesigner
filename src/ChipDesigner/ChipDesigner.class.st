@@ -527,8 +527,8 @@ ChipDesigner >> translatedInputMode: inputMode [
 		ChDDeleteMetalMode -> #delete.
 		ChDDeleteSubstrateMode -> #deleteSilicon.
 		ChDInsertMetalMode -> #metal.
-		ChDInsertPSubstrateMode -> #metal.
-		ChDInsertNSubstrateMode -> #shift.	
+		ChDInsertPSubstrateMode -> #shift.
+		ChDInsertNSubstrateMode -> #metal.	
 	 }) at: inputMode class ifAbsent: [ #metal ]
 ]
 
