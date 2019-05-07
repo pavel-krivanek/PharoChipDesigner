@@ -77,7 +77,7 @@ ChDPlayground100x100 >> createLabels [
 	area descriptions add: ('+Vcc' -> (98@4)).
 
 	1 to: 8 do: [ :i |
-		area descriptions add: ((ports at: i-1+8) name -> (98@(8+((i-1)*4)))) ].
+		area descriptions add: ((ports at: i+8) name -> (98@(8+((i-1)*4)))) ].
 
 	area descriptions add: ('+Vcc' -> (98@40)).
 ]

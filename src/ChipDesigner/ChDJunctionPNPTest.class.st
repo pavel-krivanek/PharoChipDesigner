@@ -46,7 +46,7 @@ ChDJunctionPNPTest >> testCreateAndDeletePNP [
 	event := ChDMouseEventMock new.
 	event red.
 	event shift.
-	controller deleteMode: true.
+	controller inputMode: ChDDeleteMode new.
 	
 	controller onMouseDownAt: 2@2 event: event.
 	controller onMouseUpAt: 2@2 event: event.

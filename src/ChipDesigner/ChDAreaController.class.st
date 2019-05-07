@@ -7,11 +7,7 @@ Class {
 		'inputMode',
 		'mouseDown',
 		'lastCell',
-		'deleteMode',
-		'viaMode',
-		'announcer',
-		'selectMode',
-		'isSelecting'
+		'announcer'
 	],
 	#category : #ChipDesigner
 }
@@ -21,9 +17,7 @@ ChDAreaController >> announceModeChange [
 
 	announcer announce: (ChDModeAnnouncement new 
 		controller: self;
-		inputMode: inputMode;
-		viaMode: viaMode;
-		deleteMode: deleteMode)
+		inputMode: inputMode)
 ]
 
 { #category : #initialization }
@@ -44,12 +38,6 @@ ChDAreaController >> area: anObject [
 ]
 
 { #category : #initialization }
-ChDAreaController >> at: aPoint [
-
-	^ self atX: aPoint x y: aPoint y
-]
-
-{ #category : #initialization }
 ChDAreaController >> cellEvent: anEvent at: aPoint [
 
 	| cell |
@@ -59,21 +47,21 @@ ChDAreaController >> cellEvent: anEvent at: aPoint [
 	cell := self area atX: aPoint x y: aPoint y.
 	cell = lastCell ifTrue: [ ^ self ].
 	
-	viaMode ifTrue: [ 
+	inputMode isInsertVia ifTrue: [ 
 		cell toggleVia.
-		self viaMode: false.
+		self inputMode: ChDInsertMetalMode new.
 		self changed.
 		^ self ].
 	
-	selectMode
+	inputMode isSelect
 		ifTrue: [
 			 anEvent yellowButtonPressed ifTrue: [
-				isSelecting := false.
+				inputMode isSelecting: false.
 				self openSelectionMenu.
 				^ self ].
-			isSelecting 
+			inputMode isSelecting
 				ifFalse: [
-					isSelecting := true.
+					inputMode isSelecting: true.
 					area setSelection: aPoint.
 					self changed ].
 			(area updateSelection: aPoint)
@@ -81,7 +69,7 @@ ChDAreaController >> cellEvent: anEvent at: aPoint [
 			^ self ]
 		ifFalse: [ area deselect ].
 	
-	deleteMode ifFalse: [ 
+	inputMode isDelete ifFalse: [ 
 		(anEvent redButtonPressed and: [anEvent shiftPressed not]) ifTrue: [
 			area metalLayer setFor: cell with: lastCell	 mode: #metal].
 		
@@ -92,10 +80,10 @@ ChDAreaController >> cellEvent: anEvent at: aPoint [
 			area substrateLayer setFor: cell with: lastCell mode: #p ].
 	].
 
-	(deleteMode and: [anEvent shiftPressed not]) ifTrue: [ 
+	(inputMode isDelete and: [anEvent shiftPressed not]) ifTrue: [ 
 		area metalLayer fullClear: cell.
 		area updateCell: cell mode: #metal.  ].
-	(deleteMode and: [anEvent shiftPressed]) ifTrue: [ 
+	(inputMode isDelete and: [anEvent shiftPressed]) ifTrue: [ 
 		area substrateLayer fullClear: cell.		
 		area updateCell: cell mode: #n.].	
 
@@ -110,23 +98,9 @@ ChDAreaController >> changed [
 ]
 
 { #category : #accessing }
-ChDAreaController >> deleteMode [
-	^ deleteMode
-]
-
-{ #category : #accessing }
-ChDAreaController >> deleteMode: anObject [
-	deleteMode := anObject.
-	selectMode := false.
-
-	
-	self announceModeChange.
-]
-
-{ #category : #accessing }
 ChDAreaController >> finishSelection [
 
-	isSelecting := false
+	inputMode isSelecting: false
 	
 ]
 
@@ -137,13 +111,9 @@ ChDAreaController >> initialize [
 	
 	area := ChDArea withDefaultExtent.
 	
-	inputMode := #metal.
+	inputMode := ChDInsertMetalMode new.
 		
 	mouseDown := false.
-	deleteMode := false.
-	viaMode := false.
-	selectMode := false.
-	isSelecting := false.
 	
 	announcer := Announcer new.
 	
@@ -156,21 +126,10 @@ ChDAreaController >> inputMode [
 
 { #category : #accessing }
 ChDAreaController >> inputMode: anObject [
-	inputMode := anObject.
-	selectMode := false.
 
+	inputMode := anObject.
 	
 	self announceModeChange.
-]
-
-{ #category : #accessing }
-ChDAreaController >> isSelecting [
-	^ isSelecting
-]
-
-{ #category : #accessing }
-ChDAreaController >> isSelecting: anObject [
-	isSelecting := anObject
 ]
 
 { #category : #initialization }
@@ -178,7 +137,9 @@ ChDAreaController >> keyStroke: event [
 	"Process keys navigation and space to toggle."
 	
 	event keyCharacter = $x
-		ifTrue: [deleteMode := deleteMode not]
+		ifTrue: [ inputMode := inputMode isDelete 
+			ifFalse: [ ChDDeleteMetalMode new ]
+			ifTrue: [ ChDInsertMetalMode new ] ]
 ]
 
 { #category : #accessing }
@@ -215,7 +176,7 @@ ChDAreaController >> onMouseMoveAt: aPoint event: anEvent [
 
 	self mouseDown ifFalse: [ ^ self ].
 	
-	(selectMode and: [isSelecting not])
+	(inputMode isSelect and: [inputMode isSelecting not])
 		ifTrue: [ ^ self ].
 	
 	self cellEvent: anEvent at: aPoint
@@ -227,7 +188,7 @@ ChDAreaController >> onMouseUpAt: aPoint event: anEvent [
 	self mouseDown: false.
 	self lastCell: nil.
 	
-	self selectMode ifTrue: [ 
+	self inputMode isSelect ifTrue: [ 
 		self finishSelection ]
 
 ]
@@ -240,45 +201,33 @@ ChDAreaController >> openSelectionMenu [
 ]
 
 { #category : #accessing }
-ChDAreaController >> selectMode [
-	^ selectMode
-]
+ChDAreaController >> shiftInputMode [
 
-{ #category : #accessing }
-ChDAreaController >> selectMode: anObject [
-	selectMode := anObject
+	inputMode := inputMode shifted
 ]
 
 { #category : #accessing }
 ChDAreaController >> swapDeleteMode [
 
-	self deleteMode: self deleteMode not
+	self inputMode: (inputMode isDelete 
+		ifTrue: [ ChDInsertMetalMode new ]
+		ifFalse: [ ChDDeleteMetalMode new ])
+
 ]
 
 { #category : #accessing }
 ChDAreaController >> swapViaMode [
 
-	self viaMode: self viaMode not.
-	self deleteMode: false.
+	self inputMode: (inputMode isInsertVia  
+		ifTrue: [ ChDInsertMetalMode new ]
+		ifFalse: [ ChDInsertViaMode new ])
+
 ]
 
 { #category : #initialization }
 ChDAreaController >> toggleViaFor: aCell [
 
 	aCell via: aCell via not
-]
-
-{ #category : #accessing }
-ChDAreaController >> viaMode [
-	^ viaMode
-]
-
-{ #category : #accessing }
-ChDAreaController >> viaMode: anObject [
-	viaMode := anObject.
-	selectMode := false.
-	
-	self announceModeChange.
 ]
 
 { #category : #accessing }

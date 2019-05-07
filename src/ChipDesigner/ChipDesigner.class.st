@@ -116,13 +116,13 @@ ChipDesigner >> editorMorph [
 	
 	controller := areaMorph controller.
 	controller announcer when: ChDModeAnnouncement do: [ :announcement |
-		editMode := announcement controller deleteMode
+		editMode := announcement inputMode isDelete
 			ifTrue: [ 
-				(announcement controller inputMode = #metal)
+				(announcement inputMode affectsMetal)
 					ifTrue: [ #delete ]
 					ifFalse: [ #deleteSilicon ] ] 
-			ifFalse: [ announcement controller inputMode ].
-		viaMode := announcement controller viaMode. 
+			ifFalse: [ self translatedInputMode: announcement inputMode ].
+		viaMode := announcement controller inputMode isInsertVia. 
 		editModeButton icon: self editModeIcon.
 		viaModeButton icon: self viaModeIcon ].
 
@@ -285,7 +285,7 @@ ChipDesigner >> initializeWidgets [
 	viaModeButton := self newButton icon: self viaModeIcon.
 	viaModeButton label: 'via'.
 	viaModeButton help: 'Insert one via'.
-	viaModeButton action: [editorMorph submorphs first controller swapViaMode].
+	viaModeButton action: [controller swapViaMode].
 
 	selectModeButton := self newButton icon: (self iconNamed: #group).
 	selectModeButton label: 'select'.
@@ -430,7 +430,7 @@ ChipDesigner >> refreshEditor [
 { #category : #initialization }
 ChipDesigner >> selectMode [
 
-	controller selectMode: true. 
+	controller inputMode: ChDSelectMode new. 
 ]
 
 { #category : #initialization }
@@ -518,6 +518,18 @@ ChipDesigner >> toolbar [
 						icon: (self editModeIcon);
 						action: [  ] ] ].
 	^ aMenu
+]
+
+{ #category : #initialization }
+ChipDesigner >> translatedInputMode: inputMode [
+
+	^ (Dictionary newFrom: { 
+		ChDDeleteMetalMode -> #delete.
+		ChDDeleteSubstrateMode -> #deleteSilicon.
+		ChDInsertMetalMode -> #metal.
+		ChDInsertPSubstrateMode -> #metal.
+		ChDInsertNSubstrateMode -> #shift.	
+	 }) at: inputMode class ifAbsent: [ #metal ]
 ]
 
 { #category : #initialization }

@@ -301,7 +301,7 @@ ChDAreaMorph >> initializeFor: anArea [
 ChDAreaMorph >> keyDown: anEvent [
 
 	anEvent keyValue = 16 ifTrue: [
-		self controller inputMode: #shift.
+		self controller shiftInputMode.
 		self controller announceModeChange].
 	^ super keyDown: anEvent
 ]
@@ -327,7 +327,7 @@ ChDAreaMorph >> keyStroke: event [
 ChDAreaMorph >> keyUp: anEvent [
 
 	anEvent keyValue = 16 ifTrue: [
-		self controller inputMode: #metal.
+		self controller inputMode: self controller inputMode unshifted.
 		self controller announceModeChange].
 	^ super keyDown: anEvent
 ]

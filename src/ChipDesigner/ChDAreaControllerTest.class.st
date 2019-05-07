@@ -98,7 +98,7 @@ ChDAreaControllerTest >> testAddTwoConnectedMetalCellsAndDeleteThemByMovement [
 	controller onMouseMoveAt: 2@1 event: event.
 	controller onMouseUpAt: 2@1 event: event.
 	
-	controller deleteMode: true.
+	controller inputMode: ChDDeleteMode new.
 
 	controller onMouseDownAt: 1@1 event: event.
 	controller onMouseMoveAt: 1@1 event: event.
@@ -153,7 +153,7 @@ ChDAreaControllerTest >> testAddTwoConnectedNCellsAndDeleteThemByMovement [
 	controller onMouseMoveAt: 2@1 event: event.
 	controller onMouseUpAt: 2@1 event: event.
 	
-	controller deleteMode: true.
+	controller inputMode: ChDDeleteMode new.
 	event shift.
 
 	controller onMouseDownAt: 1@1 event: event.
@@ -306,7 +306,7 @@ ChDAreaControllerTest >> testDeleteMetalTwoTimes [
 	controller onMouseDownAt: 1@1 event: event.
 	controller onMouseUpAt: 1@1 event: event.
 	
-	controller deleteMode: true.
+	controller inputMode: ChDDeleteMode new.
 
 	controller onMouseDownAt: 1@1 event: event.
 	controller onMouseUpAt: 1@1 event: event.
@@ -333,7 +333,7 @@ ChDAreaControllerTest >> testDeleteSubstrateTwoTimes [
 	controller onMouseDownAt: 1@1 event: event.
 	controller onMouseUpAt: 1@1 event: event.
 	
-	controller deleteMode: true.
+	controller inputMode: ChDDeleteMode new.
 	event := ChDMouseEventMock new.
 	event red.
 	event shift.
