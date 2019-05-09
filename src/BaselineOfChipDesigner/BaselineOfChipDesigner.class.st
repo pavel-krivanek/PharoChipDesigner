@@ -9,7 +9,7 @@ BaselineOfChipDesigner >> baseline: spec [
 	<baseline>
 
 	spec for: #common do: [
-		self spec: spec.
+		"self spec: spec."
 		spec 
 			package: 'ChipDesigner' ]
 ]
