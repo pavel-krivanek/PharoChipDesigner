@@ -211,7 +211,11 @@ ChDAreaController >> swapDeleteMode [
 
 	self inputMode: (inputMode isDelete 
 		ifTrue: [ ChDInsertMetalMode new ]
-		ifFalse: [ ChDDeleteMetalMode new ])
+		ifFalse: [ 
+			inputMode buttonIndex = 1
+				ifTrue: [ ChDDeleteMetalMode new ]
+				ifFalse: [  ChDInsertMetalMode new ]
+			])
 
 ]
 

@@ -116,6 +116,11 @@ ChipDesigner >> editorMorph [
 	
 	controller := areaMorph controller.
 	controller announcer when: ChDModeAnnouncement do: [ :announcement |
+		| buttons |
+		buttons := { editModeButton. viaModeButton. selectModeButton }.
+		buttons do: [ :button | button state: false ].
+		(buttons at: announcement inputMode buttonIndex) state: true.
+		
 		editMode := announcement inputMode isDelete
 			ifTrue: [ 
 				(announcement inputMode affectsMetal)
@@ -280,7 +285,9 @@ ChipDesigner >> initializeWidgets [
 	editModeButton := self newButton icon: self editModeIcon.
 	editModeButton label: 'mode'.
 	editModeButton help: 'Drawing / delete mode <X>, extended <Shift>'.
-	editModeButton action: [ controller swapDeleteMode].
+	editModeButton action: [ 
+		controller swapDeleteMode].
+	editModeButton state: true.
 
 	viaModeButton := self newButton icon: self viaModeIcon.
 	viaModeButton label: 'via'.

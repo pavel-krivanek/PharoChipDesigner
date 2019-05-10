@@ -7,6 +7,12 @@ Class {
 	#category : #'ChipDesigner-Input Modes'
 }
 
+{ #category : #testing }
+ChDSelectMode >> buttonIndex [
+
+	^ 3
+]
+
 { #category : #accessing }
 ChDSelectMode >> initialize [ 
 

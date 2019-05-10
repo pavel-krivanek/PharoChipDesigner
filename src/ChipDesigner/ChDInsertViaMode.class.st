@@ -17,6 +17,12 @@ ChDInsertViaMode >> affectsSubstrate [
 ]
 
 { #category : #testing }
+ChDInsertViaMode >> buttonIndex [
+
+	^ 2
+]
+
+{ #category : #testing }
 ChDInsertViaMode >> isInsertVia [ 
 
 	^ true

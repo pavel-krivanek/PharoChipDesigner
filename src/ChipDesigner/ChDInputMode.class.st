@@ -29,6 +29,12 @@ ChDInputMode >> affectsSubstrate [
 ]
 
 { #category : #testing }
+ChDInputMode >> buttonIndex [
+
+	^ 1
+]
+
+{ #category : #testing }
 ChDInputMode >> isDelete [
 
 	^ false
