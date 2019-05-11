@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ChDSubstrateLayer >> clearJunctionIn: aCell [
+
+	aCell junctionType: nil.
+	aCell junctionConnections: nil.
+	
+	area updateCell: aCell mode: aCell substrateType.
+
+]
+
+{ #category : #'as yet unclassified' }
 ChDSubstrateLayer >> connectedNeighboursOf: aCell [
 
 	| result |
@@ -62,6 +72,14 @@ ChDSubstrateLayer >> createJunctionRegionIn: aCell [
 ]
 
 { #category : #'as yet unclassified' }
+ChDSubstrateLayer >> deleteAdjacentJunctionsFor: aCell [
+
+	aCell connectedCellsInSubstrate do: [ :adjacentCell |
+		self clearJunctionIn: adjacentCell ]
+	
+]
+
+{ #category : #'as yet unclassified' }
 ChDSubstrateLayer >> fullClear: aCell [
 
 	| oldConnections |
@@ -70,6 +88,8 @@ ChDSubstrateLayer >> fullClear: aCell [
 	aCell hasJunction ifTrue: [ 
 		oldConnections := oldConnections bitOr: aCell junctionConnections ].
 
+	self deleteAdjacentJunctionsFor: aCell.
+
 	aCell substrateType: nil.
 	aCell substrateConnections: nil.
 	aCell junctionType: nil.
@@ -77,7 +97,9 @@ ChDSubstrateLayer >> fullClear: aCell [
 	aCell clearVia.
 	aCell unsetAdjacentSubstrateCorners.
 	
-	self clear: aCell withOld: oldConnections
+	self clear: aCell withOld: oldConnections.
+	
+
 ]
 
 { #category : #'as yet unclassified' }

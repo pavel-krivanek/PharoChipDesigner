@@ -31,8 +31,6 @@ ChDLayer >> area: anObject [
 { #category : #accessing }
 ChDLayer >> clear: aCell withOld: oldConnections [
 
-	"self setFor: aCell mode: nil."
-
 	oldConnections ifNil: [ ^ self ].
 	(oldConnections bitAnd: 2r0001) > 0 ifTrue: [ 
 		self connectionsFor: aCell topology up delete: 2r0100 ].
@@ -43,10 +41,6 @@ ChDLayer >> clear: aCell withOld: oldConnections [
 	(oldConnections bitAnd: 2r1000) > 0 ifTrue: [ 
 		self connectionsFor: aCell topology left delete: 2r0010 ].
 	
-"
-	area updateCell: aCell mode: mode.. 
-
-"	
 ]
 
 { #category : #accessing }

@@ -63,3 +63,9 @@ ChDInputMode >> shifted [
 
 	^ self
 ]
+
+{ #category : #testing }
+ChDInputMode >> unshifted [
+
+	^ self
+]
