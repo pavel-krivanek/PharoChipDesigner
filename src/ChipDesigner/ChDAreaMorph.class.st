@@ -168,13 +168,19 @@ ChDAreaMorph >> drawJunctionX: x y: y sourceForm: aForm on: aCanvas origin: orig
 			(cell junctionConnections = 2r0001) ifTrue: [ 	index := 2 ]. 
 			(cell junctionConnections = 2r0010) ifTrue: [ 	index := 7 ]. 
 			(cell junctionConnections = 2r0100) ifTrue: [ 	index := 6 ].
-			(cell junctionConnections = 2r1000) ifTrue: [ 	index := 3 ] ].
+			(cell junctionConnections = 2r1000) ifTrue: [ 	index := 3 ].
+			"junction connections from both sides"
+			(cell junctionConnections = 2r0101) ifTrue: [ 	index := 2 ].
+			(cell junctionConnections = 2r1010) ifTrue: [ index := 3 ] ].
 			
 		cell junctionType = #pnp ifTrue: [ 
 			(cell junctionConnections = 2r0001) ifTrue: [ 	index := 4 ]. 
 			(cell junctionConnections = 2r0010) ifTrue: [ 	index := 9 ]. 
 			(cell junctionConnections = 2r0100) ifTrue: [ 	index := 8 ].
-			(cell junctionConnections = 2r1000) ifTrue: [ index := 5 ] ].
+			(cell junctionConnections = 2r1000) ifTrue: [ index := 5 ].
+			"junction connections from both sides"
+			(cell junctionConnections = 2r0101) ifTrue: [ 	index := 4 ].
+			(cell junctionConnections = 2r1010) ifTrue: [ index := 5 ] ].
 			
 		cellForm := self cellForm: index from: {aForm}.
 		self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
