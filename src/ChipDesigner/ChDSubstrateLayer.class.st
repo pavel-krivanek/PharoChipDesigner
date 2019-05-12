@@ -162,7 +162,7 @@ ChDSubstrateLayer >> setFor: aCell with: aLastCell mode: mode [
 
 	| left right top down |
 	
-	aCell junctionType ifNotNil: [ ^ self ].
+	"aCell junctionType ifNotNil: [ ^ self ]."
 	
 	left := self area leftX: aCell x y: aCell y.
 	right := self area rightX: aCell x y: aCell y.
@@ -173,40 +173,60 @@ ChDSubstrateLayer >> setFor: aCell with: aLastCell mode: mode [
 		and: [ aCell substrateType = #n ]) 
 		and: [ aCell substrateConnections = 2r0101 ])
 		ifTrue: [ | newRegions |
-			aCell junctionType: #npn.
-			aCell junctionConnections: 2r1000.
-			self connectionsFor: aLastCell add: 2r0010. 
-			self createJunctionRegionIn: aCell.			
+			(aCell junctionType = #npn) ifFalse: [ 
+				aCell junctionType: #npn.
+				aCell junctionConnections: 2r1000.
+				self connectionsFor: aLastCell add: 2r0010. 
+				self createJunctionRegionIn: aCell.]
+			ifTrue: [ 
+				aCell junctionConnections: 2r1010.
+				super setFor: aCell with: aLastCell mode: mode.
+				area updateCell: aCell mode: mode ].	
 			^ self ].		
 
 	((((top = aLastCell) and: [ top substrateType = #p ]) 
 		and: [ aCell substrateType = #n ]) 
 		and: [ aCell substrateConnections = 2r1010 ])
 		ifTrue: [
-			aCell junctionType: #npn.
-			aCell junctionConnections: 2r0001.
-			self connectionsFor: aLastCell add: 2r0100. 
-			self createJunctionRegionIn: aCell.			
+			(aCell junctionType = #npn) ifFalse: [ 
+				aCell junctionType: #npn.
+				aCell junctionConnections: 2r0001.
+				self connectionsFor: aLastCell add: 2r0100. 
+				self createJunctionRegionIn: aCell. ]
+			ifTrue: [ 
+				aCell junctionConnections: 2r0101.
+				super setFor: aCell with: aLastCell mode: mode.
+				area updateCell: aCell mode: mode ].			
 			^ self ].	
 
 	((((right = aLastCell) and: [ right substrateType = #p ]) 
 		and: [ aCell substrateType = #n ]) 
 		and: [ aCell substrateConnections = 2r0101 ])
 		ifTrue: [
-			aCell junctionType: #npn.
-			aCell junctionConnections: 2r0010.
-			self connectionsFor: aLastCell add: 2r1000. 
-			self createJunctionRegionIn: aCell.			
+			(aCell junctionType = #npn) ifFalse: [ 
+				aCell junctionType: #npn.
+				aCell junctionConnections: 2r0010.
+				self connectionsFor: aLastCell add: 2r1000. 
+				self createJunctionRegionIn: aCell. ]
+			ifTrue: [ 
+				aCell junctionConnections: 2r1010.
+				super setFor: aCell with: aLastCell mode: mode.
+				area updateCell: aCell mode: mode ].				
 			^ self ].	
 
 	((((down = aLastCell) and: [ down substrateType = #p ]) 
 		and: [ aCell substrateType = #n ]) 
 		and: [ aCell substrateConnections = 2r1010 ])
 		ifTrue: [
-			aCell junctionType: #npn.
-			aCell junctionConnections: 2r0100.
-			self connectionsFor: aLastCell add: 2r0001. 
-			self createJunctionRegionIn: aCell.			
+			(aCell junctionType = #npn) ifFalse: [ 
+				aCell junctionType: #npn.
+				aCell junctionConnections: 2r0100.
+				self connectionsFor: aLastCell add: 2r0001. 
+				self createJunctionRegionIn: aCell. ]
+			ifTrue: [ 
+				aCell junctionConnections: 2r0101.
+				super setFor: aCell with: aLastCell mode: mode.
+				area updateCell: aCell mode: mode ].				
 			^ self ].	
 
 
@@ -214,40 +234,60 @@ ChDSubstrateLayer >> setFor: aCell with: aLastCell mode: mode [
 		and: [ aCell substrateType = #p ]) 
 		and: [ aCell substrateConnections = 2r0101 ])
 		ifTrue: [
-			aCell junctionType: #pnp.
-			aCell junctionConnections: 2r1000.
-			self connectionsFor: aLastCell add: 2r0010. 
-			self createJunctionRegionIn: aCell.			
+			(aCell junctionType = #pnp) ifFalse: [ 
+				aCell junctionType: #pnp.
+				aCell junctionConnections: 2r1000.
+				self connectionsFor: aLastCell add: 2r0010. 
+				self createJunctionRegionIn: aCell.]
+			ifTrue: [ 
+				aCell junctionConnections: 2r1010.
+				super setFor: aCell with: aLastCell mode: mode.
+				area updateCell: aCell mode: mode ].					
 			^ self ].		
 
 	((((top = aLastCell) and: [ top substrateType = #n ]) 
 		and: [ aCell substrateType = #p ]) 
 		and: [ aCell substrateConnections = 2r1010 ])
 		ifTrue: [
-			aCell junctionType: #pnp.
-			aCell junctionConnections: 2r0001.
-			self connectionsFor: aLastCell add: 2r0100. 
-			self createJunctionRegionIn: aCell.			
+			(aCell junctionType = #pnp) ifFalse: [ 
+				aCell junctionType: #pnp.
+				aCell junctionConnections: 2r0001.
+				self connectionsFor: aLastCell add: 2r0100. 
+				self createJunctionRegionIn: aCell.]
+			ifTrue: [ 
+				aCell junctionConnections: 2r0101.
+				super setFor: aCell with: aLastCell mode: mode.
+				area updateCell: aCell mode: mode ].					
 			^ self ].	
 
 	((((right = aLastCell) and: [ right substrateType = #n ]) 
 		and: [ aCell substrateType = #p ]) 
 		and: [ aCell substrateConnections = 2r0101 ])
 		ifTrue: [
-			aCell junctionType: #pnp.
-			aCell junctionConnections: 2r0010.
-			self connectionsFor: aLastCell add: 2r1000. 
-			self createJunctionRegionIn: aCell.			
+			(aCell junctionType = #pnp) ifFalse: [ 
+				aCell junctionType: #pnp.
+				aCell junctionConnections: 2r0010.
+				self connectionsFor: aLastCell add: 2r1000. 
+				self createJunctionRegionIn: aCell.	 ]
+			ifTrue: [ 
+				aCell junctionConnections: 2r1010.
+				super setFor: aCell with: aLastCell mode: mode.
+				area updateCell: aCell mode: mode ].			
 			^ self ].	
 
 	((((down = aLastCell) and: [ down substrateType = #n ]) 
 		and: [ aCell substrateType = #p ]) 
 		and: [ aCell substrateConnections = 2r1010 ])
 		ifTrue: [
-			aCell junctionType: #pnp.
-			aCell junctionConnections: 2r0100.
-			self connectionsFor: aLastCell add: 2r0001. 
-			self createJunctionRegionIn: aCell.			
+			(aCell junctionType = #pnp) ifFalse: [ 
+				aCell junctionType: #pnp.
+				aCell junctionConnections: 2r0100.
+				self connectionsFor: aLastCell add: 2r0001. 
+				self createJunctionRegionIn: aCell. ]
+			ifTrue: [ 
+				aCell junctionConnections: 2r0101.
+				super setFor: aCell with: aLastCell mode: mode.
+				area updateCell: aCell mode: mode ].			
 			^ self ].	
 
 	(aCell substrateType notNil and: [aCell substrateType ~~ mode]) ifTrue: [ ^ self ].

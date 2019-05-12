@@ -114,6 +114,26 @@ ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanvas 
 ]
 
 { #category : #initialization }
+ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanvas origin: origin block: aBlock layer: aLayer cellForms: cellForms [
+
+	| cell cellForm |
+		
+	cell := self area atX: x y: y.
+	(aBlock value: cell) ifTrue: [
+		| index corners |
+		(aLayer isSetFor: cell) ifTrue: [
+			index := aLayer connectionsFor: cell. 
+			corners := aLayer cornersFor: cell. 
+			cellForm := self cellForm: index corners: corners from: aFormArray.
+			self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
+						
+			(cell isHi) 
+				ifTrue: [ 
+					cellForm := self cellForm: 10 from: {cellForms}.
+					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ] ] ]
+]
+
+{ #category : #initialization }
 ChDAreaMorph >> drawCornersFor: forms [
 
 	| cornerForms corners |
@@ -197,13 +217,14 @@ ChDAreaMorph >> drawJunctionX: x y: y sourceForm: aForm on: aCanvas origin: orig
 { #category : #initialization }
 ChDAreaMorph >> drawOn: aCanvas [
 
-	| bgForm viaForm origin drawSuppressed  suppressForm |
+	| bgForm viaForm origin drawSuppressed  suppressForm cellForms |
 		
 	origin := self innerBounds origin.
 	
 	bgForm := self cellForm: 0 from: {sourceForm}.
 	viaForm := self cellForm: 1 from: {sourceForm}.
 	suppressForm := self cellForm: 11 from: {sourceForm}.
+	cellForms := sourceForm.
 	
 	drawSuppressed := suppressedCells notEmpty.
 
@@ -216,9 +237,9 @@ ChDAreaMorph >> drawOn: aCanvas [
 
 			self drawJunctionX: x y: y sourceForm: sourceForm on: aCanvas origin: origin block: [:aCell | aCell junctionType notNil] layer: area substrateLayer.
 		
-			self drawCellX: x y: y type: #n sourceForm: nForms on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #n) and: [aCell junctionType isNil]] layer: area substrateLayer.
-			self drawCellX: x y: y type: #p sourceForm: pForms on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #p) and: [aCell junctionType isNil]] layer: area substrateLayer.
-			self drawCellX: x y: y type: #metal sourceForm: metalForms on: aCanvas origin: origin block: [:aCell | aCell metalConnections notNil] layer: area metalLayer.
+			self drawCellX: x y: y type: #n sourceForm: nForms on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #n) and: [aCell junctionType isNil]] layer: area substrateLayer cellForms: cellForms.
+			self drawCellX: x y: y type: #p sourceForm: pForms on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #p) and: [aCell junctionType isNil]] layer: area substrateLayer cellForms: cellForms.
+			self drawCellX: x y: y type: #metal sourceForm: metalForms on: aCanvas origin: origin block: [:aCell | aCell metalConnections notNil] layer: area metalLayer cellForms: cellForms.
 			cell via ifTrue: [ 
 				aCanvas translucentImage: viaForm at: origin + ((13*(x-1))@(13*(y-1))) ].
 
