@@ -109,16 +109,18 @@ ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanvas 
 						
 			(cell isHi) 
 				ifTrue: [ 
-					cellForm := self cellForm: 58 from: aFormArray.
+					cellForm := self cellForm: 10 from: aFormArray.
 					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ] ] ]
 ]
 
 { #category : #initialization }
 ChDAreaMorph >> drawCornersFor: forms [
 
-	| cornerForms |
+	| cornerForms corners |
 	
-	cornerForms := (60 to: 63) collect: [ :index | self cellForm: index from: {sourceForm}.].
+	corners := self formFromPng: 'corners.png'.
+
+	cornerForms := (0 to: 3) collect: [ :index | self cellForm: index from: {corners}.].
 		
 	forms withIndexDo: [ :aForm :index |
 		| mask | 
@@ -163,23 +165,23 @@ ChDAreaMorph >> drawJunctionX: x y: y sourceForm: aForm on: aCanvas origin: orig
 		| index |
 		
 		cell junctionType = #npn ifTrue: [ 
-			(cell junctionConnections = 2r0001) ifTrue: [ 	index := 50 ]. 
-			(cell junctionConnections = 2r0010) ifTrue: [ 	index := 55 ]. 
-			(cell junctionConnections = 2r0100) ifTrue: [ 	index := 54 ].
-			(cell junctionConnections = 2r1000) ifTrue: [ 	index := 51 ] ].
+			(cell junctionConnections = 2r0001) ifTrue: [ 	index := 2 ]. 
+			(cell junctionConnections = 2r0010) ifTrue: [ 	index := 7 ]. 
+			(cell junctionConnections = 2r0100) ifTrue: [ 	index := 6 ].
+			(cell junctionConnections = 2r1000) ifTrue: [ 	index := 3 ] ].
 			
 		cell junctionType = #pnp ifTrue: [ 
-			(cell junctionConnections = 2r0001) ifTrue: [ 	index := 52 ]. 
-			(cell junctionConnections = 2r0010) ifTrue: [ 	index := 57 ]. 
-			(cell junctionConnections = 2r0100) ifTrue: [ 	index := 56 ].
-			(cell junctionConnections = 2r1000) ifTrue: [ index := 53 ] ].
+			(cell junctionConnections = 2r0001) ifTrue: [ 	index := 4 ]. 
+			(cell junctionConnections = 2r0010) ifTrue: [ 	index := 9 ]. 
+			(cell junctionConnections = 2r0100) ifTrue: [ 	index := 8 ].
+			(cell junctionConnections = 2r1000) ifTrue: [ index := 5 ] ].
 			
 		cellForm := self cellForm: index from: {aForm}.
 		self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
 
 		(cell substrateRegion open) 
 				ifTrue: [ 
-					cellForm := self cellForm: 58 from: {aForm}.
+					cellForm := self cellForm: 10 from: {aForm}.
 					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ]
 
 ]
@@ -193,9 +195,9 @@ ChDAreaMorph >> drawOn: aCanvas [
 		
 	origin := self innerBounds origin.
 	
-	bgForm := self cellForm: 48 from: {sourceForm}.
-	viaForm := self cellForm: 49 from: {sourceForm}.
-	suppressForm := self cellForm: 59 from: {sourceForm}.
+	bgForm := self cellForm: 0 from: {sourceForm}.
+	viaForm := self cellForm: 1 from: {sourceForm}.
+	suppressForm := self cellForm: 11 from: {sourceForm}.
 	
 	drawSuppressed := suppressedCells notEmpty.
 
@@ -243,6 +245,12 @@ ChDAreaMorph >> eventPointOf: anEvent [
 ]
 
 { #category : #initialization }
+ChDAreaMorph >> formFromPng: fileName [
+
+	^ PNGReadWriter formFromFileNamed: './pharo-local/iceberg/pavel-krivanek/PharoChipDesigner/graphics/', fileName	
+]
+
+{ #category : #initialization }
 ChDAreaMorph >> handlesKeyboard: evt [
 	"Yes, we do it here."
 	
@@ -263,7 +271,7 @@ ChDAreaMorph >> handlesMouseMove: evt [
 { #category : #initialization }
 ChDAreaMorph >> initializeFor: anArea [
 
-	| cornerForms |
+	| paths |
 
 	area := anArea.
 
@@ -271,13 +279,14 @@ ChDAreaMorph >> initializeFor: anArea [
 	controller area: area.
 	controller view: self.
 	
-	sourceForm := PNGReadWriter formFromFileNamed: './pharo-local/iceberg/pavel-krivanek/PharoChipDesigner/graphics/box.png'.
-	metalForms := (1 to: 16) collect: [ :index | sourceForm deepCopy].
-	nForms := (1 to: 16) collect: [ :index | sourceForm deepCopy].
-	pForms := (1 to: 16) collect: [ :index | sourceForm deepCopy].
-	
-	cornerForms := (60 to: 63) collect: [ :index | self cellForm: index from: {sourceForm}.].
-	
+	sourceForm := self formFromPng: 'cells.png'.
+
+	paths :=  self formFromPng: 'paths.png'.
+
+	metalForms := (1 to: 16) collect: [ :index | paths deepCopy].
+	nForms := (1 to: 16) collect: [ :index | paths deepCopy].
+	pForms := (1 to: 16) collect: [ :index | paths deepCopy].
+		
 	self drawCornersFor: metalForms.
 	self drawCornersFor: nForms.
 	self drawCornersFor: pForms.
