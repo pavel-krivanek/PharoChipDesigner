@@ -27,7 +27,7 @@ ChDAreaControllerTest >> testAddSingleMetalCell [
 	event := ChDMouseEventMock new.
 	event red.
 	
-	controller onMouseDownAt: 1@1 event: event..
+	controller onMouseDownAt: 1@1 event: event.
 	controller onMouseUpAt: 1@1 event: event.
 	
 	cell := area atX: 1 y: 1.

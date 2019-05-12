@@ -354,7 +354,7 @@ ChipDesigner >> instructionsMorph [
 	^ currentLevel instructions 
 		ifNotNil: [ :fileName |
 			 | form |
-			form := PNGReadWriter formFromFileNamed: './pharo-local/iceberg/pavel-krivanek/PharoChipDesigner/levels/', fileName.
+			form := PNGReadWriter formFromFileNamed: (self class package mcWorkingCopy ancestry ancestors first package repository location / 'levels' / fileName).
 			form asMorph
 		 ]
 		ifNil: [ Morph new ]
@@ -406,7 +406,7 @@ ChipDesigner >> modeIcon: aRectangle [
 { #category : #initialization }
 ChipDesigner >> modesPng [
 
-	^ './pharo-local/iceberg/pavel-krivanek/PharoChipDesigner/graphics/modes.png' asFileReference.
+	^ self class package mcWorkingCopy ancestry ancestors first package repository location / 'graphics' / 'modes.png'.
 
 	
 	

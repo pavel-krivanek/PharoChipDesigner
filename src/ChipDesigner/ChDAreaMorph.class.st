@@ -274,7 +274,7 @@ ChDAreaMorph >> eventPointOf: anEvent [
 { #category : #initialization }
 ChDAreaMorph >> formFromPng: fileName [
 
-	^ PNGReadWriter formFromFileNamed: './pharo-local/iceberg/pavel-krivanek/PharoChipDesigner/graphics/', fileName	
+	^ PNGReadWriter formFromFileNamed: (self class package mcWorkingCopy ancestry ancestors first package repository location / 'graphics' / fileName)	
 ]
 
 { #category : #initialization }
