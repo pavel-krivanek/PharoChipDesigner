@@ -89,6 +89,13 @@ ChipDesigner >> copy [
 ]
 
 { #category : #initialization }
+ChipDesigner >> delete [
+
+	area deleteSelection.
+	self refreshEditor.
+]
+
+{ #category : #initialization }
 ChipDesigner >> editModeIcon [
 
 	^ (Dictionary newFrom: { 
@@ -417,13 +424,17 @@ ChipDesigner >> openSelectionMenu [
 { #category : #initialization }
 ChipDesigner >> paste [
 
-	| temporary |
-	
+	| temporary destinationRectangle |
+
+		
 	temporary := ChDArea oneByOne decodedFromZipString: Clipboard clipboardText asString.
-	
+
+	destinationRectangle := 	Rectangle origin: area selection origin extent: (temporary width-1)@(temporary height-1).
+	area deleteRectangle: destinationRectangle.
 	
 	area decodedFromZipString: Clipboard clipboardText asString at: area selection origin.
-	area disconnectBorder: (Rectangle origin: area selection origin extent: (temporary width-1)@(temporary height-1)).
+	area disconnectBorder: destinationRectangle.
+	
 	self refreshEditor. 
 ]
 
@@ -449,12 +460,17 @@ ChipDesigner >> selectionMenu [
 				name: 'Copy';
 				icon: (self iconNamed: #smallCopy);
 				action: [ self copy]];
-				
 		addItem: [ :item | 
 			item
 				name: 'Paste';
 				icon: (self iconNamed: #smallPaste);
 				action: [ self paste ]  ];
+		addItem: [ :item | 
+			item
+				name: 'Delete';
+				icon: (self iconNamed: #changeRemove);
+				action: [ self delete ]  ];
+				
 		yourself
 ]
 

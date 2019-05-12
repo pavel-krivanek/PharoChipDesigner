@@ -114,6 +114,19 @@ ChDArea >> atX: x y: y [
 	^ array at: y at: x
 ]
 
+{ #category : #'cell access' }
+ChDArea >> cellsIn: aRectangle [
+
+	| result |
+	
+	result := OrderedCollection new.
+	aRectangle topLeft y to: aRectangle bottomRight y do: [ :y |
+		aRectangle topLeft x to: aRectangle bottomRight x do: [ :x |
+			result add: (self atX: x y: y) ] ].
+		
+	^ result
+]
+
 { #category : #initialization }
 ChDArea >> createSimulation [
 
@@ -200,6 +213,26 @@ ChDArea >> decodedFromZipString: aString [
 ChDArea >> decodedFromZipString: aString at: aPoint [
 
 	^ self decodeFrom: (ByteString fromByteArray: (aString base64Decoded)) unzipped at: aPoint
+]
+
+{ #category : #'cell access' }
+ChDArea >> deleteRectangle: aRectangle [
+
+	| cellsToDelete |
+	
+	cellsToDelete := self cellsIn: aRectangle.
+	
+	cellsToDelete do: [ :aCell |
+		self metalLayer fullClear: aCell.
+		self updateCell: aCell mode: #metal.
+		self substrateLayer fullClear: aCell.
+		self updateCell: aCell mode: #n ]
+]
+
+{ #category : #'cell access' }
+ChDArea >> deleteSelection [
+
+	self deleteRectangle: self selection
 ]
 
 { #category : #initialization }
@@ -582,6 +615,12 @@ ChDArea >> regions [
 ChDArea >> rightX: x y: y [
 
 	^ self atX: x+1 y: y
+]
+
+{ #category : #'cell access' }
+ChDArea >> selectedCells [
+
+	^ self cellsIn: self selection
 ]
 
 { #category : #accessing }
