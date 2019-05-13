@@ -38,28 +38,61 @@ ChDSequence >> currentTime: anObject [
 ]
 
 { #category : #initialization }
-ChDSequence >> decodedFrom: anInteger [
+ChDSequence >> decodedFrom: aString [
 
-	sequenceArray := ((1 to: sequenceArray size) collect: [ :bitIndex | (anInteger bitAt: bitIndex) = 1 ]).
+	sequenceArray := self decodedSequenceFrom: aString
+]
+
+{ #category : #initialization }
+ChDSequence >> decodedSequenceFrom: aString [
+
+	| byteArray header length i result |
+	
+	byteArray := OrderedCollection new.
+	aString readStreamDo: [ :aStream |
+		[ aStream atEnd ] whileFalse: [ 
+			byteArray add: ('16r', (aStream next: 2)) asNumber ] ]. 
+	byteArray := byteArray asByteArray.
+
+	header := byteArray first.
+	length := (byteArray size - 1) * 8 + header.
+	result := Array ofSize: length.
+	byteArray := byteArray allButFirst.
+	
+	i := 1.
+	1 to: length do: [ :index |
+		result at: index put: (((byteArray at: (index-1 // 8)+1) bitAt: ((8-(index-1 \\ 8))))>0)].
+	
+	^ result
 
 ]
 
 { #category : #initialization }
 ChDSequence >> encoded [
 	
-	| exponent |
-	exponent := 0.
-	^ self sequenceArray inject: 0 into: [ :num :each | 
-		exponent := exponent + 1.
-		num + (each ifTrue: [ 2 raisedTo: exponent-1 ] ifFalse: [ 0 ] ) ].
-	
+	| length stream header byteArray byte|
+	length := sequenceArray size.
+	stream := sequenceArray readStream.
+
+	header := { length \\ 8 }.	
+
+	byteArray := (header, ((1 to: (length/8) ceiling) collect: [ :index |
+		| exponent |
+		byte := stream next: 8.
+		exponent := 8.
+		byte inject: 0 into: [ :num :each | 
+			exponent := exponent - 1.
+			num + (each ifTrue: [ 2 raisedTo: exponent ] ifFalse: [ 0 ] ) ] ])) asByteArray.
+
+	^ String streamContents: [ :aStream |
+		byteArray do: [:e | e printOn: aStream base: 16 length: 2 padded: true] ]
+ 
 ]
 
 { #category : #initialization }
-ChDSequence >> expectedDecodedFrom: anInteger [
+ChDSequence >> expectedDecodedFrom: aString [
 
-	expectedSequenceArray := ((1 to: sequenceArray size) collect: [ :bitIndex | (anInteger bitAt: bitIndex) = 1 ]).
-
+	expectedSequenceArray := self decodedSequenceFrom: aString
 ]
 
 { #category : #initialization }

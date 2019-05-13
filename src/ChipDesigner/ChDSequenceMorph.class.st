@@ -76,7 +76,7 @@ ChDSequenceMorph >> drawOn: aCanvas [
 
 	sequence currentTime ifNotNil: [ 
 		| x | 
-		x := sequence currentTime * tickLength + tickLength - 1.
+		x := (sequence currentTime-1) * (tickLength).
 		aCanvas 
 			line: (rect left + x)@rect top 
 			to: (rect left + x)@rect bottom 

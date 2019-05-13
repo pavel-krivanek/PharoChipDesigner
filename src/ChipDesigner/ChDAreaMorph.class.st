@@ -429,7 +429,7 @@ ChDAreaMorph >> resetExtent [
 ChDAreaMorph >> step [
 	
 	area simulation stepping ifTrue: [ 
-		(self area simulation time+1) >= 280 ifTrue: [ 
+		(self area simulation time) >= 280 ifTrue: [ 
 			self stopStepping.
 			area simulation stepping: false.
 			^ self ].

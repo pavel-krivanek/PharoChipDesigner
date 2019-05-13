@@ -37,8 +37,8 @@ ChipDesignerClassicLevelPort class >> notConnectedNamed: aString [
 
 	^ self new
 		name: aString;
-		sequence: 0;
-		expectedSequence: 0;
+		sequence: '000000000000000000000000000000000000000000000000000000000000000000000000';
+		expectedSequence: '000000000000000000000000000000000000000000000000000000000000000000000000';
 		yourself
 
 ]

@@ -28,10 +28,10 @@ ChDClassicLevel4 >> portsDefinition [
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
 		ChipDesignerClassicLevelPort 
 			name: 'RST'
-			expectedSequence: 1023.	 
+			expectedSequence: '00FFC0000000000000000000000000000000000000000000000000000000000000000000'.	 
 		ChipDesignerClassicLevelPort 
 			name: '/RST'
-			expectedSequence: 1942668892225729070919461906823518906642406839052139521251812409738904285205208497152.	 
+			expectedSequence: '00003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'.	 
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
 		}
 

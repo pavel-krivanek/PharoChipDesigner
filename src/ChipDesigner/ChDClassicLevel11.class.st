@@ -23,14 +23,14 @@ ChDClassicLevel11 >> portsDefinition [
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
 		ChipDesignerClassicLevelPort 
 			name: 'IN'
-			sequence: 56086793276610989282252936320970419174688769182438057460158017385379639884800.
+			sequence: '00003E0F83E0F83E0F83E0F800000000F83E000000F83E000000F83E0F8000003E000000'.
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
 
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
 		ChipDesignerClassicLevelPort 
 			name: 'OUT'
-			expectedSequence: 1684995059758870729637914538306208266147618922229761704690370739200.	 
+			expectedSequence: '00003FFFFC00003FFFFC000000000000FFFFFFFFFF0000000000FFFFF000000000000000'.	 
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
 		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
 		}
