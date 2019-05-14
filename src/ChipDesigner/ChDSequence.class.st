@@ -68,6 +68,18 @@ ChDSequence >> decodedSequenceFrom: aString [
 ]
 
 { #category : #initialization }
+ChDSequence >> defaultLength [
+
+	^ 56
+]
+
+{ #category : #initialization }
+ChDSequence >> defaultSignalLength [
+
+	^ 5
+]
+
+{ #category : #initialization }
 ChDSequence >> encoded [
 	
 	| length stream header byteArray byte|
@@ -122,8 +134,8 @@ ChDSequence >> initialize [
 
 	super initialize.
 	
-	signalLength := 5.
-	sequenceArray := (1 to: 56 * signalLength) collect: [ :each | false. ].
+	signalLength := self defaultSignalLength.
+	sequenceArray := (1 to: self defaultLength * signalLength) collect: [ :each | false. ].
 	expectedSequenceArray := nil.
 	
 	currentTime := nil.

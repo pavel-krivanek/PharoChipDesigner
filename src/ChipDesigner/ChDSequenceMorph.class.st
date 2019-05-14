@@ -35,7 +35,7 @@ ChDSequenceMorph >> drawOn: aCanvas [
 	
 	lastPoint := rect left@(rect bottom - offset).
 	
-	1 to: (sequence length // sequence signalLength ) do: [ :i |
+	0 to: (sequence length // sequence signalLength ) do: [ :i |
 		| x | 
 		x := i * sequence signalLength * tickLength.
 		aCanvas 

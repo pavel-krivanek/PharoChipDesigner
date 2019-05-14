@@ -26,6 +26,8 @@ Class {
 		'importButton',
 		'runButton',
 		'stepButton',
+		'step5Button',
+		'step10Button',
 		'resetButton',
 		'selectModeButton',
 		'instructions'
@@ -42,6 +44,18 @@ ChipDesigner class >> buttonsExtent [
 { #category : #examples }
 ChipDesigner class >> defaultSpec [
 	^ SpecBoxLayout newVertical
+		add: (SpecBoxLayout newHorizontal
+			spacing: 2;
+			borderWidth: 1;
+			add: #exportButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+			add: #importButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+			add: #inspectButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+			add: #runButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+			add: #stepButton withConstraints: [ :constraints | constraints width: self stepButtonsExtent x ];
+			add: #step5Button withConstraints: [ :constraints | constraints width: self stepButtonsExtent x ];
+			add: #step10Button withConstraints: [ :constraints | constraints width: self stepButtonsExtent x ];
+			add: #resetButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+			yourself) withConstraints: [ :constraints | constraints height: self buttonsExtent y ];
 		add:
 			(SpecPanedLayout newHorizontal
 				position: 300;
@@ -52,13 +66,6 @@ ChipDesigner class >> defaultSpec [
 							add: #editModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 							add: #viaModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 							add: #selectModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-							add: #exportButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-							add: #importButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-							add: #inspectButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-							add: #runButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-							add: #stepButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-							add: #resetButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-							
 							yourself)
 						withConstraints: [ :constraints | constraints height: self buttonsExtent y ];
 						add: (SpecPanedLayout newVertical
@@ -72,6 +79,12 @@ ChipDesigner class >> defaultSpec [
 ChipDesigner class >> open [
 	<script>
 	^ self new openWithSpec
+]
+
+{ #category : #examples }
+ChipDesigner class >> stepButtonsExtent [
+
+	^47@30
 ]
 
 { #category : #initialization }
@@ -193,7 +206,7 @@ ChipDesigner >> import [
 
 { #category : #initialization }
 ChipDesigner >> initialExtent [
-	^ 940@720
+	^ 940@740
 ]
 
 { #category : #initialization }
@@ -310,16 +323,19 @@ ChipDesigner >> initializeWidgets [
 	exportButton label: 'export'.
 	exportButton help: 'export area to a string'.
 	exportButton action: [ self export ].
+	exportButton color: Color transparent.
 
 	importButton := self newButton icon: (self iconNamed: #smallLoadProject).
 	importButton label: 'import'.
 	importButton help: 'import area from a string'.
 	importButton action: [ self import ].	
+	importButton color: Color transparent.
 
 	runButton := self newButton icon: (self iconNamed: #smallDoIt).
 	runButton label: 'run'.
 	runButton help: 'run / stop simulation'.
 	runButton action: [ self toggleRun ].	
+	runButton color: Color transparent.
 
 	area simulation announcer when: ChDSimulationRunAnnouncement do: [ :announcement |
 		runButton icon: (self iconNamed: (announcement running
@@ -330,17 +346,32 @@ ChipDesigner >> initializeWidgets [
 	resetButton label: 'reset'.
 	resetButton help: 'reset simulation'.
 	resetButton action: [ self simulationReset ].	
+	resetButton color: Color transparent.
 
 	stepButton := self newButton icon: (self iconNamed: #glamorousPlay).
 	stepButton label: 'step'.
 	stepButton help: 'run / stop simulation'.
-	stepButton action: [ self simulationStep ].	
+	stepButton action: [ self simulationStep: 1 ].	
+	stepButton color: Color transparent.
+
+	step5Button := self newButton icon: (self iconNamed: #glamorousPlay).
+	step5Button label: '5x'.
+	step5Button help: 'run / stop simulation'.
+	step5Button action: [ self simulationStep: 5 ].	
+	step5Button color: Color transparent.
+
+	step10Button := self newButton icon: (self iconNamed: #glamorousPlay).
+	step10Button label: '10x'.
+	step10Button help: 'run / stop simulation'.
+	step10Button action: [ self simulationStep: 10 ].	
+	step10Button color: Color transparent.
 
 	inspectButton := self newButton 
 		label: 'inspect';
 		help: 'Inspect area';
 		icon: (self iconNamed: #glamorousInspect).
 	inspectButton action: [area inspect].
+	inspectButton color: Color transparent.
 	
 	self initializeNotebook.
 	
@@ -496,9 +527,10 @@ ChipDesigner >> simulationReset [
 ]
 
 { #category : #initialization }
-ChipDesigner >> simulationStep [
+ChipDesigner >> simulationStep: n [
 
-	area simulation step. 
+	n timesRepeat: [ 
+		area simulation step ].
 	areaMorph changed.
 ]
 
