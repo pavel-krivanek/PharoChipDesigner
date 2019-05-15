@@ -3,17 +3,14 @@ Class {
 	#superclass : #Morph,
 	#instVars : [
 		'controller',
-		'sourceForm',
 		'area',
 		'inputMode',
-		'metalForms',
 		'mouseDown',
 		'lastCell',
 		'deleteMode',
 		'suppressedCells',
 		'stepping',
-		'nForms',
-		'pForms'
+		'graphics'
 	],
 	#category : #ChipDesigner
 }
@@ -46,41 +43,9 @@ ChDAreaMorph >> cellExtent [
 ]
 
 { #category : #initialization }
-ChDAreaMorph >> cellForm: index corners: cornersIndex from: aFormArray [
-	
-	| aFrom |
-
-	aFrom := (aFormArray at: cornersIndex+1) copy: (((index*self cellSize)@0) extent: self cellSize@self cellSize).
-"
-	cornersIndex > 0  ifTrue: [
-	(FormCanvas on: aFrom) drawString: cornersIndex asString at: 0@0 ].
-"	
-	^ aFrom
-]
-
-{ #category : #initialization }
-ChDAreaMorph >> cellForm: index from: aFormArray [
-
-	^ self cellForm: index corners: 0 from: aFormArray
-]
-
-{ #category : #initialization }
 ChDAreaMorph >> cellSize [ 
 
 	^ 13
-]
-
-{ #category : #initialization }
-ChDAreaMorph >> colorize: aForm with: aColor [
-
-	0 to: aForm width do: [ :x |
-		0 to: aForm height do: [ :y |
-			| c |
-			c := aForm colorAt: x@y.
-			(c red > 0.9) ifTrue: [ 
-				aForm colorAt: x@y put: aColor ]
-			]].
-	
 ]
 
 { #category : #accessing }
@@ -94,26 +59,6 @@ ChDAreaMorph >> controller: anObject [
 ]
 
 { #category : #initialization }
-ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanvas origin: origin block: aBlock layer: aLayer [
-
-	| cell cellForm |
-		
-	cell := self area atX: x y: y.
-	(aBlock value: cell) ifTrue: [
-		| index corners |
-		(aLayer isSetFor: cell) ifTrue: [
-			index := aLayer connectionsFor: cell. 
-			corners := aLayer cornersFor: cell. 
-			cellForm := self cellForm: index corners: corners from: aFormArray.
-			self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
-						
-			(cell isHi) 
-				ifTrue: [ 
-					cellForm := self cellForm: 10 from: aFormArray.
-					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ] ] ]
-]
-
-{ #category : #initialization }
 ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanvas origin: origin block: aBlock layer: aLayer cellForms: cellForms [
 
 	| cell cellForm |
@@ -124,48 +69,13 @@ ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanvas 
 		(aLayer isSetFor: cell) ifTrue: [
 			index := aLayer connectionsFor: cell. 
 			corners := aLayer cornersFor: cell. 
-			cellForm := self cellForm: index corners: corners from: aFormArray.
+			cellForm := graphics cellForm: index corners: corners from: aFormArray.
 			self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
 						
 			(cell isHi) 
 				ifTrue: [ 
-					cellForm := self cellForm: 10 from: {cellForms}.
+					cellForm := graphics cellForm: 10 from: {cellForms}.
 					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ] ] ]
-]
-
-{ #category : #initialization }
-ChDAreaMorph >> drawCornersFor: forms [
-
-	| cornerForms corners |
-	
-	corners := self formFromPng: 'corners.png'.
-
-	cornerForms := (0 to: 3) collect: [ :index | self cellForm: index from: {corners}.].
-		
-	forms withIndexDo: [ :aForm :index |
-		| mask | 
-		mask := index - 1.
-		(mask bitAnd: 2r0001) > 0 ifTrue: [ 
-			(0 to: 15) do: [ :cellIndex | 
-				((cellIndex bitAnd: 2r1001) = 2r1001) ifTrue: [ .
-					self overlap: aForm at: cellIndex with: (cornerForms at: 1) ] ] ].
-
-		(mask bitAnd: 2r0010) > 0 ifTrue: [ 
-			(0 to: 15) do: [ :cellIndex | 
-				((cellIndex bitAnd: 2r0011) = 2r0011) ifTrue: [ .
-					self overlap: aForm at: cellIndex with: (cornerForms at: 2) ] ] ].
-
-		(mask bitAnd: 2r0100) > 0 ifTrue: [ 
-			(0 to: 15) do: [ :cellIndex | 
-				((cellIndex bitAnd: 2r01100) = 2r1100) ifTrue: [ .
-					self overlap: aForm at: cellIndex with: (cornerForms at: 3) ] ] ].
-
-		(mask bitAnd: 2r1000) > 0 ifTrue: [ 
-			(0 to: 15) do: [ :cellIndex | 
-				((cellIndex bitAnd: 2r0110) = 2r0110) ifTrue: [ .
-					self overlap: aForm at: cellIndex with: (cornerForms at: 4) ] ] ].
-	 ].
-
 ]
 
 { #category : #initialization }
@@ -202,12 +112,12 @@ ChDAreaMorph >> drawJunctionX: x y: y sourceForm: aForm on: aCanvas origin: orig
 			(cell junctionConnections = 2r0101) ifTrue: [ 	index := 4 ].
 			(cell junctionConnections = 2r1010) ifTrue: [ index := 5 ] ].
 			
-		cellForm := self cellForm: index from: {aForm}.
+		cellForm := graphics cellForm: index from: {aForm}.
 		self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
 
 		(cell substrateRegion open) 
 				ifTrue: [ 
-					cellForm := self cellForm: 10 from: {aForm}.
+					cellForm := graphics cellForm: 10 from: {aForm}.
 					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ]
 
 ]
@@ -217,14 +127,10 @@ ChDAreaMorph >> drawJunctionX: x y: y sourceForm: aForm on: aCanvas origin: orig
 { #category : #initialization }
 ChDAreaMorph >> drawOn: aCanvas [
 
-	| bgForm viaForm origin drawSuppressed  suppressForm cellForms |
+	| origin drawSuppressed  |
 		
 	origin := self innerBounds origin.
-	
-	bgForm := self cellForm: 0 from: {sourceForm}.
-	viaForm := self cellForm: 1 from: {sourceForm}.
-	suppressForm := self cellForm: 11 from: {sourceForm}.
-	cellForms := sourceForm.
+
 	
 	drawSuppressed := suppressedCells notEmpty.
 
@@ -233,34 +139,34 @@ ChDAreaMorph >> drawOn: aCanvas [
 			| cell | 
 			cell := area atX: x y:y.
 
-			aCanvas drawImage: bgForm at: origin + ((13*(x-1))@(13*(y-1))).
+			aCanvas drawImage: graphics bgForm at: origin + ((self cellSize*(x-1))@(self cellSize*(y-1))).
 
-			self drawJunctionX: x y: y sourceForm: sourceForm on: aCanvas origin: origin block: [:aCell | aCell junctionType notNil] layer: area substrateLayer.
+			self drawJunctionX: x y: y sourceForm: graphics sourceForm on: aCanvas origin: origin block: [:aCell | aCell junctionType notNil] layer: area substrateLayer.
 		
-			self drawCellX: x y: y type: #n sourceForm: nForms on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #n) and: [aCell junctionType isNil]] layer: area substrateLayer cellForms: cellForms.
-			self drawCellX: x y: y type: #p sourceForm: pForms on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #p) and: [aCell junctionType isNil]] layer: area substrateLayer cellForms: cellForms.
-			self drawCellX: x y: y type: #metal sourceForm: metalForms on: aCanvas origin: origin block: [:aCell | aCell metalConnections notNil] layer: area metalLayer cellForms: cellForms.
+			self drawCellX: x y: y type: #n sourceForm: graphics nForms on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #n) and: [aCell junctionType isNil]] layer: area substrateLayer cellForms: graphics cellForms.
+			self drawCellX: x y: y type: #p sourceForm: graphics pForms on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #p) and: [aCell junctionType isNil]] layer: area substrateLayer cellForms: graphics cellForms.
+			self drawCellX: x y: y type: #metal sourceForm: graphics metalForms on: aCanvas origin: origin block: [:aCell | aCell metalConnections notNil] layer: area metalLayer cellForms: graphics cellForms.
 			cell via ifTrue: [ 
-				aCanvas translucentImage: viaForm at: origin + ((13*(x-1))@(13*(y-1))) ].
+				aCanvas translucentImage: graphics viaForm at: origin + ((self cellSize*(x-1))@(self cellSize*(y-1))) ].
 
 			drawSuppressed ifTrue: [ 
 				(suppressedCells includes: (x@y)) ifTrue: [ 
-					aCanvas translucentImage: suppressForm at: origin + ((13*(x-1))@(13*(y-1)))					
+					aCanvas translucentImage: graphics suppressForm at: origin + ((self cellSize*(x-1))@(self cellSize*(y-1)))					
 					 ]
 				 ]	
 			 ]].
 	
 	area descriptions do: [ :association |
 		| p |
-		p := ((13*(association value x-1))@(13*(association value y-1))).
+		p := ((self cellSize*(association value x-1))@(self cellSize*(association value y-1))).
 		aCanvas drawString: association key at: origin + p + (-5 @ 0).
 		 ].
 	
 	area selection ifNotNil: [ 
 		| r |
 		r := Rectangle 
-			origin: (origin + ((13*(area selection topLeft x-1))@(13*(area selection topLeft y-1)))) 
-			corner: (origin + ((13*(area selection bottomRight x))@(13*(area selection bottomRight y)))). 
+			origin: (origin + ((self cellSize*(area selection topLeft x-1))@(self cellSize*(area selection topLeft y-1)))) 
+			corner: (origin + ((self cellSize*(area selection bottomRight x))@(self cellSize*(area selection bottomRight y)))). 
 		aCanvas frameAndFillRectangle: r fillColor: Color transparent borderWidth: 1 borderColor: Color white ].
 ]
 
@@ -269,12 +175,6 @@ ChDAreaMorph >> eventPointOf: anEvent [
 
 	^ ((anEvent cursorPoint - self position) // self cellSize) + (1@1).
 
-]
-
-{ #category : #initialization }
-ChDAreaMorph >> formFromPng: fileName [
-
-	^ PNGReadWriter formFromFileNamed: (self class package mcWorkingCopy ancestry ancestors first package repository location / 'graphics' / fileName)	
 ]
 
 { #category : #initialization }
@@ -298,33 +198,13 @@ ChDAreaMorph >> handlesMouseMove: evt [
 { #category : #initialization }
 ChDAreaMorph >> initializeFor: anArea [
 
-	| paths |
-
 	area := anArea.
 
 	controller := ChDAreaController new.
 	controller area: area.
 	controller view: self.
 	
-	sourceForm := self formFromPng: 'cells.png'.
-
-	paths :=  self formFromPng: 'paths.png'.
-
-	metalForms := (1 to: 16) collect: [ :index | paths deepCopy].
-	nForms := (1 to: 16) collect: [ :index | paths deepCopy].
-	pForms := (1 to: 16) collect: [ :index | paths deepCopy].
-		
-	self drawCornersFor: metalForms.
-	self drawCornersFor: nForms.
-	self drawCornersFor: pForms.
-
-	metalForms do: [ :metalForm |
-		self colorize: metalForm with: ((Color fromHexString: 'E8E8E8') alpha: 0.6) ].		
-		
-	nForms do: [ :nForm |
-		self colorize: nForm with: ((Color fromHexString: 'B60000') alpha: 1) ].
-	pForms do: [ :pForm |
-		self colorize: pForm with: ((Color fromHexString: 'FFFF00') alpha: 1) ].
+	graphics := ChDGraphicsProvider new.
 	
 	self resetExtent.
 	
@@ -421,7 +301,7 @@ ChDAreaMorph >> overlap: aSourceForm at: zeroBasedIndex with: aFrom [
 { #category : #initialization }
 ChDAreaMorph >> resetExtent [
 
-	self extent: 13*area width@(13*area height).
+	self extent: self cellSize*area width@(self cellSize*area height).
 
 ]
 
