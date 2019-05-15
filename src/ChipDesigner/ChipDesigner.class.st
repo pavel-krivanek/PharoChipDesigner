@@ -239,7 +239,7 @@ ChipDesigner >> initializeList [
 
 	| designs |
 	
-	designs := (ChDDesign allSubclasses select: [ :each | each isRoot ]) sorted: [:a :b | a priority <= b priority ].
+	designs := (ChDGenericDesign allSubclasses select: [ :each | each isRoot ]) sorted: [:a :b | a priority <= b priority ].
 
 	list := self newTreeTable.
 

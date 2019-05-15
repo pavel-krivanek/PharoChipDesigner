@@ -8,7 +8,8 @@ Class {
 		'announcer',
 		'preStepBlock',
 		'postStepBlock',
-		'stepping'
+		'stepping',
+		'sequences'
 	],
 	#category : #ChipDesigner
 }
@@ -169,9 +170,7 @@ ChDSimulation >> regions [
 
 { #category : #accessing }
 ChDSimulation >> reset [ 
-	
-	| vccConnected |
-	
+		
 	self regions do: [ :each |
 		each currentState: false.
 		each futureState: false.
@@ -179,13 +178,6 @@ ChDSimulation >> reset [
 	
 	self resetTime.
 	
-"	self resetVcc."
-	
-"	self step."
-
-"	self regions do: [ :each |
-		each isSpecial ifTrue: [ 
-					each open: each hasVcc ] ]"
 ]
 
 { #category : #accessing }
@@ -209,6 +201,16 @@ ChDSimulation >> resetVcc [
 ]
 
 { #category : #accessing }
+ChDSimulation >> sequences [
+	^ sequences
+]
+
+{ #category : #accessing }
+ChDSimulation >> sequences: anObject [
+	sequences := anObject
+]
+
+{ #category : #accessing }
 ChDSimulation >> step [ 
 	
 	self stepWith: preStepBlock.
@@ -222,7 +224,7 @@ ChDSimulation >> step [
 { #category : #accessing }
 ChDSimulation >> stepWith: aBlock [ 
 	
-	| regions special normal connected vccConnected |
+	| regions special normal connected vccConnected shortestSequenceLength |	
 	
 	regions := self regions.
 
@@ -234,6 +236,9 @@ ChDSimulation >> stepWith: aBlock [
 	self resetVcc.
 
 	aBlock value: self.	
+
+	shortestSequenceLength := (self sequences collect: #length) min.  
+	time >= shortestSequenceLength ifTrue: [ ^ self ].
 
 	vccConnected := self connectedVCCRegionsFrom: regions.
 	vccConnected do: [ :each | each hasVcc: true ].

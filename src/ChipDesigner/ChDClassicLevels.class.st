@@ -1,6 +1,6 @@
 Class {
 	#name : #ChDClassicLevels,
-	#superclass : #ChDDesign,
+	#superclass : #ChDGenericDesign,
 	#category : #'ChipDesigner-Levels'
 }
 

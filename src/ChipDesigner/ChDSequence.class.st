@@ -135,7 +135,7 @@ ChDSequence >> initialize [
 	super initialize.
 	
 	signalLength := self defaultSignalLength.
-	sequenceArray := (1 to: self defaultLength * signalLength) collect: [ :each | false. ].
+	sequenceArray := (1 to: self defaultLength * signalLength) collect: [ :each | nil. ].
 	expectedSequenceArray := nil.
 	
 	currentTime := nil.

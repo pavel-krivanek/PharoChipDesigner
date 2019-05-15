@@ -54,7 +54,8 @@ ChDSequenceMorph >> drawOn: aCanvas [
 		newPoint = lastPoint ifFalse: [ 
 			aCanvas line: lastPoint to: newPoint color: (Color black alpha: 0.3) ].
 		lastPoint := newPoint.
-		newPoint := (rect left + (i*tickLength)) @ (value ifFalse: [rect bottom-offset] ifTrue: [rect top+offset]).
+		value ifNotNil: [ 
+		newPoint := (rect left + (i*tickLength)) @ (value ifFalse: [rect bottom-offset] ifTrue: [rect top+offset]) ].
 		aCanvas line: lastPoint to: newPoint color: (Color black alpha: 0.3).
 		lastPoint := newPoint.	
 	] ].
@@ -62,14 +63,15 @@ ChDSequenceMorph >> drawOn: aCanvas [
 	lastPoint := rect left@(rect bottom - offset).	
 		
 	sequence sequenceArray withIndexDo: [ :value :i |
-		newPoint := (rect left + ((i-1)*tickLength)) @ (value ifFalse: [rect bottom-offset] ifTrue: [rect top+offset]).
-		newPoint = lastPoint ifFalse: [ 
-			aCanvas line: lastPoint to: newPoint color: Color black ].
-		lastPoint := newPoint.
-		newPoint := (rect left + (i*tickLength)) @ (value ifFalse: [rect bottom-offset] ifTrue: [rect top+offset]).
-		aCanvas line: lastPoint to: newPoint color: Color black.
-		lastPoint := newPoint.	
-	].
+		value ifNotNil: [ 
+			newPoint := (rect left + ((i-1)*tickLength)) @ (value ifFalse: [rect bottom-offset] ifTrue: [rect top+offset]).
+			newPoint = lastPoint ifFalse: [ 
+				aCanvas line: lastPoint to: newPoint color: Color black ].
+			lastPoint := newPoint.
+			newPoint := (rect left + (i*tickLength)) @ (value ifFalse: [rect bottom-offset] ifTrue: [rect top+offset]).
+			aCanvas line: lastPoint to: newPoint color: Color black.
+			lastPoint := newPoint. ]
+		].
 
 
 

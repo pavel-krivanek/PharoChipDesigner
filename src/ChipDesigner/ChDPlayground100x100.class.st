@@ -1,12 +1,6 @@
 Class {
 	#name : #ChDPlayground100x100,
 	#superclass : #ChDDesign,
-	#instVars : [
-		'area',
-		'ports',
-		'sequences',
-		'scopes'
-	],
 	#category : #'ChipDesigner-Levels'
 }
 
@@ -52,16 +46,6 @@ ChDPlayground100x100 class >> priority [
 ChDPlayground100x100 class >> selectable [
 
 	^ true
-]
-
-{ #category : #accessing }
-ChDPlayground100x100 >> area [
-	^ area
-]
-
-{ #category : #accessing }
-ChDPlayground100x100 >> area: anObject [
-	area := anObject
 ]
 
 { #category : #'as yet unclassified' }
@@ -128,6 +112,8 @@ ChDPlayground100x100 >> initializeArea [
 ChDPlayground100x100 >> initializeSimulation [
 
 	area simulation preStepBlock: [ :aSimulation |
+
+		aSimulation sequences: sequences.
 	
 		sequences do: [ :aSequence | aSequence resetRegion ].	
 				
@@ -224,10 +210,4 @@ ChDPlayground100x100 >> reinitialize [
 	self initializeSimulation.
 	
 	self createLabels.
-]
-
-{ #category : #'as yet unclassified' }
-ChDPlayground100x100 >> scopes [ 
-
-	^ scopes
 ]

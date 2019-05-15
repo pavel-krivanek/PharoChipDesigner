@@ -8,12 +8,6 @@ s encoded
 Class {
 	#name : #ChDClassicLevel,
 	#superclass : #ChDDesign,
-	#instVars : [
-		'area',
-		'ports',
-		'sequences',
-		'scopes'
-	],
 	#category : #'ChipDesigner-Levels'
 }
 
@@ -47,16 +41,6 @@ ChDClassicLevel class >> on: area [
 ChDClassicLevel class >> selectable [
 
 	^ true
-]
-
-{ #category : #accessing }
-ChDClassicLevel >> area [
-	^ area
-]
-
-{ #category : #accessing }
-ChDClassicLevel >> area: anObject [
-	area := anObject
 ]
 
 { #category : #'as yet unclassified' }
@@ -123,6 +107,8 @@ ChDClassicLevel >> initializeArea [
 ChDClassicLevel >> initializeSimulation [
 
 	area simulation preStepBlock: [ :aSimulation |
+		
+		aSimulation sequences: sequences.
 	
 		sequences do: [ :aSequence | aSequence resetRegion ].	
 				
@@ -166,10 +152,4 @@ ChDClassicLevel >> reinitialize [
 	self initializeSimulation.
 	
 	self createLabels.
-]
-
-{ #category : #'as yet unclassified' }
-ChDClassicLevel >> scopes [ 
-
-	^ scopes
 ]
