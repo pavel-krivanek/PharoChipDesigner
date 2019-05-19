@@ -257,6 +257,12 @@ ChDCell >> isHorizontal [
 	^ (self junctionConnections bitAnd: 2r0101) > 0 
 ]
 
+{ #category : #testing }
+ChDCell >> isStub [
+
+	^ false
+]
+
 { #category : #accessing }
 ChDCell >> isVertical [
 
@@ -527,6 +533,22 @@ ChDCell >> via [
 { #category : #accessing }
 ChDCell >> via: anObject [
 	via := anObject
+]
+
+{ #category : #accessing }
+ChDCell >> withAdjacentCells [
+
+	^ { self. 
+	self topology up.
+	self topology rightUp.
+	self topology right.
+	self topology rightDown.
+	self topology down.
+	self topology leftDown.
+	self topology left.
+	self topology leftUp.
+ } reject: #isStub
+
 ]
 
 { #category : #accessing }

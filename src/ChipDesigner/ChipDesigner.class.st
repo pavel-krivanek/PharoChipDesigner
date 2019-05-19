@@ -50,10 +50,10 @@ ChipDesigner class >> defaultSpec [
 			add: #exportButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 			add: #importButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 			add: #inspectButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-			add: #runButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 			add: #stepButton withConstraints: [ :constraints | constraints width: self stepButtonsExtent x ];
 			add: #step5Button withConstraints: [ :constraints | constraints width: self stepButtonsExtent x ];
 			add: #step10Button withConstraints: [ :constraints | constraints width: self stepButtonsExtent x ];
+			add: #runButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 			add: #resetButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 			yourself) withConstraints: [ :constraints | constraints height: self buttonsExtent y ];
 		add:
@@ -173,10 +173,7 @@ ChipDesigner >> export [
 	dialog contentArea: textPresenter.
 	dialog addButton: #ok text: 'OK' value: true.
 	
-	dialog openModalWithSpec.
-
-	dialog result logCr.
-	
+	dialog openModalWithSpec.	
 ]
 
 { #category : #initialization }

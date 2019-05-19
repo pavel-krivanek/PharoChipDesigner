@@ -12,6 +12,12 @@ Class {
 	#category : #ChipDesigner
 }
 
+{ #category : #initialization }
+ChDAreaController >> announceDirtyCells: dirtyCells [ 
+
+	area announceDirtyCells: dirtyCells
+]
+
 { #category : #accessing }
 ChDAreaController >> announceModeChange [
 
@@ -50,6 +56,7 @@ ChDAreaController >> cellEvent: anEvent at: aPoint [
 	inputMode isInsertVia ifTrue: [ 
 		cell toggleVia.
 		self inputMode: ChDInsertMetalMode new.
+		self announceDirtyCells: { cell }.
 		self changed.
 		^ self ].
 	
@@ -78,6 +85,8 @@ ChDAreaController >> cellEvent: anEvent at: aPoint [
 
 		(anEvent shiftPressed and: [anEvent controlKeyPressed not]) ifTrue: [ 
 			area substrateLayer setFor: cell with: lastCell mode: #p ].
+		
+		self announceDirtyCells: cell withAdjacentCells.
 	].
 
 	(inputMode isDelete and: [anEvent shiftPressed not]) ifTrue: [ 

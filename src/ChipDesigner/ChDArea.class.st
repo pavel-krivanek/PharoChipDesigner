@@ -1,6 +1,6 @@
 Class {
 	#name : #ChDArea,
-	#superclass : #Object,
+	#superclass : #Model,
 	#instVars : [
 		'width',
 		'height',
@@ -103,15 +103,27 @@ ChDArea >> allSubstrateCells [
 	^ array privateContents select: [ :each | each hasSubstrate or: [ each hasJunction ] ]
 ]
 
+{ #category : #'tests support' }
+ChDArea >> announceDirtyCells: dirtyCells [ 
+
+	self announcer announce: (ChDDirtyCellsAnnouncement cells: dirtyCells)
+]
+
 { #category : #'cell access' }
 ChDArea >> atX: x y: y [
 
-	x < 1 ifTrue: [ ^ ChDCell new ].
-	y < 1 ifTrue: [ ^ ChDCell new ].
-	x > self width ifTrue: [ ^ ChDCell new ].
-	y > self height ifTrue: [ ^ ChDCell new ].
+	x < 1 ifTrue: [ ^ ChDStubCell new ].
+	y < 1 ifTrue: [ ^ ChDStubCell new ].
+	x > self width ifTrue: [ ^ ChDStubCell new ].
+	y > self height ifTrue: [ ^ ChDStubCell new ].
 
 	^ array at: y at: x
+]
+
+{ #category : #'cell access' }
+ChDArea >> cells [ 
+
+	^ array
 ]
 
 { #category : #'cell access' }
@@ -344,20 +356,6 @@ ChDArea >> height: anObject [
 ]
 
 { #category : #initialization }
-ChDArea >> initialConfiguration [
-
-"	| cell region |
-	cell := self atX: 1 y: 1.
-	cell metalConnections: 0.
-	region := ChDGeneratorRegion new.
-	region layer: metalLayer.
-	regions add: region.
-	cell metalRegion: region.
-"
-
-]
-
-{ #category : #initialization }
 ChDArea >> initializeForExtent: aPoint [
 
 	width := aPoint x.
@@ -390,9 +388,7 @@ ChDArea >> initializeForExtent: aPoint [
 	
 	simulation := ChDSimulation new.
 	simulation area: self.
-	
-	self initialConfiguration.
-	
+		
 	descriptions := OrderedCollection new.
 	
 	

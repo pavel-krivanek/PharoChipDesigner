@@ -35,7 +35,13 @@ ChDRegion >> currentState [
 { #category : #accessing }
 ChDRegion >> currentState: anObject [
 
-	currentState := anObject
+	| oldState |
+	
+	oldState := currentState.
+	currentState := anObject.
+	
+	oldState = currentState ifFalse: [ 
+		self area announceDirtyCells: cells ]
 ]
 
 { #category : #accessing }

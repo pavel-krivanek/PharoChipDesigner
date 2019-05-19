@@ -181,8 +181,6 @@ ChDGraphicsProvider >> nForms: anObject [
 ChDGraphicsProvider >> overlap: aSourceForm at: zeroBasedIndex with: aFrom [
 
 	| aCanvas |
-	
-	zeroBasedIndex logCr.
 		
 	aCanvas := FormCanvas on: aSourceForm.
 	aCanvas translucentImage: aFrom at: ((self cellSize*zeroBasedIndex)@0).

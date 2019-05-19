@@ -10,7 +10,7 @@ Class {
 		'deleteMode',
 		'suppressedCells',
 		'stepping',
-		'graphics'
+		'display'
 	],
 	#category : #ChipDesigner
 }
@@ -59,115 +59,30 @@ ChDAreaMorph >> controller: anObject [
 ]
 
 { #category : #initialization }
-ChDAreaMorph >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanvas origin: origin block: aBlock layer: aLayer cellForms: cellForms [
-
-	| cell cellForm |
-		
-	cell := self area atX: x y: y.
-	(aBlock value: cell) ifTrue: [
-		| index corners |
-		(aLayer isSetFor: cell) ifTrue: [
-			index := aLayer connectionsFor: cell. 
-			corners := aLayer cornersFor: cell. 
-			cellForm := graphics cellForm: index corners: corners from: aFormArray.
-			self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
-						
-			(cell isHi) 
-				ifTrue: [ 
-					cellForm := graphics cellForm: 10 from: {cellForms}.
-					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ] ] ]
-]
-
-{ #category : #initialization }
-ChDAreaMorph >> drawImage: aForm atX: x y: y origin: origin on: aCanvas [
-
-	aCanvas translucentImage: aForm at: origin + (((self cellSize*(x-1)))@(self cellSize*(y-1)))
-	
-]
-
-{ #category : #initialization }
-ChDAreaMorph >> drawJunctionX: x y: y sourceForm: aForm on: aCanvas origin: origin block: aBlock layer: aLayer [
-
-	| cell cellForm |
-		
-	cell := self area atX: x y: y.
-	(aBlock value: cell) ifTrue: [
-		| index |
-		
-		cell junctionType = #npn ifTrue: [ 
-			(cell junctionConnections = 2r0001) ifTrue: [ 	index := 2 ]. 
-			(cell junctionConnections = 2r0010) ifTrue: [ 	index := 7 ]. 
-			(cell junctionConnections = 2r0100) ifTrue: [ 	index := 6 ].
-			(cell junctionConnections = 2r1000) ifTrue: [ 	index := 3 ].
-			"junction connections from both sides"
-			(cell junctionConnections = 2r0101) ifTrue: [ 	index := 2 ].
-			(cell junctionConnections = 2r1010) ifTrue: [ index := 3 ] ].
-			
-		cell junctionType = #pnp ifTrue: [ 
-			(cell junctionConnections = 2r0001) ifTrue: [ 	index := 4 ]. 
-			(cell junctionConnections = 2r0010) ifTrue: [ 	index := 9 ]. 
-			(cell junctionConnections = 2r0100) ifTrue: [ 	index := 8 ].
-			(cell junctionConnections = 2r1000) ifTrue: [ index := 5 ].
-			"junction connections from both sides"
-			(cell junctionConnections = 2r0101) ifTrue: [ 	index := 4 ].
-			(cell junctionConnections = 2r1010) ifTrue: [ index := 5 ] ].
-			
-		cellForm := graphics cellForm: index from: {aForm}.
-		self drawImage: cellForm atX: x y: y origin: origin on: aCanvas.
-
-		(cell substrateRegion open) 
-				ifTrue: [ 
-					cellForm := graphics cellForm: 10 from: {aForm}.
-					self drawImage: cellForm atX: x y: y origin: origin on: aCanvas. ]
-
-]
-		
-]
-
-{ #category : #initialization }
 ChDAreaMorph >> drawOn: aCanvas [
 
-	| origin drawSuppressed  |
-		
+	| origin |
+	
 	origin := self innerBounds origin.
 
+	display drawOn: aCanvas at: origin.
 	
-	drawSuppressed := suppressedCells notEmpty.
-
-	1 to: area width do: [ :x |
-		1 to: area height do: [ :y | 
-			| cell | 
-			cell := area atX: x y:y.
-
-			aCanvas drawImage: graphics bgForm at: origin + ((self cellSize*(x-1))@(self cellSize*(y-1))).
-
-			self drawJunctionX: x y: y sourceForm: graphics sourceForm on: aCanvas origin: origin block: [:aCell | aCell junctionType notNil] layer: area substrateLayer.
-		
-			self drawCellX: x y: y type: #n sourceForm: graphics nForms on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #n) and: [aCell junctionType isNil]] layer: area substrateLayer cellForms: graphics cellForms.
-			self drawCellX: x y: y type: #p sourceForm: graphics pForms on: aCanvas origin: origin block: [:aCell | (aCell substrateType = #p) and: [aCell junctionType isNil]] layer: area substrateLayer cellForms: graphics cellForms.
-			self drawCellX: x y: y type: #metal sourceForm: graphics metalForms on: aCanvas origin: origin block: [:aCell | aCell metalConnections notNil] layer: area metalLayer cellForms: graphics cellForms.
-			cell via ifTrue: [ 
-				aCanvas translucentImage: graphics viaForm at: origin + ((self cellSize*(x-1))@(self cellSize*(y-1))) ].
-
-			drawSuppressed ifTrue: [ 
-				(suppressedCells includes: (x@y)) ifTrue: [ 
-					aCanvas translucentImage: graphics suppressForm at: origin + ((self cellSize*(x-1))@(self cellSize*(y-1)))					
-					 ]
-				 ]	
-			 ]].
+	self drawSelectionOn: aCanvas at: origin 
 	
-	area descriptions do: [ :association |
-		| p |
-		p := ((self cellSize*(association value x-1))@(self cellSize*(association value y-1))).
-		aCanvas drawString: association key at: origin + p + (-5 @ 0).
-		 ].
+	
+	
+]
+
+{ #category : #initialization }
+ChDAreaMorph >> drawSelectionOn: aCanvas at: origin [
 	
 	area selection ifNotNil: [ 
 		| r |
 		r := Rectangle 
-			origin: (origin + ((self cellSize*(area selection topLeft x-1))@(self cellSize*(area selection topLeft y-1)))) 
-			corner: (origin + ((self cellSize*(area selection bottomRight x))@(self cellSize*(area selection bottomRight y)))). 
-		aCanvas frameAndFillRectangle: r fillColor: Color transparent borderWidth: 1 borderColor: Color white ].
+			origin: (origin + ((13*(area selection topLeft x-1))@(13*(area selection topLeft y-1)))) 
+			corner: (origin + ((13*(area selection bottomRight x))@(13*(area selection bottomRight y)))). 
+		aCanvas frameAndFillRectangle: r fillColor: Color transparent borderWidth: 1 borderColor: Color white ].	
+
 ]
 
 { #category : #initialization }
@@ -203,13 +118,15 @@ ChDAreaMorph >> initializeFor: anArea [
 	controller := ChDAreaController new.
 	controller area: area.
 	controller view: self.
-	
-	graphics := ChDGraphicsProvider new.
-	
+		
+	display := ChDAreaDisplay new.
+	display area: area.
+
 	self resetExtent.
 	
 	suppressedCells := OrderedCollection new.
 	self stopStepping.
+	
 	
 ]
 
@@ -283,25 +200,11 @@ ChDAreaMorph >> mouseUp: anEvent [
 ]
 
 { #category : #initialization }
-ChDAreaMorph >> overlap: aSourceForm at: zeroBasedIndex with: aFrom [
-
-	| aCanvas |
-	
-	zeroBasedIndex logCr.
-		
-	aCanvas := FormCanvas on: aSourceForm.
-	aCanvas translucentImage: aFrom at: ((self cellSize*zeroBasedIndex)@0).
-	
-
-"	aCanvas drawString: zeroBasedIndex asString at: ((self cellSize*zeroBasedIndex)@0) .
-
-"
-]
-
-{ #category : #initialization }
 ChDAreaMorph >> resetExtent [
 
 	self extent: self cellSize*area width@(self cellSize*area height).
+
+	display resetExtent.
 
 ]
 
