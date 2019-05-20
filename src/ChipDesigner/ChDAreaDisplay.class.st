@@ -100,9 +100,9 @@ ChDAreaDisplay >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanva
 ]
 
 { #category : #accessing }
-ChDAreaDisplay >> drawDescriptions [
+ChDAreaDisplay >> drawDescriptions: dirtyDescriptions [
 
-	area descriptions do: [ :association |
+	dirtyDescriptions do: [ :association |
 		| p |
 		p := ((self cellSize*(association value x-1))@(self cellSize*(association value y-1))).
 		canvas drawString: association key at: p + (-5 @ 0).
@@ -114,15 +114,26 @@ ChDAreaDisplay >> drawDescriptions [
 { #category : #accessing }
 ChDAreaDisplay >> drawDirtyCells [
 
-	| drawSuppressed  |
+	| drawSuppressed dirtyDescriptions  |
 		
 	drawSuppressed := suppressedCells notEmpty.
+	
+	dirtyDescriptions := area descriptions select: [ :anAssociation | 
+		| cellMiddle cellLeft cellRight | 
+		cellMiddle := self area atX: anAssociation value x y: anAssociation value y.
+		cellLeft := cellMiddle topology left.
+		cellRight := cellMiddle topology right.
+		({ cellLeft. cellMiddle. cellRight } anySatisfy: [ :each | dirtyMap at: each ifAbsent: [false]])
+			ifTrue: [ 
+				{ cellLeft. cellMiddle. cellRight } do: [ :each | dirtyMap at: each put: true ]. true ]
+			ifFalse: [ 
+				false ] ].
 
 	dirtyMap associationsDo: [ :association |
 		association value ifTrue: [ 
 			self drawCell: association key suppressed: drawSuppressed ] ].
 	
-	self drawDescriptions.
+	self drawDescriptions: dirtyDescriptions.
 	
 		
 
@@ -220,7 +231,7 @@ ChDAreaDisplay >> fullRepaint [
 			cell := area atX: x y:y.
 			self drawCell: cell suppressed: drawSuppressed ]].
 	
-	self drawDescriptions.
+	self drawDescriptions: area descriptions.
 		
 
 ]
