@@ -233,7 +233,8 @@ ChDAreaMorph >> suppressedCells [
 
 { #category : #accessing }
 ChDAreaMorph >> suppressedCells: anObject [
-	suppressedCells := anObject
+	suppressedCells := anObject.
+	display suppressedCells: anObject
 ]
 
 { #category : #initialization }

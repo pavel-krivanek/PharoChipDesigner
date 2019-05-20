@@ -115,8 +115,9 @@ ChDAreaDisplay >> drawDescriptions: dirtyDescriptions [
 ChDAreaDisplay >> drawDirtyCells [
 
 	| drawSuppressed dirtyDescriptions  |
-		
+
 	drawSuppressed := suppressedCells notEmpty.
+	drawSuppressed ifTrue: [ suppressedCells do: [ :e | dirtyMap at: (self area atX: e x y: e y) put: true ] ].
 	
 	dirtyDescriptions := area descriptions select: [ :anAssociation | 
 		| cellMiddle cellLeft cellRight | 
@@ -277,4 +278,14 @@ ChDAreaDisplay >> subscribe [
 
 	area announcer when: ChDDirtyCellsAnnouncement do: [ :announcement |
 		self dirtyCells: announcement cells ]
+]
+
+{ #category : #accessing }
+ChDAreaDisplay >> suppressedCells [
+	^ suppressedCells
+]
+
+{ #category : #accessing }
+ChDAreaDisplay >> suppressedCells: anObject [
+	suppressedCells := anObject
 ]
