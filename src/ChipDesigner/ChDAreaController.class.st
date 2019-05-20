@@ -91,10 +91,12 @@ ChDAreaController >> cellEvent: anEvent at: aPoint [
 
 	(inputMode isDelete and: [anEvent shiftPressed not]) ifTrue: [ 
 		area metalLayer fullClear: cell.
-		area updateCell: cell mode: #metal.  ].
+		area updateCell: cell mode: #metal.  
+		self announceDirtyCells: cell withAdjacentCells ].
 	(inputMode isDelete and: [anEvent shiftPressed]) ifTrue: [ 
 		area substrateLayer fullClear: cell.		
-		area updateCell: cell mode: #n.].	
+		area updateCell: cell mode: #n.
+		self announceDirtyCells: cell withAdjacentCells ].	
 
 	lastCell := cell.
 	self changed.
