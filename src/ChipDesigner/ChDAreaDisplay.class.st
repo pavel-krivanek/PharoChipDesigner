@@ -7,7 +7,8 @@ Class {
 		'area',
 		'dirtyMap',
 		'graphics',
-		'suppressedCells'
+		'suppressedCells',
+		'zoom'
 	],
 	#category : #ChipDesigner
 }
@@ -191,7 +192,10 @@ ChDAreaDisplay >> drawOn: aCanvas at: origin [
 
 	self drawDirtyCells.
 	
-	aCanvas drawImage: form at: origin.
+	zoom = 1 
+		ifTrue: [ aCanvas drawImage: form at: origin ]
+		ifFalse: [ aCanvas drawImage: (form scaledToSize: form extent * zoom) at: origin. ].
+	
 	
 	self cleanCells.
 ]
@@ -244,6 +248,8 @@ ChDAreaDisplay >> initialize [
 	
 	graphics := ChDGraphicsProvider new.
 	suppressedCells := OrderedCollection new.
+	
+	zoom := 1
 
 ]
 
@@ -288,4 +294,18 @@ ChDAreaDisplay >> suppressedCells [
 { #category : #accessing }
 ChDAreaDisplay >> suppressedCells: anObject [
 	suppressedCells := anObject
+]
+
+{ #category : #accessing }
+ChDAreaDisplay >> zoom [
+	^ zoom
+]
+
+{ #category : #accessing }
+ChDAreaDisplay >> zoom: aFactor [
+
+	| aNumber |
+	
+	aNumber := (aFactor > 0.90 and: [ aFactor < 1.1 ]) ifTrue: [ 1 ] ifFalse: [ aFactor ].
+	zoom := aNumber
 ]

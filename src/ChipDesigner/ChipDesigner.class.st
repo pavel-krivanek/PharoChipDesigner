@@ -30,7 +30,9 @@ Class {
 		'step10Button',
 		'resetButton',
 		'selectModeButton',
-		'instructions'
+		'instructions',
+		'zoomInButton',
+		'zoomOutButton'
 	],
 	#category : #ChipDesigner
 }
@@ -55,6 +57,8 @@ ChipDesigner class >> defaultSpec [
 			add: #step10Button withConstraints: [ :constraints | constraints width: self stepButtonsExtent x ];
 			add: #runButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 			add: #resetButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
+			add: #zoomInButton withConstraints: [ :constraints | constraints width: self buttonsExtent x / 2];
+			add: #zoomOutButton withConstraints: [ :constraints | constraints width: self buttonsExtent x / 2];
 			yourself) withConstraints: [ :constraints | constraints height: self buttonsExtent y ];
 		add:
 			(SpecPanedLayout newHorizontal
@@ -69,9 +73,9 @@ ChipDesigner class >> defaultSpec [
 							yourself)
 						withConstraints: [ :constraints | constraints height: self buttonsExtent y ];
 						add: (SpecPanedLayout newVertical
-							position: 360;
+							position: 58 percent;
 							add: #editor;
-							add: #notebook)));
+							add: #notebook )));
 		yourself
 ]
 
@@ -334,6 +338,16 @@ ChipDesigner >> initializeWidgets [
 	runButton action: [ self toggleRun ].	
 	runButton color: Color transparent.
 
+	zoomInButton := self newButton icon: (self iconNamed: #glamorousZoomIn). 
+	zoomInButton help: 'zoom in the display'.
+	zoomInButton action: [ self zoomIn ].	
+	zoomInButton color: Color transparent.
+
+	zoomOutButton := self newButton icon: (self iconNamed: #glamorousZoomOut). 
+	zoomOutButton help: 'zoom out the display'.
+	zoomOutButton action: [ self zoomOut ].	
+	zoomOutButton color: Color transparent.
+
 	area simulation announcer when: ChDSimulationRunAnnouncement do: [ :announcement |
 		runButton icon: (self iconNamed: (announcement running
 			ifTrue: [ #stop ]
@@ -591,4 +605,18 @@ ChipDesigner >> viaModeIcon [
 		ifTrue: [ modeViaOn ]
 		ifFalse: [ modeViaOff ].
 	
+]
+
+{ #category : #initialization }
+ChipDesigner >> zoomIn [ 
+
+	areaMorph zoom: areaMorph zoom * 1.25.
+	self refreshEditor. 
+]
+
+{ #category : #initialization }
+ChipDesigner >> zoomOut [ 
+
+	areaMorph zoom: areaMorph zoom * 0.75.
+	self refreshEditor. 
 ]

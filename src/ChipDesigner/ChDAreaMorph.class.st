@@ -88,7 +88,7 @@ ChDAreaMorph >> drawSelectionOn: aCanvas at: origin [
 { #category : #initialization }
 ChDAreaMorph >> eventPointOf: anEvent [
 
-	^ ((anEvent cursorPoint - self position) // self cellSize) + (1@1).
+	^ (((anEvent cursorPoint - self position) / display zoom) // self cellSize) + (1@1).
 
 ]
 
@@ -202,7 +202,7 @@ ChDAreaMorph >> mouseUp: anEvent [
 { #category : #initialization }
 ChDAreaMorph >> resetExtent [
 
-	self extent: self cellSize*area width@(self cellSize*area height).
+	self extent: (self cellSize*area width@(self cellSize*area height)) * display zoom.
 
 	display resetExtent.
 
@@ -250,4 +250,16 @@ ChDAreaMorph >> toggleRun [
 	area simulation stepping ifTrue: [ 
 		self area simulation resetTime.
 		self startStepping ]
+]
+
+{ #category : #initialization }
+ChDAreaMorph >> zoom [
+
+	^ display zoom
+]
+
+{ #category : #initialization }
+ChDAreaMorph >> zoom: aNumber [
+
+	^ display zoom: aNumber
 ]
