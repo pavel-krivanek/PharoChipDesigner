@@ -43,7 +43,7 @@ ChDJunctionNPNTest >> testCreateAndDeleteNPN [
 	controller onMouseMoveAt: 2@2 event: event.
 	controller onMouseUpAt: 2@2 event: event.
 	
-	controller inputMode: ChDDeleteMode new.
+	controller deleteMetalMode.
 	
 	controller onMouseDownAt: 2@2 event: event.
 	controller onMouseUpAt: 2@2 event: event.

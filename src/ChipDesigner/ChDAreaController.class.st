@@ -55,7 +55,7 @@ ChDAreaController >> cellEvent: anEvent at: aPoint [
 	
 	inputMode isInsertVia ifTrue: [ 
 		cell toggleVia.
-		self inputMode: ChDInsertMetalMode new.
+		self insertMetalMode.
 		self announceDirtyCells: { cell }.
 		self changed.
 		^ self ].
@@ -108,6 +108,18 @@ ChDAreaController >> changed [
 	view changed.
 ]
 
+{ #category : #'input modes' }
+ChDAreaController >> deleteMetalMode [ 
+
+	self inputMode: ChDDeleteMetalMode new
+]
+
+{ #category : #'input modes' }
+ChDAreaController >> deleteSubstrateMode [ 
+
+	self inputMode: ChDDeleteSubstrateMode new
+]
+
 { #category : #accessing }
 ChDAreaController >> finishSelection [
 
@@ -143,14 +155,38 @@ ChDAreaController >> inputMode: anObject [
 	self announceModeChange.
 ]
 
+{ #category : #'input modes' }
+ChDAreaController >> insertMetalMode [ 
+
+	self inputMode: ChDInsertMetalMode new
+]
+
+{ #category : #'input modes' }
+ChDAreaController >> insertNSubstrateMode [ 
+
+	self inputMode: ChDInsertNSubstrateMode new
+]
+
+{ #category : #'input modes' }
+ChDAreaController >> insertPSubstrateMode [ 
+
+	self inputMode: ChDInsertPSubstrateMode new
+]
+
+{ #category : #'input modes' }
+ChDAreaController >> insertViaMode [ 
+
+	self inputMode: ChDInsertViaMode new
+]
+
 { #category : #initialization }
 ChDAreaController >> keyStroke: event [ 
 	"Process keys navigation and space to toggle."
 	
 	event keyCharacter = $x
-		ifTrue: [ inputMode := inputMode isDelete 
-			ifFalse: [ ChDDeleteMetalMode new ]
-			ifTrue: [ ChDInsertMetalMode new ] ]
+		ifTrue: [ inputMode isDelete 
+			ifFalse: [ self deleteMetalMode ]
+			ifTrue: [ self insertMetalMode ] ]
 ]
 
 { #category : #accessing }
@@ -211,6 +247,12 @@ ChDAreaController >> openSelectionMenu [
 		controller: self)
 ]
 
+{ #category : #'input modes' }
+ChDAreaController >> selectMode [ 
+
+	self inputMode: ChDSelectMode new
+]
+
 { #category : #accessing }
 ChDAreaController >> shiftInputMode [
 
@@ -220,22 +262,21 @@ ChDAreaController >> shiftInputMode [
 { #category : #accessing }
 ChDAreaController >> swapDeleteMode [
 
-	self inputMode: (inputMode isDelete 
-		ifTrue: [ ChDInsertMetalMode new ]
+	inputMode isDelete 
+		ifTrue: [ self insertMetalMode ]
 		ifFalse: [ 
 			inputMode buttonIndex = 1
-				ifTrue: [ ChDDeleteMetalMode new ]
-				ifFalse: [  ChDInsertMetalMode new ]
-			])
-
+				ifTrue: [ self deleteMetalMode ]
+				ifFalse: [ self insertMetalMode ]
+			]
 ]
 
 { #category : #accessing }
 ChDAreaController >> swapViaMode [
 
-	self inputMode: (inputMode isInsertVia  
-		ifTrue: [ ChDInsertMetalMode new ]
-		ifFalse: [ ChDInsertViaMode new ])
+	inputMode isInsertVia  
+		ifTrue: [ self insertMetalMode ]
+		ifFalse: [ self insertViaMode ]
 
 ]
 

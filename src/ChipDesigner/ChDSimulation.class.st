@@ -140,6 +140,7 @@ ChDSimulation >> initialize [
 	announcer := Announcer new.
 	preStepBlock := self defaultStepBlock.
 	stepping := false.
+	sequences := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -237,7 +238,10 @@ ChDSimulation >> stepWith: aBlock [
 
 	aBlock value: self.	
 
-	shortestSequenceLength := (self sequences collect: #length) min.  
+	shortestSequenceLength := self sequences 
+		ifEmpty: [ 5*56 ]
+		ifNotEmpty: [(self sequences collect: #length) min].
+		  
 	time >= shortestSequenceLength ifTrue: [ ^ self ].
 
 	vccConnected := self connectedVCCRegionsFrom: regions.
