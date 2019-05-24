@@ -22,13 +22,10 @@ ChDAreaControllerTest >> setUp [
 { #category : #running }
 ChDAreaControllerTest >> testAddSingleMetalCell [
 
-	| cell event |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event red.
-	
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseUpAt: 1@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell metalConnections equals: 0.
@@ -43,13 +40,11 @@ ChDAreaControllerTest >> testAddSingleMetalCell [
 { #category : #running }
 ChDAreaControllerTest >> testAddSingleNCell [
 
-	| cell event |
+	| cell |
+
 	
-	event := ChDMouseEventMock new.
-	event yellow.
-	
-	controller onMouseDownAt: 1@1 event: event..
-	controller onMouseUpAt: 1@1 event: event.
+	controller onRightMouseDownAt: 1@1.
+	controller onRightMouseUpAt: 1@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell substrateConnections equals: 0.
@@ -64,15 +59,12 @@ ChDAreaControllerTest >> testAddSingleNCell [
 { #category : #running }
 ChDAreaControllerTest >> testAddTwoConnectedMetalCells [
 
-	| cell event |
-	
-	event := ChDMouseEventMock new.
-	event red.
-	
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	| cell |
+
+	controller onMouseDownAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseUpAt: 2@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell metalConnections equals: 2r0010.
@@ -90,21 +82,17 @@ ChDAreaControllerTest >> testAddTwoConnectedMetalCellsAndDeleteThemByMovement [
 
 	| cell event |
 	
-	event := ChDMouseEventMock new.
-	event red.
-	
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseUpAt: 2@1.
 	
 	controller deleteMetalMode.
 
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
-
+	controller onMouseDownAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseUpAt: 2@1.
 	
 	cell := area atX: 1 y: 1.
 	self deny: cell hasMetal.
@@ -119,15 +107,12 @@ ChDAreaControllerTest >> testAddTwoConnectedMetalCellsAndDeleteThemByMovement [
 { #category : #running }
 ChDAreaControllerTest >> testAddTwoConnectedNCells [
 
-	| cell event |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event yellow.
-	
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller onRightMouseDownAt: 1@1.
+	controller onRightMouseMoveAt: 1@1.
+	controller onRightMouseMoveAt: 2@1.
+	controller onRightMouseUpAt: 2@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell substrateConnections equals: 2r0010.
@@ -208,17 +193,14 @@ ChDAreaControllerTest >> testAddTwoDifferentSubstrateCellsAndTryToMergeThemByMov
 { #category : #running }
 ChDAreaControllerTest >> testAddTwoMetalCells [
 
-	| cell event |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event red.
-	
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseDownAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseUpAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseDownAt: 2@1.
+	controller onMouseUpAt: 2@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell metalConnections equals: 0.
@@ -232,25 +214,22 @@ ChDAreaControllerTest >> testAddTwoMetalCells [
 { #category : #running }
 ChDAreaControllerTest >> testAddTwoMetalCellsAndMergeThemByMovement [
 
-	| cell event |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event red.
-	
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseDownAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseUpAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseDownAt: 2@1.
+	controller onMouseUpAt: 2@1.
 
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseMoveAt: 1@1.
 
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseUpAt: 2@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell metalConnections equals: 2r0010.
@@ -265,25 +244,22 @@ ChDAreaControllerTest >> testAddTwoMetalCellsAndMergeThemByMovement [
 { #category : #running }
 ChDAreaControllerTest >> testAddTwoNCellsAndMergeThemByMovement [
 
-	| cell event |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event yellow.
-	
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseDownAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller onRightMouseDownAt: 1@1.
+	controller onRightMouseUpAt: 1@1.
+	controller onRightMouseMoveAt: 1@1.
+	controller onRightMouseMoveAt: 2@1.
+	controller onRightMouseDownAt: 2@1.
+	controller onRightMouseUpAt: 2@1.
 
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
+	controller onRightMouseMoveAt: 2@1.
+	controller onRightMouseMoveAt: 1@1.
 
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller onRightMouseDownAt: 1@1.
+	controller onRightMouseMoveAt: 1@1.
+	controller onRightMouseMoveAt: 2@1.
+	controller onRightMouseUpAt: 2@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell substrateConnections equals: 2r0010.
@@ -298,21 +274,18 @@ ChDAreaControllerTest >> testAddTwoNCellsAndMergeThemByMovement [
 { #category : #running }
 ChDAreaControllerTest >> testDeleteMetalTwoTimes [
 
-	| cell event |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event red.
-	
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseUpAt: 1@1.
 	
 	controller deleteMetalMode.
 
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseUpAt: 1@1.
 
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseUpAt: 1@1.
 	
 	cell := area atX: 1 y: 1.
 	self deny: cell hasMetal.

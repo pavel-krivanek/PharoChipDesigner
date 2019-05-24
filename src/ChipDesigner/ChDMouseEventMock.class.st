@@ -11,6 +11,18 @@ Class {
 }
 
 { #category : #accessing }
+ChDMouseEventMock class >> left [ 
+
+	^ self new red
+]
+
+{ #category : #accessing }
+ChDMouseEventMock class >> right [
+
+	^ self new yellow
+]
+
+{ #category : #accessing }
 ChDMouseEventMock >> control [ 
 
 	control := true

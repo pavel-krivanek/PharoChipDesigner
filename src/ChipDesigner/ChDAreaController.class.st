@@ -212,10 +212,22 @@ ChDAreaController >> mouseDown: aBoolean [
 ]
 
 { #category : #accessing }
+ChDAreaController >> onMouseDownAt: aPoint [
+
+	self onMouseDownAt: aPoint event: ChDMouseEventMock left
+]
+
+{ #category : #accessing }
 ChDAreaController >> onMouseDownAt: aPoint event: anEvent [
 
 	self mouseDown: true.
 	self cellEvent: anEvent at: aPoint
+]
+
+{ #category : #accessing }
+ChDAreaController >> onMouseMoveAt: aPoint [ 
+
+	self onMouseMoveAt: aPoint event: ChDMouseEventMock left
 ]
 
 { #category : #accessing }
@@ -230,6 +242,12 @@ ChDAreaController >> onMouseMoveAt: aPoint event: anEvent [
 ]
 
 { #category : #accessing }
+ChDAreaController >> onMouseUpAt: aPoint [
+
+	self onMouseUpAt: aPoint event: ChDMouseEventMock left
+]
+
+{ #category : #accessing }
 ChDAreaController >> onMouseUpAt: aPoint event: anEvent [
 
 	self mouseDown: false.
@@ -238,6 +256,24 @@ ChDAreaController >> onMouseUpAt: aPoint event: anEvent [
 	self inputMode isSelect ifTrue: [ 
 		self finishSelection ]
 
+]
+
+{ #category : #accessing }
+ChDAreaController >> onRightMouseDownAt: aPoint [
+
+	self onMouseDownAt: aPoint event: ChDMouseEventMock right
+]
+
+{ #category : #accessing }
+ChDAreaController >> onRightMouseMoveAt: aPoint [ 
+
+	self onMouseMoveAt: aPoint event: ChDMouseEventMock right
+]
+
+{ #category : #accessing }
+ChDAreaController >> onRightMouseUpAt: aPoint [
+
+	self onMouseUpAt: aPoint event: ChDMouseEventMock right
 ]
 
 { #category : #initialization }
