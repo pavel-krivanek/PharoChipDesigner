@@ -149,8 +149,7 @@ ChipDesigner >> editorMorph [
 
 	| editorMorph scrollPane |
 	
-	areaMorph := ChDAreaMorph for: area.
-	
+	areaMorph := ChDAreaMorph for: area graphics: graphics.
 	
 	editorMorph := AlignmentMorph newColumn.
 	editorMorph color: (Color r: 0.506 g: 0.506 b: 0.506 alpha: 1.0).
@@ -200,6 +199,16 @@ ChipDesigner >> export [
 	dialog addButton: #ok text: 'OK' value: true.
 	
 	dialog openModalWithSpec.	
+]
+
+{ #category : #accessing }
+ChipDesigner >> graphics [
+	^ graphics
+]
+
+{ #category : #accessing }
+ChipDesigner >> graphics: anObject [
+	graphics := anObject
 ]
 
 { #category : #initialization }

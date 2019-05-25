@@ -14,8 +14,17 @@ Class {
 		'cellForms',
 		'font'
 	],
+	#classInstVars : [
+		'forTools'
+	],
 	#category : #ChipDesigner
 }
+
+{ #category : #accessing }
+ChDGraphicsProvider class >> forTools [
+
+	^ forTools ifNil: [ forTools := self new ]
+]
 
 { #category : #accessing }
 ChDGraphicsProvider >> bgForm [

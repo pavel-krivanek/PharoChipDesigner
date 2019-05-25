@@ -254,11 +254,15 @@ ChDAreaDisplay >> graphics [
 ]
 
 { #category : #accessing }
+ChDAreaDisplay >> graphics: anObject [
+	graphics := anObject
+]
+
+{ #category : #accessing }
 ChDAreaDisplay >> initialize [ 
 	
 	super initialize.
 	
-	graphics := ChDGraphicsProvider new.
 	suppressedCells := OrderedCollection new.
 	
 	zoom := 1

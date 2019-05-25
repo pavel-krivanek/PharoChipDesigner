@@ -10,7 +10,8 @@ Class {
 		'deleteMode',
 		'suppressedCells',
 		'stepping',
-		'display'
+		'display',
+		'graphics'
 	],
 	#category : #ChipDesigner
 }
@@ -19,6 +20,12 @@ Class {
 ChDAreaMorph class >> for: anArea [
 
 	^ self basicNew initialize initializeFor: anArea; yourself.
+]
+
+{ #category : #'instance creation' }
+ChDAreaMorph class >> for: anArea graphics: graphicsProvider [
+
+	^ self basicNew initialize initializeFor: anArea graphics: graphicsProvider; yourself.
 ]
 
 { #category : #'instance creation' }
@@ -97,6 +104,16 @@ ChDAreaMorph >> eventPointOf: anEvent [
 
 ]
 
+{ #category : #accessing }
+ChDAreaMorph >> graphics [
+	^ graphics
+]
+
+{ #category : #accessing }
+ChDAreaMorph >> graphics: anObject [
+	graphics := anObject
+]
+
 { #category : #initialization }
 ChDAreaMorph >> handlesKeyboard: evt [
 	"Yes, we do it here."
@@ -125,6 +142,29 @@ ChDAreaMorph >> initializeFor: anArea [
 	controller view: self.
 		
 	display := ChDAreaDisplay new.
+	display area: area.
+
+	self resetExtent.
+	
+	suppressedCells := OrderedCollection new.
+	self stopStepping.
+	
+	
+]
+
+{ #category : #initialization }
+ChDAreaMorph >> initializeFor: anArea graphics: graphicsProvider [
+
+	area := anArea.
+	graphics := graphicsProvider.
+	graphics ifNil: [ graphics := ChDGraphicsProvider forTools ].
+
+	controller := ChDAreaController new.
+	controller area: area.
+	controller view: self.
+		
+	display := ChDAreaDisplay new.
+	display graphics: graphics.
 	display area: area.
 
 	self resetExtent.
