@@ -1,13 +1,13 @@
 Class {
 	#name : #ChipDesigner,
-	#superclass : #ComposablePresenter,
+	#superclass : #ITBasicPresenter,
 	#instVars : [
 		'list',
 		'editor',
 		'areaMorph',
 		'scopes',
 		'area',
-		'toolbar',
+		'toolbar2',
 		'controller',
 		'editModeButton',
 		'editMode',
@@ -61,20 +61,6 @@ ChipDesigner class >> criticsBrowserMenuOn: aBuilder [
 { #category : #examples }
 ChipDesigner class >> defaultSpec [
 	^ SpecBoxLayout newVertical
-		add: (SpecBoxLayout newHorizontal
-			spacing: 2;
-			borderWidth: 1;
-			add: #exportButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-			add: #importButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-			add: #inspectButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-			add: #stepButton withConstraints: [ :constraints | constraints width: self stepButtonsExtent x ];
-			add: #step5Button withConstraints: [ :constraints | constraints width: self stepButtonsExtent x ];
-			add: #step10Button withConstraints: [ :constraints | constraints width: self stepButtonsExtent x ];
-			add: #runButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-			add: #resetButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-			add: #zoomInButton withConstraints: [ :constraints | constraints width: self buttonsExtent x / 2];
-			add: #zoomOutButton withConstraints: [ :constraints | constraints width: self buttonsExtent x / 2];
-			yourself) withConstraints: [ :constraints | constraints height: self buttonsExtent y ];
 		add:
 			(SpecPanedLayout newHorizontal
 				position: 300;
@@ -246,7 +232,7 @@ ChipDesigner >> initialize [
 
 	area := ChDArea extent: 45@30.
 	editMode := #metal.
-	toolbar := self toolbar. 
+	toolbar2 := self toolbar2. 
 	viaMode := false.
 	
 	graphics := ChDGraphicsProvider new.
@@ -327,14 +313,109 @@ ChipDesigner >> initializeNotebook [
 ]
 
 { #category : #initialization }
+ChipDesigner >> initializeToolbar [
+	self toolbar
+		addItem:
+			(ITButton new
+				label: 'Export';
+				icon: (self iconNamed: #smallSave);
+				help: 'Export area to a string';
+				action: [ self export ];
+				yourself)
+			position: ITItemPosition left;
+		addItem:
+			(ITButton new
+				label: 'Import';
+				icon: (self iconNamed: #smallLoadProject);
+				help: 'Import area from a string';
+				action: [ self import ];
+				yourself)
+			position: ITItemPosition left;
+
+		addItem:
+			(ITButton new
+				label: 'Step';
+				icon: (self iconNamed: #glamorousPlay);
+				help: 'Single simulation step';
+				action: [ self simulationStep: 1 ];
+				yourself)
+			position: ITItemPosition left;
+		addItem:
+			(ITButton new
+				label: '5x';
+				icon: (self iconNamed: #glamorousPlay);
+				help: '5 simulation steps';
+				action: [ self simulationStep: 5 ];
+				yourself)
+			position: ITItemPosition left;
+		addItem:
+			(ITButton new
+				label: '10x';
+				icon: (self iconNamed: #glamorousPlay);
+				help: 'Ten simulation steps';
+				action: [ self simulationStep: 10 ];
+				yourself)
+			position: ITItemPosition left;
+		addItem:
+			(ITButton new
+						label: 'Run';
+						icon: (self iconNamed: #smallDoIt);
+						help: 'Run / stop simulation';
+						action: [ self toggleRun ];
+						yourself)
+			position: ITItemPosition left;
+
+			addItem:
+				(ITButton new
+					label: 'Reset';
+					icon: (self iconNamed: #smallUpdate);
+					help: 'reset simulation';
+					action: [ self simulationReset ];
+					yourself)
+			position: ITItemPosition left;
+			addItem:
+				(ITButton new
+					label: 'Inspect';
+					icon: (self iconNamed: #glamorousInspect);
+					help: 'zoom out the display';
+					action: [area inspect];
+					yourself)
+			position: ITItemPosition right;
+			addItem:
+				(ITToggleButton new
+					label: 'Zoom in';
+					icon: (self iconNamed: #glamorousZoomIn);
+					help: 'zoom in the display';
+					action: [ self zoomIn ];
+					yourself)
+			position: ITItemPosition right;
+			addItem:
+				(ITButton new
+					label: 'Zoom out';
+					icon: (self iconNamed: #glamorousZoomOut);
+					help: 'zoom out the display';
+					action: [ self zoomOut ];
+					yourself)
+			position: ITItemPosition right.
+			
+	self statusbar
+		addItem:
+			(ITLabel new
+				contents: 'Ready')
+		position: ITItemPosition left
+]
+
+{ #category : #initialization }
 ChipDesigner >> initializeWidgets [
 
-	| editorMorph instructionsPage scopesPage |
+	| editorMorph|
 	
 	self initializeList.
 	
 	editorMorph := self editorMorph.
 	editor := editorMorph asSpecAdapter.
+	
+	self initializeToolbar.
 	
 	editModeButton := self newButton icon: self editModeIcon.
 	editModeButton label: 'mode'.
@@ -591,7 +672,7 @@ ChipDesigner >> toggleRun [
 ]
 
 { #category : #initialization }
-ChipDesigner >> toolbar [
+ChipDesigner >> toolbar2 [
 	| aMenu |
 	aMenu := self newMenuBar
 		addGroup: [ :group | 

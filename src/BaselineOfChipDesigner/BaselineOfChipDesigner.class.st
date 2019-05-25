@@ -10,6 +10,7 @@ BaselineOfChipDesigner >> baseline: spec [
 
 	spec for: #common do: [
 		"self spec: spec."
+		spec baseline: 'Icetray' with: [ spec repository: 'github://pharo-spec/icetray/src' ].
 		spec 
 			package: 'ChipDesigner' ]
 ]
