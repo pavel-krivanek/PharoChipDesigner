@@ -252,7 +252,7 @@ ChDSequence >> swap: sequenceIndex [
 	| newValue |
 	
 	(sequenceIndex > sequenceArray size or: [ sequenceIndex < 0 ]) ifTrue: [ ^ self ].
-	newValue := (sequenceArray at: sequenceIndex) not.
+	newValue := ((sequenceArray at: sequenceIndex) ifNil: [ false ]) not.
 
 	sequenceIndex to: sequenceIndex + signalLength - 1 do: [ :i |
 		sequenceArray at: i put: newValue ].

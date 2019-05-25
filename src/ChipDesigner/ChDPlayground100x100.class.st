@@ -39,7 +39,7 @@ ChDPlayground100x100 class >> on: area [
 { #category : #'as yet unclassified' }
 ChDPlayground100x100 class >> priority [ 
 
-	^ 300
+	^ 320
 ]
 
 { #category : #'as yet unclassified' }
