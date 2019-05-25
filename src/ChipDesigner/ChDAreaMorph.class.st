@@ -19,7 +19,7 @@ Class {
 { #category : #'instance creation' }
 ChDAreaMorph class >> for: anArea [
 
-	^ self basicNew initialize initializeFor: anArea; yourself.
+	^ self basicNew initialize initializeFor: anArea graphics: ChDGraphicsProvider forTools; yourself.
 ]
 
 { #category : #'instance creation' }
@@ -34,7 +34,7 @@ ChDAreaMorph class >> new [
 	| area |
 	
 	area := ChDArea withDefaultExtent.	
-	^ self basicNew initialize initializeFor: area; yourself.
+	^ self basicNew initialize initializeFor: area graphics: ChDGraphicsProvider forTools; yourself.
 ]
 
 { #category : #initialization }
@@ -157,7 +157,6 @@ ChDAreaMorph >> initializeFor: anArea graphics: graphicsProvider [
 
 	area := anArea.
 	graphics := graphicsProvider.
-	graphics ifNil: [ graphics := ChDGraphicsProvider forTools ].
 
 	controller := ChDAreaController new.
 	controller area: area.
