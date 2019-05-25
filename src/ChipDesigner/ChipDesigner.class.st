@@ -7,7 +7,6 @@ Class {
 		'areaMorph',
 		'scopes',
 		'area',
-		'toolbar2',
 		'controller',
 		'editModeButton',
 		'editMode',
@@ -19,20 +18,10 @@ Class {
 		'modeViaOn',
 		'modeViaOff',
 		'modeDeleteSiliconForm',
-		'inspectButton',
 		'notebook',
 		'currentLevel',
-		'exportButton',
-		'importButton',
-		'runButton',
-		'stepButton',
-		'step5Button',
-		'step10Button',
-		'resetButton',
 		'selectModeButton',
 		'instructions',
-		'zoomInButton',
-		'zoomOutButton',
 		'graphics'
 	],
 	#classInstVars : [
@@ -232,7 +221,6 @@ ChipDesigner >> initialize [
 
 	area := ChDArea extent: 45@30.
 	editMode := #metal.
-	toolbar2 := self toolbar2. 
 	viaMode := false.
 	
 	graphics := ChDGraphicsProvider new.
@@ -314,6 +302,9 @@ ChipDesigner >> initializeNotebook [
 
 { #category : #initialization }
 ChipDesigner >> initializeToolbar [
+
+	| runButton |
+
 	self toolbar
 		addItem:
 			(ITButton new
@@ -357,7 +348,7 @@ ChipDesigner >> initializeToolbar [
 				yourself)
 			position: ITItemPosition left;
 		addItem:
-			(ITButton new
+			(runButton := ITButton new
 						label: 'Run';
 						icon: (self iconNamed: #smallDoIt);
 						help: 'Run / stop simulation';
@@ -382,19 +373,19 @@ ChipDesigner >> initializeToolbar [
 					yourself)
 			position: ITItemPosition right;
 			addItem:
-				(ITToggleButton new
-					label: 'Zoom in';
-					icon: (self iconNamed: #glamorousZoomIn);
-					help: 'zoom in the display';
-					action: [ self zoomIn ];
-					yourself)
-			position: ITItemPosition right;
-			addItem:
 				(ITButton new
 					label: 'Zoom out';
 					icon: (self iconNamed: #glamorousZoomOut);
 					help: 'zoom out the display';
 					action: [ self zoomOut ];
+					yourself)
+			position: ITItemPosition right;
+			addItem:
+				(ITButton new
+					label: 'Zoom in';
+					icon: (self iconNamed: #glamorousZoomIn);
+					help: 'zoom in the display';
+					action: [ self zoomIn ];
 					yourself)
 			position: ITItemPosition right.
 			
@@ -402,7 +393,13 @@ ChipDesigner >> initializeToolbar [
 		addItem:
 			(ITLabel new
 				contents: 'Ready')
-		position: ITItemPosition left
+		position: ITItemPosition left.
+		
+	area simulation announcer when: ChDSimulationRunAnnouncement do: [ :announcement |
+
+		runButton badge: (announcement running
+			ifTrue: [	 ' ' ]
+			ifFalse: [ nil ]) ].
 ]
 
 { #category : #initialization }
@@ -433,70 +430,6 @@ ChipDesigner >> initializeWidgets [
 	selectModeButton label: 'select'.
 	selectModeButton help: 'select cells'.
 	selectModeButton action: [ self selectMode ].
-
-	exportButton := self newButton icon: (self iconNamed: #smallSave).
-	exportButton label: 'export'.
-	exportButton help: 'export area to a string'.
-	exportButton action: [ self export ].
-	exportButton color: Color transparent.
-
-	importButton := self newButton icon: (self iconNamed: #smallLoadProject).
-	importButton label: 'import'.
-	importButton help: 'import area from a string'.
-	importButton action: [ self import ].	
-	importButton color: Color transparent.
-
-	runButton := self newButton icon: (self iconNamed: #smallDoIt).
-	runButton label: 'run'.
-	runButton help: 'run / stop simulation'.
-	runButton action: [ self toggleRun ].	
-	runButton color: Color transparent.
-
-	zoomInButton := self newButton icon: (self iconNamed: #glamorousZoomIn). 
-	zoomInButton help: 'zoom in the display'.
-	zoomInButton action: [ self zoomIn ].	
-	zoomInButton color: Color transparent.
-
-	zoomOutButton := self newButton icon: (self iconNamed: #glamorousZoomOut). 
-	zoomOutButton help: 'zoom out the display'.
-	zoomOutButton action: [ self zoomOut ].	
-	zoomOutButton color: Color transparent.
-
-	area simulation announcer when: ChDSimulationRunAnnouncement do: [ :announcement |
-		runButton icon: (self iconNamed: (announcement running
-			ifTrue: [ #stop ]
-			ifFalse: [ #smallDoIt ])) ].
-
-	resetButton := self newButton icon: (self iconNamed: #smallUpdate).
-	resetButton label: 'reset'.
-	resetButton help: 'reset simulation'.
-	resetButton action: [ self simulationReset ].	
-	resetButton color: Color transparent.
-
-	stepButton := self newButton icon: (self iconNamed: #glamorousPlay).
-	stepButton label: 'step'.
-	stepButton help: 'run / stop simulation'.
-	stepButton action: [ self simulationStep: 1 ].	
-	stepButton color: Color transparent.
-
-	step5Button := self newButton icon: (self iconNamed: #glamorousPlay).
-	step5Button label: '5x'.
-	step5Button help: 'run / stop simulation'.
-	step5Button action: [ self simulationStep: 5 ].	
-	step5Button color: Color transparent.
-
-	step10Button := self newButton icon: (self iconNamed: #glamorousPlay).
-	step10Button label: '10x'.
-	step10Button help: 'run / stop simulation'.
-	step10Button action: [ self simulationStep: 10 ].	
-	step10Button color: Color transparent.
-
-	inspectButton := self newButton 
-		label: 'inspect';
-		help: 'Inspect area';
-		icon: (self iconNamed: #glamorousInspect).
-	inspectButton action: [area inspect].
-	inspectButton color: Color transparent.
 	
 	self initializeNotebook.
 	
