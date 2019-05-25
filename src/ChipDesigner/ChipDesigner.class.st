@@ -32,7 +32,11 @@ Class {
 		'selectModeButton',
 		'instructions',
 		'zoomInButton',
-		'zoomOutButton'
+		'zoomOutButton',
+		'graphics'
+	],
+	#classInstVars : [
+		'taskbarIcon'
 	],
 	#category : #ChipDesigner
 }
@@ -41,6 +45,17 @@ Class {
 ChipDesigner class >> buttonsExtent [
 
 	^67@30
+]
+
+{ #category : #examples }
+ChipDesigner class >> criticsBrowserMenuOn: aBuilder [ 
+	<worldMenu>
+	
+	(aBuilder item: 'Pharo Chip Designer')
+		action: [ self open ];
+		parent: #Tools;
+		help: 'Chip design game';
+		icon: self taskbarIcon
 ]
 
 { #category : #examples }
@@ -91,6 +106,12 @@ ChipDesigner class >> stepButtonsExtent [
 	^47@30
 ]
 
+{ #category : #examples }
+ChipDesigner class >> taskbarIcon [ 
+
+	^ taskbarIcon ifNil: [ taskbarIcon := ChDGraphicsProvider basicNew formFromPng: 'PharoChipDesigner-icon-small.png' ]
+]
+
 { #category : #initialization }
 ChipDesigner >> copy [ 
 	
@@ -129,6 +150,7 @@ ChipDesigner >> editorMorph [
 	| editorMorph scrollPane |
 	
 	areaMorph := ChDAreaMorph for: area.
+	
 	
 	editorMorph := AlignmentMorph newColumn.
 	editorMorph color: (Color r: 0.506 g: 0.506 b: 0.506 alpha: 1.0).
@@ -217,8 +239,10 @@ ChipDesigner >> initialize [
 	editMode := #metal.
 	toolbar := self toolbar. 
 	viaMode := false.
-
-	currentLevel := ChDClassicLevel1Intro on: area.
+	
+	graphics := ChDGraphicsProvider new.
+	
+	currentLevel := ChDClassicLevel1Intro on: area graphics: graphics.
 
 	modeNormalForm := self modeIcon: (Rectangle origin: 0@0 extent: 27@14).
 	modeShiftForm := self modeIcon: (Rectangle origin: 26@0 extent: 27@14).
@@ -266,7 +290,7 @@ ChipDesigner >> initializeList [
 		| levelClass |
 		levelClass := selection selectedItem.
 		levelClass selectable ifTrue: [ 
-			currentLevel := levelClass on: area.
+			currentLevel := levelClass on: area graphics: areaMorph display graphics.
 			self refreshEditor.
 			self initializeNotebook.
 			self needRebuild: false.

@@ -5,7 +5,8 @@ Class {
 		'area',
 		'ports',
 		'sequences',
-		'scopes'
+		'scopes',
+		'graphics'
 	],
 	#category : #'ChipDesigner-Levels'
 }
@@ -42,6 +43,15 @@ ChDDesign class >> on: area [
 		initialize
 ]
 
+{ #category : #'instance creation' }
+ChDDesign class >> on: area graphics: graphicsProvider [
+
+	^ self basicNew
+		area: area;
+		graphics: graphicsProvider;
+		initialize
+]
+
 { #category : #'as yet unclassified' }
 ChDDesign class >> priority [ 
 
@@ -62,6 +72,16 @@ ChDDesign >> area [
 { #category : #accessing }
 ChDDesign >> area: anObject [
 	area := anObject
+]
+
+{ #category : #accessing }
+ChDDesign >> graphics [
+	^ graphics
+]
+
+{ #category : #accessing }
+ChDDesign >> graphics: anObject [
+	graphics := anObject
 ]
 
 { #category : #'as yet unclassified' }

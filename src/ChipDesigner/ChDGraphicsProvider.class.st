@@ -11,7 +11,8 @@ Class {
 		'bgForm',
 		'viaForm',
 		'suppressForm',
-		'cellForms'
+		'cellForms',
+		'font'
 	],
 	#category : #ChipDesigner
 }
@@ -117,6 +118,12 @@ ChDGraphicsProvider >> drawCornersFor: forms [
 
 ]
 
+{ #category : #accessing }
+ChDGraphicsProvider >> font [ 
+
+	^ font 
+]
+
 { #category : #initialization }
 ChDGraphicsProvider >> formFromPng: fileName [
 
@@ -153,6 +160,8 @@ ChDGraphicsProvider >> initialize [
 	viaForm := self cellForm: 1 from: {sourceForm}.
 	suppressForm := self cellForm: 11 from: {sourceForm}.
 	cellForms := sourceForm.
+	
+	font := (LogicalFont familyName: 'Source Code Pro' pointSize: 8)
 
 
 ]

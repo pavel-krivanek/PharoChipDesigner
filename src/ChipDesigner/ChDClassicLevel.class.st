@@ -77,7 +77,7 @@ ChDClassicLevel >> createScopes [
 		aSequence forMetalAt: aPoint in: area.
 		aSequence ].
 	
-	scopes := sequences collect: [ :each | ChDSequenceMorph on: each ]
+	scopes := sequences collect: [ :each | ChDSequenceMorph on: each graphics: self graphics ]
 ]
 
 { #category : #'as yet unclassified' }

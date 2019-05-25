@@ -5,7 +5,8 @@ Class {
 		'sequence',
 		'tickLength',
 		'lastSequenceIndexChanged',
-		'isMouseDown'
+		'isMouseDown',
+		'graphics'
 	],
 	#category : #ChipDesigner
 }
@@ -14,6 +15,12 @@ Class {
 ChDSequenceMorph class >> on: aChDSequence [
 
 	^ self new sequence: aChDSequence
+]
+
+{ #category : #running }
+ChDSequenceMorph class >> on: aChDSequence graphics: graphicsProvider [
+
+	^ self new sequence: aChDSequence; graphics: graphicsProvider 
 ]
 
 { #category : #initialization }
@@ -25,11 +32,12 @@ ChDSequenceMorph >> descriptionWidth [
 { #category : #initialization }
 ChDSequenceMorph >> drawOn: aCanvas [
 
-	| rect lastPoint newPoint offset |
+	| rect lastPoint newPoint offset fontHeight descriptionPadding |
 		
 	rect := Rectangle origin: (self bounds topLeft +(self descriptionWidth @0)) corner: self bounds bottomRight.
 	
 	offset := 7.
+	descriptionPadding := 4.
 	
 	aCanvas fillRectangle: self bounds color: (Color r: 1.0 g: 0.969 b: 0.887 alpha: 1.0).
 	
@@ -101,8 +109,25 @@ ChDSequenceMorph >> drawOn: aCanvas [
 			startingOffset: 0		
 		 ].
 	
-	aCanvas drawString: sequence name at: self bounds topLeft.
+	fontHeight := graphics font height.
+	
+	aCanvas drawString: sequence name at: self bounds bottomLeft + (descriptionPadding@(fontHeight negated-offset)) font: graphics font color: Color black.
+	
+		aCanvas 
+			line:  self bounds bottomLeft + (0@offset negated)
+			to: self bounds bottomLeft + (self descriptionWidth@offset negated)
+			color: Color black
 
+]
+
+{ #category : #accessing }
+ChDSequenceMorph >> graphics [
+	^ graphics
+]
+
+{ #category : #accessing }
+ChDSequenceMorph >> graphics: anObject [
+	graphics := anObject
 ]
 
 { #category : #initialization }

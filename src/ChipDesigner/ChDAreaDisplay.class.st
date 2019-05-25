@@ -103,10 +103,17 @@ ChDAreaDisplay >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanva
 { #category : #accessing }
 ChDAreaDisplay >> drawDescriptions: dirtyDescriptions [
 
+	| font | 
+
 	dirtyDescriptions do: [ :association |
-		| p |
+		| p label width height |
 		p := ((self cellSize*(association value x-1))@(self cellSize*(association value y-1))).
-		canvas drawString: association key at: p + (-5 @ 0).
+		label := association key.
+		width := graphics font widthOfString: label.
+		height := graphics font height.
+		p := p + (self cellSize/2 @ (self cellSize/2)) - (width / 2 @ (height / 2)).
+		
+		canvas drawString: label at: p ceiling font: graphics font color: Color black.
 		 ].
 		
 
@@ -239,6 +246,11 @@ ChDAreaDisplay >> fullRepaint [
 	self drawDescriptions: area descriptions.
 		
 
+]
+
+{ #category : #accessing }
+ChDAreaDisplay >> graphics [ 
+	^ graphics
 ]
 
 { #category : #accessing }

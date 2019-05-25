@@ -59,6 +59,11 @@ ChDAreaMorph >> controller: anObject [
 ]
 
 { #category : #initialization }
+ChDAreaMorph >> display [ 
+	^ display
+]
+
+{ #category : #initialization }
 ChDAreaMorph >> drawOn: aCanvas [
 
 	| origin |
