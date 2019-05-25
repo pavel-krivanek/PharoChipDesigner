@@ -24,18 +24,15 @@ ChDAreaInputRegionsTest >> setUp [
 { #category : #running }
 ChDAreaInputRegionsTest >> testConnectedCell [
 
-	| cell event |
-	
-	event := ChDMouseEventMock new.
-	event red.
-	
-	controller onMouseDownAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	| cell |
+		
+	controller onMouseDownAt: 2@1.
+	controller onMouseUpAt: 2@1.
 
-	controller onMouseDownAt: 2@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
+	controller onMouseDownAt: 2@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseUpAt: 1@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell metalConnections equals: 2r0010.
@@ -54,17 +51,14 @@ ChDAreaInputRegionsTest >> testConnectedCell [
 ChDAreaInputRegionsTest >> testConnectedCellFromInput [
 
 	| cell event |
-	
-	event := ChDMouseEventMock new.
-	event red.
-	
-	controller onMouseDownAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+		
+	controller onMouseDownAt: 2@1.
+	controller onMouseUpAt: 2@1.
 
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseUpAt: 2@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell metalConnections equals: 2r0010.
@@ -82,13 +76,10 @@ ChDAreaInputRegionsTest >> testConnectedCellFromInput [
 { #category : #running }
 ChDAreaInputRegionsTest >> testNotConnectedCell [
 
-	| cell event |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event red.
-	
-	controller onMouseDownAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller onMouseDownAt: 2@1.
+	controller onMouseUpAt: 2@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell metalConnections equals: 0.

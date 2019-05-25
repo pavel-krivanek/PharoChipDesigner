@@ -44,7 +44,7 @@ ChDAreaController >> area: anObject [
 ]
 
 { #category : #initialization }
-ChDAreaController >> cellEvent: anEvent at: aPoint [
+ChDAreaController >> cellEventAt: aPoint [
 
 	| cell |
 	
@@ -62,8 +62,9 @@ ChDAreaController >> cellEvent: anEvent at: aPoint [
 	
 	inputMode isSelect
 		ifTrue: [
-			 anEvent yellowButtonPressed ifTrue: [
+			inputMode wantsMenu ifTrue: [ 
 				inputMode isSelecting: false.
+				inputMode wantsMenu: false.
 				self openSelectionMenu.
 				^ self ].
 			inputMode isSelecting
@@ -77,23 +78,23 @@ ChDAreaController >> cellEvent: anEvent at: aPoint [
 		ifFalse: [ area deselect ].
 	
 	inputMode isDelete ifFalse: [ 
-		(anEvent redButtonPressed and: [anEvent shiftPressed not]) ifTrue: [
+		inputMode isInsertMetal ifTrue: [
 			area metalLayer setFor: cell with: lastCell	 mode: #metal].
 		
-		(anEvent yellowButtonPressed and: [anEvent shiftPressed not]) ifTrue: [ .
+		inputMode isInsertNSubstrate ifTrue: [ .
 			area substrateLayer setFor: cell with: lastCell mode: #n ].
 
-		(anEvent shiftPressed and: [anEvent controlKeyPressed not]) ifTrue: [ 
+		inputMode isInsertPSubstrate ifTrue: [ 
 			area substrateLayer setFor: cell with: lastCell mode: #p ].
 		
 		self announceDirtyCells: cell withAdjacentCells.
 	].
 
-	(inputMode isDelete and: [anEvent shiftPressed not]) ifTrue: [ 
+	inputMode isDeleteMetal ifTrue: [ 
 		area metalLayer fullClear: cell.
 		area updateCell: cell mode: #metal.  
 		self announceDirtyCells: cell withAdjacentCells ].
-	(inputMode isDelete and: [anEvent shiftPressed]) ifTrue: [ 
+	inputMode isDeleteSubstrate ifTrue: [ 
 		area substrateLayer fullClear: cell.		
 		area updateCell: cell mode: #n.
 		self announceDirtyCells: cell withAdjacentCells ].	
@@ -221,7 +222,17 @@ ChDAreaController >> onMouseDownAt: aPoint [
 ChDAreaController >> onMouseDownAt: aPoint event: anEvent [
 
 	self mouseDown: true.
-	self cellEvent: anEvent at: aPoint
+
+	inputMode := anEvent shiftPressed 
+		ifTrue: [ inputMode shifted ]
+		ifFalse: [ inputMode := inputMode unshifted ].
+	
+	anEvent yellowButtonPressed
+		ifTrue: [ inputMode := inputMode alternative ].
+	anEvent redButtonPressed
+		ifTrue: [ inputMode := inputMode natural ].
+
+	self cellEventAt: aPoint
 ]
 
 { #category : #accessing }
@@ -238,7 +249,7 @@ ChDAreaController >> onMouseMoveAt: aPoint event: anEvent [
 	(inputMode isSelect and: [inputMode isSelecting not])
 		ifTrue: [ ^ self ].
 	
-	self cellEvent: anEvent at: aPoint
+	self cellEventAt: aPoint
 ]
 
 { #category : #accessing }

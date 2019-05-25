@@ -80,7 +80,7 @@ ChDAreaControllerTest >> testAddTwoConnectedMetalCells [
 { #category : #running }
 ChDAreaControllerTest >> testAddTwoConnectedMetalCellsAndDeleteThemByMovement [
 
-	| cell event |
+	| cell |
 	
 	controller onMouseDownAt: 1@1.
 	controller onMouseMoveAt: 1@1.

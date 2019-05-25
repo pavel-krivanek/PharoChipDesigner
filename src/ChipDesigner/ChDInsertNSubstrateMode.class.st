@@ -9,3 +9,21 @@ ChDInsertNSubstrateMode >> affectsNSubstrate [
 
 	^ true
 ]
+
+{ #category : #testing }
+ChDInsertNSubstrateMode >> isInsertNSubstrate [
+
+	^ true
+]
+
+{ #category : #testing }
+ChDInsertNSubstrateMode >> natural [ 
+
+	^ ChDInsertMetalMode new
+]
+
+{ #category : #testing }
+ChDInsertNSubstrateMode >> shifted [ 
+
+	^ ChDInsertPSubstrateMode new
+]

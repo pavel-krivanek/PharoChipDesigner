@@ -134,8 +134,10 @@ ChDAreaMorph >> initializeFor: anArea [
 ChDAreaMorph >> keyDown: anEvent [
 
 	anEvent keyValue = 16 ifTrue: [
+		"shift"
 		self controller shiftInputMode.
 		self controller announceModeChange].
+	
 	^ super keyDown: anEvent
 ]
 

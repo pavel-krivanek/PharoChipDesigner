@@ -11,6 +11,12 @@ ChDDeleteSubstrateMode >> affectsSubstrate [
 ]
 
 { #category : #testing }
+ChDDeleteSubstrateMode >> isDeleteSubstrate [
+
+	^ true
+]
+
+{ #category : #testing }
 ChDDeleteSubstrateMode >> unshifted [
 
 	^ ChDDeleteMetalMode new

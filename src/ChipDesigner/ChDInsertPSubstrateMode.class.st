@@ -11,6 +11,12 @@ ChDInsertPSubstrateMode >> affectsPSubstrate [
 ]
 
 { #category : #testing }
+ChDInsertPSubstrateMode >> isInsertPSubstrate [
+
+	^ true
+]
+
+{ #category : #testing }
 ChDInsertPSubstrateMode >> unshifted [
 
 	^ ChDInsertMetalMode new

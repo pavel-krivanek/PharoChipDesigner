@@ -2,10 +2,18 @@ Class {
 	#name : #ChDSelectMode,
 	#superclass : #ChDInputMode,
 	#instVars : [
-		'isSelecting'
+		'isSelecting',
+		'wantsMenu'
 	],
 	#category : #'ChipDesigner-Input Modes'
 }
+
+{ #category : #accessing }
+ChDSelectMode >> alternative [ 
+
+	isSelecting := false.
+	wantsMenu := true.
+]
 
 { #category : #testing }
 ChDSelectMode >> buttonIndex [
@@ -19,10 +27,11 @@ ChDSelectMode >> initialize [
 	super initialize.
 	
 	isSelecting := false.
+	wantsMenu := false.
 ]
 
 { #category : #testing }
-ChDSelectMode >> isSelect [ 
+ChDSelectMode >> isSelect [
 
 	^ true
 ]
@@ -35,4 +44,14 @@ ChDSelectMode >> isSelecting [
 { #category : #accessing }
 ChDSelectMode >> isSelecting: anObject [
 	isSelecting := anObject
+]
+
+{ #category : #accessing }
+ChDSelectMode >> wantsMenu [
+	^ wantsMenu
+]
+
+{ #category : #accessing }
+ChDSelectMode >> wantsMenu: anObject [
+	wantsMenu := anObject
 ]

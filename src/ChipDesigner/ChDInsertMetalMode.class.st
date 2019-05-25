@@ -11,6 +11,18 @@ ChDInsertMetalMode >> affectsMetal [
 ]
 
 { #category : #testing }
+ChDInsertMetalMode >> alternative [
+
+	^ ChDInsertNSubstrateMode new
+]
+
+{ #category : #testing }
+ChDInsertMetalMode >> isInsertMetal [
+
+	^ true
+]
+
+{ #category : #testing }
 ChDInsertMetalMode >> shifted [
 
 	^ ChDInsertPSubstrateMode new

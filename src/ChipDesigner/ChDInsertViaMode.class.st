@@ -23,7 +23,7 @@ ChDInsertViaMode >> buttonIndex [
 ]
 
 { #category : #testing }
-ChDInsertViaMode >> isInsertVia [ 
+ChDInsertViaMode >> isInsertVia [
 
 	^ true
 ]

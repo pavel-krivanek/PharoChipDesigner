@@ -9,3 +9,9 @@ ChDInsertSubstrateMode >> affectsSubstrate [
 
 	^ true
 ]
+
+{ #category : #testing }
+ChDInsertSubstrateMode >> isInsertSubstrate [
+
+	^ true
+]

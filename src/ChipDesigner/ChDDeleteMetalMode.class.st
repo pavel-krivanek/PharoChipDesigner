@@ -11,6 +11,12 @@ ChDDeleteMetalMode >> affectsMetal [
 ]
 
 { #category : #testing }
+ChDDeleteMetalMode >> isDeleteMetal [
+
+	^ true
+]
+
+{ #category : #testing }
 ChDDeleteMetalMode >> shifted [
 
 	^ ChDDeleteSubstrateMode new
