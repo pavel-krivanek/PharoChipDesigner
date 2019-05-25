@@ -42,9 +42,10 @@ ChDAreaControllerTest >> testAddSingleNCell [
 
 	| cell |
 
+	controller insertNSubstrateMode.
 	
-	controller onRightMouseDownAt: 1@1.
-	controller onRightMouseUpAt: 1@1.
+	controller onMouseDownAt: 1@1.
+	controller onMouseUpAt: 1@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell substrateConnections equals: 0.
@@ -109,10 +110,12 @@ ChDAreaControllerTest >> testAddTwoConnectedNCells [
 
 	| cell |
 	
-	controller onRightMouseDownAt: 1@1.
-	controller onRightMouseMoveAt: 1@1.
-	controller onRightMouseMoveAt: 2@1.
-	controller onRightMouseUpAt: 2@1.
+	controller insertNSubstrateMode.
+	
+	controller onMouseDownAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseUpAt: 2@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell substrateConnections equals: 2r0010.
@@ -128,23 +131,21 @@ ChDAreaControllerTest >> testAddTwoConnectedNCells [
 { #category : #running }
 ChDAreaControllerTest >> testAddTwoConnectedNCellsAndDeleteThemByMovement [
 
-	| cell event |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event yellow.
+	controller insertPSubstrateMode.
 	
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseUpAt: 2@1.
 	
-	controller deleteMetalMode.
-	event shift.
+	controller deleteSubstrateMode.
 
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseUpAt: 2@1.
 
 	cell := area atX: 1 y: 1.
 	self deny: cell hasSubstrate.
@@ -159,24 +160,23 @@ ChDAreaControllerTest >> testAddTwoConnectedNCellsAndDeleteThemByMovement [
 { #category : #running }
 ChDAreaControllerTest >> testAddTwoDifferentSubstrateCellsAndTryToMergeThemByMovement [
 
-	| cell event |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event yellow.
+	controller insertNSubstrateMode.
 	
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseUpAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
 
-	event shift.
-	controller onMouseDownAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller insertPSubstrateMode.
+	controller onMouseDownAt: 2@1.
+	controller onMouseUpAt: 2@1.
 
-	controller onMouseDownAt: 2@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
+	controller onMouseDownAt: 2@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseUpAt: 1@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell substrateType equals: #n.
@@ -246,20 +246,22 @@ ChDAreaControllerTest >> testAddTwoNCellsAndMergeThemByMovement [
 
 	| cell |
 	
-	controller onRightMouseDownAt: 1@1.
-	controller onRightMouseUpAt: 1@1.
-	controller onRightMouseMoveAt: 1@1.
-	controller onRightMouseMoveAt: 2@1.
-	controller onRightMouseDownAt: 2@1.
-	controller onRightMouseUpAt: 2@1.
+	controller insertNSubstrateMode.
+	
+	controller onMouseDownAt: 1@1.
+	controller onMouseUpAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseDownAt: 2@1.
+	controller onMouseUpAt: 2@1.
 
-	controller onRightMouseMoveAt: 2@1.
-	controller onRightMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseMoveAt: 1@1.
 
-	controller onRightMouseDownAt: 1@1.
-	controller onRightMouseMoveAt: 1@1.
-	controller onRightMouseMoveAt: 2@1.
-	controller onRightMouseUpAt: 2@1.
+	controller onMouseDownAt: 1@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseUpAt: 2@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell substrateConnections equals: 2r0010.
@@ -298,24 +300,20 @@ ChDAreaControllerTest >> testDeleteMetalTwoTimes [
 { #category : #running }
 ChDAreaControllerTest >> testDeleteSubstrateTwoTimes [
 
-	| cell event |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event yellow.
+	controller insertPSubstrateMode.
 	
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseUpAt: 1@1.
 	
-	controller deleteMetalMode.
-	event := ChDMouseEventMock new.
-	event red.
-	event shift.
+	controller deleteSubstrateMode.
+	
+	controller onMouseDownAt: 1@1.
+	controller onMouseUpAt: 1@1.
 
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
-
-	controller onMouseDownAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
+	controller onMouseDownAt: 1@1.
+	controller onMouseUpAt: 1@1.
 	
 	cell := area atX: 1 y: 1.
 	self deny: cell hasMetal.
@@ -328,20 +326,19 @@ ChDAreaControllerTest >> testDeleteSubstrateTwoTimes [
 { #category : #running }
 ChDAreaControllerTest >> testTryToExtendDifferentSubstrateTypeByMovement [
 
-	| cell event |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event yellow.
+	controller insertNSubstrateMode.
 	
-	controller onMouseDownAt: 2@1 event: event.
-	controller onMouseUpAt: 2@1 event: event.
+	controller onMouseDownAt: 2@1.
+	controller onMouseUpAt: 2@1.
 
-	event shift.
+	controller insertPSubstrateMode.
 
-	controller onMouseDownAt: 2@1 event: event.
-	controller onMouseMoveAt: 2@1 event: event.
-	controller onMouseMoveAt: 1@1 event: event.
-	controller onMouseUpAt: 1@1 event: event.
+	controller onMouseDownAt: 2@1.
+	controller onMouseMoveAt: 2@1.
+	controller onMouseMoveAt: 1@1.
+	controller onMouseUpAt: 1@1.
 	
 	cell := area atX: 1 y: 1.
 	self assert: cell substrateType equals: #p.

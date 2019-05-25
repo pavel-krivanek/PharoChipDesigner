@@ -11,45 +11,37 @@ Class {
 
 { #category : #running }
 ChDJunctionPNPTest >> setUp [
-	
-	| event |
-	
+		
 	area := ChDArea withDefaultExtent.
 	controller := ChDAreaController new.
 	controller area: area.
 	view := ChDAreaViewMock new.
 	controller view: view.
 	
-	event := ChDMouseEventMock new.
-	event yellow.
-	event shift.
+	controller insertPSubstrateMode.
 	
-	controller onMouseDownAt: 2@1 event: event.
-	controller onMouseMoveAt: 2@2 event: event.
-	controller onMouseMoveAt: 2@3 event: event.
-	controller onMouseUpAt: 2@3 event: event.
+	controller onMouseDownAt: 2@1.
+	controller onMouseMoveAt: 2@2.
+	controller onMouseMoveAt: 2@3.
+	controller onMouseUpAt: 2@3.
 
 ]
 
 { #category : #running }
 ChDJunctionPNPTest >> testCreateAndDeletePNP [
 	
-	| event cell |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event yellow.
+	controller insertNSubstrateMode.
 	
-	controller onMouseDownAt: 1@2 event: event.
-	controller onMouseMoveAt: 2@2 event: event.
-	controller onMouseUpAt: 2@2 event: event.
+	controller onMouseDownAt: 1@2.
+	controller onMouseMoveAt: 2@2.
+	controller onMouseUpAt: 2@2.
 	
-	event := ChDMouseEventMock new.
-	event red.
-	event shift.
-	controller deleteMetalMode.
+	controller deleteSubstrateMode.
 	
-	controller onMouseDownAt: 2@2 event: event.
-	controller onMouseUpAt: 2@2 event: event.
+	controller onMouseDownAt: 2@2.
+	controller onMouseUpAt: 2@2.
 
 	cell := area atX: 2 y: 2.	
 	self deny: cell hasJunction.
@@ -77,12 +69,11 @@ ChDJunctionPNPTest >> testCreatePNP [
 	
 	| event cell |
 	
-	event := ChDMouseEventMock new.
-	event yellow.
+	controller insertNSubstrateMode.
 	
-	controller onMouseDownAt: 1@2 event: event.
-	controller onMouseMoveAt: 2@2 event: event.
-	controller onMouseUpAt: 2@2 event: event.
+	controller onMouseDownAt: 1@2.
+	controller onMouseMoveAt: 2@2.
+	controller onMouseUpAt: 2@2.
 	
 	cell := area atX: 2 y: 2.	
 	self assert: cell hasJunction.
@@ -117,14 +108,13 @@ ChDJunctionPNPTest >> testCreatePNP [
 { #category : #running }
 ChDJunctionPNPTest >> testCreatePNPFromRight [
 	
-	| event cell |
+	| cell |
 	
-	event := ChDMouseEventMock new.
-	event yellow.
+	controller insertNSubstrateMode.
 	
-	controller onMouseDownAt: 3@2 event: event.
-	controller onMouseMoveAt: 2@2 event: event.
-	controller onMouseUpAt: 2@2 event: event.
+	controller onMouseDownAt: 3@2.
+	controller onMouseMoveAt: 2@2.
+	controller onMouseUpAt: 2@2.
 	
 	cell := area atX: 2 y: 2.	
 	self assert: cell hasJunction.

@@ -12,6 +12,20 @@ Class {
 	#category : #ChipDesigner
 }
 
+{ #category : #accessing }
+ChDAreaController >> adjustInputModeFromEvent: anEvent [
+
+	inputMode := anEvent shiftPressed 
+		ifTrue: [ inputMode shifted ]
+		ifFalse: [ inputMode := inputMode unshifted ].
+	
+	anEvent yellowButtonPressed
+		ifTrue: [ inputMode := inputMode alternative ].
+	anEvent redButtonPressed
+		ifTrue: [ inputMode := inputMode natural ].
+
+]
+
 { #category : #initialization }
 ChDAreaController >> announceDirtyCells: dirtyCells [ 
 
@@ -215,7 +229,9 @@ ChDAreaController >> mouseDown: aBoolean [
 { #category : #accessing }
 ChDAreaController >> onMouseDownAt: aPoint [
 
-	self onMouseDownAt: aPoint event: ChDMouseEventMock left
+	self mouseDown: true.
+
+	self cellEventAt: aPoint
 ]
 
 { #category : #accessing }
@@ -223,26 +239,13 @@ ChDAreaController >> onMouseDownAt: aPoint event: anEvent [
 
 	self mouseDown: true.
 
-	inputMode := anEvent shiftPressed 
-		ifTrue: [ inputMode shifted ]
-		ifFalse: [ inputMode := inputMode unshifted ].
-	
-	anEvent yellowButtonPressed
-		ifTrue: [ inputMode := inputMode alternative ].
-	anEvent redButtonPressed
-		ifTrue: [ inputMode := inputMode natural ].
+	self adjustInputModeFromEvent: anEvent.
 
 	self cellEventAt: aPoint
 ]
 
 { #category : #accessing }
-ChDAreaController >> onMouseMoveAt: aPoint [ 
-
-	self onMouseMoveAt: aPoint event: ChDMouseEventMock left
-]
-
-{ #category : #accessing }
-ChDAreaController >> onMouseMoveAt: aPoint event: anEvent [
+ChDAreaController >> onMouseMoveAt: aPoint [
 
 	self mouseDown ifFalse: [ ^ self ].
 	
@@ -270,15 +273,9 @@ ChDAreaController >> onMouseUpAt: aPoint event: anEvent [
 ]
 
 { #category : #accessing }
-ChDAreaController >> onRightMouseDownAt: aPoint [
-
-	self onMouseDownAt: aPoint event: ChDMouseEventMock right
-]
-
-{ #category : #accessing }
 ChDAreaController >> onRightMouseMoveAt: aPoint [ 
 
-	self onMouseMoveAt: aPoint event: ChDMouseEventMock right
+	self onMouseMoveAt: aPoint.
 ]
 
 { #category : #accessing }

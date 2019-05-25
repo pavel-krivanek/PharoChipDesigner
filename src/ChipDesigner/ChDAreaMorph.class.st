@@ -192,7 +192,7 @@ ChDAreaMorph >> mouseDown: anEvent [
 { #category : #initialization }
 ChDAreaMorph >> mouseMove: anEvent [
 
-	controller onMouseMoveAt: (self eventPointOf: anEvent) event: anEvent
+	controller onMouseMoveAt: (self eventPointOf: anEvent)
 ]
 
 { #category : #initialization }
