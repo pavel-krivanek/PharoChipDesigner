@@ -133,9 +133,9 @@ ChDPlayground100x100 >> initializeSimulation [
 ]
 
 { #category : #'as yet unclassified' }
-ChDPlayground100x100 >> instructions [
+ChDPlayground100x100 >> instructions [ 
 
-	^ 'intro.png'
+	^ 'playground.png'
 ]
 
 { #category : #'as yet unclassified' }
