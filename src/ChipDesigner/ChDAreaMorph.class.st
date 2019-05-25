@@ -198,7 +198,7 @@ ChDAreaMorph >> mouseMove: anEvent [
 { #category : #initialization }
 ChDAreaMorph >> mouseUp: anEvent [
 
-	controller onMouseUpAt: (self eventPointOf: anEvent) event: anEvent
+	controller onMouseUpAt: (self eventPointOf: anEvent).
 ]
 
 { #category : #initialization }

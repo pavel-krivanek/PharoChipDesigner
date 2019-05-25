@@ -258,12 +258,6 @@ ChDAreaController >> onMouseMoveAt: aPoint [
 { #category : #accessing }
 ChDAreaController >> onMouseUpAt: aPoint [
 
-	self onMouseUpAt: aPoint event: ChDMouseEventMock left
-]
-
-{ #category : #accessing }
-ChDAreaController >> onMouseUpAt: aPoint event: anEvent [
-
 	self mouseDown: false.
 	self lastCell: nil.
 	
@@ -276,12 +270,6 @@ ChDAreaController >> onMouseUpAt: aPoint event: anEvent [
 ChDAreaController >> onRightMouseMoveAt: aPoint [ 
 
 	self onMouseMoveAt: aPoint.
-]
-
-{ #category : #accessing }
-ChDAreaController >> onRightMouseUpAt: aPoint [
-
-	self onMouseUpAt: aPoint event: ChDMouseEventMock right
 ]
 
 { #category : #initialization }
