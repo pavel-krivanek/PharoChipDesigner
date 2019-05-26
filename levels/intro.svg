@@ -16,7 +16,7 @@
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
    sodipodi:docname="intro.svg"
-   inkscape:export-filename="C:\Users\pharodev\Documents\Pharo\images\chip005-01\pharo-local\iceberg\pavel-krivanek\PharoChipDesigner\levels\intro.png"
+   inkscape:export-filename="C:\Users\pharodev\Documents\Pharo\images\chip006-01\pharo-local\iceberg\pavel-krivanek\PharoChipDesigner\levels\intro.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
   <defs
@@ -65,9 +65,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="340.32518"
-     inkscape:cy="28.375795"
+     inkscape:zoom="1.979899"
+     inkscape:cx="450.97949"
+     inkscape:cy="113.25241"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -459,7 +459,7 @@
        xml:space="preserve"
        id="flowRoot5512"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       transform="matrix(0.21838831,0,0,0.21838831,116.80212,59.349494)"><flowRegion
+       transform="matrix(0.21838831,0,0,0.21838831,116.34325,59.349494)"><flowRegion
          id="flowRegion5508"><rect
            id="rect5506"
            width="588.91895"
@@ -481,7 +481,7 @@
        xml:space="preserve"
        id="flowRoot5539"
        style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       transform="matrix(0.21838831,0,0,0.21838831,117.67392,78.15602)"><flowRegion
+       transform="matrix(0.21838831,0,0,0.21838831,116.34325,78.15602)"><flowRegion
          id="flowRegion5535"><rect
            id="rect5533"
            width="588.91895"
