@@ -62,6 +62,7 @@ ChDAreaController >> cellEventAt: aPoint [
 
 	| cell |
 	
+	(aPoint x < 0 or: [ aPoint y < 0 ]) ifTrue: [ ^ self ].
 	(aPoint x > self area width or: [ aPoint y > self area height ]) ifTrue: [ ^ self ].
 	
 	cell := self area atX: aPoint x y: aPoint y.

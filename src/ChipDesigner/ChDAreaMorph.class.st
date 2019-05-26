@@ -100,8 +100,14 @@ ChDAreaMorph >> drawSelectionOn: aCanvas at: origin [
 { #category : #initialization }
 ChDAreaMorph >> eventPointOf: anEvent [
 
-	^ (((anEvent cursorPoint - self position) / display zoom) // self cellSize) + (1@1).
+	| eventPoint |
+	
+	eventPoint := (((anEvent cursorPoint - self position) / display zoom) // self cellSize) + (1@1).
 
+	(eventPoint x <= 0 or: [ eventPoint y > self area width ]) ifTrue: [ ^ nil ].
+	(eventPoint y <= 0 or: [ eventPoint y > self area height ]) ifTrue: [ ^ nil ].
+
+	^ eventPoint
 ]
 
 { #category : #accessing }
@@ -236,7 +242,12 @@ ChDAreaMorph >> mouseDown: anEvent [
 { #category : #initialization }
 ChDAreaMorph >> mouseMove: anEvent [
 
-	controller onMouseMoveAt: (self eventPointOf: anEvent)
+	| eventPoint |
+	
+	eventPoint := self eventPointOf: anEvent. 
+	eventPoint ifNil: [ ^ self ].
+	
+	controller onMouseMoveAt: eventPoint.
 ]
 
 { #category : #initialization }
