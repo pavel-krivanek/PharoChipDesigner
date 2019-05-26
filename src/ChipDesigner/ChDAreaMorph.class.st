@@ -91,8 +91,8 @@ ChDAreaMorph >> drawSelectionOn: aCanvas at: origin [
 	area selection ifNotNil: [ 
 		| r |
 		r := Rectangle 
-			origin: (origin + ((13*(area selection topLeft x-1))@(13*(area selection topLeft y-1)))) 
-			corner: (origin + ((13*(area selection bottomRight x))@(13*(area selection bottomRight y)))). 
+			origin: (origin + (((13*(area selection topLeft x-1))@(13*(area selection topLeft y-1)))*self zoom)) 
+			corner: (origin + (((13*(area selection bottomRight x))@(13*(area selection bottomRight y)))*self zoom)). 
 		aCanvas frameAndFillRectangle: r fillColor: Color transparent borderWidth: 1 borderColor: Color white ].	
 
 ]

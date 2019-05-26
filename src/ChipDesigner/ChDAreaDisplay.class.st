@@ -208,19 +208,6 @@ ChDAreaDisplay >> drawOn: aCanvas at: origin [
 ]
 
 { #category : #accessing }
-ChDAreaDisplay >> drawSelection [
-	
-	area selection ifNotNil: [ 
-		| r |
-		r := Rectangle 
-			origin: (((self cellSize*(area selection topLeft x-1))@(self cellSize*(area selection topLeft y-1)))) 
-			corner: (((self cellSize*(area selection bottomRight x))@(self cellSize*(area selection bottomRight y)))). 
-		canvas frameAndFillRectangle: r fillColor: Color transparent borderWidth: 1 borderColor: Color white ].
-	
-
-]
-
-{ #category : #accessing }
 ChDAreaDisplay >> form [
 	^ form
 ]
