@@ -25,7 +25,7 @@ ChDCPlayground44x23 class >> priority [
 { #category : #'as yet unclassified' }
 ChDCPlayground44x23 >> instructions [ 
 
-	^ 'playground.png'
+	^ 'intro.png'
 ]
 
 { #category : #'as yet unclassified' }
