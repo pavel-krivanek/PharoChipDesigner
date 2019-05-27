@@ -229,6 +229,7 @@ ChDSubstrateLayer >> setFor: aCell with: aLastCell mode: mode [
 	(self junctionFrom: down to: aCell ofType: #n if: 2r1010 andLastIs: aLastCell thenDefineJunction: 2r0100 orIfExists: 2r0101 addConnection: 2r0001 mode: mode)
 		ifTrue: [ ^ self ].
 
+	aCell hasJunction ifTrue: [ ^ self ].
 
 	(aCell substrateType notNil and: [aCell substrateType ~~ mode]) ifTrue: [ ^ self ].
 

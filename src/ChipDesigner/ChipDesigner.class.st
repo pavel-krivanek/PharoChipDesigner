@@ -217,7 +217,7 @@ ChipDesigner >> import [
 
 { #category : #initialization }
 ChipDesigner >> initialExtent [
-	^ 940@800
+	^ 950@800
 ]
 
 { #category : #initialization }
