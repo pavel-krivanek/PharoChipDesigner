@@ -42,6 +42,7 @@ ChipDesigner class >> criticsBrowserMenuOn: aBuilder [
 	
 	(aBuilder item: 'Pharo Chip Designer')
 		action: [ self open ];
+		order: 10;
 		parent: #Tools;
 		help: 'Chip design game';
 		icon: self taskbarIcon

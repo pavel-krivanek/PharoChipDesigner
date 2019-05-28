@@ -7,26 +7,36 @@ Class {
 { #category : #'as yet unclassified' }
 ChDSubstrateLayer >> clearJunctionIn: aCell whenDelete: deletedCell [
 
-	| newJunctionConnections |
+	| newJunctionConnections newSubstrateConnections |
 	
 	newJunctionConnections := aCell junctionConnections.
+	newSubstrateConnections := aCell substrateConnections.
 	
 	newJunctionConnections ifNotNil: [
 		aCell topology up = deletedCell
-			ifTrue: [ newJunctionConnections := newJunctionConnections bitAnd: 2r1110 ].
+			ifTrue: [ 
+				newJunctionConnections := newJunctionConnections bitAnd: 2r1110.
+				newSubstrateConnections := newSubstrateConnections bitAnd: 2r1110 ].
 		aCell topology right = deletedCell
-			ifTrue: [ newJunctionConnections := newJunctionConnections bitAnd: 2r1101 ].
+			ifTrue: [ 
+				newJunctionConnections := newJunctionConnections bitAnd: 2r1101.
+				newSubstrateConnections := newSubstrateConnections bitAnd: 2r1101. ].
 		aCell topology down = deletedCell
-			ifTrue: [ newJunctionConnections := newJunctionConnections bitAnd: 2r1011 ].
+			ifTrue: [ 
+				newJunctionConnections := newJunctionConnections bitAnd: 2r1011.
+				newSubstrateConnections := newSubstrateConnections bitAnd: 2r1011. ].
 		aCell topology left = deletedCell
-			ifTrue: [ newJunctionConnections := newJunctionConnections bitAnd: 2r0111 ] ].
+			ifTrue: [ 
+				newJunctionConnections := newJunctionConnections bitAnd: 2r0111.
+				newSubstrateConnections := newSubstrateConnections bitAnd: 2r0111. ] ].
 	
-	newJunctionConnections = 0 
+	(newJunctionConnections = 0 or: [ (newSubstrateConnections = 2r0101 or: [ newSubstrateConnections = 2r1010 ]) not ])
 		ifTrue: [ 
 			aCell junctionType: nil.
 			newJunctionConnections := nil ].
 		
 	aCell junctionConnections: newJunctionConnections.
+	aCell substrateConnections: newSubstrateConnections.
 	
 	area updateCell: aCell mode: aCell substrateType.
 

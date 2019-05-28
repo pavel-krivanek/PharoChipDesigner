@@ -106,6 +106,46 @@ ChDJunctionNPNTest >> testCreateNPN [
 ]
 
 { #category : #running }
+ChDJunctionNPNTest >> testCreateNPNAndSubstrateConnection [
+	
+	| cell |
+	
+	controller insertPSubstrateMode.
+	
+	controller onMouseDownAt: 1@2.
+	controller onMouseMoveAt: 2@2.
+	controller onMouseUpAt: 2@2.
+
+	controller deleteSubstrateMode.
+	controller onMouseDownAt: 2@3.
+	controller onMouseUpAt: 2@3.
+
+	cell := area atX: 2 y: 2.	
+	self deny: cell hasJunction.
+	self deny: cell hasMetal.
+	
+	cell := area atX: 2 y: 1.	
+	self assert: cell substrateType equals: #n.
+	self deny: cell hasJunction. 
+	self deny: cell hasMetal. 
+	self assert: cell substrateConnections equals: 2r0100.
+
+	cell := area atX: 2 y: 3.	
+	self deny: cell hasSubstrate.
+	self deny: cell hasJunction. 
+	self deny: cell hasMetal. 
+
+	cell := area atX: 1 y: 2.	
+	self assert: cell substrateType equals: #p.
+	self deny: cell hasJunction. 
+	self deny: cell hasMetal.
+	self assert: cell substrateConnections equals: 2r0010.
+	
+	self assert: area regions size equals: 2.
+
+]
+
+{ #category : #running }
 ChDJunctionNPNTest >> testCreateNPNAndTryIncompatibleOtherSide [
 	
 	| cell |
