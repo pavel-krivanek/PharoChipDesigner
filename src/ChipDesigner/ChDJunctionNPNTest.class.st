@@ -123,6 +123,7 @@ ChDJunctionNPNTest >> testCreateNPNAndSubstrateConnection [
 	cell := area atX: 2 y: 2.	
 	self deny: cell hasJunction.
 	self deny: cell hasMetal.
+	self assert: cell substrateConnections equals: 2r0001.
 	
 	cell := area atX: 2 y: 1.	
 	self assert: cell substrateType equals: #n.
@@ -139,7 +140,7 @@ ChDJunctionNPNTest >> testCreateNPNAndSubstrateConnection [
 	self assert: cell substrateType equals: #p.
 	self deny: cell hasJunction. 
 	self deny: cell hasMetal.
-	self assert: cell substrateConnections equals: 2r0010.
+	self assert: cell substrateConnections equals: 2r0000.
 	
 	self assert: area regions size equals: 2.
 

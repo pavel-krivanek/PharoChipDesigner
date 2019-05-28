@@ -7,33 +7,44 @@ Class {
 { #category : #'as yet unclassified' }
 ChDSubstrateLayer >> clearJunctionIn: aCell whenDelete: deletedCell [
 
-	| newJunctionConnections newSubstrateConnections |
+	| newJunctionConnections newSubstrateConnections substrateConnectionsMask oldJunctionConnections |
+	
+	aCell hasJunction ifFalse: [ ^self ].
 	
 	newJunctionConnections := aCell junctionConnections.
+	oldJunctionConnections := aCell junctionConnections.
 	newSubstrateConnections := aCell substrateConnections.
-	
+	substrateConnectionsMask := 2r1111.
+
 	newJunctionConnections ifNotNil: [
+
 		aCell topology up = deletedCell
 			ifTrue: [ 
 				newJunctionConnections := newJunctionConnections bitAnd: 2r1110.
-				newSubstrateConnections := newSubstrateConnections bitAnd: 2r1110 ].
+				newSubstrateConnections := newSubstrateConnections bitAnd: 2r1110.
+				substrateConnectionsMask := 2r1110 ].
 		aCell topology right = deletedCell
 			ifTrue: [ 
 				newJunctionConnections := newJunctionConnections bitAnd: 2r1101.
-				newSubstrateConnections := newSubstrateConnections bitAnd: 2r1101. ].
+				newSubstrateConnections := newSubstrateConnections bitAnd: 2r1101.
+				substrateConnectionsMask := 2r1101 ].
 		aCell topology down = deletedCell
 			ifTrue: [ 
 				newJunctionConnections := newJunctionConnections bitAnd: 2r1011.
-				newSubstrateConnections := newSubstrateConnections bitAnd: 2r1011. ].
+				newSubstrateConnections := newSubstrateConnections bitAnd: 2r1011.
+				substrateConnectionsMask := 2r1011 ].
 		aCell topology left = deletedCell
 			ifTrue: [ 
 				newJunctionConnections := newJunctionConnections bitAnd: 2r0111.
-				newSubstrateConnections := newSubstrateConnections bitAnd: 2r0111. ] ].
+				newSubstrateConnections := newSubstrateConnections bitAnd: 2r0111.
+				substrateConnectionsMask := 2r0111 ] ].
 	
 	(newJunctionConnections = 0 or: [ (newSubstrateConnections = 2r0101 or: [ newSubstrateConnections = 2r1010 ]) not ])
 		ifTrue: [ 
 			aCell junctionType: nil.
-			newJunctionConnections := nil ].
+			newJunctionConnections := nil.
+			newSubstrateConnections := newSubstrateConnections bitAnd: substrateConnectionsMask.
+			self clear: aCell withOld: oldJunctionConnections. ].
 		
 	aCell junctionConnections: newJunctionConnections.
 	aCell substrateConnections: newSubstrateConnections.
