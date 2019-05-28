@@ -5,10 +5,28 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ChDSubstrateLayer >> clearJunctionIn: aCell [
+ChDSubstrateLayer >> clearJunctionIn: aCell whenDelete: deletedCell [
 
-	aCell junctionType: nil.
-	aCell junctionConnections: nil.
+	| newJunctionConnections |
+	
+	newJunctionConnections := aCell junctionConnections.
+	
+	newJunctionConnections ifNotNil: [
+		aCell topology up = deletedCell
+			ifTrue: [ newJunctionConnections := newJunctionConnections bitAnd: 2r1110 ].
+		aCell topology right = deletedCell
+			ifTrue: [ newJunctionConnections := newJunctionConnections bitAnd: 2r1101 ].
+		aCell topology down = deletedCell
+			ifTrue: [ newJunctionConnections := newJunctionConnections bitAnd: 2r1011 ].
+		aCell topology left = deletedCell
+			ifTrue: [ newJunctionConnections := newJunctionConnections bitAnd: 2r0111 ] ].
+	
+	newJunctionConnections = 0 
+		ifTrue: [ 
+			aCell junctionType: nil.
+			newJunctionConnections := nil ].
+		
+	aCell junctionConnections: newJunctionConnections.
 	
 	area updateCell: aCell mode: aCell substrateType.
 
@@ -75,7 +93,7 @@ ChDSubstrateLayer >> createJunctionRegionIn: aCell [
 ChDSubstrateLayer >> deleteAdjacentJunctionsFor: aCell [
 
 	aCell connectedCellsInSubstrate do: [ :adjacentCell |
-		self clearJunctionIn: adjacentCell ]
+		self clearJunctionIn: adjacentCell whenDelete: aCell  ]
 	
 ]
 
