@@ -180,8 +180,12 @@ ChDSubstrateLayer >> junctionFrom: adjacentCell to: aCell ofType: toType if: ifC
 				self connectionsFor: aLastCell add: lastCellConnection. 
 				self createJunctionRegionIn: aCell.]
 			ifTrue: [ 
+				| oldSubstrateConnections |
 				aCell junctionConnections: junctionConnectionIfExists.
+				"save the junction substrate connections and then return them back"
+				oldSubstrateConnections := aCell substrateConnections.
 				super setFor: aCell with: aLastCell mode: mode.
+				aCell substrateConnections: oldSubstrateConnections.
 				area updateCell: aCell mode: mode ].	
 			^ true ].		
 
