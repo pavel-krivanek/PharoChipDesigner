@@ -410,8 +410,7 @@ ChDArea >> initializeForExtent: aPoint [
 	
 	regions := IdentitySet new.
 	
-	simulation := ChDSimulation new.
-	simulation area: self.
+	self createSimulation.
 		
 	descriptions := OrderedCollection new.
 	

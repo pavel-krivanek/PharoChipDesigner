@@ -340,6 +340,16 @@ ChDSimulation >> stepping: anObject [
 ]
 
 { #category : #accessing }
+ChDSimulation >> stop [
+
+	stepping := false.
+	
+	announcer announce: (ChDSimulationRunAnnouncement new
+		simulation: self;
+		running: false)	
+]
+
+{ #category : #accessing }
 ChDSimulation >> testingVCC [
 	^ testingVCC
 ]

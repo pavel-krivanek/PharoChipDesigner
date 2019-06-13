@@ -22,7 +22,8 @@ Class {
 		'currentLevel',
 		'selectModeButton',
 		'instructions',
-		'graphics'
+		'graphics',
+		'runButton'
 	],
 	#classInstVars : [
 		'taskbarIcon'
@@ -308,8 +309,6 @@ ChipDesigner >> initializeNotebook [
 { #category : #initialization }
 ChipDesigner >> initializeToolbar [
 
-	| runButton |
-
 	self toolbar
 		addItem:
 			(ITButton new
@@ -400,11 +399,7 @@ ChipDesigner >> initializeToolbar [
 				contents: 'Ready')
 		position: ITItemPosition left.
 		
-	area simulation announcer when: ChDSimulationRunAnnouncement do: [ :announcement |
-
-		runButton badge: (announcement running
-			ifTrue: [	 ' ' ]
-			ifFalse: [ nil ]) ].
+	self subscribeRunButton.
 ]
 
 { #category : #initialization }
@@ -535,8 +530,10 @@ ChipDesigner >> paste [
 { #category : #initialization }
 ChipDesigner >> refreshEditor [
 
+	self subscribeRunButton.
+	
 	areaMorph resetExtent.
-	areaMorph changed
+	areaMorph changed.
 ]
 
 { #category : #initialization }
@@ -598,6 +595,20 @@ ChipDesigner >> simulationStep: n [
 ]
 
 { #category : #initialization }
+ChipDesigner >> subscribeRunButton [
+	area simulation announcer
+		when: ChDSimulationRunAnnouncement
+		do: [ :announcement | 
+			runButton
+				badge:
+					(announcement running
+						ifTrue: [ ' ' ]
+						ifFalse: [ nil ]).
+			"an ugly hack to properly refresh the badge"
+			self toolbar adapter changed ]
+]
+
+{ #category : #initialization }
 ChipDesigner >> title [
 	
 	^ 'Pharo Chip Designer'.
@@ -607,35 +618,6 @@ ChipDesigner >> title [
 ChipDesigner >> toggleRun [
 
 	areaMorph toggleRun
-]
-
-{ #category : #initialization }
-ChipDesigner >> toolbar2 [
-	| aMenu |
-	aMenu := self newMenuBar
-		addGroup: [ :group | 
-			group
-				addItem: [ :item | 
-					item
-						name: nil;
-						description: 'Inspect area';
-						icon: (self iconNamed: #glamorousInspect);
-						action: [ area inspect ] ].
-			group
-				addItem: [ :item | 
-					item
-						name: nil;
-						description: 'Type';
-						icon: (self iconNamed: #testNotRun);
-						action: [  ] ].
-			group
-				addItem: [ :item | 
-					editModeButton := item
-						name: nil;
-						description: 'Mode';
-						icon: (self editModeIcon);
-						action: [  ] ] ].
-	^ aMenu
 ]
 
 { #category : #initialization }
