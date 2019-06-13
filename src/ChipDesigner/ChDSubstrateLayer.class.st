@@ -170,6 +170,9 @@ ChDSubstrateLayer >> isSubstrate [
 ChDSubstrateLayer >> junctionFrom: adjacentCell to: aCell ofType: toType if: ifConnections andLastIs: aLastCell thenDefineJunction: junctionConnections orIfExists: junctionConnectionIfExists addConnection: lastCellConnection mode: mode [
 
 	| junctionType |
+	
+	aCell hasVia ifTrue: [ ^ false ].
+	
 	junctionType := (toType = #p) ifTrue: [ #npn ] ifFalse: [ #pnp ].
 
 	(self direction: adjacentCell of: aCell last: aLastCell toType: toType connections: ifConnections)
