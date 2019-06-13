@@ -124,10 +124,10 @@ ChDPlayground100x100 >> initializeSimulation [
 
 		"set Vcc after inputs so they can  overwrite them"
 		aSimulation time > 0 ifTrue: [ 
-			(area atX: 3 y: 3) metalRegion hasVcc: true.
-			(area atX: 3 y: 40) metalRegion hasVcc: true.
-			(area atX: 98 y: 3) metalRegion hasVcc: true.
-			(area atX: 98 y: 40) metalRegion hasVcc: true. ]
+			(area atX: 3 y: 3) withMetalRegionDo: [ :region | region hasVcc: true ].
+			(area atX: 3 y: 40) withMetalRegionDo: [ :region | region  hasVcc: true ].
+			(area atX: 98 y: 3) withMetalRegionDo: [ :region | region  hasVcc: true ].
+			(area atX: 98 y: 40) withMetalRegionDo: [ :region | region  hasVcc: true ] ]
 	].
 	
 ]

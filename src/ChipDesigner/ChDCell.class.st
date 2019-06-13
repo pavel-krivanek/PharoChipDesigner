@@ -562,6 +562,14 @@ ChDCell >> withAdjacentCells [
 ]
 
 { #category : #accessing }
+ChDCell >> withMetalRegionDo: aBlock [
+
+	metalRegion ifNil: [ ^ self ].
+	
+	aBlock cull: metalRegion.
+]
+
+{ #category : #accessing }
 ChDCell >> x [
 	^ x
 ]

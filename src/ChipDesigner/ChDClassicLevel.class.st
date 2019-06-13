@@ -119,10 +119,10 @@ ChDClassicLevel >> initializeSimulation [
 
 		"set Vcc after inputs so they can  overwrite them"
 		aSimulation time > 0 ifTrue: [ 
-			(area atX: 3 y: 3) metalRegion hasVcc: true.
-			(area atX: 3 y: 24) metalRegion hasVcc: true.
-			(area atX: 42 y: 3) metalRegion hasVcc: true.
-			(area atX: 42 y: 24) metalRegion hasVcc: true. ]
+			(area atX: 3 y: 3) withMetalRegionDo: [ :region | region hasVcc: true ].
+			(area atX: 3 y: 24) withMetalRegionDo: [ :region | region hasVcc: true ].
+			(area atX: 42 y: 3) withMetalRegionDo: [ :region | region hasVcc: true ].
+			(area atX: 42 y: 24) withMetalRegionDo: [ :region | region hasVcc: true ]. ]
 	].
 	
 ]

@@ -172,7 +172,7 @@ ChipDesigner >> export [
 	
 	aString := area zipString.
 	
-	dialog := SpecVersatileDialogPresenter new.
+	dialog := ChDDialog new.
 	dialog title: 'Export area'.
 	textPresenter := dialog newText.
 	textPresenter text: aString.
@@ -197,9 +197,9 @@ ChipDesigner >> import [
 
 	| dialog textPresenter |
 		
-	dialog := SpecVersatileDialogPresenter new.
-	dialog title: 'Import area'.
+	dialog := ChDDialog new.
 	textPresenter := dialog newText.
+	dialog title: 'Import Area'.
 	textPresenter autoAccept: true.
 	dialog contentArea: textPresenter.
 	dialog addButton: #ok text: 'OK' value: true.
