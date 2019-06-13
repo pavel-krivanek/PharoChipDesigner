@@ -197,6 +197,10 @@ ChDSequence >> region: aRegion [
 
 	region := aRegion.
 	
+	region ifNil: [ 
+		"there is not an active region to track"
+		^ self ].
+	
 	region area simulation announcer when: ChDSimulationStepAnnouncement do: [ :announcement |
 		currentTime := announcement time. 
 		(currentTime > 0 and: [self storesOutput]) ifTrue: [ 
@@ -208,6 +212,8 @@ ChDSequence >> region: aRegion [
 ChDSequence >> resetRegion [
 
 	| aCell newRegion |
+	
+	region ifNil: [ ^ self ].
 	
 	aCell := region area atX: position x y: position y.
 	newRegion := (region layer isMetal
@@ -271,5 +277,6 @@ ChDSequence >> type: anObject [
 { #category : #accessing }
 ChDSequence >> updateRegionAt: time [
 
+	region ifNil: [ ^ self ].
 	region hasVcc: (sequenceArray at: time).
 ]

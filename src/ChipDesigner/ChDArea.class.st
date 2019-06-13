@@ -146,6 +146,12 @@ ChDArea >> createSimulation [
 	simulation area: self.
 ]
 
+{ #category : #'cell access' }
+ChDArea >> cropRectangle: aRectangle [
+
+	^ Rectangle origin: ((1 max: aRectangle topLeft x) @ (1 max: aRectangle topLeft y)) corner: ((self width min: aRectangle bottomRight x) @ (self height min: aRectangle bottomRight y))	
+]
+
 { #category : #initialization }
 ChDArea >> decodeFrom: aString [
 
@@ -230,9 +236,11 @@ ChDArea >> decodedFromZipString: aString at: aPoint [
 { #category : #'cell access' }
 ChDArea >> deleteRectangle: aRectangle [
 
-	| cellsToDelete |
+	| cellsToDelete crooppedRectangle |
 	
-	cellsToDelete := self cellsIn: aRectangle.
+	crooppedRectangle := self cropRectangle: aRectangle.
+	
+	cellsToDelete := self cellsIn: crooppedRectangle.
 	
 	cellsToDelete do: [ :aCell |
 		self metalLayer fullClear: aCell.
@@ -282,19 +290,29 @@ ChDArea >> disconnect: aRectangle [
 { #category : #'cell access' }
 ChDArea >> disconnectBorder: aRectangle [
 	
-	| aCell |
+	| aCell croppedRectangle |
 	
-	aRectangle left to: aRectangle right do: [ :x |
-		aCell := self atX: x y: aRectangle top-1.
+	croppedRectangle := self cropRectangle: aRectangle.
+	
+	croppedRectangle left to: croppedRectangle right do: [ :x |
+		aCell := self atX: x y: croppedRectangle top-1.
 		aCell disconnect: 2r0100.
-		aCell := self atX: x y: aRectangle bottom+1.
-		aCell disconnect: 2r0001. ].
+		aCell := self atX: x y: croppedRectangle top.
+		aCell disconnect: 2r0001.
+		aCell := self atX: x y: croppedRectangle bottom+1.
+		aCell disconnect: 2r0001.
+		aCell := self atX: x y: croppedRectangle bottom.
+		aCell disconnect: 2r0100. ].
 
-	aRectangle top to: aRectangle bottom do: [ :y |
-		aCell := self atX: aRectangle left-1 y: y.
+	croppedRectangle top to: croppedRectangle bottom do: [ :y |
+		aCell := self atX: croppedRectangle left-1 y: y.
 		aCell disconnect: 2r0010.
-		aCell := self atX: aRectangle right+1 y: y.
-		aCell disconnect: 2r1000. ].	
+		aCell := self atX: croppedRectangle left y: y.
+		aCell disconnect: 2r1000.
+		aCell := self atX: croppedRectangle right+1 y: y.
+		aCell disconnect: 2r1000.
+		aCell := self atX: croppedRectangle right y: y.
+		aCell disconnect: 2r0010. ].	
 ]
 
 { #category : #'cell access' }
@@ -334,6 +352,12 @@ ChDArea >> encodedRectangle: aRectangle [
 					ifFalse: [ emptyCells := emptyCells + 1 ] ] ].
 		emptyCells > 0 ifTrue: [ 
 			s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16) ] ]
+]
+
+{ #category : #'cell access' }
+ChDArea >> extent [ 
+
+	^ self width @ self height
 ]
 
 { #category : #'cell access' }

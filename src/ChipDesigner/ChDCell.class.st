@@ -173,6 +173,16 @@ ChDCell >> disconnect: aMask [
 	
 	self substrateConnections ifNotNil: [ 
 		self substrateConnections: (self safeSubstrateConnections bitAnd: aMask bitInvert32) ].
+	
+	(self substrateRegion notNil and: [self substrateRegion isJunction]) ifTrue: [ 
+		| adjacentCell |
+		adjacentCell := nil.
+		aMask = 2r0001 ifTrue: [ adjacentCell := self topology up ].
+		aMask = 2r0010 ifTrue: [ adjacentCell := self topology right ].
+		aMask = 2r0100 ifTrue: [ adjacentCell := self topology down ].
+		aMask = 2r1000 ifTrue: [ adjacentCell := self topology left ].
+		adjacentCell ifNotNil: [ 
+			self substrateRegion layer clearJunctionIn: self whenDelete: adjacentCell ]]
 
 	
 ]
