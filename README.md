@@ -115,6 +115,24 @@ If you are feeling lazy, you can make a cheap-n-dirty OR gate by letting all inp
 
 This is okay if the inputs aren't being used for any other purpose aside from being fed into this OR gate. When you do this, the current will go BACK into the sources and muck with things if you're using the input signals as inputs anywhere else, so use this design with caution.
 
+FAQ
+---------
+
+**Question:** Does the way how the chip layout is don in the Pharo Chip Designer correspond to the real-life chip design?
+
+**Super-short answer:** 
+No
+
+**Short answer:** 
+No, it is just an educational game. The real-life chip design is several orders of magnitude more complicated. But the simplifications make it more fun while you still can learn the basic principles and face to some practical problems that many logical simulators do not take into account.
+
+**Very long answer:**
+The voltage is the difference in electric potential between two points. It is crucial to keep in mind that you need two points to measure voltage. If you look at the resistors in series, you will measure potential differences depending on positions of the measuring points. In the electric circuits, you usually use a voltage source like a battery, so the potential difference of its two outputs is the most interesting voltage value for you. Because the voltage needs two points to be measured, some circuit simulators like LTspice forces you to define in the circuit a referencing point, the ground (⏚), although the circuit itself has no real ground connection and is powered only from a battery. I mention this because the relation between the ground and battery outputs may be confusing for novices.
+
+An interesting situation occurs when you have an open circuit - like a circuit with a switch in the off state. It may be seen as a circuit where there is a resistor with an infinite resistance or in practice, with a very big value. Then, between the two points, there will be the same potential difference as the voltage source has, independently on the other resistor values (if they are not huge too). Why? If you look at the resistors in series, the voltage divider, the voltage drop of the resistor is directly proportional to its resistance. If you increase the resistance of one of the resistors, the others become proportionally less important. If the resistance value is enormous as in case of open circuit, the voltage drop is practically equal to the potential of the voltage source.
+
+
+
 Solutions
 ---------
 
