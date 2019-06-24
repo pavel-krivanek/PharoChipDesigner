@@ -131,7 +131,7 @@ The voltage is the difference in electric potential between two points. It is cr
 
 An interesting situation occurs when you have an open circuit - like a circuit with a switch in the off state. It may be seen as a circuit where there is a resistor with an infinite resistance or in practice, with a very big value. Then, between the two points, there will be the same potential difference as the voltage source has, independently on the other resistor values (if they are not huge too). Why? If you look at the resistors in series, the voltage divider, the voltage drop of the resistor is directly proportional to its resistance. If you increase the resistance of one of the resistors, the others become proportionally less important. If the resistance value is enormous as in case of open circuit, the voltage drop is practically equal to the potential of the voltage source.
 
-
+![openCircuit.gif](graphics/openCircuit.gif)
 
 Solutions
 ---------
