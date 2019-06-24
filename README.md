@@ -133,6 +133,36 @@ An interesting situation occurs when you have an open circuit - like a circuit w
 
 ![openCircuit.gif](introduction/openCircuit.gif)
 
+In the digital circuits, we interpret one voltage value as logical 1 and another voltage value as logical 0. For example, it may be 5V and 0V (in reality, some range is accepted, like 0V-0.5V). If you put voltage measuring point before the switch in an open circuit, you will find voltage 5V there - "the logical high". If you turn on the switch, you will close the circuit and produce a short circuit because, in the circuit, we have nothing more than a battery and the switch. The current will not need to overcome almost any resistance so it will grow to significant values and depending on the properties of your current source, it may destroy the circuit components. 
+
+![shortCircuit.gif](introduction/shortCircuit.gif)
+
+For this reason, we need to add some resistor to limit the current. We will add it before the switch itself. Now, when we turn on the switch, we will connect the area before the switch with the ground so the voltage there will immediately drop to zero. 
+
+![switch.gif](introduction/switch.gif)
+
+You may ask why we do not put the resistor behind the switch or why we do not measure the voltage before resistor. It is because, in the closed state, every additional resistor close to ground increases the voltage on the switch while we want to keep it as close to zero as possible.
+
+Transistors are electronic components that behave like such switch (in digital circuits). The main difference is that we do do not control it by hand but by another voltage. The transistor has three pins. The one that controls its state is named "base".  When there is no voltage on the base pin, the transistor stays in the closed state that corresponds to the switch that is turned off. When we bring a voltage on the base of the transistor, it will start to behave as a switch in "on" state - it will close the circuit. (For hairsplitters, what I wrote in this paragraph is a simplification and only partially true). 
+
+![rtl.gif](introduction/rtl.gif)
+
+There is a lot of ways how the logical circuits may be constructed and the most basic ones we name "logical families". The RTL logical family works precisely this way. As you may see, the voltage that we get is opposite to the voltage on base. The transistor behaves as an inverter of it.
+
+Before the era of integrated circuits when transistors were expensive, the RTL family was very popular. But it has many drawbacks. It is characterized by poor noise margin, poor fan-out capability (only a low amount of other elements can be connected to the logical output), low speed and high power. Other logical families replaced it. Very popular was (and still is) the TTL logical family that added other transistors to improve the circuit characteristics.
+
+![ttl1.png](introduction/ttl1.png)
+
+The way how the new transistor is connected may seem strange because we use one transistor input as an output. In fact, in this circuit, this transistor behaves more or less like two diodes. 
+
+![ttl2.png](introduction/ttl2.png)
+
+In reality, even this connection has some drawbacks so, in practice, another even more complicated one is used. 
+
+![inverter-diagram.png](introduction/inverter-diagram.png)
+
+In this picture, you may see the real chip layout of such inverter. Compare it with the inverter constructed in the PharoChipDesigner. 
+
 Solutions
 ---------
 
