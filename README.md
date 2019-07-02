@@ -184,7 +184,7 @@ It has a slightly different internal structure (it is in the depletion mode), an
 The CMOS technology uses PMOS transistors on the place of the pull-up transistors which brings some other technical advantages and new problems. 
 
 
-!Static_CMOS_Inverter.png](introduction/Static_CMOS_Inverter.png)
+![Static_CMOS_Inverter.png](introduction/Static_CMOS_Inverter.png)
 
 ![CMOS-Vs-NMOS.jpg](introduction/CMOS-Vs-NMOS.jpg)
 
