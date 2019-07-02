@@ -163,6 +163,18 @@ In reality, even this connection has some drawbacks so, in practice, another eve
 
 In this picture, you may see the real chip layout of such inverter. Compare it with the inverter constructed in the PharoChipDesigner. 
 
+As you see, it looks much more complicated. However, we need to take one fact into account. The chip layout design above is based on the TTL logic family. I mentioned it fist because the Pharo Chip Designer follows the original kohctpyktop naming and uses "V<sub>CC</sub>" for the power-supply pins. This is used for integrated circuits based on bipolar junction transistors. The NMOS, PMOS and CMOS families use by default the name "V<sub>DD</sub>". The original game is chronologically based at the beginning of the '90s. The integrated circuit designs based on TTL logic were already not so common in that time and the name "V<sub>CC</sub>" is very often used in datasheets of components based on CMOS too so we should not take it too seriously.
+
+So, let's take a step back and let's look at it in the context of MOSFET based integrated circuits. From the chip layout design perspective, they look simpler than TTL and are closer to the Pharo Chip Designer experience.
+
+The bipolar junction transistors used in RTL and TTL families have a visible three-dimensional structure. The emitter is surrounded by the base that is surrounded by the collector. You can see in the picture above how such structure looks in the microscope from the top view. FET use different physical mechanisms for switching. The gate (that has a similar purpose as the base in BJT) creates an electric field under itself that forces electrons to move to a bigger distance and they open a conductive channel between the two other transistor ports. The size of this channel depends on the voltage level on the gate.  
+
+The basic functionality of the transistor is still the same. You need a limiting resistor and measure voltage "above" it. In the NMOS circuits that were dominant in times when processors like 6502 or Z80 were created, often uses another transistor on the place of the resistor. This transistor is named "pull-up transistor". It has a slightly different internal structure (it is in the depletion mode), and it has the opposite behaviour. The bigger voltage on the gate causes greater resistance. Unfortunately, under the microscope they look the same as standard ( enhancement mode) transistors so to identify them during reverse engineering of the chip layouts is not always straightforward. 
+
+The CMOS technology uses PMOS transistors on the place of the pull-up transistors which brings some other technical advantages and new problems. 
+
+If you omit these pull-up transistors, the Pharo Chip Designer is not so far from the design of old NMOS integrated circuits. But it has it should be seen as a unique logic family created for educational purposes with own properties and design principles.
+
 Solutions
 ---------
 
