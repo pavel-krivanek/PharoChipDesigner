@@ -188,7 +188,7 @@ The CMOS technology uses PMOS transistors on the place of the pull-up transistor
 
 ![CMOS-Vs-NMOS.jpg](introduction/CMOS-Vs-NMOS.jpg)
 
-If you omit these pull-up transistors, the Pharo Chip Designer is not so far from the design of old NMOS integrated circuits. But it has it should be seen as a unique logic family created for educational purposes with own properties and design principles.
+If you omit these pull-up transistors, the Pharo Chip Designer is not so far from the design of old NMOS integrated circuits. But it should be seen as a unique logic family created for educational purposes with own properties and design principles.
 
 Solutions
 ---------
