@@ -167,14 +167,14 @@ As you see, it looks much more complicated. However, we need to take one fact in
 
 So, let's take a step back and let's look at it in the context of MOSFET based integrated circuits. From the chip layout design perspective, they look simpler than TTL and are closer to the Pharo Chip Designer experience.
 
-![bjt-mosfet.jpg](introduction/bjt-mosfet.jpg.png)
+![bjt-mosfet.jpg](introduction/bjt-mosfet.jpg)
 
 The bipolar junction transistors used in RTL and TTL families have a visible three-dimensional structure. The emitter is surrounded by the base that is surrounded by the collector. You can see in the picture above how such structure looks in the microscope from the top view. FET use different physical mechanisms for switching. The gate (that has a similar purpose as the base in BJT) creates an electric field under itself that forces electrons to move to a bigger distance and they open a conductive channel between the two other transistor ports. The size of this channel depends on the voltage level on the gate.  
 
 The basic functionality of the transistor is still the same. You need a limiting resistor and measure voltage "above" it. In the NMOS circuits that were dominant in times when processors like 6502 or Z80 were created, often uses another transistor on the place of the resistor. This transistor is named "pull-up transistor". 
 
-!nmos1.png](introduction/nmos1.png.png)
-![nmos2.png](introduction/nmos2.png.png)
+![nmos1.png](introduction/nmos1.png)
+![nmos2.png](introduction/nmos2.png)
 
 It has a slightly different internal structure (it is in the depletion mode), and it has the opposite behaviour. The bigger voltage on the gate causes greater resistance. Unfortunately, under the microscope they look the same as standard ( enhancement mode) transistors so to identify them during reverse engineering of the chip layouts is not always straightforward. 
 
