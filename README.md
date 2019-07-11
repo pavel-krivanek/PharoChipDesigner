@@ -118,7 +118,7 @@ This is okay if the inputs aren't being used for any other purpose aside from be
 FAQ
 ---------
 
-**Question:** Does the way how the chip layout is don in the Pharo Chip Designer correspond to the real-life chip design?
+**Question:** Does the way how the chip layout is done in the Pharo Chip Designer correspond to the real-life chip design?
 
 **Super-short answer:** 
 No
