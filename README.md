@@ -190,6 +190,27 @@ The CMOS technology uses PMOS transistors on the place of the pull-up transistor
 
 If you omit these pull-up transistors, the Pharo Chip Designer is not so far from the design of old NMOS integrated circuits. But it should be seen as a unique logic family created for educational purposes with own properties and design principles.
 
+**Question:** Can any digital circuit be constructed in the Pharo Chip Designer
+
+**Answer:** Yes, if you omit the size limitations.
+
+The Pharo Chip Designer has two main components, PNP junction and PNP junction. They do not really correspond to the behavior of real transistors. PNP behaves as AND gate while NPN junction is used mostly in the role of an inverter. The combination of AND and inverter can produce NAND gate that has functional completeness so any other logical function can be constructed using it. The other well known-function of this type is NOR.
+
+But the NPN junction is not an inverter, in fact, it is `(A & ~B)`. The junction operates as an inverter of B only if the VCC (A) is connected. This function is a universal gate too so the AND gate can be constructed using it
+
+![andEq1.png](introduction/andEq1.png)
+
+However, because of the propagation delay, this circuit has worse timing characteristic.
+
+![andEq1.png](introduction/andEq2.png)
+
+SRAM cell
+---------
+
+![sramCell.png](introduction/sramCell.png)
+
+![sramCell2.png](introduction/sramCell2.png)
+
 Solutions
 ---------
 
