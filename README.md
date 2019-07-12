@@ -176,7 +176,7 @@ The basic functionality of the transistor is still the same. You need a limiting
 ![nmos1.png](introduction/nmos1.png)
 ![nmos2.png](introduction/nmos2.png)
 
-It has a slightly different internal structure (it is in the depletion mode), and it has the opposite behaviour. The bigger voltage on the gate causes greater resistance. Unfortunately, under the microscope they look the same as standard ( enhancement mode) transistors so to identify them during reverse engineering of the chip layouts is not always straightforward. 
+It has a slightly different internal structure (it is in the depletion mode), and it has the opposite behaviour. The bigger voltage on the gate causes greater resistance. Unfortunately, under the microscope they look the same as standard (enhancement mode) transistors so to identify them during reverse engineering of the chip layouts is not always straightforward. 
 
 ![Vis_inverter.png](introduction/Vis_inverter.png)
 
