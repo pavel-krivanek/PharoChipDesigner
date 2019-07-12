@@ -143,7 +143,7 @@ For this reason, we need to add some resistor to limit the current. We will add 
 
 You may ask why we do not put the resistor behind the switch or why we do not measure the voltage before resistor. It is because, in the closed state, every additional resistor close to ground increases the voltage on the switch while we want to keep it as close to zero as possible.
 
-Transistors are electronic components that behave like such switch (in digital circuits). The main difference is that we do do not control it by hand but by another voltage. The transistor has three pins. The one that controls its state is named "base".  When there is no voltage on the base pin, the transistor stays in the closed state that corresponds to the switch that is turned off. When we bring a voltage on the base of the transistor, it will start to behave as a switch in "on" state - it will close the circuit. (For hairsplitters, what I wrote in this paragraph is a simplification and only partially true). 
+Transistors are electronic components that behave like such switch (in digital circuits). The main difference is that we do not control it by hand but by another voltage. The transistor has three pins. The one that controls its state is named "base".  When there is no voltage on the base pin, the transistor stays in the closed state that corresponds to the switch that is turned off. When we bring a voltage on the base of the transistor, it will start to behave as a switch in "on" state - it will close the circuit. (For hairsplitters, what I wrote in this paragraph is a simplification and only partially true). 
 
 ![rtl.gif](introduction/rtl.gif)
 
