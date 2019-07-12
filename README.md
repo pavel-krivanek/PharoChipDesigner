@@ -2,7 +2,7 @@
 > **Status:** Playable but bugs are still very common
 >
 
-# PharoChipDesigner
+# Pharo Chip Designer
 A little chip design game inspired by Engineer of the People (kohctpyktop) by Zachtronics
 
 ![PharoChipDesigner.gif](graphics/PharoChipDesigner.gif)
@@ -98,7 +98,7 @@ NOT Gate
 
 ![kohctpyktopnot.png](introduction/kohctpyktopnot.png)
 
-The same way an NPN gate is just an AND gate, a PNP gate is just a NOT gate. The P silicon carries current from a constant current source (which +VCC provides in the corners of the board). When current from the input is present in the N crossing, then the P silicon will no longer carry a current.
+The same way an NPN gate is just an AND gate, a PNP gate is just a NOT gate. The P silicon carries current from a constant current source (which +V<sub>CC</sub> provides in the corners of the board). When current from the input is present in the N crossing, then the P silicon will no longer carry a current.
 
 OR Gate
 -------\
@@ -161,9 +161,9 @@ In reality, even this connection has some drawbacks so, in practice, another eve
 
 ![inverter-diagram.png](introduction/inverter-diagram.png)
 
-In this picture, you may see the real chip layout of such inverter. Compare it with the inverter constructed in the PharoChipDesigner. 
+In this picture, you may see the real chip layout of such inverter. Compare it with the inverter constructed in the Pharo Chip Designer. 
 
-As you see, it looks much more complicated. However, we need to take one fact into account. The chip layout design above is based on the TTL logic family. I mentioned it first because the Pharo Chip Designer follows the original kohctpyktop naming and uses "V<sub>CC</sub>" for the power-supply pins. This is used for integrated circuits based on bipolar junction transistors. The NMOS, PMOS and CMOS families use by default the name "V<sub>DD</sub>". The original game is chronologically based at the beginning of the '90s. The integrated circuit designs based on TTL logic were already not so common in that time and the name "V<sub>CC</sub>" is very often used in datasheets of components based on CMOS too so we should not take it too seriously.
+As you see, it looks much more complicated. However, we need to take one fact into account. The chip layout design above is based on the TTL logic family that is usually quite complicated. I mentioned it first because the Pharo Chip Designer follows the original kohctpyktop naming and uses "V<sub>CC</sub>" for the power-supply pins. This is used for integrated circuits based on bipolar junction transistors. The NMOS, PMOS and CMOS families use by default the name "V<sub>DD</sub>". The original game is chronologically placed at the beginning of the '90s. The integrated circuit designs based on TTL logic were already not so common in that time and the name "V<sub>CC</sub>" is very often used in datasheets of components based on CMOS too so we should not take it too seriously.
 
 So, let's take a step back and let's look at it in the context of MOSFET based integrated circuits. From the chip layout design perspective, they look simpler than TTL and are closer to the Pharo Chip Designer experience.
 
@@ -196,7 +196,7 @@ If you omit these pull-up transistors, the Pharo Chip Designer is not so far fro
 
 The Pharo Chip Designer has two main components, PNP junction and PNP junction. They do not really correspond to the behavior of real transistors. PNP behaves as AND gate while NPN junction is used mostly in the role of an inverter. The combination of AND and inverter can produce NAND gate that has functional completeness so any other logical function can be constructed using it. The other well known-function of this type is NOR.
 
-But the NPN junction is not an inverter, in fact, it is `(A & ~B)`. The junction operates as an inverter of B only if the VCC (A) is connected. This function is a universal gate too so the AND gate can be constructed using it
+But the NPN junction is not an inverter, in fact, it is `(A & ~B)`. The junction operates as an inverter of B only if the V<sub>CC</sub> (A) is connected. This function is a universal gate too so the AND gate can be constructed using it
 
 ![andEq1.png](introduction/andEq1.png)
 
