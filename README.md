@@ -1,5 +1,5 @@
 # Pharo Chip Designer
-A little chip design game inspired by Engineer of the People (Kohctpyktop) by Zachtronics
+A little chip design game inspired by (KOHCTPYKTOP: Engineer of the People)[http://www.zachtronics.com/kohctpyktop-engineer-of-the-people/] by Zachtronics
 
 ![PharoChipDesigner.gif](graphics/PharoChipDesigner.gif)
 
