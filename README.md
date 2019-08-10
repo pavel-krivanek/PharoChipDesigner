@@ -18,6 +18,8 @@ Metacello new
   load.
 ```
 
+In the Pharo welcome window, you can select the prefered theme (light or dark).
+
 ## Controls
 
 |  | Normal mode |
@@ -41,17 +43,12 @@ Metacello new
 ## Introduction
 
 >
-> The following text is a modified copy of an article describing the original game that was published on [https://nerdparadise.com/](https://nerdparadise.com) where it is no longer accessible. I'm not the original author of it. It can be visited on [archive.org](https://web.archive.org/web/20160404141949/http://nerdparadise.com/tech/electronics/circuits/kohctpyktop/)
->
-> It is a great introduction to the concepts of the game. It mixes terms voltage and current.
+> The following text is a modified vesion of an article describing the original game that was published on [https://nerdparadise.com/](https://nerdparadise.com) where it is no longer accessible. It can be visited on [archive.org](https://web.archive.org/web/20160404141949/http://nerdparadise.com/tech/electronics/circuits/kohctpyktop/)
 >
 
-When you start the game you are given a handful of circuit specifications and are expected to create them on the surface provided. You have metal inputs on the left and metal receivers for outputs on the right. On the top, you have a little toolbar where you can select metal, silicon (P and N type) and connectors and lay it down on the board.
+When you start the program, you are given a handful of circuit specifications and are expected to create them on the surface provided. You have metal inputs (pads) on the left and metal receivers for outputs on the right. On the top, you have a little toolbar where you can select the input mode of the elements that you can then place the board (substrate).
 
-Intimidating, yes.
-
-On the scope tab below, you can run some predefined tests to determine if your circuit works. It will run current from the inputs and check the outputs for accuracy based on the specs.\
-![kohctpyktopbasics4.png](introduction/kohctpyktopbasics4.png)
+In the tabs below, you can choose between the specification of the circuit and scopes you can run some tests to determine if your circuit works.\
 
 So back to laying down metal and silicon...\
 ![kohctpyktopbasics1.png](introduction/kohctpyktopbasics1.png)\
