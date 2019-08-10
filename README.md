@@ -1,5 +1,7 @@
 # Pharo Chip Designer
-A little chip design game inspired by [KOHCTPYKTOP: Engineer of the People](http://www.zachtronics.com/kohctpyktop-engineer-of-the-people/) by Zachtronics
+A little chip design game inspired by [KOHCTPYKTOP: Engineer of the People](http://www.zachtronics.com/kohctpyktop-engineer-of-the-people/) by Zachtronics.
+
+It is an inaccurate and highly simplified tool for the design of silicon chip layouts. Unlike common educational tools for logic circuits designs, in Pharo Chip Designer, you need to face the real-life problems like propagation delays or limited amount of layers and available substrate area.
 
 ![PharoChipDesigner.gif](graphics/PharoChipDesigner.gif)
 
