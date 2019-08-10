@@ -48,17 +48,17 @@ In the Pharo welcome window, you can select the prefered theme (light or dark).
 
 When you start the program, you are given a handful of circuit specifications and are expected to create them on the surface provided. You have metal inputs (pads) on the left and metal receivers for outputs on the right. On the top, you have a little toolbar where you can select the input mode of the elements that you can then place the board (substrate).
 
-In the tabs below, you can choose between the specification of the circuit and scopes you can run some tests to determine if your circuit works.\
+In the tabs below, you can choose between the specification of the circuit and scopes you can run some tests to determine if your circuit works.
 
-So back to laying down metal and silicon...\
-![kohctpyktopbasics1.png](introduction/kohctpyktopbasics1.png)\
+So back to laying down metal and silicon...
+![kohctpyktopbasics1.png](introduction/kohctpyktopbasics1.png)
 
 All these materials are capable of carrying current, but only metal can connect to the inputs or outputs...\
 ![kohctpyktopbasics2.png](introduction/kohctpyktopbasics2.png)
 
 Metal and silicon can pass over each other on the board without the currents from each interferring unless you add a connector (the little circle thing, 3rd in your toolbox). However, when you try to cross two different colors of silicon, you get something like this...
 
-![kohctpyktopbasics3.png](introduction/kohctpyktopbasics3.png)\
+![kohctpyktopbasics3.png](introduction/kohctpyktopbasics3.png)
 This is a gate.
 
 There are two sorts of gates...
