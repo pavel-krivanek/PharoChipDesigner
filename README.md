@@ -1,15 +1,15 @@
->
-> **Status:** Playable but bugs are still very common
->
-
 # Pharo Chip Designer
-A little chip design game inspired by Engineer of the People (kohctpyktop) by Zachtronics
+A little chip design game inspired by Engineer of the People (Kohctpyktop) by Zachtronics
 
 ![PharoChipDesigner.gif](graphics/PharoChipDesigner.gif)
 
 ## How to load
 
-Supported Pharo versions: 8.0
+The Pharo Chip Designer runs withing Pharo 8.0 environment. Currently, it is not provided as a standalone application because the main purpose of it is not to imitate the original game but to provide a base for own experiments where you want to have full control over the input and output signals. Pharo provides an interactive environment for it. So you first should install Pharo Launcher, then prepare a Pharo 8.0 image and load the Chip Designer into it.
+
+1) Install Pharo Launcher from http://pharo.org/download)
+2) Create a new image from the template named "Pharo 8.0 - 64bit" (32bit can be used too. Pharo 8.0 is currently the development version, but it has many improvements in the UI building that are used in the Chip Designer)
+3) Run the image, open Playground (Tools - Playground), place the following code there, select it and from the context menu choose "Do it"
 
 ```smalltalk
 Metacello new
