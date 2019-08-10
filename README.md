@@ -52,7 +52,6 @@ In the tabs below, you can choose between the specification of the circuit and s
 
 So back to laying down metal and silicon...\
 ![kohctpyktopbasics1.png](introduction/kohctpyktopbasics1.png)\
-N silicon, P silicon, and metal, respectively.
 
 All these materials are capable of carrying current, but only metal can connect to the inputs or outputs...\
 ![kohctpyktopbasics2.png](introduction/kohctpyktopbasics2.png)
