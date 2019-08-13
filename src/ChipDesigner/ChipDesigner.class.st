@@ -1,6 +1,6 @@
 Class {
 	#name : #ChipDesigner,
-	#superclass : #ITBasicPresenter,
+	#superclass : #SpPresenter,
 	#instVars : [
 		'list',
 		'editor',
@@ -23,7 +23,9 @@ Class {
 		'selectModeButton',
 		'instructions',
 		'graphics',
-		'runButton'
+		'runButton',
+		'statusBar',
+		'toolbar'
 	],
 	#classInstVars : [
 		'taskbarIcon'
@@ -307,98 +309,99 @@ ChipDesigner >> initializeNotebook [
 ]
 
 { #category : #initialization }
+ChipDesigner >> initializeStatusBar [
+
+	statusBar := self instantiate: SpStatusBarPresenter.	
+	statusBar pushMessage: 'Ready'.
+]
+
+{ #category : #initialization }
 ChipDesigner >> initializeToolbar [
 
-	self toolbar
+	toolbar := self newToolBar
 		addItem:
-			(ITButton new
+			(SpToolBarButton new
 				label: 'Export';
 				icon: (self iconNamed: #smallSave);
 				help: 'Export area to a string';
 				action: [ self export ];
 				yourself)
-			position: ITItemPosition left;
+			position: SpToolBarItemPosition left;
 		addItem:
-			(ITButton new
+			(SpToolBarButton new
 				label: 'Import';
 				icon: (self iconNamed: #smallLoadProject);
 				help: 'Import area from a string';
 				action: [ self import ];
 				yourself)
-			position: ITItemPosition left;
+			position: SpToolBarItemPosition left;
 
 		addItem:
-			(ITButton new
+			(SpToolBarButton new
 				label: 'Step';
 				icon: (self iconNamed: #glamorousPlay);
 				help: 'Single simulation step';
 				action: [ self simulationStep: 1 ];
 				yourself)
-			position: ITItemPosition left;
+			position: SpToolBarItemPosition left;
 		addItem:
-			(ITButton new
+			(SpToolBarButton new
 				label: '5x';
 				icon: (self iconNamed: #glamorousPlay);
 				help: '5 simulation steps';
 				action: [ self simulationStep: 5 ];
 				yourself)
-			position: ITItemPosition left;
+			position: SpToolBarItemPosition left;
 		addItem:
-			(ITButton new
+			(SpToolBarButton new
 				label: '10x';
 				icon: (self iconNamed: #glamorousPlay);
 				help: 'Ten simulation steps';
 				action: [ self simulationStep: 10 ];
 				yourself)
-			position: ITItemPosition left;
+			position: SpToolBarItemPosition left;
 		addItem:
-			(runButton := ITButton new
+			(runButton := SpToolBarButton new
 						label: 'Run';
 						icon: (self iconNamed: #smallDoIt);
 						help: 'Run / stop simulation';
 						action: [ self toggleRun ];
 						yourself)
-			position: ITItemPosition left;
+			position: SpToolBarItemPosition left;
 
 			addItem:
-				(ITButton new
+				(SpToolBarButton new
 					label: 'Reset';
 					icon: (self iconNamed: #smallUpdate);
 					help: 'reset simulation';
 					action: [ self simulationReset ];
 					yourself)
-			position: ITItemPosition left;
+			position: SpToolBarItemPosition left;
 			addItem:
-				(ITButton new
+				(SpToolBarButton new
 					label: 'Inspect';
 					icon: (self iconNamed: #glamorousInspect);
 					help: 'zoom out the display';
 					action: [area inspect];
 					yourself)
-			position: ITItemPosition right;
+			position: SpToolBarItemPosition right;
 			addItem:
-				(ITButton new
+				(SpToolBarButton new
 					label: 'Zoom out';
 					icon: (self iconNamed: #glamorousZoomOut);
 					help: 'zoom out the display';
 					action: [ self zoomOut ];
 					yourself)
-			position: ITItemPosition right;
+			position: SpToolBarItemPosition right;
 			addItem:
-				(ITButton new
+				(SpToolBarButton new
 					label: 'Zoom in';
 					icon: (self iconNamed: #glamorousZoomIn);
 					help: 'zoom in the display';
 					action: [ self zoomIn ];
 					yourself)
-			position: ITItemPosition right.
-			
-	self statusbar
-		addItem:
-			(ITLabel new
-				contents: 'Ready')
-		position: ITItemPosition left.
-		
+			position: SpToolBarItemPosition right.
+	
 	self subscribeRunButton.
 ]
 
@@ -434,6 +437,16 @@ ChipDesigner >> initializeWidgets [
 	self initializeNotebook.
 	
 
+	
+]
+
+{ #category : #initialization }
+ChipDesigner >> initializeWindow: aWindowPresenter [
+
+	super initializeWindow: aWindowPresenter.
+	aWindowPresenter 
+		toolBar: toolbar;
+		statusBar: statusBar.
 	
 ]
 
@@ -594,6 +607,10 @@ ChipDesigner >> simulationStep: n [
 	areaMorph changed.
 ]
 
+{ #category : #accessing }
+ChipDesigner >> statusbar [
+]
+
 { #category : #initialization }
 ChipDesigner >> subscribeRunButton [
 	area simulation announcer
@@ -618,6 +635,12 @@ ChipDesigner >> title [
 ChipDesigner >> toggleRun [
 
 	areaMorph toggleRun
+]
+
+{ #category : #accessing }
+ChipDesigner >> toolbar [
+
+	^ toolbar
 ]
 
 { #category : #initialization }
