@@ -51,20 +51,20 @@ ChipDesigner class >> criticsBrowserMenuOn: aBuilder [
 
 { #category : #examples }
 ChipDesigner class >> defaultSpec [
-	^ SpecBoxLayout newVertical
+	^ SpBoxLayout newVertical
 		add:
-			(SpecPanedLayout newHorizontal
+			(SpPanedLayout newHorizontal
 				position: 300;
 				add: #list;
 				add: (
-					SpecBoxLayout newVertical
-					add: (SpecBoxLayout newHorizontal
+					SpBoxLayout newVertical
+					add: (SpBoxLayout newHorizontal
 							add: #editModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 							add: #viaModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 							add: #selectModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
 							yourself)
 						withConstraints: [ :constraints | constraints height: self buttonsExtent y ];
-						add: (SpecPanedLayout newVertical
+						add: (SpPanedLayout newVertical
 							position: 58 percent;
 							add: #editor;
 							add: #notebook )));
@@ -259,15 +259,15 @@ ChipDesigner >> initializeList [
 
 	list
 		addColumn:
-			(CompositeTableColumn new
+			(SpCompositeTableColumn new
 				title: 'Designs';
 				addColumn:
-					(ImageTableColumn new
+					(SpImageTableColumn new
 						width: 20;
 						evaluated: #designIcon;
 						yourself);
 				addColumn:
-					(StringTableColumn new
+					(SpStringTableColumn new
 						evaluated: #designName;
 						yourself);
 				yourself);
@@ -291,13 +291,13 @@ ChipDesigner >> initializeList [
 ChipDesigner >> initializeNotebook [
 	
 	| instructionsPage scopesPage |
-	instructions := self instructionsMorph asSpecAdapter.
-	scopes := self sequenceMorph asSpecAdapter.
+	instructions := self instructionsMorph asSpAdapter.
+	scopes := self sequenceMorph asSpAdapter.
 
 
 	notebook := self newNotebook.
-	instructionsPage := NotebookPage title: 'Instructions' provider: [ instructions ].
-	scopesPage := NotebookPage title: 'Scopes' provider: [ scopes ].
+	instructionsPage := SpNotebookPage title: 'Instructions' provider: [ instructions ].
+	scopesPage := SpNotebookPage title: 'Scopes' provider: [ scopes ].
 	notebook addPage: instructionsPage.
 	notebook addPage: scopesPage.
 	
@@ -410,7 +410,7 @@ ChipDesigner >> initializeWidgets [
 	self initializeList.
 	
 	editorMorph := self editorMorph.
-	editor := editorMorph asSpecAdapter.
+	editor := editorMorph asSpAdapter.
 	
 	self initializeToolbar.
 	

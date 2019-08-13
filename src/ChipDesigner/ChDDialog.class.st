@@ -1,6 +1,6 @@
 Class {
 	#name : #ChDDialog,
-	#superclass : #SpecVersatileDialogPresenter,
+	#superclass : #SpVersatileDialogPresenter,
 	#instVars : [
 		'title'
 	],
