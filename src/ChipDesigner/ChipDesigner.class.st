@@ -293,8 +293,12 @@ ChipDesigner >> initializeList [
 ChipDesigner >> initializeNotebook [
 	
 	| instructionsPage scopesPage |
-	instructions := self instructionsMorph asSpAdapter.
-	scopes := self sequenceMorph asSpAdapter.
+	instructions := SpMorphPresenter new
+		morph: self instructionsMorph;
+		yourself.
+	scopes := SpMorphPresenter new
+		morph: self sequenceMorph;
+		yourself.
 
 
 	notebook := self newNotebook.
@@ -413,7 +417,9 @@ ChipDesigner >> initializeWidgets [
 	self initializeList.
 	
 	editorMorph := self editorMorph.
-	editor := editorMorph asSpAdapter.
+	editor := SpMorphPresenter new
+		morph: editorMorph;
+		yourself.
 	
 	self initializeToolbar.
 	
