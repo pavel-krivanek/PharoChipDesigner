@@ -1,3 +1,6 @@
+"
+I am a region with a PNP or NPN junction
+"
 Class {
 	#name : #ChDJunctionRegion,
 	#superclass : #ChDRegion,

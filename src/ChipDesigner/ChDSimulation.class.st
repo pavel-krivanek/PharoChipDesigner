@@ -1,3 +1,6 @@
+"
+I manage the changes of the state of particular cells of the array when the logical simulation is executed
+"
 Class {
 	#name : #ChDSimulation,
 	#superclass : #Object,

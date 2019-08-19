@@ -1,3 +1,6 @@
+"
+I am a group of connected cells in a given layer
+"
 Class {
 	#name : #ChDRegion,
 	#superclass : #Object,
@@ -73,8 +76,11 @@ ChDRegion >> gtInspectorMorphIn: aComposite [
 	
 	aComposite morph 
 		title: 'Morph';
-		display: [(ChDAreaMorph for: self layer area)
-			suppressedCells: otherCells ]
+		display: [
+			| aMorph |
+			aMorph := ChDAreaMorph for: self layer area.
+			aMorph display 	suppressedCells: otherCells.
+			aMorph ]
 
 ]
 

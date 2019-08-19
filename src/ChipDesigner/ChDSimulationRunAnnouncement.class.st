@@ -1,3 +1,6 @@
+"
+I am an announcement about start of the simulation
+"
 Class {
 	#name : #ChDSimulationRunAnnouncement,
 	#superclass : #Announcement,

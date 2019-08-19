@@ -1,3 +1,6 @@
+"
+I am a Spec presenter with the user interface of the Pharo Chip Designer.
+"
 Class {
 	#name : #ChipDesigner,
 	#superclass : #SpPresenter,

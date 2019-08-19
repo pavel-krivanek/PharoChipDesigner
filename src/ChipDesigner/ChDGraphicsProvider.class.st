@@ -1,3 +1,6 @@
+"
+I manage graphic resources that are used by the ""display""
+"
 Class {
 	#name : #ChDGraphicsProvider,
 	#superclass : #Object,

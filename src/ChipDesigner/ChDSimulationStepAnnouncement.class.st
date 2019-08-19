@@ -1,3 +1,6 @@
+"
+I am an announcement about one step of the simulation.
+"
 Class {
 	#name : #ChDSimulationStepAnnouncement,
 	#superclass : #Announcement,

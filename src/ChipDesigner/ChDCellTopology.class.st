@@ -1,3 +1,6 @@
+"
+I and a first-class object that keeps references to adjacent cells of a given cell.
+"
 Class {
 	#name : #ChDCellTopology,
 	#superclass : #Object,

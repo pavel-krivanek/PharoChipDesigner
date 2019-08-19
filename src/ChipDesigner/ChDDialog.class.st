@@ -1,3 +1,6 @@
+"
+I am slightly modified version of SpVersatileDialogPresenter with custom properties like the dialog extent.
+"
 Class {
 	#name : #ChDDialog,
 	#superclass : #SpVersatileDialogPresenter,

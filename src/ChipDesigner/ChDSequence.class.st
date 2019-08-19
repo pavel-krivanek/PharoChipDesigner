@@ -1,3 +1,6 @@
+"
+I represent a data signal of a given length
+"
 Class {
 	#name : #ChDSequence,
 	#superclass : #Model,

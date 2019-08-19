@@ -1,3 +1,6 @@
+"
+I am an announcement about change of the input mode
+"
 Class {
 	#name : #ChDModeAnnouncement,
 	#superclass : #Announcement,

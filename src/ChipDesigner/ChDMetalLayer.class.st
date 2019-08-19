@@ -1,3 +1,6 @@
+"
+I provide operations for the metal layer of the surface area
+"
 Class {
 	#name : #ChDMetalLayer,
 	#superclass : #ChDLayer,

@@ -1,3 +1,14 @@
+"
+I store information about the silicon chip area of given dimension (width, height). 
+
+I have an Array2D of cells (array). 
+
+I have two layers - substrate and metal. The layers are ""strategies"" that define the behavior of cells.
+
+Regions are groups of connected cells (in a specific layer) of a given state.
+
+
+"
 Class {
 	#name : #ChDArea,
 	#superclass : #Model,

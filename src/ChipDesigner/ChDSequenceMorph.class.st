@@ -1,3 +1,6 @@
+"
+I am a morh for rendering of a data sequence
+"
 Class {
 	#name : #ChDSequenceMorph,
 	#superclass : #Morph,

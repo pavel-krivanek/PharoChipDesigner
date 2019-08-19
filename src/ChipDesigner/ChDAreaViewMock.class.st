@@ -1,3 +1,6 @@
+"
+I am a mock view that replaces the area morph in tests
+"
 Class {
 	#name : #ChDAreaViewMock,
 	#superclass : #Object,

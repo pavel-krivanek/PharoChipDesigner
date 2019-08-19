@@ -1,3 +1,10 @@
+"
+I manage the Morphic form that displays a chip area and related rendering operations.
+
+I update only the changed cells, I use 'dirtyMap' for this task.
+
+I have an option to suppress some cells (make them look darker). I is used in inspectors to show cells that belong to a specific region.
+"
 Class {
 	#name : #ChDAreaDisplay,
 	#superclass : #Object,

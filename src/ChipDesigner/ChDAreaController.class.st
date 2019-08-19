@@ -1,3 +1,12 @@
+"
+I am a UI independent controller that defines operations on a given area. I make writing of the UI tests possible. 
+
+I keep reference to an area, I keep information about the input mode and I have an announcer for UI events.
+
+I have a reference to the view to update it directly.
+
+I expect Morphic event classes API so I still have Moprhic as a dependency (more or less) 
+"
 Class {
 	#name : #ChDAreaController,
 	#superclass : #Object,
@@ -12,7 +21,7 @@ Class {
 	#category : #ChipDesigner
 }
 
-{ #category : #accessing }
+{ #category : #'events processing' }
 ChDAreaController >> adjustInputModeFromEvent: anEvent [
 
 	inputMode := anEvent shiftPressed 
@@ -26,13 +35,13 @@ ChDAreaController >> adjustInputModeFromEvent: anEvent [
 
 ]
 
-{ #category : #initialization }
+{ #category : #announcements }
 ChDAreaController >> announceDirtyCells: dirtyCells [ 
 
 	area announceDirtyCells: dirtyCells
 ]
 
-{ #category : #accessing }
+{ #category : #announcements }
 ChDAreaController >> announceModeChange [
 
 	announcer announce: (ChDModeAnnouncement new 
@@ -40,7 +49,7 @@ ChDAreaController >> announceModeChange [
 		inputMode: inputMode)
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 ChDAreaController >> announcer [
 
 	^ announcer
@@ -57,7 +66,7 @@ ChDAreaController >> area: anObject [
 	area := anObject
 ]
 
-{ #category : #initialization }
+{ #category : #'events processing' }
 ChDAreaController >> cellEventAt: aPoint [
 
 	| cell |
@@ -217,12 +226,12 @@ ChDAreaController >> lastCell: anObject [
 	lastCell := anObject
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 ChDAreaController >> mouseDown [ 
 	^ mouseDown
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 ChDAreaController >> mouseDown: aBoolean [
 
 	mouseDown := aBoolean.
@@ -275,7 +284,7 @@ ChDAreaController >> onRightMouseMoveAt: aPoint [
 	self onMouseMoveAt: aPoint.
 ]
 
-{ #category : #initialization }
+{ #category : #announcements }
 ChDAreaController >> openSelectionMenu [
 
 	announcer announce: (ChDContextMenuAnnouncement new 

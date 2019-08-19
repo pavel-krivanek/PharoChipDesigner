@@ -1,3 +1,20 @@
+"
+I am a single cell of a surface area with a given coordinates.
+
+I encode information about my connections to other cells in vertical and horizontal direction:
+  0001 - up
+  0010 - right
+  0100 - down
+  1000 - left
+
+...and about cells in corners because this information is required for the cells rendering:
+  0001 - right down
+  0010 - right up
+  0100 - left down
+  1000 - left up
+
+I keep references to adjacent cells in a topology object.
+"
 Class {
 	#name : #ChDCell,
 	#superclass : #Object,

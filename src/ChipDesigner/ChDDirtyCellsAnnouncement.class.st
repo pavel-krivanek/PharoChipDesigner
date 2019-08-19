@@ -1,3 +1,6 @@
+"
+I am an announcemnet that informs about the need to repaint a particular set of cells
+"
 Class {
 	#name : #ChDDirtyCellsAnnouncement,
 	#superclass : #Announcement,

@@ -1,14 +1,15 @@
+"
+I am a Morphic view on an area. I use the 'display' for most of my rendering.
+"
 Class {
 	#name : #ChDAreaMorph,
 	#superclass : #Morph,
 	#instVars : [
 		'controller',
 		'area',
-		'inputMode',
 		'mouseDown',
 		'lastCell',
 		'deleteMode',
-		'suppressedCells',
 		'stepping',
 		'display',
 		'graphics'
@@ -152,7 +153,6 @@ ChDAreaMorph >> initializeFor: anArea [
 
 	self resetExtent.
 	
-	suppressedCells := OrderedCollection new.
 	self stopStepping.
 	
 	
@@ -174,7 +174,6 @@ ChDAreaMorph >> initializeFor: anArea graphics: graphicsProvider [
 
 	self resetExtent.
 	
-	suppressedCells := OrderedCollection new.
 	self stopStepping.
 	
 	
@@ -281,17 +280,6 @@ ChDAreaMorph >> step [
 { #category : #initialization }
 ChDAreaMorph >> stepTime [
 	^ 1 
-]
-
-{ #category : #accessing }
-ChDAreaMorph >> suppressedCells [
-	^ suppressedCells
-]
-
-{ #category : #accessing }
-ChDAreaMorph >> suppressedCells: anObject [
-	suppressedCells := anObject.
-	display suppressedCells: anObject
 ]
 
 { #category : #initialization }

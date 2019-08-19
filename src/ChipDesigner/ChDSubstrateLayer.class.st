@@ -1,3 +1,6 @@
+"
+I provide operations for the szbstrate layer of the surface area
+"
 Class {
 	#name : #ChDSubstrateLayer,
 	#superclass : #ChDLayer,

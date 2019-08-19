@@ -1,3 +1,6 @@
+"
+I am a region that serves as the data input
+"
 Class {
 	#name : #ChDGeneratorRegion,
 	#superclass : #ChDRegion,

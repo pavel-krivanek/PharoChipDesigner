@@ -1,3 +1,6 @@
+"
+I change the context of the cell operations depending on a layer where the operations are performed
+"
 Class {
 	#name : #ChDLayer,
 	#superclass : #Object,
