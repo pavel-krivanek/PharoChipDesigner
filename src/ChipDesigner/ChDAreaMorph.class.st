@@ -271,6 +271,7 @@ ChDAreaMorph >> step [
 		(self area simulation time) >= 280 ifTrue: [ 
 			self stopStepping.
 			area simulation stop.
+			area simulation evaluate.
 			^ self ].
 
 		self area simulation step.

@@ -132,6 +132,12 @@ ChDSequence >> forSubstrateAt: aPosition in: anArea [
 
 ]
 
+{ #category : #testing }
+ChDSequence >> hasExpectedSequence [
+
+	^ expectedSequenceArray notNil
+]
+
 { #category : #initialization }
 ChDSequence >> initialize [
 
@@ -152,6 +158,15 @@ ChDSequence >> initialize [
 ChDSequence >> length [
 
 	^ sequenceArray size
+]
+
+{ #category : #accessing }
+ChDSequence >> matchingSteps [
+
+	expectedSequenceArray ifNil: [ ^ 0 ].
+	
+	^(sequenceArray withIndexSelect: [ :each :index |
+		(expectedSequenceArray at: index) = each ]) size
 ]
 
 { #category : #initialization }

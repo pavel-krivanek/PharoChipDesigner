@@ -134,6 +134,14 @@ ChDSimulation >> defaultStepBlock [
 ]
 
 { #category : #accessing }
+ChDSimulation >> evaluate [ 
+
+	announcer announce: (ChDSimulationEvaluationAnnouncement new
+		simulation: self;
+		passRatio: self passRatio)
+]
+
+{ #category : #accessing }
 ChDSimulation >> initialize [
 
 	super initialize.
@@ -144,6 +152,21 @@ ChDSimulation >> initialize [
 	preStepBlock := self defaultStepBlock.
 	stepping := false.
 	sequences := OrderedCollection new.
+]
+
+{ #category : #accessing }
+ChDSimulation >> passRatio [
+
+	| interestingSequences all passing |
+	
+	interestingSequences := self sequences select: [ :each | each hasExpectedSequence ].
+	
+	all := interestingSequences sum: [ :each | each length ].
+	passing := interestingSequences sum: [ :each | each matchingSteps ].
+	
+	all = 0 ifTrue: [ ^ 0 ].
+	
+	^ passing / (all / 100.0)
 ]
 
 { #category : #accessing }

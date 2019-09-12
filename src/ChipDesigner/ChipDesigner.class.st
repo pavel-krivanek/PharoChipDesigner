@@ -162,10 +162,8 @@ ChipDesigner >> editorMorph [
 		editModeButton icon: self editModeIcon.
 		viaModeButton icon: self viaModeIcon ].
 
-
 	controller announcer when: ChDContextMenuAnnouncement do: [ :announcement |
 		self openSelectionMenu ].
-
 
 	^ editorMorph
 ]
@@ -320,6 +318,8 @@ ChipDesigner >> initializeStatusBar [
 
 	statusBar := self instantiate: SpStatusBarPresenter.	
 	statusBar pushMessage: 'Ready'.
+	
+	self subscribeStatusBar.
 ]
 
 { #category : #initialization }
@@ -444,6 +444,8 @@ ChipDesigner >> initializeWidgets [
 	selectModeButton action: [ self selectMode ].
 	
 	self initializeNotebook.
+	self initializeStatusBar.
+
 	
 
 	
@@ -553,6 +555,7 @@ ChipDesigner >> paste [
 ChipDesigner >> refreshEditor [
 
 	self subscribeRunButton.
+	self subscribeStatusBar.
 	
 	areaMorph resetExtent.
 	areaMorph changed.
@@ -632,6 +635,18 @@ ChipDesigner >> subscribeRunButton [
 						ifFalse: [ nil ]).
 			"an ugly hack to properly refresh the badge"
 			self toolbar adapter changed ]
+]
+
+{ #category : #initialization }
+ChipDesigner >> subscribeStatusBar [
+	
+	area simulation announcer when: ChDSimulationEvaluationAnnouncement do: [ :announcement |
+		statusBar pushMessage: 'Last pass ratio: ', (announcement passRatio printShowingDecimalPlaces: 2), '%' ].
+
+	area simulation announcer when: ChDSimulationRunAnnouncement do: [ :announcement |
+		statusBar pushMessage: (announcement running 
+			ifTrue: [ 'Simulation running...' ]
+			ifFalse: [ 'Ready' ]) ]
 ]
 
 { #category : #initialization }
