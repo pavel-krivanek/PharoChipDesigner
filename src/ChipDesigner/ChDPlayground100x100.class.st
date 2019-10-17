@@ -74,7 +74,8 @@ ChDPlayground100x100 >> createScopes [
 		port isInput 
 			ifTrue: [ 
 				aSequence := ChDSequence input name: port name.
-				aSequence decodedFrom: port sequence ]
+				aSequence decodedFrom: port sequence.
+				aSequence readOnly: false ]
 			ifFalse: [ 
 				aSequence := ChDSequence output name: port name.
 				aSequence expectedDecodedFrom: port expectedSequence ].

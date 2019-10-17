@@ -81,8 +81,9 @@ ChDSequenceMorph >> drawOn: aCanvas [
 			lastPoint := newPoint.
 			newPoint := (rect left + (i*tickLength)) @ (value ifFalse: [rect bottom-offset] ifTrue: [rect top+offset]).
 			aCanvas line: lastPoint to: newPoint color: Color black.
-			lastPoint := newPoint. ]
-		].
+			lastPoint := newPoint.
+		] ifNil: [ 
+		lastPoint := (rect left + (i*tickLength)) @ (false ifFalse: [rect bottom-offset] ifTrue: [rect top+offset]).] ].
 
 
 
@@ -164,6 +165,8 @@ ChDSequenceMorph >> mouseDown: anEvent [
 
 	| sequenceIndex |
 	
+	self sequence readOnly ifTrue: [ ^ self ].
+	
 	isMouseDown := true.
 	sequenceIndex := self sequenceIndexFor: anEvent cursorPoint - (self descriptionWidth @ 0).
 	lastSequenceIndexChanged := sequenceIndex.
@@ -177,6 +180,8 @@ ChDSequenceMorph >> mouseDown: anEvent [
 ChDSequenceMorph >> mouseMove: anEvent [
 
 	| sequenceIndex |
+
+	self sequence readOnly ifTrue: [ ^ self ].
 	
 	sequenceIndex := self sequenceIndexFor: anEvent cursorPoint - (self descriptionWidth @ 0).
 	lastSequenceIndexChanged = sequenceIndex
@@ -189,6 +194,8 @@ ChDSequenceMorph >> mouseMove: anEvent [
 
 { #category : #initialization }
 ChDSequenceMorph >> mouseUp: anEvent [
+
+	self sequence readOnly ifTrue: [ ^ self ].
 
 	isMouseDown := false.
 	lastSequenceIndexChanged := nil.
