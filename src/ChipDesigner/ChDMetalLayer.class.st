@@ -68,8 +68,7 @@ ChDMetalLayer >> isMetal [
 
 { #category : #'as yet unclassified' }
 ChDMetalLayer >> isSetFor: aCell [
-
-	^ aCell metalConnections notNil
+	^ aCell metalConnections isNotNil
 ]
 
 { #category : #'as yet unclassified' }

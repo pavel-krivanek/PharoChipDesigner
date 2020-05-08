@@ -134,8 +134,7 @@ ChDSequence >> forSubstrateAt: aPosition in: anArea [
 
 { #category : #testing }
 ChDSequence >> hasExpectedSequence [
-
-	^ expectedSequenceArray notNil
+	^ expectedSequenceArray isNotNil
 ]
 
 { #category : #initialization }

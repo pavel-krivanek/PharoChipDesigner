@@ -184,24 +184,18 @@ ChDCell >> decodeFrom: aString [
 
 { #category : #accessing }
 ChDCell >> disconnect: aMask [
+	self metalConnections ifNotNil: [ self metalConnections: (self safeMetalConnections bitAnd: aMask bitInvert32) ].
 
-	self metalConnections ifNotNil: [ 
-		self metalConnections: (self safeMetalConnections bitAnd: aMask bitInvert32) ].
-	
-	self substrateConnections ifNotNil: [ 
-		self substrateConnections: (self safeSubstrateConnections bitAnd: aMask bitInvert32) ].
-	
-	(self substrateRegion notNil and: [self substrateRegion isJunction]) ifTrue: [ 
-		| adjacentCell |
-		adjacentCell := nil.
-		aMask = 2r0001 ifTrue: [ adjacentCell := self topology up ].
-		aMask = 2r0010 ifTrue: [ adjacentCell := self topology right ].
-		aMask = 2r0100 ifTrue: [ adjacentCell := self topology down ].
-		aMask = 2r1000 ifTrue: [ adjacentCell := self topology left ].
-		adjacentCell ifNotNil: [ 
-			self substrateRegion layer clearJunctionIn: self whenDelete: adjacentCell ]]
+	self substrateConnections ifNotNil: [ self substrateConnections: (self safeSubstrateConnections bitAnd: aMask bitInvert32) ].
 
-	
+	(self substrateRegion isNotNil and: [ self substrateRegion isJunction ])
+		ifTrue: [ | adjacentCell |
+			adjacentCell := nil.
+			aMask = 2r0001 ifTrue: [ adjacentCell := self topology up ].
+			aMask = 2r0010 ifTrue: [ adjacentCell := self topology right ].
+			aMask = 2r0100 ifTrue: [ adjacentCell := self topology down ].
+			aMask = 2r1000 ifTrue: [ adjacentCell := self topology left ].
+			adjacentCell ifNotNil: [ self substrateRegion layer clearJunctionIn: self whenDelete: adjacentCell ] ]
 ]
 
 { #category : #accessing }
@@ -224,20 +218,17 @@ ChDCell >> encoded [
 
 { #category : #accessing }
 ChDCell >> hasJunction [
-
-	^ junctionType notNil
+	^ junctionType isNotNil
 ]
 
 { #category : #accessing }
 ChDCell >> hasMetal [
-
-	^ self metalConnections notNil
+	^ self metalConnections isNotNil
 ]
 
 { #category : #accessing }
 ChDCell >> hasSubstrate [
-
-	^ self substrateType notNil
+	^ self substrateType isNotNil
 ]
 
 { #category : #accessing }
@@ -273,9 +264,7 @@ ChDCell >> isEmpty [
 
 { #category : #accessing }
 ChDCell >> isHi [
-
-	^ (self metalRegion notNil and: [self metalRegion currentState])
-		or: [ self substrateRegion notNil and: [self substrateRegion currentState] ]
+	^ (self metalRegion isNotNil and: [ self metalRegion currentState ]) or: [ self substrateRegion isNotNil and: [ self substrateRegion currentState ] ]
 ]
 
 { #category : #accessing }
