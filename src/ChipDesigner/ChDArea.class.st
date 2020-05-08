@@ -434,42 +434,42 @@ ChDArea >> leftX: x y: y [
 
 { #category : #'cell access' }
 ChDArea >> mergeMetalRegions: inputRegionsToMerge [
-
-	| regionsToMerge finalRegion | 
-	
+	| regionsToMerge finalRegion |
 	regionsToMerge := inputRegionsToMerge reject: #isSpecial.
-	regionsToMerge isEmpty ifTrue: [ ^ nil ].
+	regionsToMerge ifEmpty: [ ^ nil ].
 	regionsToMerge size = 1 ifTrue: [ ^ regionsToMerge anyOne ].
 
 	finalRegion := regionsToMerge anyOne.
-	
-	regionsToMerge do: [ :each |
-		each == finalRegion ifFalse: [ 
-			each cells do: [ :aCell | 
-				aCell metalRegion: finalRegion.
-				finalRegion cells add: aCell ].
-			(regions includes: each) ifTrue: [regions remove: each] ]].
-	
+
+	regionsToMerge
+		do: [ :each | 
+			each == finalRegion
+				ifFalse: [ each cells
+						do: [ :aCell | 
+							aCell metalRegion: finalRegion.
+							finalRegion cells add: aCell ].
+					(regions includes: each) ifTrue: [ regions remove: each ] ] ].
+
 	^ finalRegion
 ]
 
 { #category : #'cell access' }
 ChDArea >> mergeSubstrateRegions: regionsToMerge [
-
-	| finalRegion | 
-	
-	regionsToMerge isEmpty ifTrue: [ ^ nil ].
+	| finalRegion |
+	regionsToMerge ifEmpty: [ ^ nil ].
 	regionsToMerge size = 1 ifTrue: [ ^ regionsToMerge anyOne ].
 
 	finalRegion := regionsToMerge anyOne.
-	
-	regionsToMerge do: [ :each |
-		each == finalRegion ifFalse: [ 
-			each cells do: [ :aCell | 
-				aCell substrateRegion: finalRegion.
-				finalRegion cells add: aCell ].
-			(regions includes: each) ifTrue: [regions remove: each] ]].
-	
+
+	regionsToMerge
+		do: [ :each | 
+			each == finalRegion
+				ifFalse: [ each cells
+						do: [ :aCell | 
+							aCell substrateRegion: finalRegion.
+							finalRegion cells add: aCell ].
+					(regions includes: each) ifTrue: [ regions remove: each ] ] ].
+
 	^ finalRegion
 ]
 
