@@ -130,32 +130,18 @@ ChDCell >> connectedRegionsInJunction [
 
 { #category : #accessing }
 ChDCell >> connectedRegionsInSubstrate [
-
 	| result |
-	
-	self hasJunction ifFalse: [ 
-		^ self connectedCellsInSubstrate collect: [ :each | each substrateRegion ] as: IdentitySet ].
-	
-	result := IdentitySet new.
-		
-	self isVertical 
-		ifTrue: [ 
-			result add: (self substrateRegion compactUp 
-				ifNotNil: [ :aRegion | aRegion ]
-				ifNil: [ self topology up substrateRegion ]).
-			result add: (self substrateRegion compactDown
-				ifNotNil: [ :aRegion | aRegion ]
-				ifNil: [ self topology down substrateRegion ]) ]
-		ifFalse: [ 
-			result add: (self substrateRegion compactRight 
-				ifNotNil: [ :aRegion | aRegion ]
-				ifNil: [ self topology right substrateRegion ]).
-			result add: (self substrateRegion compactLeft
-				ifNotNil: [ :aRegion | aRegion ]
-				ifNil: [ self topology left substrateRegion ]) ].
-			
-		^ result
+	self hasJunction ifFalse: [ ^ self connectedCellsInSubstrate collect: [ :each | each substrateRegion ] as: IdentitySet ].
 
+	result := IdentitySet new.
+
+	self isVertical
+		ifTrue: [ result add: (self substrateRegion compactUp ifNil: [ self topology up substrateRegion ]).
+			result add: (self substrateRegion compactDown ifNil: [ self topology down substrateRegion ]) ]
+		ifFalse: [ result add: (self substrateRegion compactRight ifNil: [ self topology right substrateRegion ]).
+			result add: (self substrateRegion compactLeft ifNil: [ self topology left substrateRegion ]) ].
+
+	^ result
 ]
 
 { #category : #accessing }
