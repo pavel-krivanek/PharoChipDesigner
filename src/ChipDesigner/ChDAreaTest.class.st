@@ -315,11 +315,9 @@ ChDAreaTest >> testTestDeleteOneOfTwoInSubstrate [
 
 { #category : #running }
 ChDAreaTest >> testTestDeleteSecondOfFour [
-
 	| cell1 cell2 cell3 cell4 regionsArray |
-	
-	self assert: area regions isEmpty. 
-	
+	self assert: area regions isEmpty.
+
 	cell1 := area addMetalAt: 5 y: 5 addConnections: 2r0010.
 	cell2 := area addMetalAt: 6 y: 5 addConnections: 2r1010.
 	cell3 := area addMetalAt: 7 y: 5 addConnections: 2r1010.
@@ -332,34 +330,31 @@ ChDAreaTest >> testTestDeleteSecondOfFour [
 
 	self assert: area regions size equals: 1.
 	self assert: area regions anyOne cells size equals: 4.
-	
-	self assert: (cell1 metalRegion == area regions anyOne).
-	self assert: (cell2 metalRegion == area regions anyOne).
-	self assert: (cell3 metalRegion == area regions anyOne).
-	self assert: (cell4 metalRegion == area regions anyOne).
-	
+
+	self assert: cell1 metalRegion identicalTo: area regions anyOne.
+	self assert: cell2 metalRegion identicalTo: area regions anyOne.
+	self assert: cell3 metalRegion identicalTo: area regions anyOne.
+	self assert: cell4 metalRegion identicalTo: area regions anyOne.
+
 	area metalLayer fullClear: cell2.
-	
-	self deny: cell2 hasMetal. 
+
+	self deny: cell2 hasMetal.
 	self assert: cell1 metalConnections equals: 2r0000.
 	self assert: cell3 metalConnections equals: 2r0010.
 	self assert: cell4 metalConnections equals: 2r1000.
-	
-	area updateCell: cell2 mode: #metal.
-	
-	regionsArray := area regions asArray.
-	
-	self assert: regionsArray size equals: 2.
 
+	area updateCell: cell2 mode: #metal.
+
+	regionsArray := area regions asArray.
+
+	self assert: regionsArray size equals: 2
 ]
 
 { #category : #running }
 ChDAreaTest >> testTestDeleteSecondOfFourInSubstrate [
-
 	| cell1 cell2 cell3 cell4 regionsArray |
-	
-	self assert: area regions isEmpty. 
-	
+	self assert: area regions isEmpty.
+
 	cell1 := area addNAt: 5 y: 5 addConnections: 2r0010.
 	cell2 := area addNAt: 6 y: 5 addConnections: 2r1010.
 	cell3 := area addNAt: 7 y: 5 addConnections: 2r1010.
@@ -373,24 +368,23 @@ ChDAreaTest >> testTestDeleteSecondOfFourInSubstrate [
 	self assert: area regions size equals: 1.
 	self assert: area regions anyOne cells size equals: 4.
 
-	self assert: (cell1 substrateRegion == area regions anyOne).
-	self assert: (cell2 substrateRegion == area regions anyOne).
-	self assert: (cell3 substrateRegion == area regions anyOne).
-	self assert: (cell4 substrateRegion == area regions anyOne).
-	
+	self assert: cell1 substrateRegion identicalTo: area regions anyOne.
+	self assert: cell2 substrateRegion identicalTo: area regions anyOne.
+	self assert: cell3 substrateRegion identicalTo: area regions anyOne.
+	self assert: cell4 substrateRegion identicalTo: area regions anyOne.
+
 	area substrateLayer fullClear: cell2.
-	
-	self deny: cell2 hasSubstrate. 
+
+	self deny: cell2 hasSubstrate.
 	self assert: cell1 substrateConnections equals: 2r0000.
 	self assert: cell3 substrateConnections equals: 2r0010.
 	self assert: cell4 substrateConnections equals: 2r1000.
-	
-	area updateCell: cell2 mode: #n.
-	
-	regionsArray := area regions asArray.
-	
-	self assert: regionsArray size equals: 2.
 
+	area updateCell: cell2 mode: #n.
+
+	regionsArray := area regions asArray.
+
+	self assert: regionsArray size equals: 2
 ]
 
 { #category : #running }
