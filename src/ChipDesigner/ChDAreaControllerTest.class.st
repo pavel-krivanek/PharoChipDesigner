@@ -11,12 +11,13 @@ Class {
 
 { #category : #running }
 ChDAreaControllerTest >> setUp [
-	
+	super setUp.
+
 	area := ChDArea withDefaultExtent.
 	controller := ChDAreaController new.
 	controller area: area.
 	view := ChDAreaViewMock new.
-	controller view: view.
+	controller view: view
 ]
 
 { #category : #tests }

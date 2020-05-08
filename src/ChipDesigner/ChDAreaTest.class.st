@@ -9,8 +9,9 @@ Class {
 
 { #category : #running }
 ChDAreaTest >> setUp [
-	
-	area := ChDArea withDefaultExtent.
+	super setUp.
+
+	area := ChDArea withDefaultExtent
 ]
 
 { #category : #tests }

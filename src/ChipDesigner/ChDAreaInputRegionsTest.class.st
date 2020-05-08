@@ -11,14 +11,15 @@ Class {
 
 { #category : #running }
 ChDAreaInputRegionsTest >> setUp [
-	
+	super setUp.
+
 	area := ChDArea withDefaultExtent.
 	controller := ChDAreaController new.
 	controller area: area.
 	view := ChDAreaViewMock new.
 	controller view: view.
-	
-	area addInputAt: 1@1.
+
+	area addInputAt: 1 @ 1
 ]
 
 { #category : #tests }

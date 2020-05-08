@@ -11,20 +11,20 @@ Class {
 
 { #category : #running }
 ChDJunctionPNPTest >> setUp [
-		
+	super setUp.
+
 	area := ChDArea withDefaultExtent.
 	controller := ChDAreaController new.
 	controller area: area.
 	view := ChDAreaViewMock new.
 	controller view: view.
-	
-	controller insertPSubstrateMode.
-	
-	controller onMouseDownAt: 2@1.
-	controller onMouseMoveAt: 2@2.
-	controller onMouseMoveAt: 2@3.
-	controller onMouseUpAt: 2@3.
 
+	controller insertPSubstrateMode.
+
+	controller onMouseDownAt: 2 @ 1.
+	controller onMouseMoveAt: 2 @ 2.
+	controller onMouseMoveAt: 2 @ 3.
+	controller onMouseUpAt: 2 @ 3
 ]
 
 { #category : #tests }
