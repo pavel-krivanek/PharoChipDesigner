@@ -7,7 +7,7 @@ Class {
 	#category : #'ChipDesigner-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 ChDBasicGatesTest >> expect: anArray [
 
 	area simulation reset.
@@ -18,7 +18,7 @@ ChDBasicGatesTest >> expect: anArray [
 		self assert: self output equals: each > 0. ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #running }
 ChDBasicGatesTest >> output [
 
 	^ (area atX: 2 y: 3) metalRegion currentState.

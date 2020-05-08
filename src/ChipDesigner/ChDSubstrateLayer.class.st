@@ -56,7 +56,7 @@ ChDSubstrateLayer >> clearJunctionIn: aCell whenDelete: deletedCell [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDSubstrateLayer >> connectedNeighboursOf: aCell [
 
 	| result |
@@ -157,7 +157,7 @@ ChDSubstrateLayer >> fullClear: aCell [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 ChDSubstrateLayer >> isSetFor: aCell [
 	^ aCell substrateType isNotNil
 ]
@@ -203,7 +203,7 @@ ChDSubstrateLayer >> mode: mode compatibleWith: lastCell [
 	^ mode = lastCell substrateType
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDSubstrateLayer >> name [
 
 	^ #substrate
@@ -215,7 +215,7 @@ ChDSubstrateLayer >> regionOf: aCell [
 	^ aCell substrateRegion 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #removing }
 ChDSubstrateLayer >> removeRegionFrom: aCell [
 
 	| newRegions |
@@ -228,7 +228,7 @@ ChDSubstrateLayer >> removeRegionFrom: aCell [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDSubstrateLayer >> setFor: aCell mode: aMode [
 
 	aCell substrateRegion ifNotNil: [ ^ self ].
@@ -240,7 +240,7 @@ ChDSubstrateLayer >> setFor: aCell mode: aMode [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDSubstrateLayer >> setFor: aCell with: aLastCell mode: mode [
 	| left right top down |
 	"aCell junctionType ifNotNil: [ ^ self ]."
@@ -347,7 +347,7 @@ ChDSubstrateLayer >> setFor: aCell with: aLastCell mode: mode [
 	area updateCell: aCell mode: mode
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDSubstrateLayer >> setRegionOf: aCell to: aRegion [
 
 	^ aCell substrateRegion: aRegion

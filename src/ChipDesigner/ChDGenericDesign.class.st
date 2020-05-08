@@ -4,19 +4,19 @@ Class {
 	#category : #'ChipDesigner-Levels'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 ChDGenericDesign class >> designIcon [ 
 	
 	^ self iconNamed: #smallPaint
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 ChDGenericDesign class >> designName [
 
 	^ 'unnamed'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 ChDGenericDesign class >> isRoot [ 
 
 	^ false

@@ -4,13 +4,13 @@ Class {
 	#category : #'ChipDesigner-Levels'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 ChDCPlayground44x23 class >> designName [
 
 	 ^ 'Playground 44x23 (classic)'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 ChDCPlayground44x23 class >> isRoot [ 
 
 	^ true

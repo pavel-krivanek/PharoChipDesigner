@@ -46,7 +46,7 @@ ChDDesign class >> on: area graphics: graphicsProvider [
 		initialize
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDDesign class >> priority [ 
 
 	^ 300
@@ -78,7 +78,7 @@ ChDDesign >> graphics: anObject [
 	graphics := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDDesign >> scopes [ 
 
 	^ scopes

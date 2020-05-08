@@ -4,13 +4,13 @@ Class {
 	#category : #'ChipDesigner-Levels'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 ChDPlayground100x100 class >> isRoot [ 
 
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDPlayground100x100 class >> priority [ 
 
 	^ 320
@@ -71,13 +71,13 @@ ChDPlayground100x100 >> initialize [
 	self createLabels.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDPlayground100x100 >> initializeArea [
 
 	area decodedFromZipString: 'H4sIAAAAAAAAADMwMDAzgRFurkDC0sTIwMDZ0MjAEExYGALFnCwwxQxA6lxBXDDhCFeHJgZWZwbiggkjuDo0MWfnkW/vyLd35Ns78u0lzV5woTXsCXMzAGEKgrSqBQAA'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDPlayground100x100 >> initializeSimulation [
 
 	area simulation preStepBlock: [ :aSimulation |
@@ -173,7 +173,7 @@ ChDPlayground100x100 >> portsDefinition [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #operations }
 ChDPlayground100x100 >> reinitialize [ 
 
 	self initializeSimulation.

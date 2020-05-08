@@ -16,7 +16,7 @@ ChDExamples class >> delayedReset [
 	area show.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #geometry }
 ChDExamples class >> orGate [
 
 	<script>

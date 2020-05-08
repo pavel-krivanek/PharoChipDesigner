@@ -15,7 +15,7 @@ Class {
 	#category : #ChipDesigner
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDJunctionRegion >> cell [
 
 	^ cells anyOne
