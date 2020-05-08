@@ -57,7 +57,6 @@ ChDSequence >> decodedSequenceFrom: aString [
 	length := (byteArray size - 1) * 8 + header.
 	result := Array ofSize: length.
 	byteArray := byteArray allButFirst.
-	1.
 	1 to: length do: [ :index | result at: index put: ((byteArray at: (index - 1) // 8 + 1) bitAt: 8 - ((index - 1) \\ 8)) > 0 ].
 
 	^ result
