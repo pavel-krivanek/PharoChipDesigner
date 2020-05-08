@@ -231,9 +231,7 @@ ChDCell >> hasSubstrate [
 
 { #category : #accessing }
 ChDCell >> hasVia [
-
-	via isNil ifTrue: [ ^ false ].
-	^ via 
+	^ via ifNil: [ false ]
 ]
 
 { #category : #initialization }
