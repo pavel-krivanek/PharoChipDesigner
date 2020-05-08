@@ -48,26 +48,19 @@ ChDSequence >> decodedFrom: aString [
 
 { #category : #initialization }
 ChDSequence >> decodedSequenceFrom: aString [
-
-	| byteArray header length i result |
-	
+	| byteArray header length result |
 	byteArray := OrderedCollection new.
-	aString readStreamDo: [ :aStream |
-		[ aStream atEnd ] whileFalse: [ 
-			byteArray add: ('16r', (aStream next: 2)) asNumber ] ]. 
+	aString readStreamDo: [ :aStream | [ aStream atEnd ] whileFalse: [ byteArray add: ('16r' , (aStream next: 2)) asNumber ] ].
 	byteArray := byteArray asByteArray.
 
 	header := byteArray first.
 	length := (byteArray size - 1) * 8 + header.
 	result := Array ofSize: length.
 	byteArray := byteArray allButFirst.
-	
-	i := 1.
-	1 to: length do: [ :index |
-		result at: index put: (((byteArray at: (index-1 // 8)+1) bitAt: ((8-(index-1 \\ 8))))>0)].
-	
-	^ result
+	1.
+	1 to: length do: [ :index | result at: index put: ((byteArray at: (index - 1) // 8 + 1) bitAt: 8 - ((index - 1) \\ 8)) > 0 ].
 
+	^ result
 ]
 
 { #category : #initialization }

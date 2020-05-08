@@ -250,7 +250,7 @@ ChDSimulation >> step [
 
 { #category : #accessing }
 ChDSimulation >> stepWith: aBlock [
-	| regions special normal connected vccConnected shortestSequenceLength |
+	| regions special connected vccConnected shortestSequenceLength |
 	regions := self regions.
 
 	"connected := self connectedRegionsFrom: normal."
@@ -274,8 +274,7 @@ ChDSimulation >> stepWith: aBlock [
 			each futureState: true ].
 
 	time := time + 1.
-
-	normal := regions reject: #isSpecial.
+	regions reject: #isSpecial.
 	special := regions select: #isSpecial.
 
 	special
@@ -308,7 +307,7 @@ ChDSimulation >> stepWith: aBlock [
 							each open: input	"& vccCurentState"
 							"each open: out." ].
 					cell junctionType = #pnp
-						ifTrue: [ | input vcc outputRegions connectedRegionsInSubstrate output out vccFutureState |
+						ifTrue: [ | input vcc outputRegions connectedRegionsInSubstrate out vccFutureState |
 							input := cell connectedRegionsInJunction anySatisfy: #hasVcc.
 							connectedRegionsInSubstrate := cell connectedRegionsInSubstrate.
 							vcc := each vccRegion isEmptyOrNil
@@ -317,7 +316,7 @@ ChDSimulation >> stepWith: aBlock [
 							each vccRegion: vcc.
 							"outputRegions := connectedRegionsInSubstrate reject: #hasVcc."
 							outputRegions := connectedRegionsInSubstrate copyWithoutAll: vcc.
-							output := input not.
+							input not.
 							vccFutureState := vcc ifEmpty: [ false ] ifNotEmpty: [ vcc anyOne futureState ].
 							out := input not and: [ vcc isNotEmpty and: [ vccFutureState ] ].
 
