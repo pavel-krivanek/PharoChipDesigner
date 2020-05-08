@@ -50,7 +50,7 @@ ChDThreePNPCompactTest >> setUp [
 	
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDThreePNPCompactTest >> testValues [
 	0 to: 2r111 do: [ :i | 
 		self prepareSimulation.

@@ -18,7 +18,7 @@ ChDTwoPNPTest >> setUp [
 	
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoPNPTest >> test00 [
 
 	| vcc via1 via2 output connection |
@@ -55,7 +55,7 @@ ChDTwoPNPTest >> test00 [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoPNPTest >> test01 [
 
 	| vcc via1 via2 output connection |
@@ -93,7 +93,7 @@ ChDTwoPNPTest >> test01 [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoPNPTest >> test10 [
 
 	| vcc via1 via2 output connection |
@@ -132,7 +132,7 @@ ChDTwoPNPTest >> test10 [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoPNPTest >> test11 [
 
 	| vcc via1 via2 output connection |

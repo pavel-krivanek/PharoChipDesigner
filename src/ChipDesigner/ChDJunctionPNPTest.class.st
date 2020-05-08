@@ -27,7 +27,7 @@ ChDJunctionPNPTest >> setUp [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionPNPTest >> testCreateAndDeletePNP [
 	
 	| cell |
@@ -64,7 +64,7 @@ ChDJunctionPNPTest >> testCreateAndDeletePNP [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionPNPTest >> testCreatePNP [
 	
 	| event cell |
@@ -105,7 +105,7 @@ ChDJunctionPNPTest >> testCreatePNP [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionPNPTest >> testCreatePNPFromRight [
 	
 	| cell |

@@ -21,7 +21,7 @@ ChDAreaInputRegionsTest >> setUp [
 	area addInputAt: 1@1.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaInputRegionsTest >> testConnectedCell [
 
 	| cell |
@@ -47,7 +47,7 @@ ChDAreaInputRegionsTest >> testConnectedCell [
 	self assert: area regions size equals: 2.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaInputRegionsTest >> testConnectedCellFromInput [
 
 	| cell event |
@@ -73,7 +73,7 @@ ChDAreaInputRegionsTest >> testConnectedCellFromInput [
 	self assert: area regions size equals: 2.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaInputRegionsTest >> testNotConnectedCell [
 
 	| cell |

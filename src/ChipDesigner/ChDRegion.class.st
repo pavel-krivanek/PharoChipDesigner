@@ -99,7 +99,7 @@ ChDRegion >> hi [
 	^ self hasVcc
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ChDRegion >> initialize [ 
 
 	super initialize.

@@ -13,7 +13,7 @@ ChDAreaTest >> setUp [
 	area := ChDArea withDefaultExtent.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testAddNewStandaloneRegion [
 	| aCell |
 	self assertEmpty: area regions.
@@ -25,7 +25,7 @@ ChDAreaTest >> testAddNewStandaloneRegion [
 	self assertCollection: area regions anyOne cells hasSameElements: {aCell}
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testAddNewStandaloneSubstrateRegion [
 	| aCell |
 	self assertEmpty: area regions.
@@ -37,7 +37,7 @@ ChDAreaTest >> testAddNewStandaloneSubstrateRegion [
 	self assertCollection: area regions anyOne cells hasSameElements: {aCell}
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testMergeRegions [
 	| cell1 cell2 |
 	self assertEmpty: area regions.
@@ -59,7 +59,7 @@ ChDAreaTest >> testMergeRegions [
 	self assert: area regions size equals: 1
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testMergeSubstrateRegions [
 	| cell1 cell2 |
 	self assertEmpty: area regions.
@@ -81,7 +81,7 @@ ChDAreaTest >> testMergeSubstrateRegions [
 	self assert: area regions size equals: 1
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testNeighborMetalRegionsOf [
 	| cell1 cell2 |
 	self assertEmpty: area regions.
@@ -101,7 +101,7 @@ ChDAreaTest >> testNeighborMetalRegionsOf [
 	self assertCollection: (area neighborMetalRegionsOf: cell2) hasSameElements: {cell1 metalRegion}
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testNeighbourSubstrateRegionsOf [
 	| cell1 cell2 |
 	self assertEmpty: area regions.
@@ -121,7 +121,7 @@ ChDAreaTest >> testNeighbourSubstrateRegionsOf [
 	self assertCollection: (area neighborSubstrateRegionsOf: cell2) hasSameElements: {cell1 substrateRegion}
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTestDeleteMiddleOneOfCross [
 	| cell1 cell2 cell3 cell4 cell5 regionsArray |
 	self assertEmpty: area regions.
@@ -152,7 +152,7 @@ ChDAreaTest >> testTestDeleteMiddleOneOfCross [
 	self assert: (regionsArray allSatisfy: [ :each | each cells size = 1 ])
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTestDeleteMiddleOneOfCrossInSubstrate [
 	| cell1 cell2 cell3 cell4 cell5 regionsArray |
 	self assertEmpty: area regions.
@@ -183,7 +183,7 @@ ChDAreaTest >> testTestDeleteMiddleOneOfCrossInSubstrate [
 	self assert: (regionsArray allSatisfy: [ :each | each cells size = 1 ])
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTestDeleteMiddleOneOfThree [
 	| cell1 cell2 cell3 regionsArray |
 	self assertEmpty: area regions.
@@ -212,7 +212,7 @@ ChDAreaTest >> testTestDeleteMiddleOneOfThree [
 	self assert: regionsArray first cells anyOne ~~ regionsArray second cells anyOne
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTestDeleteOneOfThree [
 	| cell1 cell2 cell3 |
 	self assertEmpty: area regions.
@@ -237,7 +237,7 @@ ChDAreaTest >> testTestDeleteOneOfThree [
 	self assert: area regions anyOne cells size equals: 2
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTestDeleteOneOfTwo [
 	| cell1 cell2 |
 	self assertEmpty: area regions.
@@ -259,7 +259,7 @@ ChDAreaTest >> testTestDeleteOneOfTwo [
 	self assert: area regions size equals: 1
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTestDeleteOneOfTwoInSubstrate [
 	| cell1 cell2 |
 	self assertEmpty: area regions.
@@ -281,7 +281,7 @@ ChDAreaTest >> testTestDeleteOneOfTwoInSubstrate [
 	self assert: area regions size equals: 1
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTestDeleteSecondOfFour [
 	| cell1 cell2 cell3 cell4 regionsArray |
 	self assertEmpty: area regions.
@@ -318,7 +318,7 @@ ChDAreaTest >> testTestDeleteSecondOfFour [
 	self assert: regionsArray size equals: 2
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTestDeleteSecondOfFourInSubstrate [
 	| cell1 cell2 cell3 cell4 regionsArray |
 	self assertEmpty: area regions.
@@ -355,7 +355,7 @@ ChDAreaTest >> testTestDeleteSecondOfFourInSubstrate [
 	self assert: regionsArray size equals: 2
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTestDeleteSecondOfFourVertical [
 	| cell1 cell2 cell3 cell4 regionsArray |
 	self assertEmpty: area regions.
@@ -387,7 +387,7 @@ ChDAreaTest >> testTestDeleteSecondOfFourVertical [
 	self assert: regionsArray size equals: 2
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTestDeleteStandalone [
 	| aCell |
 	self assertEmpty: area regions.
@@ -406,7 +406,7 @@ ChDAreaTest >> testTestDeleteStandalone [
 	self assert: area regions size equals: 0
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTestDeleteStandaloneInSubstrate [
 	| aCell |
 	self assertEmpty: area regions.
@@ -425,7 +425,7 @@ ChDAreaTest >> testTestDeleteStandaloneInSubstrate [
 	self assert: area regions size equals: 0
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTwoStandaloneRegions [
 	| cell1 cell2 |
 	self assertEmpty: area regions.
@@ -439,7 +439,7 @@ ChDAreaTest >> testTwoStandaloneRegions [
 	self assert: area regions size equals: 2
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaTest >> testTwoStandaloneRegionsInSubstrate [
 	| cell1 cell2 |
 	self assertEmpty: area regions.

@@ -268,7 +268,7 @@ ChDAreaDisplay >> graphics: anObject [
 	graphics := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ChDAreaDisplay >> initialize [ 
 	
 	super initialize.

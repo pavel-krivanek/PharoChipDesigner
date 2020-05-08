@@ -236,7 +236,7 @@ ChDCell >> hasVia [
 	^ via 
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ChDCell >> initialize [
 
 	super initialize.

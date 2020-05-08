@@ -124,7 +124,7 @@ ChDFullNPNTest >> setUp [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDFullNPNTest >> testSequence [ 
 
 	| i1 i2 o val oo |

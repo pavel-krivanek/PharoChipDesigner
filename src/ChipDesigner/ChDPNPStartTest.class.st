@@ -46,7 +46,7 @@ ChDPNPStartTest >> setUp [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDPNPStartTest >> testSequence [ 
 
 	| i1 i2 o val |

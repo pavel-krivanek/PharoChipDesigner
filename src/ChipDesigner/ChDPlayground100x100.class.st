@@ -54,7 +54,7 @@ ChDPlayground100x100 >> createScopes [
 	scopes := sequences collect: [ :each | ChDSequenceMorph on: each graphics: self graphics ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDPlayground100x100 >> initialize [ 
 
 	super initialize.

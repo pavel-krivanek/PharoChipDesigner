@@ -98,7 +98,7 @@ ChipDesigner class >> taskbarIcon [
 	offset: (0@0)) ]
 ]
 
-{ #category : #initialization }
+{ #category : #copying }
 ChipDesigner >> copy [ 
 	
 	| temporary |

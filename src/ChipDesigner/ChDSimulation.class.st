@@ -141,7 +141,7 @@ ChDSimulation >> evaluate [
 		passRatio: self passRatio)
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ChDSimulation >> initialize [
 
 	super initialize.

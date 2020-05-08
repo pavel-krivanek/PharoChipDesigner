@@ -18,7 +18,7 @@ ChDTwoPNPCompactTest >> setUp [
 	
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoPNPCompactTest >> test00 [
 
 	| vcc via1 via2 output |
@@ -51,7 +51,7 @@ ChDTwoPNPCompactTest >> test00 [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoPNPCompactTest >> test01 [
 
 	| vcc via1 via2 output |
@@ -86,7 +86,7 @@ ChDTwoPNPCompactTest >> test01 [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoPNPCompactTest >> test10 [
 
 	| vcc via1 via2 output |
@@ -121,7 +121,7 @@ ChDTwoPNPCompactTest >> test10 [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoPNPCompactTest >> test11 [
 
 	| vcc via1 via2 output |

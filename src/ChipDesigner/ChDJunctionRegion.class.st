@@ -61,7 +61,7 @@ ChDJunctionRegion >> compactUp: anObject [
 	compactUp := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ChDJunctionRegion >> initialize [
 
 	super initialize.

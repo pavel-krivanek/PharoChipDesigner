@@ -55,7 +55,7 @@ ChDClassicLevel >> createScopes [
 	scopes := sequences collect: [ :each | ChDSequenceMorph on: each graphics: self graphics ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDClassicLevel >> initialize [ 
 
 	super initialize.
