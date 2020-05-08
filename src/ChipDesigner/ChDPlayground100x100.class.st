@@ -4,48 +4,16 @@ Class {
 	#category : #'ChipDesigner-Levels'
 }
 
-{ #category : #'instance creation' }
-ChDPlayground100x100 class >> designName [
-
-	 ^ 'Playground 100x100'
-]
-
 { #category : #'as yet unclassified' }
 ChDPlayground100x100 class >> isRoot [ 
 
 	^ true
 ]
 
-{ #category : #'instance creation' }
-ChDPlayground100x100 class >> levelName [
-
-	 ^ self subclassResponsibility
-]
-
-{ #category : #'instance creation' }
-ChDPlayground100x100 class >> levels [
-
-	^ Array new
-]
-
-{ #category : #'instance creation' }
-ChDPlayground100x100 class >> on: area [
-
-	^ self basicNew
-		area: area;
-		initialize
-]
-
 { #category : #'as yet unclassified' }
 ChDPlayground100x100 class >> priority [ 
 
 	^ 320
-]
-
-{ #category : #'as yet unclassified' }
-ChDPlayground100x100 class >> selectable [
-
-	^ true
 ]
 
 { #category : #'as yet unclassified' }

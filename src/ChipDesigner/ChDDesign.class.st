@@ -17,12 +17,6 @@ ChDDesign class >> designName [
 	 ^ 'Playground 100x100'
 ]
 
-{ #category : #'as yet unclassified' }
-ChDDesign class >> isRoot [ 
-
-	^ false
-]
-
 { #category : #'instance creation' }
 ChDDesign class >> levelName [
 

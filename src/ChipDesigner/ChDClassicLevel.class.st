@@ -17,32 +17,6 @@ ChDClassicLevel class >> designName [
 	 ^ self levelName
 ]
 
-{ #category : #'instance creation' }
-ChDClassicLevel class >> levelName [
-
-	 ^ self subclassResponsibility
-]
-
-{ #category : #'instance creation' }
-ChDClassicLevel class >> levels [
-
-	^ Array new
-]
-
-{ #category : #'instance creation' }
-ChDClassicLevel class >> on: area [
-
-	^ self basicNew
-		area: area;
-		initialize
-]
-
-{ #category : #'as yet unclassified' }
-ChDClassicLevel class >> selectable [
-
-	^ true
-]
-
 { #category : #'as yet unclassified' }
 ChDClassicLevel >> createLabels [
 

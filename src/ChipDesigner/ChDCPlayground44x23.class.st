@@ -17,12 +17,6 @@ ChDCPlayground44x23 class >> isRoot [
 ]
 
 { #category : #'as yet unclassified' }
-ChDCPlayground44x23 class >> priority [ 
-
-	^ 300
-]
-
-{ #category : #'as yet unclassified' }
 ChDCPlayground44x23 >> instructions [ 
 
 	^ 'intro.png'

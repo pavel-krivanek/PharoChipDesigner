@@ -53,9 +53,3 @@ ChDClassicLevels class >> priority [
 
 	^ 200
 ]
-
-{ #category : #'instance creation' }
-ChDClassicLevels class >> selectable [ 
-
-	^ false
-]
