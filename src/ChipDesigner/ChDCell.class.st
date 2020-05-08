@@ -72,20 +72,18 @@ ChDCell >> connectedCellsInSubstrate [
 
 { #category : #accessing }
 ChDCell >> connectedCellsInSubstrateWithoutBaseConnections [
-
 	| result |
-	
 	result := IdentitySet new.
 	self substrateType ifNil: [ ^ result ].
-	(((substrateConnections bitAnd: 2r0001) > 0) and: [ (((self topology up junctionConnections ifNil: [ 0 ]) bitAnd: 2r0100) > 0 ) not]) 
+	((substrateConnections bitAnd: 2r0001) > 0 and: [ ((self topology up junctionConnections ifNil: [ 0 ]) bitAnd: 2r0100) <= 0 ])
 		ifTrue: [ result add: self topology up ].
-	(((substrateConnections bitAnd: 2r0010) > 0) and: [ (((self topology right junctionConnections ifNil: [ 0 ]) bitAnd: 2r1000) > 0 ) not]) 
+	((substrateConnections bitAnd: 2r0010) > 0 and: [ ((self topology right junctionConnections ifNil: [ 0 ]) bitAnd: 2r1000) <= 0 ])
 		ifTrue: [ result add: self topology right ].
-	(((substrateConnections bitAnd: 2r0100) > 0) and: [ (((self topology down junctionConnections ifNil: [ 0 ]) bitAnd: 2r0001) > 0 ) not]) 
+	((substrateConnections bitAnd: 2r0100) > 0 and: [ ((self topology down junctionConnections ifNil: [ 0 ]) bitAnd: 2r0001) <= 0 ])
 		ifTrue: [ result add: self topology down ].
-	(((substrateConnections bitAnd: 2r1000) > 0) and: [ (((self topology left junctionConnections ifNil: [ 0 ]) bitAnd: 2r0010) > 0 ) not]) 
+	((substrateConnections bitAnd: 2r1000) > 0 and: [ ((self topology left junctionConnections ifNil: [ 0 ]) bitAnd: 2r0010) <= 0 ])
 		ifTrue: [ result add: self topology left ].
-	^ result.
+	^ result
 ]
 
 { #category : #accessing }

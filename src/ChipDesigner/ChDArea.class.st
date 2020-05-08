@@ -340,29 +340,26 @@ ChDArea >> encoded [
 
 { #category : #initialization }
 ChDArea >> encodedRectangle: aRectangle [
-
 	| emptyCells |
-	
 	emptyCells := 0.
 
-	^ String streamContents: [ :s |
-		s nextPutAll: (aRectangle width+1 printPaddedWith: $0 to: 5 base: 16).
-		s nextPutAll: (aRectangle height+1 printPaddedWith: $0 to: 5 base: 16).
-		aRectangle top to: aRectangle bottom do: [ :y |
-			aRectangle left to: aRectangle right do: [ :x |
-				| cell |
-				cell := self atX: x y: y.
-				(cell isEmpty not or: [ emptyCells = 127 ])
-					ifTrue: [ 
-						emptyCells > 0 ifTrue: [ 
-							s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16).
-							emptyCells := 0. ].
-						(cell isEmpty and: [emptyCells = 0]) 
-							ifFalse: [s nextPutAll: cell encoded ]
-							ifTrue: [ emptyCells := emptyCells + 1 ]]
-					ifFalse: [ emptyCells := emptyCells + 1 ] ] ].
-		emptyCells > 0 ifTrue: [ 
-			s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16) ] ]
+	^ String
+		streamContents: [ :s | 
+			s nextPutAll: (aRectangle width + 1 printPaddedWith: $0 to: 5 base: 16).
+			s nextPutAll: (aRectangle height + 1 printPaddedWith: $0 to: 5 base: 16).
+			aRectangle top to: aRectangle bottom do: [ :y | 
+				aRectangle left to: aRectangle right do: [ :x | 
+					| cell |
+					cell := self atX: x y: y.
+					(cell isNotEmpty or: [ emptyCells = 127 ])
+						ifTrue: [ emptyCells > 0
+								ifTrue: [ s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16).
+									emptyCells := 0 ].
+							(cell isEmpty and: [ emptyCells = 0 ])
+								ifFalse: [ s nextPutAll: cell encoded ]
+								ifTrue: [ emptyCells := emptyCells + 1 ] ]
+						ifFalse: [ emptyCells := emptyCells + 1 ] ] ].
+			emptyCells > 0 ifTrue: [ s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16) ] ]
 ]
 
 { #category : #'cell access' }
