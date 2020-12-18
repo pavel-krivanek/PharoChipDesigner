@@ -325,89 +325,89 @@ ChipDesigner >> initializeStatusBar [
 { #category : #initialization }
 ChipDesigner >> initializeToolbar [
 
-	toolbar := self newToolBar
+	toolbar := self newToolbar
 		addItem:
-			(SpToolBarButton new
+			(SpToolbarButtonPresenter new
 				label: 'Export';
 				icon: (self iconNamed: #smallSave);
 				help: 'Export area to a string';
 				action: [ self export ];
 				yourself)
-			position: SpToolBarItemPosition left;
+			position: SpToolbarItemPosition left;
 		addItem:
-			(SpToolBarButton new
+			(SpToolbarButtonPresenter new
 				label: 'Import';
 				icon: (self iconNamed: #smallLoadProject);
 				help: 'Import area from a string';
 				action: [ self import ];
 				yourself)
-			position: SpToolBarItemPosition left;
+			position: SpToolbarItemPosition left;
 
 		addItem:
-			(SpToolBarButton new
+			(SpToolbarButtonPresenter new
 				label: 'Step';
 				icon: (self iconNamed: #glamorousPlay);
 				help: 'Single simulation step';
 				action: [ self simulationStep: 1 ];
 				yourself)
-			position: SpToolBarItemPosition left;
+			position: SpToolbarItemPosition left;
 		addItem:
-			(SpToolBarButton new
+			(SpToolbarButtonPresenter new
 				label: '5x';
 				icon: (self iconNamed: #glamorousPlay);
 				help: '5 simulation steps';
 				action: [ self simulationStep: 5 ];
 				yourself)
-			position: SpToolBarItemPosition left;
+			position: SpToolbarItemPosition left;
 		addItem:
-			(SpToolBarButton new
+			(SpToolbarButtonPresenter new
 				label: '10x';
 				icon: (self iconNamed: #glamorousPlay);
 				help: 'Ten simulation steps';
 				action: [ self simulationStep: 10 ];
 				yourself)
-			position: SpToolBarItemPosition left;
+			position: SpToolbarItemPosition left;
 		addItem:
-			(runButton := SpToolBarButton new
+			(runButton := SpToolbarButtonPresenter new
 						label: 'Run';
 						icon: (self iconNamed: #smallDoIt);
 						help: 'Run / stop simulation';
 						action: [ self toggleRun ];
 						yourself)
-			position: SpToolBarItemPosition left;
+			position: SpToolbarItemPosition left;
 
 			addItem:
-				(SpToolBarButton new
+				(SpToolbarButtonPresenter new
 					label: 'Reset';
 					icon: (self iconNamed: #smallUpdate);
 					help: 'reset simulation';
 					action: [ self simulationReset ];
 					yourself)
-			position: SpToolBarItemPosition left;
+			position: SpToolbarItemPosition left;
 			addItem:
-				(SpToolBarButton new
+				(SpToolbarButtonPresenter new
 					label: 'Inspect';
 					icon: (self iconNamed: #glamorousInspect);
 					help: 'zoom out the display';
 					action: [area inspect];
 					yourself)
-			position: SpToolBarItemPosition right;
+			position: SpToolbarItemPosition right;
 			addItem:
-				(SpToolBarButton new
+				(SpToolbarButtonPresenter new
 					label: 'Zoom out';
 					icon: (self iconNamed: #glamorousZoomOut);
 					help: 'zoom out the display';
 					action: [ self zoomOut ];
 					yourself)
-			position: SpToolBarItemPosition right;
+			position: SpToolbarItemPosition right;
 			addItem:
-				(SpToolBarButton new
+				(SpToolbarButtonPresenter new
 					label: 'Zoom in';
 					icon: (self iconNamed: #glamorousZoomIn);
 					help: 'zoom in the display';
 					action: [ self zoomIn ];
 					yourself)
-			position: SpToolBarItemPosition right.
+			position: SpToolbarItemPosition right.
 	
 	self subscribeRunButton.
 ]
@@ -456,7 +456,7 @@ ChipDesigner >> initializeWindow: aWindowPresenter [
 
 	super initializeWindow: aWindowPresenter.
 	aWindowPresenter 
-		toolBar: toolbar;
+		toolbar: toolbar;
 		statusBar: statusBar.
 	
 ]
@@ -531,7 +531,7 @@ ChipDesigner >> openSelectionMenu [
 	| menu |
 	
 	menu := self selectionMenu.
-	menu openWithSpecAt: ActiveHand position
+	menu openWithSpecAt: World activeHand position
 ]
 
 { #category : #initialization }
