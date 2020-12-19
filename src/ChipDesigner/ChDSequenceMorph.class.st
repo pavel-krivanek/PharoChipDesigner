@@ -124,6 +124,12 @@ ChDSequenceMorph >> drawOn: aCanvas [
 
 ]
 
+{ #category : #initialization }
+ChDSequenceMorph >> drawOnAthensCanvas: aCanvas [
+
+	self drawOn: aCanvas asCanvasWrapper
+]
+
 { #category : #accessing }
 ChDSequenceMorph >> graphics [
 	^ graphics

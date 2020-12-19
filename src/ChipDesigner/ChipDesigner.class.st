@@ -215,7 +215,7 @@ ChipDesigner >> import [
 	[ 
 		area decodedFromZipString: textPresenter text asString.
 		currentLevel reinitialize.	
-	] ifError: [ :e | self inform: 'Import error: ', e asString ].
+	] ifErrorDo: [ :e | self inform: 'Import error: ', e asString ].
 
 	self refreshEditor
 ]

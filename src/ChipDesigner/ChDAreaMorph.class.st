@@ -87,6 +87,12 @@ ChDAreaMorph >> drawOn: aCanvas [
 ]
 
 { #category : #initialization }
+ChDAreaMorph >> drawOnAthensCanvas: aCanvas [
+
+	self drawOn: aCanvas asCanvasWrapper
+]
+
+{ #category : #initialization }
 ChDAreaMorph >> drawSelectionOn: aCanvas at: origin [
 	
 	area selection ifNotNil: [ 
