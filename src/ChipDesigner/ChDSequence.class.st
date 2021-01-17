@@ -19,6 +19,21 @@ Class {
 }
 
 { #category : #running }
+ChDSequence class >> editor [ 
+	
+	<script>
+
+	| aSequence morph |
+
+	aSequence := ChDSequence input name: 'seq'.
+	aSequence decodedFrom: '000000000000000000000000000000000000000000000000000000000000000000000000'.
+	aSequence readOnly: false.
+	morph := ChDSequenceMorph on: aSequence graphics:  ChDGraphicsProvider new.
+	morph openInWindow.
+	aSequence inspect.
+]
+
+{ #category : #running }
 ChDSequence class >> input [ 
 
 	^ self new type: #input.

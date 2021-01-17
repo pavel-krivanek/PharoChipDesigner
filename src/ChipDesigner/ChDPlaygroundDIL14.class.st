@@ -19,7 +19,7 @@ ChDPlaygroundDIL14 class >> isRoot [
 { #category : #accessing }
 ChDPlaygroundDIL14 class >> priority [ 
 
-	^ 340
+	^ 640
 ]
 
 { #category : #'as yet unclassified' }
@@ -38,7 +38,7 @@ ChDPlaygroundDIL14 >> createLabels [
 { #category : #initialization }
 ChDPlaygroundDIL14 >> initializeArea [
 
-	area decodedFromZipString: 'H4sIAAAAAAAAAOWSMQ7AIAhFrwTUGlcl7f2PVPyN2NDFqUuXF3n5AiYSkaiBT0MTIVIWYqCwuVTejpK5o5dA9VxwyOVeAuK54Hb9/9z/z/1mLvU/nu7SThManWW3vLYkXOWxAU4T2XPot/AYOPF1xbs83egX7ja5AOFrWrrUAwAA'
+	area decodedFromZipString: 'H4sIAAAAAAAAAOWNwQkAIAwDV0qDil9bdP+RrH340A30c5AjcABoDhkOJQETQgJV3KV6OyR3fc1A27/Dxa+sGeD+HS7b/93/u+90lRMtwLCcVwMAAA=='
 ]
 
 { #category : #'as yet unclassified' }

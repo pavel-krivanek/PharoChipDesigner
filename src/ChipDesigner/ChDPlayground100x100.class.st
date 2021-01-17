@@ -19,7 +19,7 @@ ChDPlayground100x100 class >> isRoot [
 { #category : #accessing }
 ChDPlayground100x100 class >> priority [ 
 
-	^ 320
+	^ 620
 ]
 
 { #category : #'as yet unclassified' }
