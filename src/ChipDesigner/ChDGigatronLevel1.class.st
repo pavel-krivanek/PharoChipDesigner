@@ -35,10 +35,10 @@ ChDGigatronLevel1 >> initializeArea [
 	area decodedFromZipString: 'H4sIAAAAAAAAAOWSMQ7AIAhFrwTUGlcl7f2PVPyN2NDFqUuXF3n5AiYSkaiBT0MTIVIWYqCwuVTejpK5o5dA9VxwyOVeAuK54Hb9/9z/z/1mLvU/nu7SThManWW3vLYkXOWxAU4T2XPot/AYOPF1xbs83egX7ja5AOFrWrrUAwAA'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDGigatronLevel1 >> instructions [ 
 
-	^ 'intro.png'
+	^ '7404-768x485.png'
 ]
 
 { #category : #'as yet unclassified' }
