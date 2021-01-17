@@ -1,67 +1,62 @@
 Class {
-	#name : #ChDPlayground100x100,
+	#name : #ChDPlaygroundDIL14,
 	#superclass : #ChDDesign,
 	#category : #'ChipDesigner-Levels'
 }
 
 { #category : #accessing }
-ChDPlayground100x100 class >> designName [
+ChDPlaygroundDIL14 class >> designName [
 
-	 ^ 'Playground 100x100'
+	 ^ 'Playground DIL14'
 ]
 
 { #category : #testing }
-ChDPlayground100x100 class >> isRoot [ 
+ChDPlaygroundDIL14 class >> isRoot [ 
 
 	^ true
 ]
 
 { #category : #accessing }
-ChDPlayground100x100 class >> priority [ 
+ChDPlaygroundDIL14 class >> priority [ 
 
-	^ 320
+	^ 340
 ]
 
 { #category : #'as yet unclassified' }
-ChDPlayground100x100 >> createLabels [
+ChDPlaygroundDIL14 >> createLabels [
 
-	area descriptions add: ('+Vcc' -> (3@4)).
+	area descriptions add: ('+Vcc' -> (42@4)).
+	area descriptions add: ('GND' -> (3@28)).
 	
-	1 to: 8 do: [ :i |
-		area descriptions add: ((ports at: i) name -> (3@(8+((i-1)*4)))) ] .
+	1 to: 6 do: [ :i |
+		area descriptions add: ((ports at: i) name -> (3@(4+((i-1)*4)))) ] .
 
-	area descriptions add: ('+Vcc' -> (3@40)).
-
-	area descriptions add: ('+Vcc' -> (98@4)).
-
-	1 to: 8 do: [ :i |
-		area descriptions add: ((ports at: i+8) name -> (98@(8+((i-1)*4)))) ].
-
-	area descriptions add: ('+Vcc' -> (98@40)).
+	1 to: 6 do: [ :i |
+		area descriptions add: ((ports at: i+6) name -> (42@(8+((i-1)*4)))) ].
 ]
 
 { #category : #initialization }
-ChDPlayground100x100 >> initializeArea [
+ChDPlaygroundDIL14 >> initializeArea [
 
-	area decodedFromZipString: 'H4sIAAAAAAAAADMwMDAzgRFurkDC0sTIwMDZ0MjAEExYGALFnCwwxQxA6lxBXDDhCFeHJgZWZwbiggkjuDo0MWfnkW/vyLd35Ns78u0lzV5woTXsCXMzAGEKgrSqBQAA'
+	area decodedFromZipString: 'H4sIAAAAAAAAAOWSMQ7AIAhFrwTUGlcl7f2PVPyN2NDFqUuXF3n5AiYSkaiBT0MTIVIWYqCwuVTejpK5o5dA9VxwyOVeAuK54Hb9/9z/z/1mLvU/nu7SThManWW3vLYkXOWxAU4T2XPot/AYOPF1xbs83egX7ja5AOFrWrrUAwAA'
 ]
 
 { #category : #'as yet unclassified' }
-ChDPlayground100x100 >> instructions [ 
+ChDPlaygroundDIL14 >> instructions [ 
 
 	^ 'intro.png'
 ]
 
 { #category : #'as yet unclassified' }
-ChDPlayground100x100 >> portPoints [
+ChDPlaygroundDIL14 >> portPoints [
 
-	^ ((1 to: 8) collect: [ :i | 3@(8+((i-1)*4))]),
-	((1 to: 8) collect: [ :i | 98@(8+((i-1)*4))])
+	^ ((1 to: 6) collect: [ :i | 3@(4+((i-1)*4))]),
+	((1 to: 6) collect: [ :i | 42@(8+((i-1)*4))])
 
 ]
 
 { #category : #'as yet unclassified' }
-ChDPlayground100x100 >> portsDefinition [
+ChDPlaygroundDIL14 >> portsDefinition [
 
 	^ { 
 		ChipDesignerClassicLevelPort 
@@ -82,12 +77,7 @@ ChDPlayground100x100 >> portsDefinition [
 		ChipDesignerClassicLevelPort 
 			name: 'A5'
 			sequence: '00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00'.			
-		ChipDesignerClassicLevelPort 
-			name: 'A6'
-			sequence: '00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00'.			
-		ChipDesignerClassicLevelPort 
-			name: 'A7'
-			sequence: '00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00'.			
+
 
 		ChipDesignerClassicLevelPort 
 			name: 'Y0'
@@ -106,28 +96,14 @@ ChDPlayground100x100 >> portsDefinition [
 			expectedSequence: '000000000000000000000000000000000000000000000000000000000000000000000000'.	 
 		ChipDesignerClassicLevelPort 
 			name: 'Y5'
-			expectedSequence: '000000000000000000000000000000000000000000000000000000000000000000000000'.	 
-		ChipDesignerClassicLevelPort 
-			name: 'Y6'
-			expectedSequence: '000000000000000000000000000000000000000000000000000000000000000000000000'.	 
-		ChipDesignerClassicLevelPort 
-			name: 'Y7'
-			expectedSequence: '000000000000000000000000000000000000000000000000000000000000000000000000'.	 
+			expectedSequence: '000000000000000000000000000000000000000000000000000000000000000000000000'.	
 		}
 
 
 ]
 
-{ #category : #operations }
-ChDPlayground100x100 >> reinitialize [ 
-
-	self initializeSimulation.
-	
-	self createLabels.
-]
-
 { #category : #'as yet unclassified' }
-ChDPlayground100x100 >> vccPoints [
+ChDPlaygroundDIL14 >> vccPoints [
 
-	^ { 3@3. 3@40. 98@3. 98@40 }
+	^ { 42@3 }
 ]

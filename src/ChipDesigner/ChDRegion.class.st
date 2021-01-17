@@ -113,6 +113,31 @@ ChDRegion >> initialize [
 ]
 
 { #category : #accessing }
+ChDRegion >> inspectionMorph [
+	<inspectorPresentationOrder: 90 title: 'Morph'>
+	
+	| regionCells otherCells aMorph |
+	
+	regionCells := (self cells collect: [ :aCell | aCell x @ aCell y ]) asArray.
+	otherCells := OrderedCollection new.
+	1 to: self layer area width do: [ :x |
+		1 to: self layer area height do: [ :y |
+			| point |
+			point := x@y.
+			(regionCells includes: point) 
+				ifFalse: [ otherCells add: point ]
+			 ] ].
+	
+	aMorph := ChDAreaMorph for: self layer area.
+	aMorph display 	suppressedCells: otherCells.
+
+	^ SpMorphPresenter new
+		morph: aMorph;
+		yourself.
+			
+]
+
+{ #category : #accessing }
 ChDRegion >> isCompact [
 
 	^ false

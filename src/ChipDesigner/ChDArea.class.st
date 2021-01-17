@@ -351,7 +351,7 @@ ChDArea >> encodedRectangle: aRectangle [
 				aRectangle left to: aRectangle right do: [ :x | 
 					| cell |
 					cell := self atX: x y: y.
-					(cell isNotEmpty or: [ emptyCells = 127 ])
+					(cell isEmpty not or: [ emptyCells = 127 ])
 						ifTrue: [ emptyCells > 0
 								ifTrue: [ s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16).
 									emptyCells := 0 ].
@@ -424,6 +424,15 @@ ChDArea >> initializeForExtent: aPoint [
 	
 	
 	
+]
+
+{ #category : #'cell access' }
+ChDArea >> inspectionMorph [
+	<inspectorPresentationOrder: 90 title: 'Morph'>
+
+	^ SpMorphPresenter new
+		morph: (ChDAreaMorph for: self);
+		yourself.
 ]
 
 { #category : #'cell access' }

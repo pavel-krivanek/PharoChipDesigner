@@ -56,50 +56,9 @@ ChDClassicLevel >> createScopes [
 ]
 
 { #category : #initialization }
-ChDClassicLevel >> initialize [ 
-
-	super initialize.
-		
-	self initializeArea.
-
-	ports := self portsDefinition.
-	ports do: [ :each | each isInput: (each expectedSequence = 0) ].
-
-	self createScopes.
-
-	self initializeSimulation.
-	
-	self createLabels.
-]
-
-{ #category : #initialization }
 ChDClassicLevel >> initializeArea [
 
 	area decodeFrom: '0002C0001B000B2200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A10000420061201612012100048200612016120121000B2'
-]
-
-{ #category : #initialization }
-ChDClassicLevel >> initializeSimulation [
-
-	area simulation preStepBlock: [ :aSimulation |
-		
-		aSimulation sequences: sequences.
-	
-		sequences do: [ :aSequence | aSequence resetRegion ].	
-				
-		aSimulation time > 0 ifTrue: [
-			sequences with: ports do: [ :sequence :port | 
-				port isInput ifTrue: [ 
-					sequence updateRegionAt: aSimulation time ] ] ].
-
-		"set Vcc after inputs so they can  overwrite them"
-		aSimulation time > 0 ifTrue: [ 
-			(area atX: 3 y: 3) withMetalRegionDo: [ :region | region hasVcc: true ].
-			(area atX: 3 y: 24) withMetalRegionDo: [ :region | region hasVcc: true ].
-			(area atX: 42 y: 3) withMetalRegionDo: [ :region | region hasVcc: true ].
-			(area atX: 42 y: 24) withMetalRegionDo: [ :region | region hasVcc: true ]. ]
-	].
-	
 ]
 
 { #category : #'as yet unclassified' }
@@ -121,10 +80,8 @@ ChDClassicLevel >> portsDefinition [
 	self subclassResponsibility 
 ]
 
-{ #category : #operations }
-ChDClassicLevel >> reinitialize [ 
+{ #category : #'as yet unclassified' }
+ChDClassicLevel >> vccPoints [
 
-	self initializeSimulation.
-	
-	self createLabels.
+	^ { 3@3. 3@24. 42@3. 42@24 }
 ]

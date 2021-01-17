@@ -318,7 +318,7 @@ ChDSimulation >> stepWith: aBlock [
 							outputRegions := connectedRegionsInSubstrate copyWithoutAll: vcc.
 							input not.
 							vccFutureState := vcc ifEmpty: [ false ] ifNotEmpty: [ vcc anyOne futureState ].
-							out := input not and: [ vcc isNotEmpty and: [ vccFutureState ] ].
+							out := input not and: [ vcc notEmpty and: [ vccFutureState ] ].
 
 							outputRegions
 								do: [ :e | 

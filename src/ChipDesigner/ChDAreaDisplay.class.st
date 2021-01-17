@@ -155,7 +155,7 @@ ChDAreaDisplay >> drawDescriptions: dirtyDescriptions [
 { #category : #accessing }
 ChDAreaDisplay >> drawDirtyCells [
 	| drawSuppressed dirtyDescriptions |
-	drawSuppressed := suppressedCells isNotEmpty.
+	drawSuppressed := suppressedCells notEmpty.
 	drawSuppressed ifTrue: [ suppressedCells do: [ :e | dirtyMap at: (self area atX: e x y: e y) put: true ] ].
 
 	dirtyDescriptions := area descriptions
@@ -246,7 +246,7 @@ ChDAreaDisplay >> form: anObject [
 { #category : #accessing }
 ChDAreaDisplay >> fullRepaint [
 	| drawSuppressed |
-	drawSuppressed := suppressedCells isNotEmpty.
+	drawSuppressed := suppressedCells notEmpty.
 
 	1 to: area width do: [ :x | 
 		1 to: area height do: [ :y | 
