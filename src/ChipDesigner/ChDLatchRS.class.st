@@ -36,7 +36,7 @@ ChDLatchRS >> step [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDLatchRS >> testOscilations [
 
 	r := false.
@@ -59,7 +59,7 @@ ChDLatchRS >> testOscilations [
 	
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDLatchRS >> testSet [
 
 	r := true.

@@ -62,29 +62,56 @@ ChDAreaDisplay >> dirtyCells: cellsCollection [
 
 { #category : #accessing }
 ChDAreaDisplay >> drawCell: cell suppressed: drawSuppressed [
-
 	| x y |
 	x := cell x.
 	y := cell y.
 
-			canvas drawImage: graphics bgForm at: ((self cellSize*(x-1))@(self cellSize*(y-1))).
+	canvas drawImage: graphics bgForm at: (self cellSize * (x - 1)) @ (self cellSize * (y - 1)).
 
-			self drawJunctionX: x y: y sourceForm: graphics sourceForm on: canvas origin: 0@0 block: [:aCell | aCell junctionType notNil] layer: area substrateLayer.
-		
-			self drawCellX: x y: y type: #n sourceForm: graphics nForms on: canvas origin: 0@0  block: [:aCell | (aCell substrateType = #n) and: [aCell junctionType isNil]] layer: area substrateLayer cellForms: graphics cellForms.
-			self drawCellX: x y: y type: #p sourceForm: graphics pForms on: canvas origin: 0@0  block: [:aCell | (aCell substrateType = #p) and: [aCell junctionType isNil]] layer: area substrateLayer cellForms: graphics cellForms.
-			self drawCellX: x y: y type: #metal sourceForm: graphics metalForms on: canvas origin: 0@0  block: [:aCell | aCell metalConnections notNil] layer: area metalLayer cellForms: graphics cellForms.
-			cell via ifTrue: [ 
-				canvas translucentImage: graphics viaForm at: ((self cellSize*(x-1))@(self cellSize*(y-1))) ].
+	self
+		drawJunctionX: x
+		y: y
+		sourceForm: graphics sourceForm
+		on: canvas
+		origin: 0 @ 0
+		block: [ :aCell | aCell junctionType isNotNil ]
+		layer: area substrateLayer.
 
-			drawSuppressed ifTrue: [ 
-				(suppressedCells includes: (x@y)) ifTrue: [ 
-					canvas translucentImage: graphics suppressForm at: ((self cellSize*(x-1))@(self cellSize*(y-1)))					
-					 ]
-				 ]	
+	self
+		drawCellX: x
+		y: y
+		type: #n
+		sourceForm: graphics nForms
+		on: canvas
+		origin: 0 @ 0
+		block: [ :aCell | aCell substrateType = #n and: [ aCell junctionType isNil ] ]
+		layer: area substrateLayer
+		cellForms: graphics cellForms.
+	self
+		drawCellX: x
+		y: y
+		type: #p
+		sourceForm: graphics pForms
+		on: canvas
+		origin: 0 @ 0
+		block: [ :aCell | aCell substrateType = #p and: [ aCell junctionType isNil ] ]
+		layer: area substrateLayer
+		cellForms: graphics cellForms.
+	self
+		drawCellX: x
+		y: y
+		type: #metal
+		sourceForm: graphics metalForms
+		on: canvas
+		origin: 0 @ 0
+		block: [ :aCell | aCell metalConnections isNotNil ]
+		layer: area metalLayer
+		cellForms: graphics cellForms.
+	cell via ifTrue: [ canvas translucentImage: graphics viaForm at: (self cellSize * (x - 1)) @ (self cellSize * (y - 1)) ].
 
-	
-
+	drawSuppressed
+		ifTrue:
+			[ (suppressedCells includes: x @ y) ifTrue: [ canvas translucentImage: graphics suppressForm at: (self cellSize * (x - 1)) @ (self cellSize * (y - 1)) ] ]
 ]
 
 { #category : #accessing }
@@ -109,50 +136,42 @@ ChDAreaDisplay >> drawCellX: x y: y type: type sourceForm: aFormArray on: aCanva
 
 { #category : #accessing }
 ChDAreaDisplay >> drawDescriptions: dirtyDescriptions [
+	dirtyDescriptions
+		do: [ :association | 
+			| p label width height |
+			p := (self cellSize * (association value x - 1)) @ (self cellSize * (association value y - 1)).
+			label := association key.
+			width := graphics font widthOfString: label.
+			height := graphics font height.
+			p := p + ((self cellSize / 2) @ (self cellSize / 2)) - ((width / 2) @ (height / 2)).
 
-	| font | 
-
-	dirtyDescriptions do: [ :association |
-		| p label width height |
-		p := ((self cellSize*(association value x-1))@(self cellSize*(association value y-1))).
-		label := association key.
-		width := graphics font widthOfString: label.
-		height := graphics font height.
-		p := p + (self cellSize/2 @ (self cellSize/2)) - (width / 2 @ (height / 2)).
-		
-		canvas drawString: label at: p ceiling font: graphics font color: Color black.
-		 ].
-		
-
+			canvas
+				drawString: label
+				at: p ceiling
+				font: graphics font
+				color: Color black ]
 ]
 
 { #category : #accessing }
 ChDAreaDisplay >> drawDirtyCells [
-
-	| drawSuppressed dirtyDescriptions  |
-
-	drawSuppressed := suppressedCells notEmpty.
+	| drawSuppressed dirtyDescriptions |
+	drawSuppressed := suppressedCells isNotEmpty.
 	drawSuppressed ifTrue: [ suppressedCells do: [ :e | dirtyMap at: (self area atX: e x y: e y) put: true ] ].
-	
-	dirtyDescriptions := area descriptions select: [ :anAssociation | 
-		| cellMiddle cellLeft cellRight | 
-		cellMiddle := self area atX: anAssociation value x y: anAssociation value y.
-		cellLeft := cellMiddle topology left.
-		cellRight := cellMiddle topology right.
-		({ cellLeft. cellMiddle. cellRight } anySatisfy: [ :each | dirtyMap at: each ifAbsent: [false]])
-			ifTrue: [ 
-				{ cellLeft. cellMiddle. cellRight } do: [ :each | dirtyMap at: each put: true ]. true ]
-			ifFalse: [ 
-				false ] ].
 
-	dirtyMap associationsDo: [ :association |
-		association value ifTrue: [ 
-			self drawCell: association key suppressed: drawSuppressed ] ].
-	
-	self drawDescriptions: dirtyDescriptions.
-	
-		
+	dirtyDescriptions := area descriptions
+		select: [ :anAssociation | 
+			| cellMiddle cellLeft cellRight |
+			cellMiddle := self area atX: anAssociation value x y: anAssociation value y.
+			cellLeft := cellMiddle topology left.
+			cellRight := cellMiddle topology right.
+			({cellLeft . cellMiddle . cellRight} anySatisfy: [ :each | dirtyMap at: each ifAbsent: [ false ] ])
+				ifTrue: [ {cellLeft . cellMiddle . cellRight} do: [ :each | dirtyMap at: each put: true ].
+					true ]
+				ifFalse: [ false ] ].
 
+	dirtyMap associationsDo: [ :association | association value ifTrue: [ self drawCell: association key suppressed: drawSuppressed ] ].
+
+	self drawDescriptions: dirtyDescriptions
 ]
 
 { #category : #accessing }
@@ -226,20 +245,16 @@ ChDAreaDisplay >> form: anObject [
 
 { #category : #accessing }
 ChDAreaDisplay >> fullRepaint [
+	| drawSuppressed |
+	drawSuppressed := suppressedCells isNotEmpty.
 
-	| drawSuppressed  |
-		
-	drawSuppressed := suppressedCells notEmpty.
-
-	1 to: area width do: [ :x |
+	1 to: area width do: [ :x | 
 		1 to: area height do: [ :y | 
-			| cell | 
-			cell := area atX: x y:y.
-			self drawCell: cell suppressed: drawSuppressed ]].
-	
-	self drawDescriptions: area descriptions.
-		
+			| cell |
+			cell := area atX: x y: y.
+			self drawCell: cell suppressed: drawSuppressed ] ].
 
+	self drawDescriptions: area descriptions
 ]
 
 { #category : #accessing }
@@ -252,7 +267,7 @@ ChDAreaDisplay >> graphics: anObject [
 	graphics := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ChDAreaDisplay >> initialize [ 
 	
 	super initialize.

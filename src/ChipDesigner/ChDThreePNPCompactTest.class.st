@@ -50,16 +50,13 @@ ChDThreePNPCompactTest >> setUp [
 	
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDThreePNPCompactTest >> testValues [
-
-
-	0 to: 2r111 do: [ :i |
+	0 to: 2r111 do: [ :i | 
 		self prepareSimulation.
-		
-		via1 via: (i bitAt: 1)>0.	
-		via2 via: (i bitAt: 2)>0.	
-		via3 via: (i bitAt: 3)>0. 
-		self expect: ((i>0) not)
-	]
+
+		via1 via: (i bitAt: 1) > 0.
+		via2 via: (i bitAt: 2) > 0.
+		via3 via: (i bitAt: 3) > 0.
+		self expect: i <= 0 ]
 ]

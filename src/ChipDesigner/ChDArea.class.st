@@ -340,29 +340,26 @@ ChDArea >> encoded [
 
 { #category : #initialization }
 ChDArea >> encodedRectangle: aRectangle [
-
 	| emptyCells |
-	
 	emptyCells := 0.
 
-	^ String streamContents: [ :s |
-		s nextPutAll: (aRectangle width+1 printPaddedWith: $0 to: 5 base: 16).
-		s nextPutAll: (aRectangle height+1 printPaddedWith: $0 to: 5 base: 16).
-		aRectangle top to: aRectangle bottom do: [ :y |
-			aRectangle left to: aRectangle right do: [ :x |
-				| cell |
-				cell := self atX: x y: y.
-				(cell isEmpty not or: [ emptyCells = 127 ])
-					ifTrue: [ 
-						emptyCells > 0 ifTrue: [ 
-							s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16).
-							emptyCells := 0. ].
-						(cell isEmpty and: [emptyCells = 0]) 
-							ifFalse: [s nextPutAll: cell encoded ]
-							ifTrue: [ emptyCells := emptyCells + 1 ]]
-					ifFalse: [ emptyCells := emptyCells + 1 ] ] ].
-		emptyCells > 0 ifTrue: [ 
-			s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16) ] ]
+	^ String
+		streamContents: [ :s | 
+			s nextPutAll: (aRectangle width + 1 printPaddedWith: $0 to: 5 base: 16).
+			s nextPutAll: (aRectangle height + 1 printPaddedWith: $0 to: 5 base: 16).
+			aRectangle top to: aRectangle bottom do: [ :y | 
+				aRectangle left to: aRectangle right do: [ :x | 
+					| cell |
+					cell := self atX: x y: y.
+					(cell isNotEmpty or: [ emptyCells = 127 ])
+						ifTrue: [ emptyCells > 0
+								ifTrue: [ s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16).
+									emptyCells := 0 ].
+							(cell isEmpty and: [ emptyCells = 0 ])
+								ifFalse: [ s nextPutAll: cell encoded ]
+								ifTrue: [ emptyCells := emptyCells + 1 ] ]
+						ifFalse: [ emptyCells := emptyCells + 1 ] ] ].
+			emptyCells > 0 ifTrue: [ s nextPutAll: ((emptyCells bitShift: 1) printPaddedWith: $0 to: 5 base: 16) ] ]
 ]
 
 { #category : #'cell access' }
@@ -437,42 +434,42 @@ ChDArea >> leftX: x y: y [
 
 { #category : #'cell access' }
 ChDArea >> mergeMetalRegions: inputRegionsToMerge [
-
-	| regionsToMerge finalRegion | 
-	
+	| regionsToMerge finalRegion |
 	regionsToMerge := inputRegionsToMerge reject: #isSpecial.
-	regionsToMerge isEmpty ifTrue: [ ^ nil ].
+	regionsToMerge ifEmpty: [ ^ nil ].
 	regionsToMerge size = 1 ifTrue: [ ^ regionsToMerge anyOne ].
 
 	finalRegion := regionsToMerge anyOne.
-	
-	regionsToMerge do: [ :each |
-		each == finalRegion ifFalse: [ 
-			each cells do: [ :aCell | 
-				aCell metalRegion: finalRegion.
-				finalRegion cells add: aCell ].
-			(regions includes: each) ifTrue: [regions remove: each] ]].
-	
+
+	regionsToMerge
+		do: [ :each | 
+			each == finalRegion
+				ifFalse: [ each cells
+						do: [ :aCell | 
+							aCell metalRegion: finalRegion.
+							finalRegion cells add: aCell ].
+					(regions includes: each) ifTrue: [ regions remove: each ] ] ].
+
 	^ finalRegion
 ]
 
 { #category : #'cell access' }
 ChDArea >> mergeSubstrateRegions: regionsToMerge [
-
-	| finalRegion | 
-	
-	regionsToMerge isEmpty ifTrue: [ ^ nil ].
+	| finalRegion |
+	regionsToMerge ifEmpty: [ ^ nil ].
 	regionsToMerge size = 1 ifTrue: [ ^ regionsToMerge anyOne ].
 
 	finalRegion := regionsToMerge anyOne.
-	
-	regionsToMerge do: [ :each |
-		each == finalRegion ifFalse: [ 
-			each cells do: [ :aCell | 
-				aCell substrateRegion: finalRegion.
-				finalRegion cells add: aCell ].
-			(regions includes: each) ifTrue: [regions remove: each] ]].
-	
+
+	regionsToMerge
+		do: [ :each | 
+			each == finalRegion
+				ifFalse: [ each cells
+						do: [ :aCell | 
+							aCell substrateRegion: finalRegion.
+							finalRegion cells add: aCell ].
+					(regions includes: each) ifTrue: [ regions remove: each ] ] ].
+
 	^ finalRegion
 ]
 
@@ -489,62 +486,52 @@ ChDArea >> metalLayer [
 
 { #category : #'cell access' }
 ChDArea >> neighborMetalRegionsOf: aCell [
-
 	| result neighborCell |
-	
 	result := IdentitySet new.
-	
-	neighborCell := self atX: aCell x-1 y: aCell y.
-	(neighborCell metalRegion notNil and: [ ((aCell metalConnections ifNil: [ 0 ]) bitAnd: 2r1000) > 0]) 
-		ifTrue: [ result add: neighborCell metalRegion ].
 
-	neighborCell := self atX: aCell x+1 y: aCell y.
-	(neighborCell metalRegion notNil and: [ ((aCell metalConnections ifNil: [ 0 ]) bitAnd: 2r0010) > 0]) 
-		ifTrue: [ result add: neighborCell metalRegion ].	
-			
-	neighborCell := self atX: aCell x y: aCell y-1.
-	(neighborCell metalRegion notNil and: [ ((aCell metalConnections ifNil: [ 0 ]) bitAnd: 2r0001) > 0]) 
-		ifTrue: [ result add: neighborCell metalRegion ].
-		
-	neighborCell := self atX: aCell x y: aCell y+1.	
-	(neighborCell metalRegion notNil and: [ ((aCell metalConnections ifNil: [ 0 ]) bitAnd: 2r0100) > 0]) 
-		ifTrue: [ result add: neighborCell metalRegion ].
+	neighborCell := self atX: aCell x - 1 y: aCell y.
+	(neighborCell metalRegion isNotNil and: [ ((aCell metalConnections ifNil: [ 0 ]) bitAnd: 2r1000) > 0 ]) ifTrue: [ result add: neighborCell metalRegion ].
 
-	^ result.
-	
+	neighborCell := self atX: aCell x + 1 y: aCell y.
+	(neighborCell metalRegion isNotNil and: [ ((aCell metalConnections ifNil: [ 0 ]) bitAnd: 2r0010) > 0 ]) ifTrue: [ result add: neighborCell metalRegion ].
+
+	neighborCell := self atX: aCell x y: aCell y - 1.
+	(neighborCell metalRegion isNotNil and: [ ((aCell metalConnections ifNil: [ 0 ]) bitAnd: 2r0001) > 0 ]) ifTrue: [ result add: neighborCell metalRegion ].
+
+	neighborCell := self atX: aCell x y: aCell y + 1.
+	(neighborCell metalRegion isNotNil and: [ ((aCell metalConnections ifNil: [ 0 ]) bitAnd: 2r0100) > 0 ]) ifTrue: [ result add: neighborCell metalRegion ].
+
+	^ result
 ]
 
 { #category : #'cell access' }
 ChDArea >> neighborSubstrateRegionsOf: aCell [
-
 	| result neighborCell |
-	
 	result := IdentitySet new.
-	
+
 	aCell hasJunction ifTrue: [ ^ result ].
-	
-	neighborCell := self atX: aCell x-1 y: aCell y.
-	neighborCell hasJunction ifFalse: [ 
-	(neighborCell substrateRegion notNil and: [ ((aCell substrateConnections ifNil: [ 0 ]) bitAnd: 2r1000) > 0]) 
-		ifTrue: [ result add: neighborCell substrateRegion ]].
 
-	neighborCell := self atX: aCell x+1 y: aCell y.
-	neighborCell hasJunction ifFalse: [ 
-	(neighborCell substrateRegion notNil and: [ ((aCell substrateConnections ifNil: [ 0 ]) bitAnd: 2r0010) > 0]) 
-		ifTrue: [ result add: neighborCell substrateRegion ]].	
-			
-	neighborCell := self atX: aCell x y: aCell y-1.
-	neighborCell hasJunction ifFalse: [ 
-	(neighborCell substrateRegion notNil and: [ ((aCell substrateConnections ifNil: [ 0 ]) bitAnd: 2r0001) > 0]) 
-		ifTrue: [ result add: neighborCell substrateRegion ]].
-		
-	neighborCell := self atX: aCell x y: aCell y+1.	
-	neighborCell hasJunction ifFalse: [ 
-	(neighborCell substrateRegion notNil and: [ ((aCell substrateConnections ifNil: [ 0 ]) bitAnd: 2r0100) > 0]) 
-		ifTrue: [ result add: neighborCell substrateRegion ]].
+	neighborCell := self atX: aCell x - 1 y: aCell y.
+	neighborCell hasJunction
+		ifFalse: [ (neighborCell substrateRegion isNotNil and: [ ((aCell substrateConnections ifNil: [ 0 ]) bitAnd: 2r1000) > 0 ])
+				ifTrue: [ result add: neighborCell substrateRegion ] ].
 
-	^ result.
-	
+	neighborCell := self atX: aCell x + 1 y: aCell y.
+	neighborCell hasJunction
+		ifFalse: [ (neighborCell substrateRegion isNotNil and: [ ((aCell substrateConnections ifNil: [ 0 ]) bitAnd: 2r0010) > 0 ])
+				ifTrue: [ result add: neighborCell substrateRegion ] ].
+
+	neighborCell := self atX: aCell x y: aCell y - 1.
+	neighborCell hasJunction
+		ifFalse: [ (neighborCell substrateRegion isNotNil and: [ ((aCell substrateConnections ifNil: [ 0 ]) bitAnd: 2r0001) > 0 ])
+				ifTrue: [ result add: neighborCell substrateRegion ] ].
+
+	neighborCell := self atX: aCell x y: aCell y + 1.
+	neighborCell hasJunction
+		ifFalse: [ (neighborCell substrateRegion isNotNil and: [ ((aCell substrateConnections ifNil: [ 0 ]) bitAnd: 2r0100) > 0 ])
+				ifTrue: [ result add: neighborCell substrateRegion ] ].
+
+	^ result
 ]
 
 { #category : #'cell access' }
@@ -703,45 +690,34 @@ ChDArea >> upX: x y: y [
 
 { #category : #'cell access' }
 ChDArea >> updateCell: aCell mode: aMode [
- 
+	((aMode = #metal and: [ aCell hasMetal not ]) and: [ aCell metalRegion isNotNil ])
+		ifTrue: [ | newRegions |
+			aCell metalRegion cells remove: aCell.
+			newRegions := aCell metalRegion splitted.
+			regions remove: aCell metalRegion.
+			aCell metalRegion: nil.
+			regions addAll: newRegions.
+			^ self ].
 
-	((aMode = #metal and: [ aCell hasMetal not ]) and: [ aCell metalRegion notNil ]) ifTrue: [ 
-				| newRegions |
-				aCell metalRegion cells remove: aCell.
-				newRegions := aCell metalRegion splitted.
-				regions remove: aCell metalRegion.
-				aCell metalRegion: nil.
-				regions addAll: newRegions.
-				^ self.				 
-		 ].
-	
-	(((aMode = #n or: [ aMode = #p ]) and: [ aCell hasSubstrate not ]) and: [aCell substrateRegion notNil]) ifTrue: [ 
-				| newRegions |
-				aCell substrateRegion cells remove: aCell.
-				newRegions := aCell substrateRegion splitted.
-				regions remove: aCell substrateRegion.
-				aCell substrateRegion: nil.
-				regions addAll: newRegions.
-				^ self.				 
-		 ].
+	(((aMode = #n or: [ aMode = #p ]) and: [ aCell hasSubstrate not ]) and: [ aCell substrateRegion isNotNil ])
+		ifTrue: [ | newRegions |
+			aCell substrateRegion cells remove: aCell.
+			newRegions := aCell substrateRegion splitted.
+			regions remove: aCell substrateRegion.
+			aCell substrateRegion: nil.
+			regions addAll: newRegions.
+			^ self ].
 
-	aMode = #metal ifTrue: [ 
-		aCell metalConnections ifNotNil: [
-			| neighborRegions | 
-			aCell metalRegion isSpecial ifFalse: [ 
-				neighborRegions := self neighborMetalRegionsOf: aCell.
-				aCell metalRegion: (self mergeMetalRegions: (neighborRegions copyWith: aCell metalRegion) asIdentitySet) ]. ]
-	] ifFalse: [ 
-		aCell substrateType ifNotNil: [
-			| neighborRegions | 
-			neighborRegions := self neighborSubstrateRegionsOf: aCell.
-			aCell substrateRegion: (self mergeSubstrateRegions: (neighborRegions copyWith: aCell substrateRegion) asIdentitySet). ]	
-	
-	 ]
-	
-		
-
-	
+	aMode = #metal
+		ifTrue: [ aCell metalConnections
+				ifNotNil: [ | neighborRegions |
+					aCell metalRegion isSpecial
+						ifFalse: [ neighborRegions := self neighborMetalRegionsOf: aCell.
+							aCell metalRegion: (self mergeMetalRegions: (neighborRegions copyWith: aCell metalRegion) asIdentitySet) ] ] ]
+		ifFalse: [ aCell substrateType
+				ifNotNil: [ | neighborRegions |
+					neighborRegions := self neighborSubstrateRegionsOf: aCell.
+					aCell substrateRegion: (self mergeSubstrateRegions: (neighborRegions copyWith: aCell substrateRegion) asIdentitySet) ] ]
 ]
 
 { #category : #'cell access' }

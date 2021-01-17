@@ -21,7 +21,7 @@ ChDSelectMode >> buttonIndex [
 	^ 3
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ChDSelectMode >> initialize [ 
 
 	super initialize.

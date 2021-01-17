@@ -11,17 +11,18 @@ Class {
 
 { #category : #running }
 ChDAreaInputRegionsTest >> setUp [
-	
+	super setUp.
+
 	area := ChDArea withDefaultExtent.
 	controller := ChDAreaController new.
 	controller area: area.
 	view := ChDAreaViewMock new.
 	controller view: view.
-	
-	area addInputAt: 1@1.
+
+	area addInputAt: 1 @ 1
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaInputRegionsTest >> testConnectedCell [
 
 	| cell |
@@ -47,19 +48,17 @@ ChDAreaInputRegionsTest >> testConnectedCell [
 	self assert: area regions size equals: 2.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaInputRegionsTest >> testConnectedCellFromInput [
+	| cell |
+	controller onMouseDownAt: 2 @ 1.
+	controller onMouseUpAt: 2 @ 1.
 
-	| cell event |
-		
-	controller onMouseDownAt: 2@1.
-	controller onMouseUpAt: 2@1.
+	controller onMouseDownAt: 1 @ 1.
+	controller onMouseMoveAt: 1 @ 1.
+	controller onMouseMoveAt: 2 @ 1.
+	controller onMouseUpAt: 2 @ 1.
 
-	controller onMouseDownAt: 1@1.
-	controller onMouseMoveAt: 1@1.
-	controller onMouseMoveAt: 2@1.
-	controller onMouseUpAt: 2@1.
-	
 	cell := area atX: 1 y: 1.
 	self assert: cell metalConnections equals: 2r0010.
 	self assert: cell metalRegion isSpecial.
@@ -70,10 +69,10 @@ ChDAreaInputRegionsTest >> testConnectedCellFromInput [
 	self deny: cell metalRegion isSpecial.
 	self assert: cell metalRegion cells size equals: 1.
 
-	self assert: area regions size equals: 2.
+	self assert: area regions size equals: 2
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaInputRegionsTest >> testNotConnectedCell [
 
 	| cell |

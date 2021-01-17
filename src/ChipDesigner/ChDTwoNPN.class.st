@@ -38,7 +38,7 @@ ChDTwoNPN >> step [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoNPN >> test00 [
 		
 	self deny: via1 hasVia.
@@ -62,7 +62,7 @@ ChDTwoNPN >> test00 [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoNPN >> test01 [
 		
 	via1 via: true.
@@ -85,7 +85,7 @@ ChDTwoNPN >> test01 [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoNPN >> test10 [
 		
 	via2 via: true.
@@ -108,7 +108,7 @@ ChDTwoNPN >> test10 [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoNPN >> test11 [
 		
 	via1 via: true.
@@ -132,7 +132,7 @@ ChDTwoNPN >> test11 [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoNPN >> test11to01 [
 		
 	via1 via: true.
@@ -153,7 +153,7 @@ ChDTwoNPN >> test11to01 [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDTwoNPN >> test11to10 [
 		
 	via1 via: true.

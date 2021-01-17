@@ -11,23 +11,23 @@ Class {
 
 { #category : #running }
 ChDJunctionPNPTest >> setUp [
-		
+	super setUp.
+
 	area := ChDArea withDefaultExtent.
 	controller := ChDAreaController new.
 	controller area: area.
 	view := ChDAreaViewMock new.
 	controller view: view.
-	
-	controller insertPSubstrateMode.
-	
-	controller onMouseDownAt: 2@1.
-	controller onMouseMoveAt: 2@2.
-	controller onMouseMoveAt: 2@3.
-	controller onMouseUpAt: 2@3.
 
+	controller insertPSubstrateMode.
+
+	controller onMouseDownAt: 2 @ 1.
+	controller onMouseMoveAt: 2 @ 2.
+	controller onMouseMoveAt: 2 @ 3.
+	controller onMouseUpAt: 2 @ 3
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionPNPTest >> testCreateAndDeletePNP [
 	
 	| cell |
@@ -64,48 +64,45 @@ ChDJunctionPNPTest >> testCreateAndDeletePNP [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionPNPTest >> testCreatePNP [
-	
-	| event cell |
-	
+	| cell |
 	controller insertNSubstrateMode.
-	
-	controller onMouseDownAt: 1@2.
-	controller onMouseMoveAt: 2@2.
-	controller onMouseUpAt: 2@2.
-	
-	cell := area atX: 2 y: 2.	
+
+	controller onMouseDownAt: 1 @ 2.
+	controller onMouseMoveAt: 2 @ 2.
+	controller onMouseUpAt: 2 @ 2.
+
+	cell := area atX: 2 y: 2.
 	self assert: cell hasJunction.
 	self assert: cell junctionType equals: #pnp.
 	self assert: cell junctionConnections equals: 2r1000.
 	self deny: cell hasMetal.
 	self assert: cell substrateRegion isJunction.
-	
-	cell := area atX: 2 y: 1.	
+
+	cell := area atX: 2 y: 1.
 	self assert: cell substrateType equals: #p.
-	self deny: cell hasJunction. 
-	self deny: cell hasMetal. 
+	self deny: cell hasJunction.
+	self deny: cell hasMetal.
 	self assert: cell substrateConnections equals: 2r0100.
 
-	cell := area atX: 2 y: 3.	
+	cell := area atX: 2 y: 3.
 	self assert: cell substrateType equals: #p.
-	self deny: cell hasJunction. 
-	self deny: cell hasMetal. 
+	self deny: cell hasJunction.
+	self deny: cell hasMetal.
 	self assert: cell substrateConnections equals: 2r0001.
 
-	cell := area atX: 1 y: 2.	
+	cell := area atX: 1 y: 2.
 	self assert: cell substrateType equals: #n.
-	self deny: cell hasJunction. 
+	self deny: cell hasJunction.
 	self deny: cell hasMetal.
 	self assert: cell substrateConnections equals: 2r0010.
-	
-	self assert: area regions size equals: 4.
-	self assert: (area regions allSatisfy: [:each | each cells size = 1])
 
+	self assert: area regions size equals: 4.
+	self assert: (area regions allSatisfy: [ :each | each cells size = 1 ])
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionPNPTest >> testCreatePNPFromRight [
 	
 	| cell |

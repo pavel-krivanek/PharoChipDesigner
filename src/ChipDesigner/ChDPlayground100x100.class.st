@@ -4,48 +4,16 @@ Class {
 	#category : #'ChipDesigner-Levels'
 }
 
-{ #category : #'instance creation' }
-ChDPlayground100x100 class >> designName [
-
-	 ^ 'Playground 100x100'
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 ChDPlayground100x100 class >> isRoot [ 
 
 	^ true
 ]
 
-{ #category : #'instance creation' }
-ChDPlayground100x100 class >> levelName [
-
-	 ^ self subclassResponsibility
-]
-
-{ #category : #'instance creation' }
-ChDPlayground100x100 class >> levels [
-
-	^ Array new
-]
-
-{ #category : #'instance creation' }
-ChDPlayground100x100 class >> on: area [
-
-	^ self basicNew
-		area: area;
-		initialize
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDPlayground100x100 class >> priority [ 
 
 	^ 320
-]
-
-{ #category : #'as yet unclassified' }
-ChDPlayground100x100 class >> selectable [
-
-	^ true
 ]
 
 { #category : #'as yet unclassified' }
@@ -86,7 +54,7 @@ ChDPlayground100x100 >> createScopes [
 	scopes := sequences collect: [ :each | ChDSequenceMorph on: each graphics: self graphics ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDPlayground100x100 >> initialize [ 
 
 	super initialize.
@@ -103,13 +71,13 @@ ChDPlayground100x100 >> initialize [
 	self createLabels.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDPlayground100x100 >> initializeArea [
 
 	area decodedFromZipString: 'H4sIAAAAAAAAADMwMDAzgRFurkDC0sTIwMDZ0MjAEExYGALFnCwwxQxA6lxBXDDhCFeHJgZWZwbiggkjuDo0MWfnkW/vyLd35Ns78u0lzV5woTXsCXMzAGEKgrSqBQAA'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDPlayground100x100 >> initializeSimulation [
 
 	area simulation preStepBlock: [ :aSimulation |
@@ -205,7 +173,7 @@ ChDPlayground100x100 >> portsDefinition [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #operations }
 ChDPlayground100x100 >> reinitialize [ 
 
 	self initializeSimulation.

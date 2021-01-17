@@ -7,7 +7,7 @@ Class {
 	#category : #ChipDesigner
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDMetalLayer >> connectedNeighboursOf: aCell [
 
 	| result |
@@ -66,10 +66,9 @@ ChDMetalLayer >> isMetal [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 ChDMetalLayer >> isSetFor: aCell [
-
-	^ aCell metalConnections notNil
+	^ aCell metalConnections isNotNil
 ]
 
 { #category : #'as yet unclassified' }
@@ -78,7 +77,7 @@ ChDMetalLayer >> mode: mode compatibleWith: lastCell [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDMetalLayer >> name [
 
 	^ #metal
@@ -90,7 +89,7 @@ ChDMetalLayer >> regionOf: aCell [
 	^ aCell metalRegion 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDMetalLayer >> setFor: aCell mode: aMode [
 
 	aCell metalRegion ifNotNil: [ ^ self ].
@@ -100,7 +99,7 @@ ChDMetalLayer >> setFor: aCell mode: aMode [
 	aCell metalRegion cells add: aCell. 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDMetalLayer >> setRegionOf: aCell to: aRegion [
 
 	^ aCell metalRegion: aRegion

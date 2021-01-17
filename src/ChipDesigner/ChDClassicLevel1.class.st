@@ -4,7 +4,7 @@ Class {
 	#category : #'ChipDesigner-Levels'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 ChDClassicLevel1 class >> levelName [
 
 	^ '[01] KT411I - Quad Inverter Gate'

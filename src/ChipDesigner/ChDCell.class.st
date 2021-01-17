@@ -72,20 +72,18 @@ ChDCell >> connectedCellsInSubstrate [
 
 { #category : #accessing }
 ChDCell >> connectedCellsInSubstrateWithoutBaseConnections [
-
 	| result |
-	
 	result := IdentitySet new.
 	self substrateType ifNil: [ ^ result ].
-	(((substrateConnections bitAnd: 2r0001) > 0) and: [ (((self topology up junctionConnections ifNil: [ 0 ]) bitAnd: 2r0100) > 0 ) not]) 
+	((substrateConnections bitAnd: 2r0001) > 0 and: [ ((self topology up junctionConnections ifNil: [ 0 ]) bitAnd: 2r0100) <= 0 ])
 		ifTrue: [ result add: self topology up ].
-	(((substrateConnections bitAnd: 2r0010) > 0) and: [ (((self topology right junctionConnections ifNil: [ 0 ]) bitAnd: 2r1000) > 0 ) not]) 
+	((substrateConnections bitAnd: 2r0010) > 0 and: [ ((self topology right junctionConnections ifNil: [ 0 ]) bitAnd: 2r1000) <= 0 ])
 		ifTrue: [ result add: self topology right ].
-	(((substrateConnections bitAnd: 2r0100) > 0) and: [ (((self topology down junctionConnections ifNil: [ 0 ]) bitAnd: 2r0001) > 0 ) not]) 
+	((substrateConnections bitAnd: 2r0100) > 0 and: [ ((self topology down junctionConnections ifNil: [ 0 ]) bitAnd: 2r0001) <= 0 ])
 		ifTrue: [ result add: self topology down ].
-	(((substrateConnections bitAnd: 2r1000) > 0) and: [ (((self topology left junctionConnections ifNil: [ 0 ]) bitAnd: 2r0010) > 0 ) not]) 
+	((substrateConnections bitAnd: 2r1000) > 0 and: [ ((self topology left junctionConnections ifNil: [ 0 ]) bitAnd: 2r0010) <= 0 ])
 		ifTrue: [ result add: self topology left ].
-	^ result.
+	^ result
 ]
 
 { #category : #accessing }
@@ -132,32 +130,18 @@ ChDCell >> connectedRegionsInJunction [
 
 { #category : #accessing }
 ChDCell >> connectedRegionsInSubstrate [
-
 	| result |
-	
-	self hasJunction ifFalse: [ 
-		^ self connectedCellsInSubstrate collect: [ :each | each substrateRegion ] as: IdentitySet ].
-	
-	result := IdentitySet new.
-		
-	self isVertical 
-		ifTrue: [ 
-			result add: (self substrateRegion compactUp 
-				ifNotNil: [ :aRegion | aRegion ]
-				ifNil: [ self topology up substrateRegion ]).
-			result add: (self substrateRegion compactDown
-				ifNotNil: [ :aRegion | aRegion ]
-				ifNil: [ self topology down substrateRegion ]) ]
-		ifFalse: [ 
-			result add: (self substrateRegion compactRight 
-				ifNotNil: [ :aRegion | aRegion ]
-				ifNil: [ self topology right substrateRegion ]).
-			result add: (self substrateRegion compactLeft
-				ifNotNil: [ :aRegion | aRegion ]
-				ifNil: [ self topology left substrateRegion ]) ].
-			
-		^ result
+	self hasJunction ifFalse: [ ^ self connectedCellsInSubstrate collect: [ :each | each substrateRegion ] as: IdentitySet ].
 
+	result := IdentitySet new.
+
+	self isVertical
+		ifTrue: [ result add: (self substrateRegion compactUp ifNil: [ self topology up substrateRegion ]).
+			result add: (self substrateRegion compactDown ifNil: [ self topology down substrateRegion ]) ]
+		ifFalse: [ result add: (self substrateRegion compactRight ifNil: [ self topology right substrateRegion ]).
+			result add: (self substrateRegion compactLeft ifNil: [ self topology left substrateRegion ]) ].
+
+	^ result
 ]
 
 { #category : #accessing }
@@ -184,24 +168,18 @@ ChDCell >> decodeFrom: aString [
 
 { #category : #accessing }
 ChDCell >> disconnect: aMask [
+	self metalConnections ifNotNil: [ self metalConnections: (self safeMetalConnections bitAnd: aMask bitInvert32) ].
 
-	self metalConnections ifNotNil: [ 
-		self metalConnections: (self safeMetalConnections bitAnd: aMask bitInvert32) ].
-	
-	self substrateConnections ifNotNil: [ 
-		self substrateConnections: (self safeSubstrateConnections bitAnd: aMask bitInvert32) ].
-	
-	(self substrateRegion notNil and: [self substrateRegion isJunction]) ifTrue: [ 
-		| adjacentCell |
-		adjacentCell := nil.
-		aMask = 2r0001 ifTrue: [ adjacentCell := self topology up ].
-		aMask = 2r0010 ifTrue: [ adjacentCell := self topology right ].
-		aMask = 2r0100 ifTrue: [ adjacentCell := self topology down ].
-		aMask = 2r1000 ifTrue: [ adjacentCell := self topology left ].
-		adjacentCell ifNotNil: [ 
-			self substrateRegion layer clearJunctionIn: self whenDelete: adjacentCell ]]
+	self substrateConnections ifNotNil: [ self substrateConnections: (self safeSubstrateConnections bitAnd: aMask bitInvert32) ].
 
-	
+	(self substrateRegion isNotNil and: [ self substrateRegion isJunction ])
+		ifTrue: [ | adjacentCell |
+			adjacentCell := nil.
+			aMask = 2r0001 ifTrue: [ adjacentCell := self topology up ].
+			aMask = 2r0010 ifTrue: [ adjacentCell := self topology right ].
+			aMask = 2r0100 ifTrue: [ adjacentCell := self topology down ].
+			aMask = 2r1000 ifTrue: [ adjacentCell := self topology left ].
+			adjacentCell ifNotNil: [ self substrateRegion layer clearJunctionIn: self whenDelete: adjacentCell ] ]
 ]
 
 { #category : #accessing }
@@ -224,30 +202,25 @@ ChDCell >> encoded [
 
 { #category : #accessing }
 ChDCell >> hasJunction [
-
-	^ junctionType notNil
+	^ junctionType isNotNil
 ]
 
 { #category : #accessing }
 ChDCell >> hasMetal [
-
-	^ self metalConnections notNil
+	^ self metalConnections isNotNil
 ]
 
 { #category : #accessing }
 ChDCell >> hasSubstrate [
-
-	^ self substrateType notNil
+	^ self substrateType isNotNil
 ]
 
 { #category : #accessing }
 ChDCell >> hasVia [
-
-	via isNil ifTrue: [ ^ false ].
-	^ via 
+	^ via ifNil: [ false ]
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ChDCell >> initialize [
 
 	super initialize.
@@ -273,9 +246,7 @@ ChDCell >> isEmpty [
 
 { #category : #accessing }
 ChDCell >> isHi [
-
-	^ (self metalRegion notNil and: [self metalRegion currentState])
-		or: [ self substrateRegion notNil and: [self substrateRegion currentState] ]
+	^ (self metalRegion isNotNil and: [ self metalRegion currentState ]) or: [ self substrateRegion isNotNil and: [ self substrateRegion currentState ] ]
 ]
 
 { #category : #accessing }

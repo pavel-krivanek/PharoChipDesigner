@@ -11,23 +11,23 @@ Class {
 
 { #category : #running }
 ChDJunctionNPNTest >> setUp [
-		
+	super setUp.
+
 	area := ChDArea withDefaultExtent.
 	controller := ChDAreaController new.
 	controller area: area.
 	view := ChDAreaViewMock new.
 	controller view: view.
-	
-	controller insertNSubstrateMode.
-	
-	controller onMouseDownAt: 2@1.
-	controller onMouseMoveAt: 2@2.
-	controller onMouseMoveAt: 2@3.
-	controller onMouseUpAt: 2@3.
 
+	controller insertNSubstrateMode.
+
+	controller onMouseDownAt: 2 @ 1.
+	controller onMouseMoveAt: 2 @ 2.
+	controller onMouseMoveAt: 2 @ 3.
+	controller onMouseUpAt: 2 @ 3
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionNPNTest >> testCreateAndDeleteNPN [
 	
 	| cell |
@@ -64,7 +64,7 @@ ChDJunctionNPNTest >> testCreateAndDeleteNPN [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionNPNTest >> testCreateNPN [
 	
 	| cell |
@@ -105,7 +105,7 @@ ChDJunctionNPNTest >> testCreateNPN [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionNPNTest >> testCreateNPNAndDeleteSubstrateConnection [
 	
 	| cell |
@@ -146,7 +146,7 @@ ChDJunctionNPNTest >> testCreateNPNAndDeleteSubstrateConnection [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionNPNTest >> testCreateNPNAndTryIncompatibleOtherSide [
 	
 	| cell |
@@ -200,7 +200,7 @@ ChDJunctionNPNTest >> testCreateNPNAndTryIncompatibleOtherSide [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionNPNTest >> testCreateNPNDoubleSided [
 	
 	| cell |
@@ -252,7 +252,7 @@ ChDJunctionNPNTest >> testCreateNPNDoubleSided [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionNPNTest >> testCreateNPNDoubleSidedAndDeleteOneSide [
 	
 	| cell |
@@ -306,7 +306,7 @@ ChDJunctionNPNTest >> testCreateNPNDoubleSidedAndDeleteOneSide [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDJunctionNPNTest >> testCreateNPNDoubleSidedAndDeleteSubstrateConnection [
 	
 	| cell |

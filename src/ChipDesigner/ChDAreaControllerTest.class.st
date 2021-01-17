@@ -11,15 +11,16 @@ Class {
 
 { #category : #running }
 ChDAreaControllerTest >> setUp [
-	
+	super setUp.
+
 	area := ChDArea withDefaultExtent.
 	controller := ChDAreaController new.
 	controller area: area.
 	view := ChDAreaViewMock new.
-	controller view: view.
+	controller view: view
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testAddSingleMetalCell [
 
 	| cell |
@@ -37,7 +38,7 @@ ChDAreaControllerTest >> testAddSingleMetalCell [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testAddSingleNCell [
 
 	| cell |
@@ -57,7 +58,7 @@ ChDAreaControllerTest >> testAddSingleNCell [
 
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testAddTwoConnectedMetalCells [
 
 	| cell |
@@ -78,7 +79,7 @@ ChDAreaControllerTest >> testAddTwoConnectedMetalCells [
 	self assert: view wasChanged.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testAddTwoConnectedMetalCellsAndDeleteThemByMovement [
 
 	| cell |
@@ -105,7 +106,7 @@ ChDAreaControllerTest >> testAddTwoConnectedMetalCellsAndDeleteThemByMovement [
 	self assert: view wasChanged.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testAddTwoConnectedNCells [
 
 	| cell |
@@ -128,7 +129,7 @@ ChDAreaControllerTest >> testAddTwoConnectedNCells [
 	self assert: view wasChanged.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testAddTwoConnectedNCellsAndDeleteThemByMovement [
 
 	| cell |
@@ -157,7 +158,7 @@ ChDAreaControllerTest >> testAddTwoConnectedNCellsAndDeleteThemByMovement [
 	self assert: view wasChanged.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testAddTwoDifferentSubstrateCellsAndTryToMergeThemByMovement [
 
 	| cell |
@@ -190,7 +191,7 @@ ChDAreaControllerTest >> testAddTwoDifferentSubstrateCellsAndTryToMergeThemByMov
 	self assert: view wasChanged.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testAddTwoMetalCells [
 
 	| cell |
@@ -211,7 +212,7 @@ ChDAreaControllerTest >> testAddTwoMetalCells [
 	self assert: view wasChanged.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testAddTwoMetalCellsAndMergeThemByMovement [
 
 	| cell |
@@ -241,7 +242,7 @@ ChDAreaControllerTest >> testAddTwoMetalCellsAndMergeThemByMovement [
 	self assert: view wasChanged.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testAddTwoNCellsAndMergeThemByMovement [
 
 	| cell |
@@ -273,7 +274,7 @@ ChDAreaControllerTest >> testAddTwoNCellsAndMergeThemByMovement [
 	self assert: view wasChanged.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testDeleteMetalTwoTimes [
 
 	| cell |
@@ -297,7 +298,7 @@ ChDAreaControllerTest >> testDeleteMetalTwoTimes [
 	self assert: view wasChanged.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testDeleteSubstrateTwoTimes [
 
 	| cell |
@@ -323,7 +324,7 @@ ChDAreaControllerTest >> testDeleteSubstrateTwoTimes [
 	self assert: view wasChanged.
 ]
 
-{ #category : #running }
+{ #category : #tests }
 ChDAreaControllerTest >> testTryToExtendDifferentSubstrateTypeByMovement [
 
 	| cell |

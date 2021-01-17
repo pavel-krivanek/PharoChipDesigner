@@ -141,7 +141,7 @@ ChDSimulation >> evaluate [
 		passRatio: self passRatio)
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ChDSimulation >> initialize [
 
 	super initialize.
@@ -249,110 +249,106 @@ ChDSimulation >> step [
 ]
 
 { #category : #accessing }
-ChDSimulation >> stepWith: aBlock [ 
-	
-	| regions special normal connected vccConnected shortestSequenceLength |	
-	
+ChDSimulation >> stepWith: aBlock [
+	| regions special connected vccConnected shortestSequenceLength |
 	regions := self regions.
 
 	"connected := self connectedRegionsFrom: normal."
-	
-	regions do: [ :aRegion | 
-		aRegion futureState: false. ].
+
+	regions do: [ :aRegion | aRegion futureState: false ].
 
 	self resetVcc.
 
-	aBlock value: self.	
+	aBlock value: self.
 
-	shortestSequenceLength := self sequences 
-		ifEmpty: [ 5*56 ]
-		ifNotEmpty: [(self sequences collect: #length) min].
-		  
+	shortestSequenceLength := self sequences ifEmpty: [ 5 * 56 ] ifNotEmpty: [ (self sequences collect: #length) min ].
+
 	time >= shortestSequenceLength ifTrue: [ ^ self ].
 
 	vccConnected := self connectedVCCRegionsFrom: regions.
 	vccConnected do: [ :each | each hasVcc: true ].
-	vccConnected do: [ :each | 
-		each hasVcc: true.
-		each currentState: true.
-		each futureState: true. ].
+	vccConnected
+		do: [ :each | 
+			each hasVcc: true.
+			each currentState: true.
+			each futureState: true ].
 
 	time := time + 1.
-
-	normal := regions reject: #isSpecial.
+	regions reject: #isSpecial.
 	special := regions select: #isSpecial.
-	
-	special do: [ :each | each isJunction ifTrue: [ 
-			| cell | 
-		cell := each cells anyOne.
-			(cell junctionType = #npn) ifTrue: [
-				| input vcc outputRegions connectedRegionsInSubstrate output out vccCurentState vccFutureState |
-				input := cell connectedRegionsInJunction anySatisfy: #hasVcc. 
-				connectedRegionsInSubstrate := cell connectedRegionsInSubstrate.
-				vcc := each vccRegion isEmptyOrNil ifTrue: [connectedRegionsInSubstrate select: #hasVcc] ifFalse: [each vccRegion].
-				each vccRegion: vcc.
-				"outputRegions := connectedRegionsInSubstrate reject: #hasVcc."
-				outputRegions := connectedRegionsInSubstrate copyWithoutAll: vcc.
-				vccCurentState := vcc ifEmpty: [ false ] ifNotEmpty: [ vcc anyOne currentState ].
-				vccFutureState := vcc ifEmpty: [ false ] ifNotEmpty: [ vcc anyOne futureState ].
-				output := input & vccCurentState & vccFutureState.
-				out := output.
-								
-				outputRegions do: [ :e | 
-					e futureState: (out or: [ e futureState ]).
-					connected := IdentitySet new.
-					self addConnectedRegionsOf: e to: connected.
-					connected do: [ :ee | ee futureState: (out or: [ee futureState])]  ].		
 
-				each open: input "& vccCurentState".
-				"each open: out."
+	special
+		do: [ :each | 
+			each isJunction
+				ifTrue: [ | cell |
+					cell := each cells anyOne.
+					cell junctionType = #npn
+						ifTrue: [ | input vcc outputRegions connectedRegionsInSubstrate output out vccCurentState vccFutureState |
+							input := cell connectedRegionsInJunction anySatisfy: #hasVcc.
+							connectedRegionsInSubstrate := cell connectedRegionsInSubstrate.
+							vcc := each vccRegion isEmptyOrNil
+								ifTrue: [ connectedRegionsInSubstrate select: #hasVcc ]
+								ifFalse: [ each vccRegion ].
+							each vccRegion: vcc.
+							"outputRegions := connectedRegionsInSubstrate reject: #hasVcc."
+							outputRegions := connectedRegionsInSubstrate copyWithoutAll: vcc.
+							vccCurentState := vcc ifEmpty: [ false ] ifNotEmpty: [ vcc anyOne currentState ].
+							vccFutureState := vcc ifEmpty: [ false ] ifNotEmpty: [ vcc anyOne futureState ].
+							output := input & vccCurentState & vccFutureState.
+							out := output.
 
-					] .
-			(cell junctionType = #pnp) ifTrue: [
-				| input vcc outputRegions connectedRegionsInSubstrate output out vccFutureState |
+							outputRegions
+								do: [ :e | 
+									e futureState: (out or: [ e futureState ]).
+									connected := IdentitySet new.
+									self addConnectedRegionsOf: e to: connected.
+									connected do: [ :ee | ee futureState: (out or: [ ee futureState ]) ] ].
 
-				input := cell connectedRegionsInJunction anySatisfy: #hasVcc. 
-				connectedRegionsInSubstrate := cell connectedRegionsInSubstrate.
-				vcc := each vccRegion isEmptyOrNil ifTrue: [connectedRegionsInSubstrate select: #hasVcc] ifFalse: [each vccRegion].
-				each vccRegion: vcc.
-				"outputRegions := connectedRegionsInSubstrate reject: #hasVcc."
-				outputRegions := connectedRegionsInSubstrate copyWithoutAll: vcc.
-				output := input not.
-				vccFutureState := vcc ifEmpty: [ false ] ifNotEmpty: [ vcc anyOne futureState ].
-				out := input not and: [vcc notEmpty and: [ vccFutureState ]].
-												
-				outputRegions do: [ :e | 
-					e futureState: (out or: [ e futureState ]).
-					connected := IdentitySet new.
-					self addConnectedRegionsOf: e to: connected.
-					connected do: [ :ee | ee futureState: (out or: [ee futureState])]  ].		
+							each open: input	"& vccCurentState"
+							"each open: out." ].
+					cell junctionType = #pnp
+						ifTrue: [ | input vcc outputRegions connectedRegionsInSubstrate out vccFutureState |
+							input := cell connectedRegionsInJunction anySatisfy: #hasVcc.
+							connectedRegionsInSubstrate := cell connectedRegionsInSubstrate.
+							vcc := each vccRegion isEmptyOrNil
+								ifTrue: [ connectedRegionsInSubstrate select: #hasVcc ]
+								ifFalse: [ each vccRegion ].
+							each vccRegion: vcc.
+							"outputRegions := connectedRegionsInSubstrate reject: #hasVcc."
+							outputRegions := connectedRegionsInSubstrate copyWithoutAll: vcc.
+							input not.
+							vccFutureState := vcc ifEmpty: [ false ] ifNotEmpty: [ vcc anyOne futureState ].
+							out := input not and: [ vcc isNotEmpty and: [ vccFutureState ] ].
 
-				each open: input not.
-				"each open: out."
-					].
-			
-			 ]  ].
-	
-"	connected do: [ :currentRegions |
+							outputRegions
+								do: [ :e | 
+									e futureState: (out or: [ e futureState ]).
+									connected := IdentitySet new.
+									self addConnectedRegionsOf: e to: connected.
+									connected do: [ :ee | ee futureState: (out or: [ ee futureState ]) ] ].
+
+							each open: input not
+							"each open: out." ] ] ].
+
+	"	connected do: [ :currentRegions |
 		| state |
 		state := currentRegions anySatisfy: [ :each | each futureState ].
 		currentRegions do: [ :each | each futureState: state ] ].
-"	
-	
+"
+
 	self resetVcc.
 
-	aBlock value: self.	
+	aBlock value: self.
 
 	vccConnected := self connectedVCCRegionsFrom: regions.
 	vccConnected do: [ :each | each hasVcc: true ].
-	vccConnected do: [ :each | 
-		each hasVcc: true.
-		each currentState: true.
-		each futureState: true. ].	
-	
-	regions do: [ :aRegion | 
-		aRegion currentState: aRegion hasVcc ].
-		 
+	vccConnected
+		do: [ :each | 
+			each hasVcc: true.
+			each currentState: true.
+			each futureState: true ].
+
+	regions do: [ :aRegion | aRegion currentState: aRegion hasVcc ]
 ]
 
 { #category : #accessing }

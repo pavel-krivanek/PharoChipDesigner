@@ -17,32 +17,6 @@ ChDClassicLevel class >> designName [
 	 ^ self levelName
 ]
 
-{ #category : #'instance creation' }
-ChDClassicLevel class >> levelName [
-
-	 ^ self subclassResponsibility
-]
-
-{ #category : #'instance creation' }
-ChDClassicLevel class >> levels [
-
-	^ Array new
-]
-
-{ #category : #'instance creation' }
-ChDClassicLevel class >> on: area [
-
-	^ self basicNew
-		area: area;
-		initialize
-]
-
-{ #category : #'as yet unclassified' }
-ChDClassicLevel class >> selectable [
-
-	^ true
-]
-
 { #category : #'as yet unclassified' }
 ChDClassicLevel >> createLabels [
 
@@ -81,7 +55,7 @@ ChDClassicLevel >> createScopes [
 	scopes := sequences collect: [ :each | ChDSequenceMorph on: each graphics: self graphics ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDClassicLevel >> initialize [ 
 
 	super initialize.
@@ -98,13 +72,13 @@ ChDClassicLevel >> initialize [
 	self createLabels.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDClassicLevel >> initializeArea [
 
 	area decodeFrom: '0002C0001B000B2200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A100004200612016120121000482006120161201210005C200C1201C12018100048200C1201C12018100004200E1201E1201A100048200E1201E1201A10000420061201612012100048200612016120121000B2'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDClassicLevel >> initializeSimulation [
 
 	area simulation preStepBlock: [ :aSimulation |
@@ -147,7 +121,7 @@ ChDClassicLevel >> portsDefinition [
 	self subclassResponsibility 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #operations }
 ChDClassicLevel >> reinitialize [ 
 
 	self initializeSimulation.

@@ -15,7 +15,7 @@ Class {
 	#category : #ChipDesigner
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDJunctionRegion >> cell [
 
 	^ cells anyOne
@@ -61,7 +61,7 @@ ChDJunctionRegion >> compactUp: anObject [
 	compactUp := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 ChDJunctionRegion >> initialize [
 
 	super initialize.

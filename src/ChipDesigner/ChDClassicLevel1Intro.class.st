@@ -10,7 +10,7 @@ ChDClassicLevel1Intro class >> isRoot [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDClassicLevel1Intro class >> levelName [
 
 	^ 'Intro'

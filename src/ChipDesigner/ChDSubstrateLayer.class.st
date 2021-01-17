@@ -56,7 +56,7 @@ ChDSubstrateLayer >> clearJunctionIn: aCell whenDelete: deletedCell [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDSubstrateLayer >> connectedNeighboursOf: aCell [
 
 	| result |
@@ -157,10 +157,9 @@ ChDSubstrateLayer >> fullClear: aCell [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 ChDSubstrateLayer >> isSetFor: aCell [
-
-	^ aCell substrateType notNil
+	^ aCell substrateType isNotNil
 ]
 
 { #category : #accessing }
@@ -204,7 +203,7 @@ ChDSubstrateLayer >> mode: mode compatibleWith: lastCell [
 	^ mode = lastCell substrateType
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDSubstrateLayer >> name [
 
 	^ #substrate
@@ -216,7 +215,7 @@ ChDSubstrateLayer >> regionOf: aCell [
 	^ aCell substrateRegion 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #removing }
 ChDSubstrateLayer >> removeRegionFrom: aCell [
 
 	| newRegions |
@@ -229,7 +228,7 @@ ChDSubstrateLayer >> removeRegionFrom: aCell [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDSubstrateLayer >> setFor: aCell mode: aMode [
 
 	aCell substrateRegion ifNotNil: [ ^ self ].
@@ -241,53 +240,114 @@ ChDSubstrateLayer >> setFor: aCell mode: aMode [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ChDSubstrateLayer >> setFor: aCell with: aLastCell mode: mode [
-
 	| left right top down |
-	
 	"aCell junctionType ifNotNil: [ ^ self ]."
-	
 	left := self area leftX: aCell x y: aCell y.
 	right := self area rightX: aCell x y: aCell y.
 	top := self area topX: aCell x y: aCell y.
 	down := self area downX: aCell x y: aCell y.
 
-	(self junctionFrom: left to: aCell ofType: #p if: 2r0101 andLastIs: aLastCell thenDefineJunction: 2r1000 orIfExists: 2r1010 addConnection: 2r0010 mode: mode)
-		ifTrue: [ ^ self ].	
+	(self
+		junctionFrom: left
+		to: aCell
+		ofType: #p
+		if: 2r0101
+		andLastIs: aLastCell
+		thenDefineJunction: 2r1000
+		orIfExists: 2r1010
+		addConnection: 2r0010
+		mode: mode) ifTrue: [ ^ self ].
 
-	(self junctionFrom: top to: aCell ofType: #p if: 2r1010 andLastIs: aLastCell thenDefineJunction: 2r0001 orIfExists: 2r0101 addConnection: 2r0100 mode: mode)
-		ifTrue: [ ^ self ].	
+	(self
+		junctionFrom: top
+		to: aCell
+		ofType: #p
+		if: 2r1010
+		andLastIs: aLastCell
+		thenDefineJunction: 2r0001
+		orIfExists: 2r0101
+		addConnection: 2r0100
+		mode: mode) ifTrue: [ ^ self ].
 
-	(self junctionFrom: right to: aCell ofType: #p if: 2r0101 andLastIs: aLastCell thenDefineJunction: 2r0010 orIfExists: 2r1010 addConnection: 2r1000 mode: mode)
-		ifTrue: [ ^ self ].	
+	(self
+		junctionFrom: right
+		to: aCell
+		ofType: #p
+		if: 2r0101
+		andLastIs: aLastCell
+		thenDefineJunction: 2r0010
+		orIfExists: 2r1010
+		addConnection: 2r1000
+		mode: mode) ifTrue: [ ^ self ].
 
-	(self junctionFrom: down to: aCell ofType: #p if: 2r1010 andLastIs: aLastCell thenDefineJunction: 2r0100 orIfExists: 2r0101 addConnection: 2r0001 mode: mode)
-		ifTrue: [ ^ self ].
+	(self
+		junctionFrom: down
+		to: aCell
+		ofType: #p
+		if: 2r1010
+		andLastIs: aLastCell
+		thenDefineJunction: 2r0100
+		orIfExists: 2r0101
+		addConnection: 2r0001
+		mode: mode) ifTrue: [ ^ self ].
 
 
-	(self junctionFrom: left to: aCell ofType: #n if: 2r0101 andLastIs: aLastCell thenDefineJunction: 2r1000 orIfExists: 2r1010 addConnection: 2r0010 mode: mode)
-		ifTrue: [ ^ self ].	
+	(self
+		junctionFrom: left
+		to: aCell
+		ofType: #n
+		if: 2r0101
+		andLastIs: aLastCell
+		thenDefineJunction: 2r1000
+		orIfExists: 2r1010
+		addConnection: 2r0010
+		mode: mode) ifTrue: [ ^ self ].
 
-	(self junctionFrom: top to: aCell ofType: #n if: 2r1010 andLastIs: aLastCell thenDefineJunction: 2r0001 orIfExists: 2r0101 addConnection: 2r0100 mode: mode)
-		ifTrue: [ ^ self ].	
+	(self
+		junctionFrom: top
+		to: aCell
+		ofType: #n
+		if: 2r1010
+		andLastIs: aLastCell
+		thenDefineJunction: 2r0001
+		orIfExists: 2r0101
+		addConnection: 2r0100
+		mode: mode) ifTrue: [ ^ self ].
 
-	(self junctionFrom: right to: aCell ofType: #n if: 2r0101 andLastIs: aLastCell thenDefineJunction: 2r0010 orIfExists: 2r1010 addConnection: 2r1000 mode: mode)
-		ifTrue: [ ^ self ].	
+	(self
+		junctionFrom: right
+		to: aCell
+		ofType: #n
+		if: 2r0101
+		andLastIs: aLastCell
+		thenDefineJunction: 2r0010
+		orIfExists: 2r1010
+		addConnection: 2r1000
+		mode: mode) ifTrue: [ ^ self ].
 
-	(self junctionFrom: down to: aCell ofType: #n if: 2r1010 andLastIs: aLastCell thenDefineJunction: 2r0100 orIfExists: 2r0101 addConnection: 2r0001 mode: mode)
-		ifTrue: [ ^ self ].
+	(self
+		junctionFrom: down
+		to: aCell
+		ofType: #n
+		if: 2r1010
+		andLastIs: aLastCell
+		thenDefineJunction: 2r0100
+		orIfExists: 2r0101
+		addConnection: 2r0001
+		mode: mode) ifTrue: [ ^ self ].
 
 	aCell hasJunction ifTrue: [ ^ self ].
 
-	(aCell substrateType notNil and: [aCell substrateType ~~ mode]) ifTrue: [ ^ self ].
+	(aCell substrateType isNotNil and: [ aCell substrateType ~~ mode ]) ifTrue: [ ^ self ].
 
 	super setFor: aCell with: aLastCell mode: mode.
-	
+
 	area updateCell: aCell mode: mode
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #initialization }
 ChDSubstrateLayer >> setRegionOf: aCell to: aRegion [
 
 	^ aCell substrateRegion: aRegion

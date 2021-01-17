@@ -16,7 +16,7 @@ ChDAreaViewMock >> changed [
 	changed := true
 ]
 
-{ #category : #updating }
+{ #category : #initialization }
 ChDAreaViewMock >> initialize [
 
 	super initialize.
