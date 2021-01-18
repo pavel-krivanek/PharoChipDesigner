@@ -19,20 +19,28 @@ ChDGigatronLevel1 class >> priority [
 { #category : #'as yet unclassified' }
 ChDGigatronLevel1 >> createLabels [
 
-	area descriptions add: ('+Vcc' -> (42@4)).
-	area descriptions add: ('GND' -> (3@28)).
+	area descriptions add: ('+Vcc' -> (3@7)).
+	area descriptions add: ('GND' -> (19@11)).
 	
-	1 to: 6 do: [ :i |
-		area descriptions add: ((ports at: i) name -> (3@(4+((i-1)*4)))) ] .
-
-	1 to: 6 do: [ :i |
-		area descriptions add: ((ports at: i+6) name -> (42@(8+((i-1)*4)))) ].
+	area descriptions add: ((ports at: 1) name -> (3@11)). 
+	area descriptions add: ((ports at: 2) name -> (3@15)). 
+	area descriptions add: ((ports at: 3) name -> (7@15)). 
+	area descriptions add: ((ports at: 4) name -> (11@15)). 
+	area descriptions add: ((ports at: 5) name -> (15@15)). 
+	area descriptions add: ((ports at: 6) name -> (19@15)). 
+	area descriptions add: ((ports at: 7) name -> (3@3)). 
+	area descriptions add: ((ports at: 8) name -> (7@3)). 
+	area descriptions add: ((ports at: 9) name -> (11@3)). 
+	area descriptions add: ((ports at: 10) name -> (15@3)). 
+	area descriptions add: ((ports at: 11) name -> (19@3)). 
+	area descriptions add: ((ports at: 12) name -> (19@7)). 
+	
 ]
 
 { #category : #initialization }
 ChDGigatronLevel1 >> initializeArea [
 
-	area decodedFromZipString: 'H4sIAAAAAAAAAOWSMQ7AIAhFrwTUGlcl7f2PVPyN2NDFqUuXF3n5AiYSkaiBT0MTIVIWYqCwuVTejpK5o5dA9VxwyOVeAuK54Hb9/9z/z/1mLvU/nu7SThManWW3vLYkXOWxAU4T2XPot/AYOPF1xbs83egX7ja5AOFrWrrUAwAA'
+	area decodedFromZipString: 'H4sIAAAAAAAAADMwMDA0BRGGQMLI2cjAwNnQyMAQTFiAxAyMqCxmAhRzBXHBhCNcHTXFQHaYgbhgwgiujopiRq6YfjN0JM6/YHVEuBmsbhDbO/LTBo604QwAJoHtalcDAAA='
 ]
 
 { #category : #initialization }
@@ -44,9 +52,7 @@ ChDGigatronLevel1 >> instructions [
 { #category : #'as yet unclassified' }
 ChDGigatronLevel1 >> portPoints [
 
-	^ ((1 to: 6) collect: [ :i | 3@(4+((i-1)*4))]),
-	((1 to: 6) collect: [ :i | 42@(8+((i-1)*4))])
-
+	^ { 3@11. 3@15. 7@15. 11@15. 15@15. 19@15. 3@3. 7@3. 11@3. 15@3. 19@3. 19@7 }
 ]
 
 { #category : #'as yet unclassified' }
@@ -103,5 +109,5 @@ ChDGigatronLevel1 >> portsDefinition [
 { #category : #'as yet unclassified' }
 ChDGigatronLevel1 >> vccPoints [
 
-	^ { 42@3 }
+	^ { 3@7 }
 ]
