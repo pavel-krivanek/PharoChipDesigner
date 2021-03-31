@@ -289,4 +289,4 @@ The left 4 AND gates determine S1. If exactly 1 of the inputs is on or all 3 are
 The right 3 AND gates determine the Carry bit. The Carry bit is lit when at least 2 of the inputs are carrying current. There are 3 combinations for this, so they are enumerated, lazy-OR'ed, and sent to C.\
 ![kohctpyktoplevel10.png](introduction/kohctpyktoplevel10.png)
 
-Some other solutions can be found [here](solutions/solutions.md)
+Some other solutions can be found [here](solutions/readme.md)
