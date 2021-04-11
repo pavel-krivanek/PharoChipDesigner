@@ -203,6 +203,8 @@ ChDSimulation >> reset [
 		each futureState: false.
 		each isSpecial ifTrue: [ each open: false ] ].
 	
+	self sequences do: [ :each | each reset ].
+	
 	self resetTime.
 	
 ]

@@ -150,7 +150,7 @@ ChDSequence >> initialize [
 	super initialize.
 	
 	signalLength := self defaultSignalLength.
-	sequenceArray := (1 to: self defaultLength * signalLength) collect: [ :each | nil. ].
+	self resetSequenceArray.
 	expectedSequenceArray := nil.
 	
 	currentTime := nil.
@@ -233,6 +233,13 @@ ChDSequence >> region: aRegion [
 ]
 
 { #category : #initialization }
+ChDSequence >> reset [ 
+
+	self type = #output ifTrue: [ 
+		self resetSequenceArray ].
+]
+
+{ #category : #initialization }
 ChDSequence >> resetRegion [
 
 	| aCell newRegion |
@@ -246,6 +253,12 @@ ChDSequence >> resetRegion [
 
 	newRegion == region 
 		ifFalse: [ self region: newRegion ].
+]
+
+{ #category : #initialization }
+ChDSequence >> resetSequenceArray [
+
+	sequenceArray := (1 to: self defaultLength * signalLength) collect: [ :each | nil. ].
 ]
 
 { #category : #accessing }
