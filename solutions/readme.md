@@ -2,6 +2,15 @@
 
 Some solution for Pharo Chip Designer levels
 
+## Classic level 13 - KC84C - 4-Bit Counter With Clear
+
+![13-1.png](13-1.png)
+
+```
+H4sIAAAAAAAAAK1WUbaEIAjdEiCafarT/rf0EI86lc1Y8344yk28chEDAEpiMIqJRAAJCVCNR/GxP/uAxbflaTeMjhAsBI/WEdjiqybtp+9GlvH6HIU1s3c7QqGRdHmqhorPMXiTR3lF+S6ADOPFSCMfo2xt7WQUgosk3oqiXD5LEX6IPJW/QWSurKoyIlm8lOwn9JuZEaofgVsi/vUIY1PUSjsFD7eicHZCldo9WrHTzWdYJoAa5ejr2aDJQkpyXXh1jGBkROvblpNA4XL2bbW4eN9GrksvITPEfBiLNveqtuUsoFzOPqTzbui0UYhxmXhaiNGsvYN8Bfwi5YUfAQwDFZJQCy8IpLqZTpxKEgmDfY7SAEWYbfDDDiwnshTBxbZWdzP6Ghz0+AjEDqhQkqbOb6ZAgvpyFLMrrs5U6k+yO3yjhijXe67osUfwvS5woEul6jRyZu/305LEQXvglpdB+RhX37cJVUNZUVWYzbNxo+zeOLlNj/4yQvtugiT7sy/SH2hqmH/tCAAA
+```
+
+
 ## Classic level 15 - KR8S1 - 8 Bit Addressable SRAM
 
 ![15-1.png](15-1.png)
