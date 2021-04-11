@@ -79,6 +79,8 @@ ChDAreaController >> cellEventAt: aPoint [
 	cell := self area atX: aPoint x y: aPoint y.
 	cell = lastCell ifTrue: [ ^ self ].
 	
+	self area markDirty.
+	
 	inputMode isInsertVia ifTrue: [ 
 		cell toggleVia.
 		self insertMetalMode.

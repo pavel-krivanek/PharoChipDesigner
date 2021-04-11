@@ -21,7 +21,8 @@ Class {
 		'regions',
 		'simulation',
 		'descriptions',
-		'selection'
+		'selection',
+		'dirty'
 	],
 	#category : #ChipDesigner
 }
@@ -80,6 +81,7 @@ ChDArea >> addMetalAt: x y: y addConnections: connectionsInteger [
 	aCell := self atX: x y: y.
 	self metalLayer setFor: aCell mode: #metal.
 	self metalLayer connectionsFor: aCell add: connectionsInteger.
+	self markDirty.
 	^ aCell
 
 ]
@@ -129,6 +131,22 @@ ChDArea >> atX: x y: y [
 	y > self height ifTrue: [ ^ ChDStubCell new ].
 
 	^ array at: y at: x
+]
+
+{ #category : #testing }
+ChDArea >> canSwitchTo: aClass [ 
+	
+	| result |
+ 
+	dirty ifFalse: [ ^ true ].
+	
+	result := self confirm: 'Leave the level withou saving?'.
+		
+	result = true ifTrue: [ ^ true ].
+	
+	^ false
+
+	
 ]
 
 { #category : #'cell access' }
@@ -422,6 +440,8 @@ ChDArea >> initializeForExtent: aPoint [
 		
 	descriptions := OrderedCollection new.
 	
+	dirty := false.
+	
 	
 	
 ]
@@ -439,6 +459,18 @@ ChDArea >> inspectionMorph [
 ChDArea >> leftX: x y: y [
 
 	^ self atX: x-1 y: y
+]
+
+{ #category : #'tests support' }
+ChDArea >> markClean [
+
+	dirty := false
+]
+
+{ #category : #'tests support' }
+ChDArea >> markDirty [
+
+	dirty := true
 ]
 
 { #category : #'cell access' }
@@ -569,7 +601,6 @@ ChDArea >> newJunctionRegion [
 ChDArea >> newMetalRegion [
 
 	| newRegion |
-	
 	newRegion := ChDRegion new.
 	newRegion layer: metalLayer.
 	regions add: newRegion.

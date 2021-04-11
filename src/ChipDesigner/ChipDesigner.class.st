@@ -181,6 +181,7 @@ ChipDesigner >> export [
 	textPresenter text: aString.
 	dialog contentArea: textPresenter.
 	dialog addButton: #ok text: 'OK' value: true.
+	area markClean.
 	
 	dialog openModalWithSpec.	
 ]
@@ -281,12 +282,7 @@ ChipDesigner >> initializeList [
 	list whenSelectionChangedDo: [ :selection | 
 		| levelClass |
 		levelClass := selection selectedItem.
-		levelClass selectable ifTrue: [ 
-			currentLevel := levelClass on: area graphics: areaMorph display graphics.
-			self refreshEditor.
-			self initializeNotebook.
-			self needRebuild: false.
-			self buildWithSpec ] ].
+		self switchTo: levelClass ]
  
 ]
 
@@ -647,6 +643,31 @@ ChipDesigner >> subscribeStatusBar [
 		statusBar pushMessage: (announcement running 
 			ifTrue: [ 'Simulation running...' ]
 			ifFalse: [ 'Ready' ]) ]
+]
+
+{ #category : #initialization }
+ChipDesigner >> switchTo: levelClass [
+
+	currentLevel class = levelClass ifTrue: [ ^ self ].
+	
+	
+	(area canSwitchTo: levelClass) 
+		ifFalse: [
+			[
+				"a hack to perform selecton back" 	
+				100 milliSecond wait. 
+				list selectItem: currentLevel class ] fork.
+			^ self ].					
+
+	levelClass selectable ifFalse: [ 
+		area markClean.
+		^ self ].
+	
+	currentLevel := levelClass on: area graphics: areaMorph display graphics.
+	self refreshEditor.
+	self initializeNotebook.
+	self needRebuild: false.
+	self buildWithSpec.
 ]
 
 { #category : #initialization }
