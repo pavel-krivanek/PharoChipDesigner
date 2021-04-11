@@ -7,7 +7,7 @@ It is an inaccurate and highly simplified tool for the design of silicon chip la
 
 ## How to load
 
-The Pharo Chip Designer runs withing Pharo 8.0 environment. Currently, it is not provided as a standalone application because the main purpose of it is not to imitate the original game but to provide a base for own experiments where you want to have full control over the input and output signals. Pharo provides an interactive environment for it. So you first should install Pharo Launcher, then prepare a Pharo 9.0 image and load the Chip Designer into it.
+The Pharo Chip Designer runs withing Pharo 9.0 environment. Currently, it is not provided as a standalone application because the main purpose of it is not to imitate the original game but to provide a base for own experiments where you want to have full control over the input and output signals. Pharo provides an interactive environment for it. So you first should install Pharo Launcher, then prepare a Pharo 9.0 image and load the Chip Designer into it.
 
 1) Install Pharo Launcher from http://pharo.org/download)
 2) Create a new image from the template named "Pharo 9.0 - 64bit (development version, latest)" (32bit can be used too. Pharo 9.0 is currently the development version, but it has many improvements in the UI building that are used in the Chip Designer)
@@ -109,6 +109,9 @@ OR is a bit more complicated...\
 OR is like a not gate with multiple inputs. The P silicon carries a constant current, but if any of the inputs are active, then the final result will not have current. This is the opposite of the desired output, so adding an extra not gate at the end of this will result in an OR gate.
 
 As you can see, even though most logic diagrams show OR as a fundamental unit, when it comes to actual circuits, it is easier to construct a NOR gate.\
+
+NOR Gate
+-------\
 ![kohctpyktopnor.png](introduction/kohctpyktopnor.png)
 
 If you are feeling lazy, you can make a cheap-n-dirty OR gate by letting all inputs directly touch each other via a piece of metal or silicon...\
@@ -285,3 +288,5 @@ For the rest of the outputs, I simply enumerated the results into a chart of sor
 The left 4 AND gates determine S1. If exactly 1 of the inputs is on or all 3 are on, then S1 is on. There are 4 combinations that could cause this, so 4 AND gates. They are all lazy-OR'ed together at the top and then sent to S1.\
 The right 3 AND gates determine the Carry bit. The Carry bit is lit when at least 2 of the inputs are carrying current. There are 3 combinations for this, so they are enumerated, lazy-OR'ed, and sent to C.\
 ![kohctpyktoplevel10.png](introduction/kohctpyktoplevel10.png)
+
+Some other solutions can be found [here](solutions/readme.md)
