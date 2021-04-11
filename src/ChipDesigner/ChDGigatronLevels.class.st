@@ -29,6 +29,7 @@ ChDGigatronLevels class >> levels [
 		ChDGigatronLevel1.
 		ChDGigatronLevel2.
 		ChDGigatronLevel3.
+		ChDGigatronLevel4.
 	 }
 ]
 
