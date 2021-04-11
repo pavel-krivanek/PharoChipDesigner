@@ -20,27 +20,27 @@ ChDClassicLevel19 >> instructions [
 ChDClassicLevel19 >> portsDefinition [
 
 	^ { 
-		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort notConnectedNamed: 'N/C'.
+		ChDClassicLevelPort 
 			name: 'FIRE'
 			sequence: '0000000003FFFFFFFFFFFFFFFFFFFC00003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFC0000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'LOCK'
 			sequence: '0000000000000000000000000000000000000003FFFFFFF00000003FFFFC000000000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'TRIG'
 			expectedSequence: '0000000000F83E0F83E0F83E0F83E000000F83E000000003E0F83E000000F83E00000000'.
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'A+'
 			expectedSequence: '00FFFFFFFC00003FFFFC00003FFFFFFFFFC000000000000FFFFF0000000000FFFFFFFFFF'.	
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'A-'
 			expectedSequence: '0000000003FFFFC00003FFFFC0000000003FFFFFFFFFFFF00000FFFFFFFFFF0000000000'.	 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'B+'
 			expectedSequence: '00FFFFFFFFFF00000FFFFF00000FFFFFFFFFF0000000000003FFFFFFFFFC000000000000'.	 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'B-'
 			expectedSequence: '000000000000FFFFF00000FFFFF0000000000FFFFFFFFFFFFC0000000003FFFFFFFFFFFF'.	 
 		}

@@ -54,50 +54,50 @@ ChDGigatronLevel3 >> portPoints [
 ChDGigatronLevel3 >> portsDefinition [
 
 	^ { 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'A'
 			sequence: '0007C00FFFE007FE00000007FE007FE007FE007FE007FE007FE007FE007FE007FE000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'B'
 			sequence: '00F801FFFFE007C00000000001FFFFE00001FFFFE00001FFFFE00001FFFFE00001FFFC00'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'C'
 			sequence: '00FFC00FFC00FFC0000000000000001FFFFFFFFFE0000000001FFFFFFFFFE00000000000'.	 
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '/G2A'
 			sequence: '00FFFFF003FF003FF0000000000000000000000000000000000000000000000000000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '/G2B'
 			sequence: '00FFC00FFFFF003FF0000000000000000000000000000000000000000000000000000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'G1'
 			sequence: '00FFC00FFC0000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'.	 
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y7'
 			expectedSequence: '00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF801FFFFFFFFFFFFFFFFF801FFFFFFFFFFF'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y6'
 			expectedSequence: '00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE007FFFFFFFFFFFFFFFFE007FFFFFFFFFFFFF'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y5'	
 			expectedSequence: '00FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF801FFFFFFFFFFFFFFFFF801FFFFFFFFFFFFFFFF'.	 
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y4'
 			expectedSequence: '00FFFFFFFFFFFFFFFFFFFFFFFFFFFFE007FFFFFFFFFFFFFFFFE007FFFFFFFFFFFFFFFFFF'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y3'
 			expectedSequence: '00FFFFFFFFFFFFFFFFFFFFFFFFFF801FFFFFFFFFFFFFFFFF801FFFFFFFFFFFFFFFFFFFFF'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y2'
 			expectedSequence: '00FFFFFFFFFFFFFFFFFFFFFFFE007FFFFFFFFFFFFFFFFE007FFFFFFFFFFFFFFFFE0003FF'.							
 		
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y1'
 			expectedSequence: '00FFFFFFFFFFFFFFFFFFFFF801FFFFFFFFFFFFFFFFF801FFFFFFFFFFFFFFFFF801FFFFFF'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y0'
 			expectedSequence: '00FFFFFFFFFFFFFFF0000007FFFFFFFFFFFFFFFFE007FFFFFFFFFFFFFFFFE007FFFFFC00'.	 
 

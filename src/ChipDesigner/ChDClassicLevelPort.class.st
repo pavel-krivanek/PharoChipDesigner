@@ -1,5 +1,5 @@
 Class {
-	#name : #ChipDesignerClassicLevelPort,
+	#name : #ChDClassicLevelPort,
 	#superclass : #Object,
 	#instVars : [
 		'name',
@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevelPort class >> name: aString expectedSequence: expectedSequenceNumber [
+ChDClassicLevelPort class >> name: aString expectedSequence: expectedSequenceNumber [
 
 	^ self new
 		name: aString;
@@ -22,7 +22,7 @@ ChipDesignerClassicLevelPort class >> name: aString expectedSequence: expectedSe
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevelPort class >> name: aString sequence: sequenceNumber [
+ChDClassicLevelPort class >> name: aString sequence: sequenceNumber [
 
 	^ self new
 		name: aString;
@@ -33,7 +33,7 @@ ChipDesignerClassicLevelPort class >> name: aString sequence: sequenceNumber [
 ]
 
 { #category : #'as yet unclassified' }
-ChipDesignerClassicLevelPort class >> notConnectedNamed: aString [ 
+ChDClassicLevelPort class >> notConnectedNamed: aString [ 
 
 	^ self new
 		name: aString;
@@ -44,41 +44,41 @@ ChipDesignerClassicLevelPort class >> notConnectedNamed: aString [
 ]
 
 { #category : #accessing }
-ChipDesignerClassicLevelPort >> expectedSequence [
+ChDClassicLevelPort >> expectedSequence [
 	^ expectedSequence
 ]
 
 { #category : #accessing }
-ChipDesignerClassicLevelPort >> expectedSequence: anObject [
+ChDClassicLevelPort >> expectedSequence: anObject [
 	expectedSequence := anObject
 ]
 
 { #category : #accessing }
-ChipDesignerClassicLevelPort >> isInput [
+ChDClassicLevelPort >> isInput [
 	^ isInput
 ]
 
 { #category : #accessing }
-ChipDesignerClassicLevelPort >> isInput: anObject [
+ChDClassicLevelPort >> isInput: anObject [
 	isInput := anObject
 ]
 
 { #category : #accessing }
-ChipDesignerClassicLevelPort >> name [
+ChDClassicLevelPort >> name [
 	^ name
 ]
 
 { #category : #accessing }
-ChipDesignerClassicLevelPort >> name: anObject [
+ChDClassicLevelPort >> name: anObject [
 	name := anObject
 ]
 
 { #category : #accessing }
-ChipDesignerClassicLevelPort >> sequence [
+ChDClassicLevelPort >> sequence [
 	^ sequence
 ]
 
 { #category : #accessing }
-ChipDesignerClassicLevelPort >> sequence: anObject [
+ChDClassicLevelPort >> sequence: anObject [
 	sequence := anObject
 ]

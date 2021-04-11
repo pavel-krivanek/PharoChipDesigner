@@ -26,29 +26,29 @@ ChDCPlayground44x23 >> instructions [
 ChDCPlayground44x23 >> portsDefinition [
 
 	^ { 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'A0'
 			sequence: '00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'A1'
 			sequence: '00FFC00003FF00000FFC00003FF00000FFC00003FF00000FFC00003FF00000FFC0000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'A2'
 			sequence: '00FFC0000000FFC0000000FFC0000000FFC0000000FFC0000000FFC0000000FFC0000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'A3'
 			sequence: '00003FF00000FFC00FFC00003FF003FF00000FFC00FFC00003FF003FF00000FFC00FFC00'.			
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y0'
 			expectedSequence: '000000000000000000000000000000000000000000000000000000000000000000000000'.	 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y1'
 			expectedSequence: '000000000000000000000000000000000000000000000000000000000000000000000000'.	 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y2'
 			expectedSequence: '000000000000000000000000000000000000000000000000000000000000000000000000'.	 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y3'
 			expectedSequence: '000000000000000000000000000000000000000000000000000000000000000000000000'.	 
 		}

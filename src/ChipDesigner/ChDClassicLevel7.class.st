@@ -20,21 +20,21 @@ ChDClassicLevel7 >> instructions [
 ChDClassicLevel7 >> portsDefinition [
 
 	^ { 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'T0'
 			sequence: '00003E000000F80000000000000F8000F800000000003E0000000000000000003E000000'.
-		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
-		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort notConnectedNamed: 'N/C'.
+		ChDClassicLevelPort notConnectedNamed: 'N/C'.
+		ChDClassicLevelPort 
 			name: 'Q0'
 			expectedSequence: '00003FFFFFFF000000000000000FFFFF0000000000003FFFFFFFFFFFFFFFFFFFC0000000'.			
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'T1'
 			sequence: '0000000F83E000000F800000000003E000000F8000000000000000000F8000F8000F8000'.	 
-		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
-		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort notConnectedNamed: 'N/C'.
+		ChDClassicLevelPort notConnectedNamed: 'N/C'.
+		ChDClassicLevelPort 
 			name: 'Q1'
 			expectedSequence: '0000000FFC0000000FFFFFFFFFFFFC0000000FFFFFFFFFFFFFFFFFFFF00000FFFFF00000'.	 
 		}

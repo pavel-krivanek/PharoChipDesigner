@@ -20,29 +20,29 @@ ChDClassicLevel16 >> instructions [
 ChDClassicLevel16 >> portsDefinition [
 
 	^ { 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'A0'
 			sequence: '00003FF00000003FFFFC00FFC0000000FFFFF003FF00000003FFFFC00FFC0000000FFFFF'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'A1'
 			sequence: '0000000003FF00000FFC0000000FFC00003FF00000003FF00000FFC0000000FFC00003FF'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'B0'
 			sequence: '0000000FFC0000000FFC00003FF00000003FF00000FFC0000000FFC00003FF00000003FF'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'B1'
 			sequence: '0000000003FFFFFFFFFC0000000FFFFFFFFFF00000003FFFFFFFFFC0000000FFFFFFFFFF'.
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'F0'
 			sequence: '00000000000000000003FFFFFFFFFFFFFFFFF000000000000000003FFFFFFFFFFFFFFFFF'.	
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'F1'
 			sequence: '0000000000000000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'.	 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'C0'
 			expectedSequence: '00000000000000000FFC00FFFFF00000FFFFF003FFFFC00003FF003FF003FFFFFFF00000'.	 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'C1'
 			expectedSequence: '0000000003FF00000FFC0000000FFFFFFFFFF0000000000FFFFF003FFFFFFF003FFFFC00'.	 
 		}

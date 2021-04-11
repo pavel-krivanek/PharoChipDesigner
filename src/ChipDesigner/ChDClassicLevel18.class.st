@@ -20,27 +20,27 @@ ChDClassicLevel18 >> instructions [
 ChDClassicLevel18 >> portsDefinition [
 
 	^ { 
-		ChipDesignerClassicLevelPort notConnectedNamed: 'N/C'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort notConnectedNamed: 'N/C'.
+		ChDClassicLevelPort 
 			name: 'RST'
 			sequence: '00FFC00000000000000000000000000000000003FF0000000000003FF000000000000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'DEC'
 			sequence: '0000000F83E0F83E0F83E0F83E0F83E0F83E000000003E0F83E000000003E0F83E000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'LOW'
 			expectedSequence: '000000000000000000000000000FFFFFFFFFFFFC00000000000000000000000000000000'.
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y0'
 			expectedSequence: '0000000FFC00FFC00FFC00FFC00FFC00FFC0000000003FF003FFFFC00003FF003FFFFFFF'.	
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y1'
 			expectedSequence: '0000000FFFFF00000FFFFF00000FFFFF0000000000003FFFFC0000000003FFFFC0000000'.	 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y2'
 			expectedSequence: '00FFFFF0000000000FFFFFFFFFF0000000000003FFFFC0000000003FFFFC000000000000'.	 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: 'Y3'
 			expectedSequence: '00FFFFFFFFFFFFFFF00000000000000000000003FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF'.	 
 		}

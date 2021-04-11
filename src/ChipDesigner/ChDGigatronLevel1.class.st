@@ -59,45 +59,45 @@ ChDGigatronLevel1 >> portPoints [
 ChDGigatronLevel1 >> portsDefinition [
 
 	^ { 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '1A'
 			sequence: '00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '1Y'
 			expectedSequence: '00003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF'.	 
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '2A'
 			sequence: '00FFC00003FF00000FFC00003FF00000FFC00003FF00000FFC00003FF00000FFC0000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '2Y'
 			expectedSequence: '00003FFFFC00FFFFF003FFFFC00FFFFF003FFFFC00FFFFF003FFFFC00FFFFF003FFFFFFF'.	 
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '3A'
 			sequence: '00FFC0000000FFC0000000FFC0000000FFC0000000FFC0000000FFC0000000FFC0000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '3Y'
 			expectedSequence: '00003FFFFFFF003FFFFFFF003FFFFFFF003FFFFFFF003FFFFFFF003FFFFFFF003FFFFFFF'.	 
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '6A'
 			sequence: '00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00'.			
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '6Y'
 			expectedSequence: '00003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF'.	
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '5A'
 			sequence: '00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00'.			
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '5Y'
 			expectedSequence: '00003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF003FF'.	 
 
-		ChipDesignerClassicLevelPort  
+		ChDClassicLevelPort  
 			name: '4A'
 			sequence: '00003FF00000FFC00FFC00003FF003FF00000FFC00FFC00003FF003FF00000FFC00FFC00'.			
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '4Y'
 			expectedSequence: '00FFC00FFFFF003FF003FFFFC00FFC00FFFFF003FF003FFFFC00FFC00FFFFF003FF003FF'.	 
 

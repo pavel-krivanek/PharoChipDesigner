@@ -59,43 +59,43 @@ ChDGigatronLevel2 >> portPoints [
 ChDGigatronLevel2 >> portsDefinition [
 
 	^ { 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '1A'
 			sequence: '00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '1B'
 			sequence: '00FFC00003FF00000FFC00003FF00000FFC00003FF00000FFC00003FF00000FFC0000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '1Y'
 			expectedSequence: '00FFC00FFFFFFFC00FFC00FFFFFFFC00FFC00FFFFFFFC00FFC00FFFFFFFC00FFC00FFC00'.	 
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '2A'
 			sequence: '00FFC0000000FFC0000000FFC0000000FFC0000000FFC0000000FFC0000000FFC0000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '2B'
 			sequence: '00003FF00000FFC00FFC00003FF003FF00000FFC00FFC00003FF003FF00000FFC00FFC00'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '2Y'
 			expectedSequence: '00FFFFF00000FFC00FFC00FFFFF003FFFFC00FFC00FFC00003FFFFFFF00000FFC00FFC00'.	 
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '3A'
 			sequence: '00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00FFC00'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '3B'
 			sequence: '00FFC00F83E0003FFFFC1FF801F00000003FF07C1FFFC00003E0F800000000FFC00FFC00'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '3Y'	
 			expectedSequence: '00FFC00FFFE0FFFFFFFC1FFFC1FFFC00FFFFFFFC1FFFC00FFFE0FFC00FFC00FFC00FFC00'.	 
 
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '4A'
 			sequence: '00FFC00FFC00FFC00FFC00FFC00FFC00FFFC00003FF00000FFC00003FF8000FFC0000000'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '4B'
 			sequence: '00FFC0000000FFC0000000FFC0000000FFC0000000FFC000000007FE007FE00000FF801F'.
-		ChipDesignerClassicLevelPort 
+		ChDClassicLevelPort 
 			name: '4Y'
 			expectedSequence: '00FFC00FFC00FFC00FFC00FFC00FFC00FFFE00001FFFC0007FE007FFFFFFE0FFC1FF801F'.	 
 
