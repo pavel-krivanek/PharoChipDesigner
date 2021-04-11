@@ -91,7 +91,9 @@ ChDAreaController >> cellEventAt: aPoint [
 			inputMode wantsMenu ifTrue: [ 
 				inputMode isSelecting: false.
 				inputMode wantsMenu: false.
-				self openSelectionMenu.
+				mouseDown := false.
+				area selection ifNotNil: [ 
+					self openSelectionMenu ].
 				^ self ].
 			inputMode isSelecting
 				ifFalse: [
