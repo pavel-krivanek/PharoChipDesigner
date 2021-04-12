@@ -223,7 +223,7 @@ ChipDesigner >> import [
 
 { #category : #initialization }
 ChipDesigner >> initialExtent [
-	^ 950@800
+	^ 1000@800
 ]
 
 { #category : #initialization }
@@ -462,9 +462,14 @@ ChipDesigner >> instructionsMorph [
 
 	^ currentLevel instructions 
 		ifNotNil: [ :fileName |
-			 | form |
+			 | form alignmentMorph scrollPane |
 			form := PNGReadWriter formFromFileNamed: (self class package mcWorkingCopy ancestry ancestors first package repository location / 'levels' / fileName).
-			form asMorph
+			alignmentMorph := AlignmentMorph newColumn asMorph.
+			alignmentMorph addMorphBack: form asMorph.
+			scrollPane := ScrollPane new.
+			scrollPane color: (Color r: 1.0 g: 0.9687194525904204 b: 0.8866080156402737 alpha: 1.0).
+			scrollPane scroller addMorph: alignmentMorph.
+			scrollPane
 		 ]
 		ifNil: [ Morph new ]
 ]
@@ -589,15 +594,26 @@ ChipDesigner >> selectionMenu [
 { #category : #initialization }
 ChipDesigner >> sequenceMorph [
 
-	| sequenceMorph |
+"			form := PNGReadWriter formFromFileNamed: (self class package mcWorkingCopy ancestry ancestors first package repository location / 'levels' / fileName).
+			alignmentMorph := AlignmentMorph newColumn asMorph.
+			alignmentMorph addMorphBack: form asMorph.
+			scrollPane := ScrollPane new.
+			scrollPane color: (Color r: 1.0 g: 0.9687194525904204 b: 0.8866080156402737 alpha: 1.0).
+			scrollPane scroller addMorph: alignmentMorph.
+			scrollPane"
+
+	| sequenceMorph scrollPane |
 	
 	sequenceMorph := AlignmentMorph newColumn.
-	sequenceMorph color: (Color r: 0.506 g: 0.506 b: 0.506 alpha: 1.0).
 
 	currentLevel scopes do: [ :scope |
 		sequenceMorph addMorphBack: scope ].
 	
-	^ sequenceMorph
+	scrollPane := ScrollPane new.
+	scrollPane color: (Color r: 1.0 g: 0.9687194525904204 b: 0.8866080156402737 alpha: 1.0).
+	scrollPane scroller addMorph: sequenceMorph.
+	
+	^ scrollPane
 ]
 
 { #category : #initialization }
@@ -649,7 +665,6 @@ ChipDesigner >> subscribeStatusBar [
 ChipDesigner >> switchTo: levelClass [
 
 	currentLevel class = levelClass ifTrue: [ ^ self ].
-	
 	
 	(area canSwitchTo: levelClass) 
 		ifFalse: [

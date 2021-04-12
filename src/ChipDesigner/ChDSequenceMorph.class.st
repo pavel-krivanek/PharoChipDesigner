@@ -37,7 +37,7 @@ ChDSequenceMorph >> drawOn: aCanvas [
 
 	| rect lastPoint newPoint offset fontHeight descriptionPadding |
 		
-	rect := Rectangle origin: (self bounds topLeft +(self descriptionWidth @0)) corner: self bounds bottomRight.
+	rect := Rectangle origin: (self bounds topLeft +((self descriptionWidth) @0)) corner: self bounds bottomRight.
 	
 	offset := 7.
 	descriptionPadding := 4.
@@ -85,9 +85,6 @@ ChDSequenceMorph >> drawOn: aCanvas [
 		] ifNil: [ 
 		lastPoint := (rect left + (i*tickLength)) @ (false ifFalse: [rect bottom-offset] ifTrue: [rect top+offset]).] ].
 
-
-
-
 	sequence currentTime ifNotNil: [ 
 		| x | 
 		x := (sequence currentTime-1) * (tickLength).
@@ -130,6 +127,12 @@ ChDSequenceMorph >> drawOnAthensCanvas: aCanvas [
 	self drawOn: aCanvas asCanvasWrapper
 ]
 
+{ #category : #initialization }
+ChDSequenceMorph >> evaluationWidth [
+
+	^ 40
+]
+
 { #category : #accessing }
 ChDSequenceMorph >> graphics [
 	^ graphics
@@ -158,7 +161,7 @@ ChDSequenceMorph >> initializeOn: aSequence [
 		
 	tickLength := 2.
 	
-	self extent: (sequence length * tickLength + self descriptionWidth) @ 30.
+	self extent: (sequence length * tickLength + self descriptionWidth + self evaluationWidth) @ 30.
 
 	isMouseDown := false.
 	lastSequenceIndexChanged := nil.
