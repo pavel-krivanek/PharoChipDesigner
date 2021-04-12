@@ -274,7 +274,7 @@ ChDAreaMorph >> resetExtent [
 ChDAreaMorph >> step [
 	
 	area simulation stepping ifTrue: [ 
-		(self area simulation time) >= 280 ifTrue: [ 
+		self area simulation atEnd ifTrue: [ 
 			self stopStepping.
 			area simulation stop.
 			area simulation evaluate.
@@ -297,11 +297,12 @@ ChDAreaMorph >> takesKeyboardFocus [
 { #category : #initialization }
 ChDAreaMorph >> toggleRun [ 
 
-	area simulation toggleStepping.
-
-	area simulation stepping ifTrue: [ 
+	area simulation atEnd ifTrue: [
+		area simulation reset.
 		self area simulation resetTime.
-		self startStepping ]
+		self startStepping ].
+	
+	area simulation toggleStepping.
 ]
 
 { #category : #initialization }

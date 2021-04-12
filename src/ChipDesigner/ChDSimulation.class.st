@@ -88,6 +88,12 @@ ChDSimulation >> area: anObject [
 ]
 
 { #category : #accessing }
+ChDSimulation >> atEnd [ 
+
+	^ time >= 280
+]
+
+{ #category : #accessing }
 ChDSimulation >> connectedRegionsFrom: regions [
 
 	| result notProcessed |
