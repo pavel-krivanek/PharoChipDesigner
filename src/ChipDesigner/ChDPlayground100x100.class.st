@@ -118,6 +118,12 @@ ChDPlayground100x100 >> portsDefinition [
 
 ]
 
+{ #category : #'as yet unclassified' }
+ChDPlayground100x100 >> readOnlyScopes [
+
+	^ false
+]
+
 { #category : #operations }
 ChDPlayground100x100 >> reinitialize [ 
 

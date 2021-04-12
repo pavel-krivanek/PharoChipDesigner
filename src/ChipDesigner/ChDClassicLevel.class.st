@@ -35,26 +35,6 @@ ChDClassicLevel >> createLabels [
 	area descriptions add: ('+Vcc' -> (42@24)).
 ]
 
-{ #category : #'as yet unclassified' }
-ChDClassicLevel >> createScopes [
-
-	sequences := ports with: self portPoints collect: [ :port :aPoint |
-		| aSequence |
-		port isInput 
-			ifTrue: [ 
-				aSequence := ChDSequence input name: port name.
-				aSequence decodedFrom: port sequence.
-				aSequence readOnly: false ]
-			ifFalse: [ 
-				aSequence := ChDSequence output name: port name.
-				aSequence expectedDecodedFrom: port expectedSequence.  ].
-			
-		aSequence forMetalAt: aPoint in: area.
-		aSequence ].
-	
-	scopes := sequences collect: [ :each | ChDSequenceMorph on: each graphics: self graphics ]
-]
-
 { #category : #initialization }
 ChDClassicLevel >> initializeArea [
 

@@ -83,7 +83,7 @@ ChDDesign >> createScopes [
 			ifTrue: [ 
 				aSequence := ChDSequence input name: port name.
 				aSequence decodedFrom: port sequence.
-				aSequence readOnly: false ]
+				aSequence readOnly: self readOnlyScopes ]
 			ifFalse: [ 
 				aSequence := ChDSequence output name: port name.
 				aSequence expectedDecodedFrom: port expectedSequence ].
@@ -147,6 +147,12 @@ ChDDesign >> initializeSimulation [
 ChDDesign >> portPoints [
 
 	^ self subclassResponsibility 
+]
+
+{ #category : #definition }
+ChDDesign >> readOnlyScopes [
+
+	^ true
 ]
 
 { #category : #operations }

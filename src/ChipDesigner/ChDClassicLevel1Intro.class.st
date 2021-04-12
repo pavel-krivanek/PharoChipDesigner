@@ -33,3 +33,9 @@ ChDClassicLevel1Intro >> instructions [
 
 	^ 'intro.png'
 ]
+
+{ #category : #'as yet unclassified' }
+ChDClassicLevel1Intro >> readOnlyScopes [
+
+	^ false
+]

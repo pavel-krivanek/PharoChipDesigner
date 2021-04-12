@@ -103,6 +103,12 @@ ChDPlaygroundDIL14 >> portsDefinition [
 ]
 
 { #category : #'as yet unclassified' }
+ChDPlaygroundDIL14 >> readOnlyScopes [
+
+	^ false
+]
+
+{ #category : #'as yet unclassified' }
 ChDPlaygroundDIL14 >> vccPoints [
 
 	^ { 42@3 }

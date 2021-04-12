@@ -55,3 +55,9 @@ ChDCPlayground44x23 >> portsDefinition [
 
 
 ]
+
+{ #category : #'as yet unclassified' }
+ChDCPlayground44x23 >> readOnlyScopes [
+
+	^ false
+]
