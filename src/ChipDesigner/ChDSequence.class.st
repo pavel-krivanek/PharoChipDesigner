@@ -13,7 +13,8 @@ Class {
 		'currentTime',
 		'type',
 		'expectedSequenceArray',
-		'position'
+		'position',
+		'evaluation'
 	],
 	#category : #ChipDesigner
 }
@@ -111,6 +112,31 @@ ChDSequence >> encoded [
  
 ]
 
+{ #category : #accessing }
+ChDSequence >> evaluation [
+
+	^ evaluation ifNil: [ ^ self newEvaluation ]
+]
+
+{ #category : #accessing }
+ChDSequence >> evaluationColor [
+
+	self hasExpectedSequence ifFalse: [ ^ Color red ].
+
+	(self evaluation > 92)
+		ifTrue: [ ^ Color green muchDarker ].
+		
+	^ Color red muchDarker
+]
+
+{ #category : #accessing }
+ChDSequence >> evaluationString [ 
+
+	^ self hasExpectedSequence 
+		ifTrue: [ self newEvaluation rounded asString, '%' ] 
+		ifFalse: [ '' ]
+]
+
 { #category : #initialization }
 ChDSequence >> expectedDecodedFrom: aString [
 
@@ -185,6 +211,17 @@ ChDSequence >> name [
 ChDSequence >> name: aString [
 
 	name := aString.
+]
+
+{ #category : #accessing }
+ChDSequence >> newEvaluation [
+
+	| sum |
+	sum := 0.
+ 	sequenceArray with: expectedSequenceArray do: [ :real :expected | 
+		real = expected ifTrue: [ sum := sum + 1 ] ].
+	evaluation := sum / expectedSequenceArray size * 100.
+	^ evaluation
 ]
 
 { #category : #accessing }

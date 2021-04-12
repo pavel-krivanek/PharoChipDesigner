@@ -114,10 +114,13 @@ ChDSequenceMorph >> drawOn: aCanvas [
 	
 	aCanvas drawString: sequence name at: self bounds bottomLeft + (descriptionPadding@(fontHeight negated-offset)) font: graphics font color: Color black.
 	
-		aCanvas 
-			line:  self bounds bottomLeft + (0@offset negated)
-			to: self bounds bottomLeft + (self descriptionWidth@offset negated)
-			color: Color black
+	aCanvas 
+		line:  self bounds bottomLeft + (0@offset negated)
+		to: self bounds bottomLeft + (self descriptionWidth@offset negated)
+		color: Color black.
+		
+	aCanvas drawString: sequence evaluationString at: rect bottomRight - (self evaluationWidth@0) + (descriptionPadding@(fontHeight negated-offset)) font: graphics font color: sequence evaluationColor.
+
 
 ]
 
