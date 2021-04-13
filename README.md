@@ -22,6 +22,8 @@ Metacello new
 
 In the Pharo welcome window, you can select the prefered theme (light or dark).
 
+To run the game, go to top menu bar - _Library - Pharo Chip Designer_
+
 ## Controls
 
 |  | Normal mode |
