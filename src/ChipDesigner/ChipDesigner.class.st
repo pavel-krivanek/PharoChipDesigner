@@ -54,32 +54,39 @@ ChipDesigner class >> criticsBrowserMenuOn: aBuilder [
 		icon: self taskbarIcon
 ]
 
-{ #category : #examples }
-ChipDesigner class >> defaultSpec [
+{ #category : #layout }
+ChipDesigner class >> defaultLayout [
+
 	^ SpBoxLayout newVertical
-		add:
-			(SpPanedLayout newHorizontal
-				position: 300;
-				add: #list;
-				add: (
-					SpBoxLayout newVertical
-					add: (SpBoxLayout newHorizontal
-							add: #editModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-							add: #viaModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-							add: #selectModeButton withConstraints: [ :constraints | constraints width: self buttonsExtent x ];
-							yourself)
-						withConstraints: [ :constraints | constraints height: self buttonsExtent y ];
-						add: (SpPanedLayout newVertical
-							position: 58 percent;
-							add: #editor;
-							add: #notebook )));
-		yourself
+		  add: (SpPanedLayout newHorizontal
+				   positionOfSlider: 300;
+				   add: #list;
+				   add: (SpBoxLayout newVertical
+						    add: (SpBoxLayout newHorizontal
+								     add: #editModeButton
+								     withConstraints: [ :constraints | 
+									     constraints width: self buttonsExtent x ];
+								     add: #viaModeButton
+								     withConstraints: [ :constraints | 
+									     constraints width: self buttonsExtent x ];
+								     add: #selectModeButton
+								     withConstraints: [ :constraints | 
+									     constraints width: self buttonsExtent x ];
+								     yourself)
+						    withConstraints: [ :constraints | 
+						    constraints height: self buttonsExtent y ];
+						    add: (SpPanedLayout newVertical
+								     positionOfSlider: 58 percent;
+								     add: #editor;
+								     add: #notebook)));
+		  yourself
 ]
 
 { #category : #examples }
 ChipDesigner class >> open [
+
 	<script>
-	^ self new openWithSpec
+	^ self new open
 ]
 
 { #category : #examples }
@@ -665,24 +672,24 @@ ChipDesigner >> subscribeStatusBar [
 ChipDesigner >> switchTo: levelClass [
 
 	currentLevel class = levelClass ifTrue: [ ^ self ].
-	
-	(area canSwitchTo: levelClass) 
-		ifFalse: [
-			[
-				"a hack to perform selecton back" 	
-				100 milliSecond wait. 
-				list selectItem: currentLevel class ] fork.
-			^ self ].					
+
+	(area canSwitchTo: levelClass) ifFalse: [ 
+		[ "a hack to perform selecton back"
+		100 milliSecond wait.
+		list selectItem: currentLevel class ] fork.
+		^ self ].
 
 	levelClass selectable ifFalse: [ 
 		area markClean.
 		^ self ].
-	
-	currentLevel := levelClass on: area graphics: areaMorph display graphics.
+
+	currentLevel := levelClass
+		                on: area
+		                graphics: areaMorph display graphics.
 	self refreshEditor.
 	self initializeNotebook.
 	self needRebuild: false.
-	self buildWithSpec.
+	self build
 ]
 
 { #category : #initialization }
