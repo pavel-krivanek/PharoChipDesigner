@@ -7,7 +7,7 @@ It is an inaccurate and highly simplified tool for the design of silicon chip la
 
 ## How to load
 
-The Pharo Chip Designer runs withing Pharo 10.0 environment. Currently, it is not provided as a standalone application because the main purpose of it is not to imitate the original game but to provide a base for own experiments where you want to have full control over the input and output signals. Pharo provides an interactive environment for it. So you first should install Pharo Launcher, then prepare a Pharo 9.0 image and load the Chip Designer into it.
+The Pharo Chip Designer runs withing Pharo 10.0 environment. Currently, it is not provided as a standalone application because the main purpose of it is not to imitate the original game but to provide a base for own experiments where you want to have full control over the input and output signals. Pharo provides an interactive environment for it. So you first should install Pharo Launcher, then prepare a Pharo 10.0 image and load the Chip Designer into it.
 
 1) Install Pharo Launcher from http://pharo.org/download)
 2) Create a new image from the template named "Pharo 10.0 - 64bit (stable)" (32bit can be used too)
