@@ -70,15 +70,13 @@ This is a gate.
 
 There are two sorts of gates...
 
-NPN Gate
---------
+### NPN Gate
 
 ![kohctpyktopnpngate.png](introduction/kohctpyktopnpngate.png)
 
 Ordinarily silicon will let current travel like metal, but if P (yellow) silicon crosses N (red) silicon, current will only travel through the N (red) silicon if the P (yellow) silicon is also carrying a current. Otherwise, the N (red) silicon will not carry a current across.
 
-PNP Gate
---------
+### PNP Gate
 
 ![kohctpyktoppnpgate.png](introduction/kohctpyktoppnpgate.png)
 
@@ -86,8 +84,7 @@ This is just the opposite. When N silicon crosses P silicon, current will not co
 
 From these fundamental concepts, traditional logic gates can be constructed.
 
-AND Gate
---------
+### AND Gate
 
 ![kohctpyktopand1.png](introduction/kohctpyktopand1.png)
 
@@ -96,15 +93,14 @@ Because P silicon will not allow current to travel through N silicon unless the 
 You can chain multiple crossings of P silicon to create a multi-input AND gate...\
 ![kohctpyktopand2.png](introduction/kohctpyktopand2.png)
 
-NOT Gate
---------
+### NOT Gate
 
 ![kohctpyktopnot.png](introduction/kohctpyktopnot.png)
 
 The same way an NPN gate is just an AND gate, a PNP gate is just a NOT gate. The P silicon carries current from a constant current source (which +V<sub>CC</sub> provides in the corners of the board). When current from the input is present in the N crossing, then the P silicon will no longer carry a current.
 
-OR Gate
--------\
+### OR Gate
+
 OR is a bit more complicated...\
 ![kohctpyktopor1.png](introduction/kohctpyktopor1.png)
 
@@ -112,8 +108,8 @@ OR is like a not gate with multiple inputs. The P silicon carries a constant cur
 
 As you can see, even though most logic diagrams show OR as a fundamental unit, when it comes to actual circuits, it is easier to construct a NOR gate.\
 
-NOR Gate
--------\
+### NOR Gate
+
 ![kohctpyktopnor.png](introduction/kohctpyktopnor.png)
 
 If you are feeling lazy, you can make a cheap-n-dirty OR gate by letting all inputs directly touch each other via a piece of metal or silicon...\
